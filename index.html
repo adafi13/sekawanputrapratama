@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <title>Sekawan Putra Pratama - IT Consultant & Software House</title>
+    <meta name="description" content="Jasa Pembuatan Website, Aplikasi Android/iOS, dan Instalasi Server Kantor Terpercaya. Solusi IT Terintegrasi untuk bisnis Anda.">
+    <meta name="keywords" content="Jasa Web Bekasi, App Developer, IT Consultant, Server Kantor, Sekawan Putra Pratama">
+    <meta name="author" content="Sekawan Putra Pratama">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sekawanputrapratama.com/">
+    <meta property="og:title" content="Sekawan Putra Pratama - Solusi IT Terintegrasi">
+    <meta property="og:description" content="Konsultasikan kebutuhan digital Anda: Web, Apps, & Server.">
+    <meta property="og:image" content="assets/media/logo.png"> 
+    
+    <link rel="shortcut icon" type="image/x-icon" href="assets/media/favicon.png">
+
+    <link rel="stylesheet" href="assets/css/vendor/font-awesome.css">
+    <link rel="stylesheet" href="assets/css/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/vendor/slick-theme.css">
+    <link rel="stylesheet" href="assets/css/vendor/slick-slider.css">
+    <link rel="stylesheet" href="assets/css/vendor/video-js.css">
+    <link rel="stylesheet" href="assets/css/vendor/nice-select.css">
+    <link rel="stylesheet" href="assets/css/app.css">
+    
+    <style>
+        /* Floating WhatsApp Button */
+        .float-wa {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 3px #999;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .float-wa:hover {
+            background-color: #128C7E;
+            transform: scale(1.1);
+            color: #FFF;
+        }
+        
+        /* Preloader Style */
+        #preloader {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #000; /* Background hitam pekat */
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Responsive Fixes */
+        @media (max-width: 767px) {
+            .float-wa {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+                font-size: 24px;
+            }
+            .member-image {
+                height: 300px !important;
+                margin-top: 20px;
+            }
+        }
+
+        /* Team Image Fixes */
+        .team-slider .slick-track { display: flex !important; align-items: stretch; }
+        .team-slider .slick-slide { height: auto !important; display: flex !important; justify-content: center; padding: 0 10px; }
+        .member-image { width: 100%; height: 320px !important; object-fit: cover; object-position: top center; border-radius: 16px; }
+    </style>
+</head>
+
+<body class="tt-smooth-scroll">
+    
+    <div id="preloader">
+        <div class="darksoul-layout">
+            <div class="darksoul-grid">
+              <div class="item1"></div>
+              <div class="item3"></div>
+            </div>
+            <h3 class="darksoul-loader-h">Sekawan Putra Pratama</h3>
+        </div>
+    </div>
+
+    <div id="scroll-container">
+        
+        <header>
+            <nav class="main-menu">
+                <div class="container-fluid">
+                    <div class="main-menu__block">
+                        <div class="main-menu__logo">
+                            <a href="index.html">
+                                <img src="assets/media/logo.png" alt="Sekawan Putra Pratama" class="header-logo">
+                            </a>
+                        </div>
+                        <div class="menu-button-right">
+                            <div class="main-menu__nav">
+                                <ul class="main-menu__list">
+                                    <li><a href="index.html" class="active">Home</a></li>
+                                    <li><a href="about.html">About Us</a></li>
+                                    <li><a href="portfolio.html">Portfolio</a></li>
+                                    <li class="dropdown">
+                                        <a href="javascript:void(0);">Services</a>
+                                        <ul>
+                                            <li><a href="services.html">Services</a></li>
+                                            <li><a href="service-detail.html">Service Detail</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="blog-listing.html">Blog</a></li>
+                                    <li><a href="contact.html">Contact Us</a></li>
+                                </ul>
+                            </div>
+                            <div class="main-menu__right">
+                                <a class="cus-btn d-sm-flex d-none" href="contact.html">
+                                    <span>Hubungi Kami</span>
+                                </a>
+                                <a href="#" class="main-menu__toggler mobile-nav__toggler">
+                                    <img src="assets/media/vector/menu.png" alt="Menu">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <section class="banner">
+            <div class="blur">
+                <div class="animate-1"></div>
+                <div class="animate-2"></div>
+                <div class="animate-3"></div>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="content">
+                        <div class="text-reveal mb-32">
+                            <span class='random-word h-91 color-sec'>Transformasi Digital</span>
+                            <h1>Solusi Teknologi <br> Yang <span class='random-word h-91 color-primary'>Terintegrasi</span></h1>
+                        </div>
+                        <p class="medium-gray mb-32">
+                            Kami membantu bisnis Anda berkembang melalui layanan <br> 
+                            <strong>Web Development</strong>, <strong>App Development</strong>, dan <strong>Infrastruktur Server</strong> yang handal.
+                        </p>
+                        <a class="cus-btn m-auto" href="services.html">
+                            <span>Jelajahi Layanan</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="brands">
+            <div class="brand-slider">
+                <div class="brand-slide"><div class="brand-block"><img src="assets/media/brands/brand-1.png" alt="Brand 1"></div></div>
+                <div class="brand-slide"><div class="brand-block"><img src="assets/media/brands/brand-2.png" alt="Brand 2"></div></div>
+                <div class="brand-slide"><div class="brand-block"><img src="assets/media/brands/brand-3.png" alt="Brand 3"></div></div>
+                <div class="brand-slide"><div class="brand-block"><img src="assets/media/brands/brand-4.png" alt="Brand 4"></div></div>
+                <div class="brand-slide"><div class="brand-block"><img src="assets/media/brands/brand-5.png" alt="Brand 5"></div></div>
+                <div class="brand-slide"><div class="brand-block"><img src="assets/media/brands/brand-6.png" alt="Brand 6"></div></div>
+            </div>
+        </div>
+
+        <section class="video-sec">
+            <div class="blur-2">
+                <div class="animate-4"></div>
+                <div class="animate-5"></div>
+            </div>
+            <div class="container-fluid">
+                <div class="bg-video">
+                    <div class="clothing-video">
+                        <video id="videoPlayer" loop playsinline muted autoplay class="mb-32">
+                            <source src="assets/media/tech-video.mp4" type="video/mp4">
+                        </video>
+                        <h4 class="white text-center mb-32">Ingin tahu kami <br> lebih lanjut?</h4>
+                        <a class="cus-btn m-auto" href="contact.html">
+                            <span>Hubungi Kami</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="portfolio">
+            <div class="blur">
+                <div class="animate-1"></div>
+                <div class="animate-2"></div>
+                <div class="animate-3"></div>
+            </div>
+            <div class="container-fluid">
+                <div class="portfolio-wrapper">
+                    <div class="heading text-center">
+                        <h2 class="white mb-16">Portofolio <br> Unggulan Kami</h2>
+                        <p class="medium-gray mb-32">
+                            Kumpulan karya terbaik kami yang telah membantu banyak klien <br>
+                            mencapai tujuan digital mereka.
+                        </p>
+                        <a class="cus-btn m-auto mb-64" href="portfolio.html">
+                            <span>Lihat Semua Karya</span>
+                        </a>
+                    </div>
+                    
+                    <ul class="nav nav-tabs mb-48" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation"><button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all" type="button">All Work</button></li>
+                        <li class="nav-item" role="presentation"><button class="nav-link" id="web-tab" data-bs-toggle="tab" data-bs-target="#web" type="button">Website</button></li>
+                        <li class="nav-item" role="presentation"><button class="nav-link" id="apps-tab" data-bs-toggle="tab" data-bs-target="#apps" type="button">Apps</button></li>
+                        <li class="nav-item" role="presentation"><button class="nav-link" id="server-tab" data-bs-toggle="tab" data-bs-target="#server" type="button">Server</button></li>
+                    </ul>
+
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="all" role="tabpanel">
+                            <div class="tab-wrapper">
+                                <div class="row">
+                                    <div class="col-xl-6 col-lg-6 col-6"><img src="assets/media/images/tab-image-1.png" loading="lazy" alt="Project 1" class="tab-image"></div>
+                                    <div class="col-xl-6 col-lg-6 col-6"><img src="assets/media/images/tab-image-2.png" loading="lazy" alt="Project 2" class="tab-image"></div>
+                                    <div class="col-xl-6 col-lg-6 col-6"><img src="assets/media/images/tab-image-3.png" loading="lazy" alt="Project 3" class="tab-image"></div>
+                                    <div class="col-xl-6 col-lg-6 col-6"><img src="assets/media/images/tab-image-4.png" loading="lazy" alt="Project 4" class="tab-image"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="web" role="tabpanel"><div class="tab-wrapper"><div class="row"><div class="col-xl-6 col-lg-6 col-6"><img src="assets/media/images/tab-image-1.png" loading="lazy" alt="Web Project" class="tab-image"></div></div></div></div>
+                        <div class="tab-pane fade" id="apps" role="tabpanel"><div class="tab-wrapper"><div class="row"><div class="col-xl-6 col-lg-6 col-6"><img src="assets/media/images/tab-image-2.png" loading="lazy" alt="App Project" class="tab-image"></div></div></div></div>
+                        <div class="tab-pane fade" id="server" role="tabpanel"><div class="tab-wrapper"><div class="row"><div class="col-xl-6 col-lg-6 col-6"><img src="assets/media/images/tab-image-3.png" loading="lazy" alt="Server Project" class="tab-image"></div></div></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="services">
+            <div class="blur">
+                <div class="animate-1"></div>
+                <div class="animate-3"></div>
+            </div>
+            <div class="container-fluid">
+                <div class="services-wrapper">
+                    <div class="heading text-center">
+                        <h2 class="white mb-16">Layanan Profesional <br> Kami</h2>
+                        <p class="medium-gray mb-32">Solusi lengkap untuk mendukung infrastruktur dan <br> ekosistem digital bisnis Anda.</p>
+                        <a class="cus-btn m-auto mb-64" href="services.html"><span>Lihat Detail Layanan</span></a>
+                    </div>
+                    
+                    <div class="service-block mb-80">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6 col-md-6">
+                                <div class="image-block">
+                                    <div class="text-box text-center">
+                                        <h2 class="service-number mb-48">1</h2>
+                                        <h4 class="white">App Development</h4>
+                                        <div class="hover-block"><img src="assets/media/images/app-development.png" loading="lazy" style="border-radius: 20px !important;" alt="App Dev"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="service-text text-center">
+                                    <h2 class="white mb-16">App Development</h2>
+                                    <ul class="list-unstyled">
+                                        <li class="label p-18 dark-black">Mobile App (Android/iOS)</li>
+                                        <li class="label p-18 dark-black">Desktop App</li>
+                                    </ul>
+                                    <p class="medium-gray mb-32">Aplikasi responsif dan stabil untuk kebutuhan bisnis Anda.</p>
+                                    <a class="cus-btn m-auto" href="services.html"><span>Buat Aplikasi</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="service-block mb-80">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6 col-md-6">
+                                <div class="image-block">
+                                    <div class="text-box text-center">
+                                        <h2 class="service-number mb-48">2</h2>
+                                        <h4 class="white">Web Development</h4>
+                                        <div class="hover-block"><img src="assets/media/images/web-development.png" loading="lazy" style="border-radius: 20px !important;" alt="Web Dev"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="service-text text-center">
+                                    <h2 class="white mb-16">Web Development</h2>
+                                    <ul class="list-unstyled">
+                                        <li class="label p-18 dark-black">Company Profile</li>
+                                        <li class="label p-18 dark-black">Web App / E-Commerce</li>
+                                    </ul>
+                                    <p class="medium-gray mb-32">Website profesional yang cepat dan SEO-friendly.</p>
+                                    <a class="cus-btn m-auto" href="services.html"><span>Buat Website</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="service-block mb-80">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6 col-md-6">
+                                <div class="image-block">
+                                    <div class="text-box text-center">
+                                        <h2 class="service-number mb-48">3</h2>
+                                        <h4 class="white">Office Server</h4>
+                                        <div class="hover-block"><img src="assets/media/images/office-server.png" loading="lazy" style="border-radius: 20px !important;" alt="Server"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="service-text text-center">
+                                    <h2 class="white mb-16">Office Server</h2>
+                                    <ul class="list-unstyled">
+                                        <li class="label p-18 dark-black">Instalasi Server</li>
+                                        <li class="label p-18 dark-black">Manajemen Jaringan</li>
+                                    </ul>
+                                    <p class="medium-gray mb-32">Server aman dan terpusat untuk alur kerja perusahaan.</p>
+                                    <a class="cus-btn m-auto" href="services.html"><span>Konsultasi Server</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="team" id="team">
+            <div class="blur">
+                <div class="animate-1"></div>
+            </div>
+            <div class="container-fluid">
+                <div class="heading text-center">
+                    <h2 class="white mb-16">Tim Profesional Kami</h2>
+                    <p class="medium-gray mb-32">Dedikasi dan keahlian untuk memberikan hasil terbaik.</p>
+                </div>
+            </div>
+            <div class="team-slider">
+                
+                <div class="team-block">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-7">
+                            <div class="detail-box">
+                                <div class="text-box">
+                                    <h4 class="white mb-8">Abdul Malik Ibrahim</h4>
+                                    <p class="fw-500 color-sec mb-32">App Developer</p>
+                                    <p class="medium-gray">
+                                        Seorang App Developer berpengalaman dalam membangun aplikasi mobile dan desktop modern, responsif, dan berperforma tinggi.
+                                    </p>
+                                </div>
+                                <div class="member-advantages">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="input-group">
+                                                <img src="assets/media/vector/icon-1.png" loading="lazy" alt="Experience">
+                                                <div class="d-flex align-items-center gap-1">
+                                                    <h5 class="color-sec ms-3">7+</h5>
+                                                    <p class="white ms-1">Tahun Pengalaman</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-5">
+                            <img src="assets/media/team/abdul-malik.png" loading="lazy" alt="Abdul Malik" class="member-image">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-block">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-7">
+                            <div class="detail-box">
+                                <div class="text-box">
+                                    <h4 class="white mb-8">Aries Adityanto</h4>
+                                    <p class="fw-500 color-sec mb-32">Project Manager</p>
+                                    <p class="medium-gray">
+                                        Profesional dalam manajemen proyek IT, memastikan setiap tahap pengembangan berjalan presisi, tepat waktu, dan sesuai kebutuhan klien.
+                                    </p>
+                                </div>
+                                <div class="member-advantages">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="input-group">
+                                                <img src="assets/media/vector/icon-1.png" loading="lazy" alt="Experience">
+                                                <div class="d-flex align-items-center gap-1">
+                                                    <h5 class="color-sec ms-3">5+</h5>
+                                                    <p class="white ms-1">Tahun Pengalaman</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-5">
+                            <img src="assets/media/team/aries-adityanto.png" loading="lazy" alt="Aries Adityanto" class="member-image">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-block">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-7">
+                            <div class="detail-box">
+                                <div class="text-box">
+                                    <h4 class="white mb-8">M. Aditya Novaldy</h4>
+                                    <p class="fw-500 color-sec mb-32">Server & Networking</p>
+                                    <p class="medium-gray">
+                                        Ahli Office Server dan Networking. Terampil memastikan koneksi stabil, aman, serta sistem internal perusahaan berjalan lancar.
+                                    </p>
+                                </div>
+                                <div class="member-advantages">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="input-group">
+                                                <img src="assets/media/vector/icon-1.png" loading="lazy" alt="Experience">
+                                                <div class="d-flex align-items-center gap-1">
+                                                    <h5 class="color-sec ms-3">6+</h5>
+                                                    <p class="white ms-1">Tahun Pengalaman</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-5">
+                            <img src="assets/media/team/aditya-novaldy.png" loading="lazy" alt="Aditya" class="member-image">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-block">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-7">
+                            <div class="detail-box">
+                                <div class="text-box">
+                                    <h4 class="white mb-8">M. Naufal Fathuroni</h4>
+                                    <p class="fw-500 color-sec mb-32">UI/UX Designer</p>
+                                    <p class="medium-gray">
+                                        Ahli merancang antarmuka aplikasi dan website yang intuitif. Fokus pada pengalaman pengguna, estetika visual, dan interaksi yang efisien.
+                                    </p>
+                                </div>
+                                <div class="member-advantages">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="input-group">
+                                                <img src="assets/media/vector/icon-1.png" loading="lazy" alt="Experience">
+                                                <div class="d-flex align-items-center gap-1">
+                                                    <h5 class="color-sec ms-3">2+</h5>
+                                                    <p class="white ms-1">Tahun Pengalaman</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-5">
+                            <img src="assets/media/team/muhammad-naufal-fauthuroni.png" loading="lazy" alt="Naufal" class="member-image">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-block">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-7">
+                            <div class="detail-box">
+                                <div class="text-box">
+                                    <h4 class="white mb-8">Alfario Dafa Mustofa</h4>
+                                    <p class="fw-500 color-sec mb-32">Office Server</p>
+                                    <p class="medium-gray">
+                                        Fokus dalam setup server kantor, konfigurasi jaringan internal, dan manajemen data perusahaan. Menjamin server berjalan aman.
+                                    </p>
+                                </div>
+                                <div class="member-advantages">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="input-group">
+                                                <img src="assets/media/vector/icon-1.png" loading="lazy" alt="Experience">
+                                                <div class="d-flex align-items-center gap-1">
+                                                    <h5 class="color-sec ms-3">5+</h5>
+                                                    <p class="white ms-1">Tahun Pengalaman</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-5">
+                            <img src="assets/media/team/alfario-daffa-mustofa.png" loading="lazy" alt="Alfario" class="member-image">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="testimonials">
+            <div class="blur">
+                <div class="animate-2"></div>
+                <div class="animate-3"></div>
+            </div>
+            <div class="container-fluid">
+                <div class="heading text-center">
+                    <h2 class="white mb-16">Apa Kata Klien Kami?</h2>
+                    <p class="medium-gray mb-32">Kepuasan klien adalah prioritas utama kami.</p>
+                </div>
+                <div class="testimonials-wrapper">
+                    <div class="testimonials-slider sliders" data-parent="testimonials">
+                        <div class="testimonial-block">
+                            <div class="block-wrapper">
+                                <div class="text-box">
+                                    <img src="assets/media/vector/qoutes.png" loading="lazy" alt="" class="qoutes-image m-auto">
+                                    <h4 class="white mt-48 mb-48">"Pelayanan sangat profesional. Website sangat cepat."</h4>
+                                    <div class="d-flex align-items-center justify-content-center gap-2">
+                                        <img src="assets/media/user/user-1.png" loading="lazy" alt="User" class="user-image">
+                                        <p class="medium-gray fw-500">Budi Santoso</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-block">
+                            <div class="block-wrapper">
+                                <div class="text-box">
+                                    <img src="assets/media/vector/qoutes.png" loading="lazy" alt="" class="qoutes-image m-auto">
+                                    <h4 class="white mt-48 mb-48">"Instalasi server berjalan lancar."</h4>
+                                    <div class="d-flex align-items-center justify-content-center gap-2">
+                                        <img src="assets/media/user/user-1.png" loading="lazy" alt="User" class="user-image">
+                                        <p class="medium-gray fw-500">Siti Rahmawati</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slider-arrows">
+                        <button type="button" class="arrow-btn btn-next" data-slide="testimonials-slider"></button>
+                        <button type="button" class="arrow-btn btn-prev" data-slide="testimonials-slider"></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-us">
+            <div class="blur">
+                <div class="animate-1"></div>
+                <div class="animate-3"></div>
+            </div>
+            <div class="container-fluid">
+                <div class="heading text-center">
+                    <h2 class="white mb-16">Let's Connect and <br> Talk More.</h2>
+                    <p class="medium-gray mb-32">Hubungi kami untuk konsultasi gratis mengenai kebutuhan IT Anda.</p>
+                </div>
+                
+                <div class="contact-wrapper">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="image-block" style="overflow: hidden; border-radius: 20px;">
+                                <iframe
+                                    src="https://www.google.com/maps?q=-6.3776515,107.1246921&z=18&output=embed"
+                                    width="100%"
+                                    height="100%"
+                                    style="border:0; min-height: 400px;"
+                                    allowfullscreen
+                                    loading="lazy"
+                                    referrerpolicy="no-referrer-when-downgrade">
+                                </iframe>
+        
+                                <div class="detail-box">
+                                    <p class="white mb-16">0851-5641-2702</p>
+                                    <a href="mailto:sekawanputrapratama@gmail.com" class="mb-16">sekawanputrapratama@gmail.com</a>
+                                    <p class="white">Sekawan Office - Bekasi, Jawa Barat</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="text-block">
+                                <form action="contact.html" method="get" class="contact-form">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-24">
+                                                <label for="fullName" id="name" class="mb-8">Nama Lengkap</label>
+                                                <input type="text" class="form-control" name="name" id="fullName" placeholder="Nama Anda" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-24">
+                                                <label for="eMail" id="email" class="mb-8">Email</label>
+                                                <input type="email" class="form-control" name="email" id="eMail" placeholder="email@contoh.com" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-24">
+                                                <label for="phoneNumber" id="phone" class="mb-8">No. Telepon</label>
+                                                <input type="text" class="form-control" name="phone" id="phoneNumber" placeholder="+62..." required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                             <div class="mb-24">
+                                                <label for="selectProj" class="mb-8">Layanan</label>
+                                                <select name="select" class="has-nice-select form-control" id="selectProj">
+                                                    <option value="wd">Web Development</option>
+                                                    <option value="ad">App Development</option>
+                                                    <option value="os">Office Server</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-12">
+                                            <div class="mb-24">
+                                                <label for="comments" id="message" class="mb-8">Deskripsi Proyek</label>
+                                                <textarea name="message" class="form-control" id="comments" cols="30" rows="10" placeholder="Ceritakan kebutuhan Anda..." required></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <button type="submit" class="cus-btn">
+                                                    <span>Kirim Pesan</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="mb-24">
+            <div class="blur">
+                <div class="animate-1"></div>
+                <div class="animate-3"></div>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="footer_bottom_bar text-center">
+                            <p class="white">© 2025. All rights reserved by Sekawan Putra Pratama</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <div class="wrap bg-noise"></div>
+    </div>
+
+    <div class="mobile-nav__wrapper">
+        <div class="mobile-nav__overlay mobile-nav__toggler"></div>
+        <div class="mobile-nav__content">
+            <span class="mobile-nav__close mobile-nav__toggler"><i class="fa fa-times"></i></span>
+            <div class="logo-box">
+                <a href="index.html"><img src="assets/media/logo.png" alt="Logo"></a>
+            </div>
+            <div class="mobile-nav__container"></div>
+            <ul class="mobile-nav__contact list-unstyled">
+                <li><i class="fas fa-envelope"></i> <a href="mailto:sekawanputrapratama@gmail.com">sekawanputrapratama@gmail.com</a></li>
+                <li><i class="fa fa-phone-alt"></i> <a href="tel:085156412702">085156412702</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="assets/js/vendor/jquery-3.6.3.min.js"></script>
+    <script src="assets/js/vendor/bootstrap.min.js"></script>
+    <script src="assets/js/vendor/slick.min.js"></script>
+    <script src="assets/js/vendor/jquery-validator.js"></script>
+    <script src="assets/js/vendor/smooth-scrollbar.js"></script>
+    <script src="assets/js/vendor/video.js"></script>
+    <script src="assets/js/vendor/jquery.nice-select.min.js"></script>
+    <script src="assets/js/app.js"></script>
+
+    <script>
+        window.addEventListener('load', function() {
+            var preloader = document.getElementById('preloader');
+            if(preloader) {
+                setTimeout(function() {
+                    preloader.style.transition = 'opacity 0.5s ease';
+                    preloader.style.opacity = '0';
+                    setTimeout(function() {
+                        preloader.style.display = 'none';
+                    }, 500);
+                }, 2000); 
+            }
+        });
+    </script>
+
+    <a href="https://wa.me/6285156412702?text=Halo%20Sekawan%20Putra%20Pratama,%20saya%20tertarik%20untuk%20konsultasi%20proyek." class="float-wa" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+</body>
+</html>
