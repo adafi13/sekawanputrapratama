@@ -29,8 +29,7 @@ class BlogController extends Controller
     {
         $data = $request->validated();
         $data['author_id'] = auth()->id();
-        $data['is_published'] = $request->input('status') === 'published';
-        if ($request->input('status') === 'published' && !$data['published_at']) {
+        if ($request->input('status') === 'published' && !isset($data['published_at'])) {
             $data['published_at'] = now();
         }
 
@@ -60,8 +59,7 @@ class BlogController extends Controller
     public function update(UpdateBlogRequest $request, BlogPost $blog): RedirectResponse
     {
         $data = $request->validated();
-        $data['is_published'] = $request->input('status') === 'published';
-        if ($request->input('status') === 'published' && !$data['published_at']) {
+        if ($request->input('status') === 'published' && !isset($data['published_at'])) {
             $data['published_at'] = now();
         }
         $blog->update($data);

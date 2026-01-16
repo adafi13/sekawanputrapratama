@@ -49,14 +49,16 @@
             <!-- Content -->
             <div class="p-6">
                 @if(session('success'))
-                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
-                        {{ session('success') }}
+                    <div id="success-message" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4 flex justify-between items-center">
+                        <span>{{ session('success') }}</span>
+                        <button onclick="this.parentElement.remove()" class="text-green-700 hover:text-green-900 ml-4">×</button>
                     </div>
                 @endif
 
                 @if(session('error'))
-                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-                        {{ session('error') }}
+                    <div id="error-message" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4 flex justify-between items-center">
+                        <span>{{ session('error') }}</span>
+                        <button onclick="this.parentElement.remove()" class="text-red-700 hover:text-red-900 ml-4">×</button>
                     </div>
                 @endif
 
@@ -65,6 +67,25 @@
         </main>
     </div>
     @stack('scripts')
+    <script>
+        // Auto-dismiss flash messages after 5 seconds
+        setTimeout(function() {
+            const successMsg = document.getElementById('success-message');
+            const errorMsg = document.getElementById('error-message');
+            if (successMsg) successMsg.style.transition = 'opacity 0.5s';
+            if (errorMsg) errorMsg.style.transition = 'opacity 0.5s';
+            setTimeout(function() {
+                if (successMsg) {
+                    successMsg.style.opacity = '0';
+                    setTimeout(() => successMsg.remove(), 500);
+                }
+                if (errorMsg) {
+                    errorMsg.style.opacity = '0';
+                    setTimeout(() => errorMsg.remove(), 500);
+                }
+            }, 4500);
+        }, 500);
+    </script>
 </body>
 </html>
 

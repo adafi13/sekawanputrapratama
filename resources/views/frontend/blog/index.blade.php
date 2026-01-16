@@ -19,13 +19,6 @@
 <section class="blog-listing mb-100">
     <div class="container-fluid">
         <div class="row">
-            @php
-                $posts = \App\Models\BlogPost::where('status', 'published')
-                    ->where('published_at', '<=', now())
-                    ->orderBy('published_at', 'desc')
-                    ->paginate(9);
-            @endphp
-            
             @forelse($posts as $post)
                 <div class="col-lg-4 col-md-6 mb-32">
                     <div class="blog-block">

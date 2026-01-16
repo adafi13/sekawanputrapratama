@@ -29,11 +29,17 @@ class TeamController extends Controller
             'bio' => ['nullable', 'string'],
             'email' => ['nullable', 'email'],
             'phone' => ['nullable', 'string'],
-            'social_links' => ['nullable', 'array'],
+            'social_links' => ['nullable', 'string'],
             'years_experience' => ['nullable', 'integer'],
             'order' => ['nullable', 'integer'],
             'is_active' => ['boolean'],
         ]);
+
+        // Parse JSON social_links if provided
+        if (isset($validated['social_links']) && is_string($validated['social_links'])) {
+            $decoded = json_decode($validated['social_links'], true);
+            $validated['social_links'] = $decoded ?: [];
+        }
 
         $member = TeamMember::create($validated);
 
@@ -58,11 +64,17 @@ class TeamController extends Controller
             'bio' => ['nullable', 'string'],
             'email' => ['nullable', 'email'],
             'phone' => ['nullable', 'string'],
-            'social_links' => ['nullable', 'array'],
+            'social_links' => ['nullable', 'string'],
             'years_experience' => ['nullable', 'integer'],
             'order' => ['nullable', 'integer'],
             'is_active' => ['boolean'],
         ]);
+
+        // Parse JSON social_links if provided
+        if (isset($validated['social_links']) && is_string($validated['social_links'])) {
+            $decoded = json_decode($validated['social_links'], true);
+            $validated['social_links'] = $decoded ?: [];
+        }
 
         $team->update($validated);
 

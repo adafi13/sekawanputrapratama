@@ -10,8 +10,12 @@ class BlogController extends Controller
 {
     public function index()
     {
-        $posts = BlogPost::where('status', 'published')
-            ->where('published_at', '<=', now())
+        $posts = BlogPost::with('category')
+            ->where('status', 'published')
+            ->where(function($query) {
+                $query->whereNull('published_at')
+                    ->orWhere('published_at', '<=', now());
+            })
             ->orderBy('published_at', 'desc')
             ->paginate(9);
 
@@ -20,9 +24,13 @@ class BlogController extends Controller
 
     public function show(string $slug)
     {
-        $post = BlogPost::where('slug', $slug)
+        $post = BlogPost::with(['category', 'author'])
+            ->where('slug', $slug)
             ->where('status', 'published')
-            ->where('published_at', '<=', now())
+            ->where(function($query) {
+                $query->whereNull('published_at')
+                    ->orWhere('published_at', '<=', now());
+            })
             ->firstOrFail();
 
         // Increment views
