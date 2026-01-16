@@ -14,12 +14,14 @@ class PortfolioController extends Controller
     public function index(): View
     {
         $portfolios = Portfolio::with('category')->latest()->paginate(15);
+
         return view('admin.portfolio.index', compact('portfolios'));
     }
 
     public function create(): View
     {
         $categories = PortfolioCategory::orderBy('name')->get();
+
         return view('admin.portfolio.create', compact('categories'));
     }
 
@@ -65,6 +67,7 @@ class PortfolioController extends Controller
     public function edit(Portfolio $portfolio): View
     {
         $categories = PortfolioCategory::orderBy('name')->get();
+
         return view('admin.portfolio.edit', compact('portfolio', 'categories'));
     }
 
@@ -72,7 +75,7 @@ class PortfolioController extends Controller
     {
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
-            'slug' => ['nullable', 'string', 'max:255', 'unique:portfolios,slug,' . $portfolio->id],
+            'slug' => ['nullable', 'string', 'max:255', 'unique:portfolios,slug,'.$portfolio->id],
             'description' => ['nullable', 'string'],
             'content' => ['nullable', 'string'],
             'category_id' => ['nullable', 'exists:portfolio_categories,id'],

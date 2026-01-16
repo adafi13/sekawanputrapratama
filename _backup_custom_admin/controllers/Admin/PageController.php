@@ -7,7 +7,6 @@ use App\Http\Requests\Admin\StorePageRequest;
 use App\Http\Requests\Admin\UpdatePageRequest;
 use App\Models\Page;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class PageController extends Controller
@@ -15,6 +14,7 @@ class PageController extends Controller
     public function index(): View
     {
         $pages = Page::latest()->paginate(15);
+
         return view('admin.pages.index', compact('pages'));
     }
 

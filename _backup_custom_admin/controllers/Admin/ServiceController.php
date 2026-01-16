@@ -13,6 +13,7 @@ class ServiceController extends Controller
     public function index(): View
     {
         $services = Service::orderBy('order')->paginate(15);
+
         return view('admin.services.index', compact('services'));
     }
 
@@ -60,7 +61,7 @@ class ServiceController extends Controller
     {
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
-            'slug' => ['nullable', 'string', 'max:255', 'unique:services,slug,' . $service->id],
+            'slug' => ['nullable', 'string', 'max:255', 'unique:services,slug,'.$service->id],
             'description' => ['nullable', 'string'],
             'content' => ['nullable', 'string'],
             'icon' => ['nullable', 'string'],

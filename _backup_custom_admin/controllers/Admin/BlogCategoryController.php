@@ -13,6 +13,7 @@ class BlogCategoryController extends Controller
     public function index(): View
     {
         $categories = BlogCategory::orderBy('order')->paginate(15);
+
         return view('admin.blog.categories.index', compact('categories'));
     }
 
@@ -45,7 +46,7 @@ class BlogCategoryController extends Controller
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'slug' => ['nullable', 'string', 'max:255', 'unique:blog_categories,slug,' . $blogCategory->id],
+            'slug' => ['nullable', 'string', 'max:255', 'unique:blog_categories,slug,'.$blogCategory->id],
             'description' => ['nullable', 'string'],
             'order' => ['nullable', 'integer'],
         ]);

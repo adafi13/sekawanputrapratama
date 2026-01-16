@@ -13,6 +13,7 @@ class PortfolioCategoryController extends Controller
     public function index(): View
     {
         $categories = PortfolioCategory::orderBy('order')->paginate(15);
+
         return view('admin.portfolio.categories.index', compact('categories'));
     }
 
@@ -45,7 +46,7 @@ class PortfolioCategoryController extends Controller
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'slug' => ['nullable', 'string', 'max:255', 'unique:portfolio_categories,slug,' . $portfolioCategory->id],
+            'slug' => ['nullable', 'string', 'max:255', 'unique:portfolio_categories,slug,'.$portfolioCategory->id],
             'description' => ['nullable', 'string'],
             'order' => ['nullable', 'integer'],
         ]);

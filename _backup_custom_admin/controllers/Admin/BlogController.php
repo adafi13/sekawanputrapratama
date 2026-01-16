@@ -5,10 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreBlogRequest;
 use App\Http\Requests\Admin\UpdateBlogRequest;
-use App\Models\BlogPost;
 use App\Models\BlogCategory;
+use App\Models\BlogPost;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class BlogController extends Controller
@@ -16,12 +15,14 @@ class BlogController extends Controller
     public function index(): View
     {
         $posts = BlogPost::with(['category', 'author'])->latest()->paginate(15);
+
         return view('admin.blog.index', compact('posts'));
     }
 
     public function create(): View
     {
         $categories = BlogCategory::orderBy('name')->get();
+
         return view('admin.blog.create', compact('categories'));
     }
 
@@ -29,7 +30,7 @@ class BlogController extends Controller
     {
         $data = $request->validated();
         $data['author_id'] = auth()->id();
-        if ($request->input('status') === 'published' && !isset($data['published_at'])) {
+        if ($request->input('status') === 'published' && ! isset($data['published_at'])) {
             $data['published_at'] = now();
         }
 
@@ -47,19 +48,21 @@ class BlogController extends Controller
     public function show(BlogPost $blog): View
     {
         $blog->load(['category', 'author']);
+
         return view('admin.blog.show', compact('blog'));
     }
 
     public function edit(BlogPost $blog): View
     {
         $categories = BlogCategory::orderBy('name')->get();
+
         return view('admin.blog.edit', compact('blog', 'categories'));
     }
 
     public function update(UpdateBlogRequest $request, BlogPost $blog): RedirectResponse
     {
         $data = $request->validated();
-        if ($request->input('status') === 'published' && !isset($data['published_at'])) {
+        if ($request->input('status') === 'published' && ! isset($data['published_at'])) {
             $data['published_at'] = now();
         }
         $blog->update($data);
