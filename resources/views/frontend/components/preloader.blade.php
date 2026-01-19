@@ -9,17 +9,28 @@
 </div>
 
 <script>
-    window.addEventListener('load', function() {
+    // Optimized preloader - hide as soon as page is ready
+    (function() {
         var preloader = document.getElementById('preloader');
-        if(preloader) {
+        if (!preloader) return;
+        
+        function hidePreloader() {
+            preloader.style.transition = 'opacity 0.3s ease';
+            preloader.style.opacity = '0';
             setTimeout(function() {
-                preloader.style.transition = 'opacity 0.5s ease';
-                preloader.style.opacity = '0';
-                setTimeout(function() {
-                    preloader.style.display = 'none';
-                }, 500);
-            }, 2000);
+                preloader.style.display = 'none';
+            }, 300);
         }
-    });
+        
+        // Hide immediately if DOM is already loaded
+        if (document.readyState === 'complete' || document.readyState === 'interactive') {
+            setTimeout(hidePreloader, 300);
+        } else {
+            window.addEventListener('load', function() {
+                setTimeout(hidePreloader, 300);
+            });
+        }
+    })();
 </script>
+
 

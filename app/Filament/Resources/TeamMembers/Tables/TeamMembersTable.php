@@ -20,22 +20,32 @@ class TeamMembersTable
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->searchable(),
-                TextColumn::make('position')
-                    ->searchable(),
-                TextColumn::make('email')
-                    ->label('Email address')
-                    ->searchable(),
-                TextColumn::make('phone')
-                    ->searchable(),
-                TextColumn::make('years_experience')
-                    ->numeric()
+                    ->searchable()
                     ->sortable(),
+                TextColumn::make('position')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('email')
+                    ->searchable()
+                    ->toggleable(),
+                TextColumn::make('experience_years')
+                    ->label('Years')
+                    ->numeric()
+                    ->sortable()
+                    ->suffix(' years'),
+                TextColumn::make('skills')
+                    ->badge()
+                    ->separator(',')
+                    ->limit(3)
+                    ->formatStateUsing(fn (?array $state): array => $state ?? [])
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('order')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(),
                 IconColumn::make('is_active')
-                    ->boolean(),
+                    ->boolean()
+                    ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

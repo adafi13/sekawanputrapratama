@@ -27,20 +27,44 @@ class BlogPostForm
                     ->relationship('category', 'name'),
                 Select::make('author_id')
                     ->relationship('author', 'name')
+                    ->default(fn () => auth()->id())
                     ->required(),
-                TextInput::make('meta_title'),
-                Textarea::make('meta_description')
+                FileUpload::make('featured_image')
+                    ->label('Featured Image')
+                    ->image()
+                    ->imageEditor()
+                    ->maxSize(5120)
+                    ->directory('blog/featured')
+                    ->visibility('public')
                     ->columnSpanFull(),
-                TextInput::make('meta_keywords'),
+                TextInput::make('meta_title')
+                    ->maxLength(255)
+                    ->columnSpanFull(),
+                Textarea::make('meta_description')
+                    ->rows(3)
+                    ->maxLength(500)
+                    ->columnSpanFull(),
+                TextInput::make('meta_keywords')
+                    ->maxLength(255)
+                    ->placeholder('keyword1, keyword2, keyword3')
+                    ->columnSpanFull(),
                 Select::make('status')
-                    ->options(['draft' => 'Draft', 'published' => 'Published', 'scheduled' => 'Scheduled'])
+                    ->options([
+                        'draft' => 'Draft',
+                        'published' => 'Published',
+                        'scheduled' => 'Scheduled',
+                    ])
                     ->default('draft')
-                    ->required(),
-                DateTimePicker::make('published_at'),
-                TextInput::make('views')
                     ->required()
+                    ->live(),
+                DateTimePicker::make('published_at')
+                    ->visible(fn ($get) => in_array($get('status'), ['published', 'scheduled']))
+                    ->required(fn ($get) => in_array($get('status'), ['published', 'scheduled'])),
+                TextInput::make('views')
                     ->numeric()
-                    ->default(0),
+                    ->default(0)
+                    ->disabled()
+                    ->dehydrated(),
             ]);
     }
 }

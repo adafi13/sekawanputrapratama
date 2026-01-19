@@ -15,14 +15,14 @@ class BlogController extends Controller
         $cacheKey = "blog_posts_page_{$page}";
 
         $posts = Cache::remember($cacheKey, now()->addMinutes(30), function () {
-            return BlogPost::with('category:id,name,slug')
+            return BlogPost::with(['category:id,name,slug', 'media'])
                 ->where('status', 'published')
                 ->where(function ($query) {
                     $query->whereNull('published_at')
                         ->orWhere('published_at', '<=', now());
                 })
                 ->orderBy('published_at', 'desc')
-                ->select(['id', 'title', 'slug', 'excerpt', 'featured_image', 'category_id', 'published_at', 'views'])
+                ->select(['id', 'title', 'slug', 'excerpt', 'category_id', 'published_at', 'views'])
                 ->paginate(9);
         });
 
@@ -34,7 +34,7 @@ class BlogController extends Controller
         $cacheKey = "blog_post_{$slug}";
 
         $post = Cache::remember($cacheKey, now()->addMinutes(60), function () use ($slug) {
-            return BlogPost::with(['category:id,name,slug', 'author:id,name'])
+            return BlogPost::with(['category:id,name,slug', 'author:id,name', 'media'])
                 ->where('slug', $slug)
                 ->where('status', 'published')
                 ->where(function ($query) {

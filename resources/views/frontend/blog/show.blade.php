@@ -32,15 +32,41 @@
                     </div>
                 @endif
                 
-                <div class="blog-content">
-                    {!! $post->content !!}
+                <div class="blog-text">
+                    <div class="d-flex align-items-center gap-3 mb-24">
+                        @if($post->category)
+                            <span class="badge bg-primary">{{ $post->category->name }}</span>
+                        @endif
+                        <span class="medium-gray">{{ $post->published_at->format('d M Y') }}</span>
+                    </div>
+                    
+                    <div class="blog-content">
+                        {!! $post->content !!}
+                    </div>
+                    
+                    <hr style="border-color: #333;" class="my-32">
+                    
+                    <div class="d-flex justify-content-between align-items-center mt-32">
+                        <h5 class="white mb-0">Bagikan:</h5>
+                        <div class="share-icons d-flex gap-2">
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->url()) }}" target="_blank" class="cus-btn-2" style="width:40px; height:40px; padding:0; display:flex; align-items:center; justify-content:center; border-radius:50%;">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->url()) }}&text={{ urlencode($post->title) }}" target="_blank" class="cus-btn-2" style="width:40px; height:40px; padding:0; display:flex; align-items:center; justify-content:center; border-radius:50%;">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="https://wa.me/?text={{ urlencode($post->title . ' - ' . request()->url()) }}" target="_blank" class="cus-btn-2" style="width:40px; height:40px; padding:0; display:flex; align-items:center; justify-content:center; border-radius:50%;">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="blog-meta mt-48 pt-32" style="border-top: 1px solid rgba(255,255,255,0.1);">
                     <div class="row">
                         <div class="col-md-6">
                             <p class="medium-gray mb-0">
-                                <strong>Penulis:</strong> {{ $post->author->name }}
+                                <strong>Penulis:</strong> {{ $post->author->name ?? 'Admin' }}
                             </p>
                         </div>
                         <div class="col-md-6 text-end">
@@ -55,4 +81,5 @@
     </div>
 </section>
 @endsection
+
 

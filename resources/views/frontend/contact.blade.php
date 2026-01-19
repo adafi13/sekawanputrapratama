@@ -30,25 +30,41 @@
                         <h4 class="white mb-24">Informasi Kontak</h4>
                         <div class="d-flex align-items-center mb-16">
                             <i class="fas fa-phone-alt color-sec me-3"></i>
-                            <p class="white mb-0">0851-5641-2702</p>
+                            <a href="tel:{{ \App\Models\Setting::get('contact.phone', '0851-5641-2702') }}" class="white mb-0">{{ \App\Models\Setting::get('contact.phone', '0851-5641-2702') }}</a>
                         </div>
                         <div class="d-flex align-items-center mb-16">
                             <i class="fas fa-envelope color-sec me-3"></i>
-                            <a href="mailto:sekawanputrapratama@gmail.com" class="mb-0 text-white">sekawanputrapratama@gmail.com</a>
+                            <a href="mailto:{{ \App\Models\Setting::get('contact.email', 'sekawanputrapratama@gmail.com') }}" class="mb-0 text-white">{{ \App\Models\Setting::get('contact.email', 'sekawanputrapratama@gmail.com') }}</a>
                         </div>
                         <div class="d-flex align-items-center mb-32">
                             <i class="fas fa-map-marker-alt color-sec me-3"></i>
-                            <p class="white mb-0">Sekawan Office - Bekasi, Jawa Barat</p>
+                            <p class="white mb-0">{{ \App\Models\Setting::get('contact.address', 'Sekawan Office - Bekasi, Jawa Barat') }}</p>
                         </div>
+                        @if(\App\Models\Setting::get('social.whatsapp_url') || \App\Models\Setting::get('social.instagram_url') || \App\Models\Setting::get('social.linkedin_url') || \App\Models\Setting::get('social.facebook_url'))
                         <h6 class="color-sec mb-16">Sosial Media:</h6>
                         <div class="d-flex gap-3">
-                            <a href="https://wa.me/6285156412702?text=Halo%20Sekawan%20Putra%20Pratama,%20saya%20tertarik%20untuk%20konsultasi%20proyek." target="_blank" class="cus-btn-2 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px; padding: 0; border-radius: 50%;">
-                                <i class="fab fa-whatsapp" style="font-size: 24px;"></i>
-                            </a>
-                            <a href="https://www.instagram.com/sekawanputrapratama?igsh=MTUxbjJiaXRsMHh6" target="_blank" class="cus-btn-2 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px; padding: 0; border-radius: 50%;">
-                                <i class="fab fa-instagram" style="font-size: 24px;"></i>
-                            </a>
+                            @if(\App\Models\Setting::get('social.whatsapp_url'))
+                                <a href="{{ \App\Models\Setting::get('social.whatsapp_url') }}" target="_blank" rel="noopener noreferrer" class="cus-btn-2 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px; padding: 0; border-radius: 50%;">
+                                    <i class="fab fa-whatsapp" style="font-size: 24px;"></i>
+                                </a>
+                            @endif
+                            @if(\App\Models\Setting::get('social.instagram_url'))
+                                <a href="{{ \App\Models\Setting::get('social.instagram_url') }}" target="_blank" rel="noopener noreferrer" class="cus-btn-2 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px; padding: 0; border-radius: 50%;">
+                                    <i class="fab fa-instagram" style="font-size: 24px;"></i>
+                                </a>
+                            @endif
+                            @if(\App\Models\Setting::get('social.linkedin_url'))
+                                <a href="{{ \App\Models\Setting::get('social.linkedin_url') }}" target="_blank" rel="noopener noreferrer" class="cus-btn-2 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px; padding: 0; border-radius: 50%;">
+                                    <i class="fab fa-linkedin" style="font-size: 24px;"></i>
+                                </a>
+                            @endif
+                            @if(\App\Models\Setting::get('social.facebook_url'))
+                                <a href="{{ \App\Models\Setting::get('social.facebook_url') }}" target="_blank" rel="noopener noreferrer" class="cus-btn-2 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px; padding: 0; border-radius: 50%;">
+                                    <i class="fab fa-facebook" style="font-size: 24px;"></i>
+                                </a>
+                            @endif
                         </div>
+                        @endif
                     </div>
                     <div class="map-box" style="border-radius: 20px; overflow: hidden; height: 350px;">
                         <iframe src="https://www.google.com/maps?q=-6.3776515,107.1246921&z=18&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen loading="lazy"></iframe>

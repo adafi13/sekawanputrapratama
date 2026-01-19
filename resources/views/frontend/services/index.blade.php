@@ -24,9 +24,6 @@
     </div>
     <div class="container-fluid">
         <div class="services-wrapper">
-            @php
-                $services = \App\Models\Service::where('is_active', true)->orderBy('order')->get();
-            @endphp
             
             @forelse($services as $index => $service)
                 <div class="service-block mb-80">
@@ -88,4 +85,5 @@
     </div>
 </section>
 @endsection
+
 

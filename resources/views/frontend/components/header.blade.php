@@ -4,7 +4,7 @@
             <div class="main-menu__block">
                 <div class="main-menu__logo">
                     <a href="{{ route('home') }}">
-                        <img src="{{ asset('assets/media/logo.png') }}" alt="Sekawan Putra Pratama" class="header-logo">
+                        <img src="{{ asset('assets/media/logo.png') }}" alt="Sekawan Putra Pratama" class="header-logo" width="150" height="50" loading="eager">
                     </a>
                 </div>
                 <div class="menu-button-right">
@@ -27,8 +27,8 @@
                         <a class="cus-btn d-sm-flex d-none" href="{{ route('contact') }}">
                             <span>Hubungi Kami</span>
                         </a>
-                        <a href="#" class="main-menu__toggler mobile-nav__toggler">
-                            <img src="{{ asset('assets/media/vector/menu.png') }}" alt="Menu">
+                        <a href="#" class="main-menu__toggler mobile-nav__toggler" aria-label="Toggle Menu">
+                            <img src="{{ asset('assets/media/vector/menu.png') }}" alt="Menu" width="24" height="24" loading="eager">
                         </a>
                     </div>
                 </div>
@@ -36,4 +36,5 @@
         </div>
     </nav>
 </header>
+
 
