@@ -5,8 +5,8 @@ namespace App\Filament\Resources\Leads\LeadResource\Pages;
 use App\Filament\Resources\Leads\LeadResource;
 use App\Models\Lead;
 use BackedEnum;
+use Filament\Forms\Components;
 use Filament\Resources\Pages\Page;
-use Filament\Schemas\Components;
 use Filament\Notifications\Notification;
 use Filament\Support\Icons\Heroicon;
 use Illuminate\Support\Collection;
@@ -60,13 +60,74 @@ class LeadsKanbanBoard extends Page
             return;
         }
 
-        // Simple status update for drag & drop
-        $lead->update(['status' => $newStatus]);
+        // Validate if status change is allowed (sequential or backward)
+        if (!$lead->isValidStatusChange($newStatus)) {
+            Notification::make()
+                ->title('Invalid Status Change')
+                ->danger()
+                ->body('You must follow the sequential workflow. Use "Advance Stage" button for proper transitions.')
+                ->send();
+            
+            $this->loadLeads(); // Reload to reset the UI
+            return;
+        }
 
+        // Allow direct move only for backward movement (no verification needed)
+        // For forward movement, show verification modal
+        if ($newStatus === $lead->getNextStatus()) {
+            // Forward movement - redirect to advanceStageAction for verification
+            Notification::make()
+                ->title('Verification Required')
+                ->warning()
+                ->body('Please use the "Advance Stage" button to proceed with required information.')
+                ->send();
+            
+            $this->loadLeads(); // Reload to reset the UI
+            return;
+        }
+
+        // Allow backward movement without verification
+        if ($newStatus === $lead->getPreviousStatus()) {
+            $lead->update([
+                'status' => $newStatus,
+                'notes' => ($lead->notes ? $lead->notes . "\n\n" : '') . 
+                    '[' . now()->format('Y-m-d H:i') . '] Moved back to ' . 
+                    Lead::getStatuses()[$newStatus] . ' (via drag & drop)',
+            ]);
+
+            Notification::make()
+                ->title('Lead Moved Back')
+                ->warning()
+                ->body("Lead moved back to: " . Lead::getStatuses()[$newStatus])
+                ->send();
+
+            $this->loadLeads();
+            return;
+        }
+
+        // Allow moving to lost from any status
+        if ($newStatus === Lead::STATUS_LOST) {
+            $lead->update([
+                'status' => $newStatus,
+                'notes' => ($lead->notes ? $lead->notes . "\n\n" : '') . 
+                    '[' . now()->format('Y-m-d H:i') . '] Marked as LOST (via drag & drop)',
+            ]);
+
+            Notification::make()
+                ->title('Lead Marked as Lost')
+                ->warning()
+                ->body('Lead has been marked as lost.')
+                ->send();
+
+            $this->loadLeads();
+            return;
+        }
+
+        // Should not reach here due to validation above
         Notification::make()
-            ->title('Lead Moved')
-            ->success()
-            ->body("Lead moved to: " . Lead::getStatuses()[$newStatus])
+            ->title('Invalid Move')
+            ->danger()
+            ->body('This status change is not allowed.')
             ->send();
 
         $this->loadLeads();
@@ -87,7 +148,8 @@ class LeadsKanbanBoard extends Page
 
         // Determine next stage
         $nextStatus = match($lead->status) {
-            Lead::STATUS_NEW => Lead::STATUS_CONTACTED,
+            Lead::STATUS_NEW => Lead::STATUS_QUALIFIED,
+            Lead::STATUS_QUALIFIED => Lead::STATUS_CONTACTED,
             Lead::STATUS_CONTACTED => Lead::STATUS_QUOTATION_SENT,
             Lead::STATUS_QUOTATION_SENT => Lead::STATUS_NEGOTIATION,
             Lead::STATUS_NEGOTIATION => Lead::STATUS_DEAL,

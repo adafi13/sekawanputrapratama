@@ -10,8 +10,9 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Forms\Components;
 use Filament\Resources\Resource;
-use Filament\Schemas\Components;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\BadgeColumn;
@@ -36,7 +37,7 @@ class InvoiceResource extends Resource
     {
         return $schema
             ->components([
-                Components\Section::make('Invoice Information')
+                Section::make('Invoice Information')
                     ->schema([
                         Components\Select::make('project_id')
                             ->label('Project')
@@ -57,7 +58,7 @@ class InvoiceResource extends Resource
                             ->required(),
                     ])->columns(2),
 
-                Components\Section::make('Payment Details')
+                Section::make('Payment Details')
                     ->schema([
                         Components\TextInput::make('amount')
                             ->label('Amount')

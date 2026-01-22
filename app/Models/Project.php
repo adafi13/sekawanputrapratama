@@ -13,6 +13,8 @@ class Project extends Model
 
     protected $fillable = [
         'lead_id',
+        'customer_id',
+        'contract_id',
         'name',
         'description',
         'start_date',
@@ -21,6 +23,7 @@ class Project extends Model
         'budget',
         'assigned_to',
         'completion_percentage',
+        'contract_signed_at',
     ];
 
     protected $casts = [
@@ -28,11 +31,22 @@ class Project extends Model
         'end_date' => 'date',
         'budget' => 'decimal:2',
         'completion_percentage' => 'integer',
+        'contract_signed_at' => 'datetime',
     ];
 
     public function lead(): BelongsTo
     {
         return $this->belongsTo(Lead::class);
+    }
+
+    public function customer(): BelongsTo
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
+    public function contract(): BelongsTo
+    {
+        return $this->belongsTo(Contract::class);
     }
 
     public function assignedTo(): BelongsTo
@@ -46,6 +60,7 @@ class Project extends Model
     }
 
     // Status constants
+    public const STATUS_AWAITING_CONTRACT = 'awaiting_contract';
     public const STATUS_PLANNING = 'planning';
     public const STATUS_IN_PROGRESS = 'in_progress';
     public const STATUS_ON_HOLD = 'on_hold';
@@ -55,6 +70,7 @@ class Project extends Model
     public static function getStatuses(): array
     {
         return [
+            self::STATUS_AWAITING_CONTRACT => 'Awaiting Contract',
             self::STATUS_PLANNING => 'Planning',
             self::STATUS_IN_PROGRESS => 'In Progress',
             self::STATUS_ON_HOLD => 'On Hold',

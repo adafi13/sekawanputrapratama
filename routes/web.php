@@ -3,6 +3,7 @@
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\PortfolioController;
+use App\Http\Controllers\QuotationController;
 use Illuminate\Support\Facades\Route;
 
 // Public Frontend Routes
@@ -21,5 +22,10 @@ Route::get('/portfolio/{slug}', [PortfolioController::class, 'show'])->name('por
 
 // Services Route (Static page for now)
 Route::view('/services', 'frontend.services')->name('services.index');
+
+// Quotation PDF Download Route (Admin authenticated)
+Route::middleware(['auth'])->group(function () {
+    Route::get('/quotations/{quotation}/download', [QuotationController::class, 'download'])->name('quotations.download');
+});
 
 // Admin Panel handled by Filament at /admin

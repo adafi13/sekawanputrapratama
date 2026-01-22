@@ -19,6 +19,11 @@ class Invoice extends Model
         'status',
         'paid_at',
         'notes',
+        'payment_method',
+        'payment_proof_path',
+        'bank_account',
+        'paid_by',
+        'payment_notes',
     ];
 
     protected $casts = [
@@ -30,6 +35,32 @@ class Invoice extends Model
     public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
+    }
+
+    public function customer(): BelongsTo
+    {
+        return $this->belongsTo(Customer::class, 'customer_id', 'id')
+            ->withDefault(function () {
+                return $this->project?->customer;
+            });
+    }
+
+    // Payment method constants
+    public const PAYMENT_BANK_TRANSFER_BCA = 'bank_transfer_bca';
+    public const PAYMENT_BANK_TRANSFER_MANDIRI = 'bank_transfer_mandiri';
+    public const PAYMENT_CASH = 'cash';
+    public const PAYMENT_CHECK = 'check';
+    public const PAYMENT_CREDIT_CARD = 'credit_card';
+
+    public static function getPaymentMethods(): array
+    {
+        return [
+            self::PAYMENT_BANK_TRANSFER_BCA => 'Bank Transfer - BCA',
+            self::PAYMENT_BANK_TRANSFER_MANDIRI => 'Bank Transfer - Mandiri',
+            self::PAYMENT_CASH => 'Cash',
+            self::PAYMENT_CHECK => 'Check',
+            self::PAYMENT_CREDIT_CARD => 'Credit Card',
+        ];
     }
 
     // Stage constants

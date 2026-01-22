@@ -13,10 +13,11 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Forms\Components;
 use Filament\Forms\Components as FormComponents;
 use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
-use Filament\Schemas\Components;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\BadgeColumn;
@@ -41,7 +42,7 @@ class ProjectResource extends Resource
     {
         return $schema
             ->components([
-                Components\Section::make('Project Information')
+                Section::make('Project Information')
                     ->schema([
                         Components\Select::make('lead_id')
                             ->label('Related Lead')
@@ -56,7 +57,7 @@ class ProjectResource extends Resource
                             ->columnSpanFull(),
                     ]),
 
-                Components\Section::make('Schedule & Budget')
+                Section::make('Schedule & Budget')
                     ->schema([
                         Components\DatePicker::make('start_date'),
                         Components\DatePicker::make('end_date'),
@@ -70,7 +71,7 @@ class ProjectResource extends Resource
                             ->required(),
                     ])->columns(2),
 
-                Components\Section::make('Assignment & Progress')
+                Section::make('Assignment & Progress')
                     ->schema([
                         Components\Select::make('assigned_to')
                             ->label('Project Manager')
