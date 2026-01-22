@@ -20,7 +20,14 @@ class PortfolioCategoryResource extends Resource
 {
     protected static ?string $model = PortfolioCategory::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedFolder;
+
+    protected static ?int $navigationSort = 3;
+
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Content';
+    }
 
     public static function form(Schema $schema): Schema
     {

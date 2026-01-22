@@ -33,6 +33,6 @@ class BlogCategory extends Model
 
     public function posts(): HasMany
     {
-        return $this->hasMany(BlogPost::class);
+        return $this->hasMany(BlogPost::class, 'category_id');
     }
 }
