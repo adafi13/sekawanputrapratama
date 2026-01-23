@@ -14,6 +14,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components;
 use Filament\Forms\Components as FormComponents;
+use Filament\Forms\Components\Section as FormSection;
 use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Schemas\Components\Section;
@@ -153,6 +154,164 @@ class LeadResource extends Resource
             ])
             ->recordActions([
                 ActionGroup::make([
+                    // CREATE QUOTATION ACTION
+                    Action::make('create_quotation')
+                        ->label('Create Quotation')
+                        ->icon(Heroicon::OutlinedDocumentText)
+                        ->color('info')
+                        ->visible(fn (Lead $record): bool => 
+                            in_array($record->status, [Lead::STATUS_QUALIFIED, Lead::STATUS_CONTACTED, Lead::STATUS_QUOTATION_SENT, Lead::STATUS_NEGOTIATION]))
+                        ->form(function (Lead $record): array {
+                            // If customer already exists, no form needed
+                            if ($record->customer_id) {
+                                return [];
+                            }
+                            
+                            // Show customer form if customer doesn't exist
+                            return [
+                                FormComponents\TextInput::make('company_name')
+                                    ->label('Company Name')
+                                    ->default($record->company_name)
+                                    ->required()
+                                    ->maxLength(255),
+                                FormComponents\TextInput::make('contact_person')
+                                    ->label('Contact Person')
+                                    ->default($record->contact_person)
+                                    ->required()
+                                    ->maxLength(255),
+                                FormComponents\TextInput::make('email')
+                                    ->label('Email')
+                                    ->default($record->email)
+                                    ->required()
+                                    ->email()
+                                    ->maxLength(255),
+                                FormComponents\TextInput::make('phone')
+                                    ->label('Phone')
+                                    ->default($record->phone)
+                                    ->tel()
+                                    ->maxLength(255),
+                                FormComponents\Textarea::make('notes')
+                                    ->label('Notes')
+                                    ->rows(3)
+                                    ->placeholder('Additional customer notes...')
+                                    ->columnSpanFull(),
+                            ];
+                        })
+                        ->modalHeading(fn (Lead $record): string => 
+                            $record->customer_id ? 'Create Quotation' : 'Complete Customer Information')
+                        ->modalDescription(fn (Lead $record): string => 
+                            $record->customer_id 
+                                ? 'Create a new quotation for this lead.'
+                                : 'Customer data is required before creating quotation.')
+                        ->modalSubmitActionLabel('Create Quotation')
+                        ->action(function (Lead $record, array $data) {
+                            // Create customer if not exists
+                            if (!$record->customer_id) {
+                                // Check if customer exists by email
+                                $customer = \App\Models\Customer::where('email', $data['email'])->first();
+                                
+                                if (!$customer) {
+                                    // Create new customer with form data
+                                    $customer = \App\Models\Customer::create([
+                                        'company_name' => $data['company_name'],
+                                        'contact_person' => $data['contact_person'],
+                                        'email' => $data['email'],
+                                        'phone' => $data['phone'] ?? null,
+                                        'status' => 'active',
+                                        'notes' => ($data['notes'] ?? '') . "\nCreated from Lead #{$record->id}",
+                                    ]);
+                                }
+                                
+                                // Update lead with customer_id
+                                $record->update(['customer_id' => $customer->id]);
+                            }
+                            
+                            // Redirect to create quotation with lead_id
+                            return redirect()->route('filament.admin.resources.quotations.create', ['lead_id' => $record->id]);
+                        }),
+                    
+                    // VIEW QUOTATIONS ACTION
+                    Action::make('view_quotations')
+                        ->label('View Quotations')
+                        ->icon(Heroicon::OutlinedDocumentDuplicate)
+                        ->color('gray')
+                        ->badge(fn (Lead $record): int => $record->quotations()->count())
+                        ->visible(fn (Lead $record): bool => $record->quotations()->count() > 0)
+                        ->url(fn (Lead $record): string => 
+                            route('filament.admin.resources.quotations.index', ['tableFilters[lead_id][value]' => $record->id]))
+                        ->openUrlInNewTab(false),
+                    
+                    // CREATE PROJECT ACTION
+                    Action::make('create_project')
+                        ->label('Create Project')
+                        ->icon(Heroicon::OutlinedRocketLaunch)
+                        ->color('success')
+                        ->visible(fn (Lead $record): bool => 
+                            $record->status === Lead::STATUS_DEAL && $record->projects()->count() === 0)
+                        ->requiresConfirmation()
+                        ->modalHeading('Create Project from Deal')
+                        ->modalDescription('This will create a new project and customer (if needed) from this lead.')
+                        ->action(function (Lead $record) {
+                            // Get or create customer (should already exist from Create Quotation)
+                            $customer = $record->customer;
+                            if (!$customer) {
+                                // Try to find existing customer by email first
+                                $customer = \App\Models\Customer::where('email', $record->email)->first();
+                                
+                                if (!$customer) {
+                                    // Create new customer only if not found
+                                    $customer = \App\Models\Customer::create([
+                                        'company_name' => $record->company_name,
+                                        'contact_person' => $record->contact_person,
+                                        'email' => $record->email,
+                                        'phone' => $record->phone,
+                                        'status' => 'active',
+                                        'notes' => "Created from Lead #{$record->id}",
+                                    ]);
+                                }
+                                
+                                $record->update(['customer_id' => $customer->id]);
+                            }
+                            
+                            // Get latest quotation if exists
+                            $latestQuotation = $record->quotations()->latest()->first();
+                            
+                            // Create project
+                            $project = \App\Models\Project::create([
+                                'lead_id' => $record->id,
+                                'customer_id' => $customer->id,
+                                'name' => $record->company_name . ' - Project',
+                                'description' => $record->notes ?? 'Project created from lead',
+                                'status' => \App\Models\Project::STATUS_PLANNING,
+                                'budget' => $record->deal_value ?? ($latestQuotation?->grand_total ?? 0),
+                                'assigned_to' => $record->assigned_to,
+                                'start_date' => now(),
+                            ]);
+                            
+                            Notification::make()
+                                ->title('Project Created Successfully')
+                                ->success()
+                                ->body("Project '{$project->name}' has been created.")
+                                ->actions([
+                                    \Filament\Notifications\Actions\Action::make('view')
+                                        ->label('View Project')
+                                        ->url(route('filament.admin.resources.projects.edit', ['record' => $project->id]))
+                                        ->button(),
+                                ])
+                                ->send();
+                        }),
+                    
+                    // VIEW PROJECTS ACTION
+                    Action::make('view_projects')
+                        ->label('View Projects')
+                        ->icon(Heroicon::OutlinedBriefcase)
+                        ->color('gray')
+                        ->badge(fn (Lead $record): int => $record->projects()->count())
+                        ->visible(fn (Lead $record): bool => $record->projects()->count() > 0)
+                        ->url(fn (Lead $record): string => 
+                            route('filament.admin.resources.projects.index', ['tableFilters[lead_id][value]' => $record->id]))
+                        ->openUrlInNewTab(false),
+                    
                     Action::make('next_stage')
                         ->label(fn (Lead $record): string => 
                             $record->getNextStatus() 
@@ -186,9 +345,16 @@ class LeadResource extends Resource
                                 $updateData['contacted_at'] = $data['contacted_at'] ?? now();
                             }
 
-                            if ($nextStatus === Lead::STATUS_QUOTATION_SENT) {
-                                $updateData['quotation_notes'] = $data['quotation_notes'] ?? '';
-                                $updateData['quotation_sent_at'] = now();
+                            // Auto-update Quotation status when advancing to Negotiation
+                            if ($record->status === Lead::STATUS_QUOTATION_SENT && $nextStatus === Lead::STATUS_NEGOTIATION) {
+                                $latestQuotation = $record->quotations()->latest()->first();
+                                if ($latestQuotation && $latestQuotation->status === \App\Models\Quotation::STATUS_DRAFT) {
+                                    $latestQuotation->update(['status' => \App\Models\Quotation::STATUS_SENT]);
+                                    
+                                    $updateData['notes'] = ($record->notes ? $record->notes . "\n\n" : '') . 
+                                        '[' . now()->format('Y-m-d H:i') . '] Advanced to Negotiation. ' .
+                                        'Quotation #' . $latestQuotation->quotation_number . ' marked as Sent.';
+                                }
                             }
 
                             if ($nextStatus === Lead::STATUS_DEAL) {
@@ -351,13 +517,8 @@ class LeadResource extends Resource
                 ->required();
         }
 
-        if ($nextStatus === Lead::STATUS_QUOTATION_SENT) {
-            $form[] = FormComponents\Textarea::make('quotation_notes')
-                ->label('Quotation Details')
-                ->placeholder('Enter quotation summary, key points, pricing overview...')
-                ->required()
-                ->rows(4);
-        }
+        // Note: Quotation Sent stage is skipped in manual advancement
+        // Users must use "Create Quotation" button to reach Quotation Sent status
 
         if ($nextStatus === Lead::STATUS_DEAL) {
             $form[] = FormComponents\TextInput::make('deal_value')

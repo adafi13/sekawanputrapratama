@@ -26,10 +26,8 @@ class LeadObserver
         $oldStatus = $lead->getOriginal('status');
         $newStatus = $lead->status;
 
-        // Auto-create Quotation when advancing to quotation_sent
-        if ($newStatus === Lead::STATUS_QUOTATION_SENT && $oldStatus !== Lead::STATUS_QUOTATION_SENT) {
-            $this->createQuotation($lead);
-        }
+        // Note: Quotation creation removed - user creates manually via "Create Quotation" button
+        // This prevents conflicts with manual quotation creation in CreateQuotation page
 
         // Auto-create Customer, Project, and Contract when advancing to deal
         if ($newStatus === Lead::STATUS_DEAL && $oldStatus !== Lead::STATUS_DEAL) {
@@ -38,45 +36,21 @@ class LeadObserver
     }
 
     /**
-     * Create a quotation for the lead.
-     */
-    protected function createQuotation(Lead $lead): void
-    {
-        // Check if quotation already exists for this lead
-        if ($lead->quotations()->where('status', '!=', Quotation::STATUS_REJECTED)->exists()) {
-            return;
-        }
-
-        // Create or get customer
-        $customer = $this->getOrCreateCustomer($lead);
-        
-        // Create quotation
-        $quotation = Quotation::create([
-            'lead_id' => $lead->id,
-            'customer_id' => $customer->id,
-            'valid_until' => now()->addDays(30),
-            'status' => Quotation::STATUS_DRAFT,
-            'notes' => $lead->quotation_notes,
-        ]);
-
-        // Apply default template (you can customize this logic)
-        QuotationTemplateService::applyTemplate($quotation, 'web_development');
-
-        // Update lead with customer
-        $lead->update(['customer_id' => $customer->id]);
-
-        Notification::make()
-            ->title('Quotation Created')
-            ->body("Quotation {$quotation->quotation_number} has been created automatically.")
-            ->success()
-            ->send();
-    }
-
-    /**
      * Convert lead to deal: create Customer, Project, and Contract.
      */
     protected function convertToDeal(Lead $lead): void
     {
+        // Check if project already exists for this lead
+        if ($lead->projects()->exists()) {
+            // Project already exists, just notify
+            Notification::make()
+                ->title('Lead Marked as Deal')
+                ->body("Project already exists for this lead.")
+                ->info()
+                ->send();
+            return;
+        }
+        
         // Create or get customer
         $customer = $this->getOrCreateCustomer($lead);
         

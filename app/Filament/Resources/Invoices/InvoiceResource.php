@@ -5,11 +5,13 @@ namespace App\Filament\Resources\Invoices;
 use App\Filament\Resources\Invoices\InvoiceResource\Pages;
 use App\Models\Invoice;
 use App\Models\Project;
+use App\Services\InvoicePdfService;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\Action;
 use Filament\Forms\Components;
 use Filament\Resources\Resource;
 use Filament\Schemas\Components\Section;
@@ -124,6 +126,11 @@ class InvoiceResource extends Resource
                     ->options(Invoice::getStatuses()),
             ])
             ->recordActions([
+                Action::make('download_pdf')
+                    ->label('Download PDF')
+                    ->icon('heroicon-o-arrow-down-tray')
+                    ->color('success')
+                    ->action(fn (Invoice $record) => InvoicePdfService::download($record)),
                 EditAction::make(),
                 DeleteAction::make(),
             ])

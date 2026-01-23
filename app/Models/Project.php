@@ -78,4 +78,56 @@ class Project extends Model
             self::STATUS_CANCELLED => 'Cancelled',
         ];
     }
+
+    /**
+     * Get the next sequential status for this project.
+     */
+    public function getNextStatus(): ?string
+    {
+        return match($this->status) {
+            self::STATUS_AWAITING_CONTRACT => self::STATUS_PLANNING,
+            self::STATUS_PLANNING => self::STATUS_IN_PROGRESS,
+            self::STATUS_IN_PROGRESS => self::STATUS_COMPLETED,
+            default => null, // Terminal states or manual states
+        };
+    }
+
+    /**
+     * Get the previous status for this project (for backward movement).
+     */
+    public function getPreviousStatus(): ?string
+    {
+        return match($this->status) {
+            self::STATUS_PLANNING => self::STATUS_AWAITING_CONTRACT,
+            self::STATUS_IN_PROGRESS => self::STATUS_PLANNING,
+            self::STATUS_COMPLETED => self::STATUS_IN_PROGRESS,
+            default => null,
+        };
+    }
+
+    /**
+     * Check if this project can advance to next stage.
+     */
+    public function canAdvanceToNextStage(): bool
+    {
+        // Cannot advance if no next status
+        if ($this->getNextStatus() === null) {
+            return false;
+        }
+
+        // Cannot advance from Awaiting Contract if contract not signed
+        if ($this->status === self::STATUS_AWAITING_CONTRACT) {
+            return $this->contract && $this->contract->status === Contract::STATUS_ACTIVE;
+        }
+
+        return true;
+    }
+
+    /**
+     * Check if project can create invoice (contract must be signed).
+     */
+    public function canCreateInvoice(): bool
+    {
+        return $this->contract && $this->contract->status === Contract::STATUS_ACTIVE;
+    }
 }

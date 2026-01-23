@@ -63,12 +63,8 @@ class QuotationForm
                                 ->displayFormat('d F Y')
                                 ->minDate(now())
                                 ->helperText('Default 30 days from today'),
-                            Select::make('status')
-                                ->label('Status')
-                                ->options(Quotation::getStatuses())
-                                ->default(Quotation::STATUS_DRAFT)
-                                ->required()
-                                ->helperText('Current quotation status'),
+                            // Status removed from create form - auto-set to Draft
+                            // Status changes will auto-sync with Lead status
                         ]),
 
                     Grid::make(2)
@@ -422,8 +418,8 @@ class QuotationForm
                     \Filament\Forms\Components\RichEditor::make('closing_content')
                         ->label('Closing Message & Signature')
                         ->toolbarButtons(['bold', 'italic', 'underline', 'bulletList', 'orderedList', 'h2', 'h3'])
-                        ->default('<p>Demikian surat penawaran ini kami sampaikan. Besar harapan kami untuk dapat bekerja sama dengan Bapak/Ibu.</p><p>Apabila ada hal yang perlu didiskusikan lebih lanjut, kami siap untuk mengadakan pertemuan.</p><br><p>Hormat kami,</p><br><br><p><strong>PT. Sekawan Putra Pratama</strong><br>[Nama Sales]<br>[Position]<br>[Contact]</p>')
-                        ->helperText('Professional closing statement & contact info')
+                        ->default('<p>Demikian surat penawaran ini kami sampaikan. Besar harapan kami untuk dapat bekerja sama dengan Bapak/Ibu.</p><p>Apabila ada hal yang perlu didiskusikan lebih lanjut, kami siap untuk mengadakan pertemuan.</p><p>Hormat kami,</p>')
+                        ->helperText('Professional closing statement only. Sales name/position/contact will appear in signature section below.')
                         ->columnSpanFull(),
 
                     // 10. SIGNATURE

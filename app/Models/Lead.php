@@ -84,13 +84,14 @@ class Lead extends Model
 
     /**
      * Get the next sequential status for this lead.
+     * SKIPS quotation_sent - user must create actual quotation to reach that status
      */
     public function getNextStatus(): ?string
     {
         return match($this->status) {
             self::STATUS_NEW => self::STATUS_QUALIFIED,
             self::STATUS_QUALIFIED => self::STATUS_CONTACTED,
-            self::STATUS_CONTACTED => self::STATUS_QUOTATION_SENT,
+            self::STATUS_CONTACTED => self::STATUS_NEGOTIATION, // Skip quotation_sent - must create actual quotation
             self::STATUS_QUOTATION_SENT => self::STATUS_NEGOTIATION,
             self::STATUS_NEGOTIATION => self::STATUS_DEAL,
             default => null, // Terminal states: deal, lost
@@ -99,6 +100,7 @@ class Lead extends Model
 
     /**
      * Get the previous status for this lead (for backward movement).
+     * Matches getNextStatus() - skips quotation_sent in the progression.
      */
     public function getPreviousStatus(): ?string
     {
@@ -106,7 +108,7 @@ class Lead extends Model
             self::STATUS_QUALIFIED => self::STATUS_NEW,
             self::STATUS_CONTACTED => self::STATUS_QUALIFIED,
             self::STATUS_QUOTATION_SENT => self::STATUS_CONTACTED,
-            self::STATUS_NEGOTIATION => self::STATUS_QUOTATION_SENT,
+            self::STATUS_NEGOTIATION => self::STATUS_CONTACTED, // Skip quotation_sent
             self::STATUS_DEAL => self::STATUS_NEGOTIATION,
             default => null, // Cannot go back from new or lost
         };

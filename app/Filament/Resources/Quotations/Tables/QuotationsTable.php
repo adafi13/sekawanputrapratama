@@ -122,21 +122,7 @@ class QuotationsTable
                         }
                     }),
                 
-                Action::make('send_to_client')
-                    ->label('Send to Client')
-                    ->icon(Heroicon::OutlinedPaperAirplane)
-                    ->color('info')
-                    ->requiresConfirmation()
-                    ->visible(fn (Quotation $record): bool => $record->status === Quotation::STATUS_DRAFT)
-                    ->action(function (Quotation $record) {
-                        $record->update(['status' => Quotation::STATUS_SENT]);
-                        
-                        \Filament\Notifications\Notification::make()
-                            ->title('Quotation Sent')
-                            ->body("Quotation {$record->quotation_number} has been marked as sent.")
-                            ->success()
-                            ->send();
-                    }),
+                // Note: "Send to Client" removed - auto-triggered when Lead advances to Negotiation
                 
                 Action::make('mark_accepted')
                     ->label('Mark as Accepted')
@@ -145,12 +131,69 @@ class QuotationsTable
                     ->requiresConfirmation()
                     ->visible(fn (Quotation $record): bool => in_array($record->status, [Quotation::STATUS_SENT, Quotation::STATUS_REVISED]))
                     ->action(function (Quotation $record) {
-                        $record->update(['status' => Quotation::STATUS_ACCEPTED]);
+                        // Auto-sync: Update Lead to Deal FIRST (single update to avoid double observer call)
+                        if ($record->lead_id) {
+                            $lead = $record->lead;
+                            if ($lead && $lead->status !== \App\Models\Lead::STATUS_DEAL) {
+                                $lead->update([
+                                    'status' => \App\Models\Lead::STATUS_DEAL,
+                                    'deal_closed_at' => now(),
+                                    'notes' => ($lead->notes ? $lead->notes . "\n\n" : '') . 
+                                        '[' . now()->format('Y-m-d H:i') . '] Quotation accepted: #' . 
+                                        $record->quotation_number . ' - Deal closed!',
+                                ]);
+                            }
+                        }
+                        
+                        // Update quotation status (without triggering observer for lead)
+                        $record->updateQuietly(['status' => Quotation::STATUS_ACCEPTED]);
                         
                         \Filament\Notifications\Notification::make()
                             ->title('Quotation Accepted')
-                            ->body("Quotation {$record->quotation_number} has been accepted.")
+                            ->body("Quotation {$record->quotation_number} accepted. Lead status updated to Deal!")
                             ->success()
+                            ->send();
+                    }),
+                
+                Action::make('mark_rejected')
+                    ->label('Mark as Rejected')
+                    ->icon(Heroicon::OutlinedXCircle)
+                    ->color('danger')
+                    ->requiresConfirmation()
+                    ->visible(fn (Quotation $record): bool => in_array($record->status, [Quotation::STATUS_SENT, Quotation::STATUS_REVISED]))
+                    ->modalHeading('Mark Quotation as Rejected')
+                    ->modalDescription('This will update the lead status to Lost.')
+                    ->form([
+                        \Filament\Forms\Components\Textarea::make('rejection_reason')
+                            ->label('Rejection Reason')
+                            ->required()
+                            ->rows(3)
+                            ->placeholder('Why was this quotation rejected?'),
+                    ])
+                    ->action(function (Quotation $record, array $data) {
+                        $record->update([
+                            'status' => Quotation::STATUS_REJECTED,
+                            'notes' => ($record->notes ? $record->notes . "\n\n" : '') . 
+                                '[' . now()->format('Y-m-d H:i') . '] Rejected: ' . $data['rejection_reason'],
+                        ]);
+                        
+                        // Auto-sync: Update Lead to Lost
+                        if ($record->lead_id) {
+                            $lead = $record->lead;
+                            if ($lead && $lead->status !== \App\Models\Lead::STATUS_LOST) {
+                                $lead->update([
+                                    'status' => \App\Models\Lead::STATUS_LOST,
+                                    'notes' => ($lead->notes ? $lead->notes . "\n\n" : '') . 
+                                        '[' . now()->format('Y-m-d H:i') . '] Quotation rejected: #' . 
+                                        $record->quotation_number . ' - Reason: ' . $data['rejection_reason'],
+                                ]);
+                            }
+                        }
+                        
+                        \Filament\Notifications\Notification::make()
+                            ->title('Quotation Rejected')
+                            ->body("Quotation {$record->quotation_number} rejected. Lead status updated to Lost.")
+                            ->danger()
                             ->send();
                     }),
                 
