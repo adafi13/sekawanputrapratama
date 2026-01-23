@@ -1,354 +1,136 @@
 @extends('frontend.layouts.app')
 
-@section('title', $post->meta_title ?: $post->title . ' - Blog - ' . config('app.name'))
-@section('meta_description', $post->meta_description ?: Str::limit(strip_tags($post->content), 160))
+{{-- Judul dinamis sesuai judul artikel --}}
+@section('title', 'Pentingnya Migrasi ke Cloud Server untuk Bisnis 2026 - Sekawan Putra Pratama')
 
 @section('content')
-{{-- Blog Header --}}
-<section class="blog-header pt-120 pb-80 bg-dark-blue">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 mx-auto text-center">
-                @if($post->category)
-                <span class="blog-category mb-16">{{ $post->category->name }}</span>
-                @endif
-                <h1 class="white mb-24">{{ $post->title }}</h1>
-                <div class="blog-meta">
-                    <span class="light-gray">
-                        <i class="far fa-calendar"></i>
-                        {{ $post->published_at ? $post->published_at->format('M d, Y') : $post->created_at->format('M d, Y') }}
-                    </span>
-                    @if($post->read_time)
-                    <span class="light-gray">
-                        <i class="far fa-clock"></i>
-                        {{ $post->read_time }} min read
-                    </span>
-                    @endif
-                    @if($post->author)
-                    <span class="light-gray">
-                        <i class="far fa-user"></i>
-                        {{ $post->author }}
-                    </span>
-                    @endif
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
-{{-- Featured Image --}}
-@if($post->hasMedia('featured_image'))
-<section class="blog-featured-image pt-0 pb-0">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-10 mx-auto">
-                <img src="{{ $post->getFirstMediaUrl('featured_image') }}" 
-                     alt="{{ $post->title }}" 
-                     class="w-100 rounded">
-            </div>
-        </div>
-    </div>
-</section>
-@endif
-
-{{-- Blog Content --}}
-<section class="blog-content pt-80 pb-80 bg-dark-blue-2">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 mx-auto">
-                @if($post->excerpt)
-                <div class="excerpt mb-40">
-                    <p class="fs-20 light-gray">{{ $post->excerpt }}</p>
-                </div>
-                @endif
+<section class="py-5 bg-light border-bottom">
+    <div class="container py-4">
+        <div class="row justify-content-center text-center">
+            <div class="col-lg-9">
+                <nav aria-label="breadcrumb" class="mb-4">
+                    <ol class="breadcrumb justify-content-center bg-transparent p-0">
+                        <li class="breadcrumb-item"><a href="{{ route('blog.index') }}" class="text-decoration-none">Blog</a></li>
+                        <li class="breadcrumb-item active text-muted" aria-current="page">Teknologi</li>
+                    </ol>
+                </nav>
                 
-                <div class="content light-gray">
-                    {!! $post->content !!}
-                </div>
-
-                {{-- Tags --}}
-                @if($post->tags && count($post->tags) > 0)
-                <div class="tags-section mt-60 pt-40" style="border-top: 1px solid rgba(255,255,255,0.1);">
-                    <h5 class="white mb-24">Tags</h5>
-                    <div class="tags">
-                        @foreach($post->tags as $tag)
-                        <a href="{{ route('blog.index', ['tag' => $tag]) }}" class="tag">{{ $tag }}</a>
-                        @endforeach
-                    </div>
-                </div>
-                @endif
-
-                {{-- Share Buttons --}}
-                <div class="share-section mt-40 pt-40" style="border-top: 1px solid rgba(255,255,255,0.1);">
-                    <h5 class="white mb-24">Share this post</h5>
-                    <div class="share-buttons">
-                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('blog.show', $post->slug)) }}" 
-                           target="_blank" 
-                           class="share-btn facebook">
-                            <i class="fab fa-facebook-f"></i> Facebook
-                        </a>
-                        <a href="https://twitter.com/intent/tweet?url={{ urlencode(route('blog.show', $post->slug)) }}&text={{ urlencode($post->title) }}" 
-                           target="_blank" 
-                           class="share-btn twitter">
-                            <i class="fab fa-twitter"></i> Twitter
-                        </a>
-                        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ urlencode(route('blog.show', $post->slug)) }}&title={{ urlencode($post->title) }}" 
-                           target="_blank" 
-                           class="share-btn linkedin">
-                            <i class="fab fa-linkedin-in"></i> LinkedIn
-                        </a>
-                        <a href="https://wa.me/?text={{ urlencode($post->title . ' ' . route('blog.show', $post->slug)) }}" 
-                           target="_blank" 
-                           class="share-btn whatsapp">
-                            <i class="fab fa-whatsapp"></i> WhatsApp
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-{{-- Related Posts --}}
-@if($relatedPosts->count() > 0)
-<section class="related-posts pt-80 pb-120 bg-dark-blue">
-    <div class="container">
-        <div class="row mb-60">
-            <div class="col-lg-12 text-center">
-                <h2 class="white">Related Articles</h2>
-            </div>
-        </div>
-        <div class="row">
-            @foreach($relatedPosts as $related)
-            <div class="col-lg-4 mb-30">
-                <article class="blog-card">
-                    <a href="{{ route('blog.show', $related->slug) }}" class="blog-image-wrapper">
-                        @if($related->hasMedia('featured_image'))
-                        <img src="{{ $related->getFirstMediaUrl('featured_image', 'thumb') }}" 
-                             alt="{{ $related->title }}"
-                             class="blog-image"
-                             loading="lazy">
-                        @else
-                        <img src="{{ asset('assets/media/placeholder-blog.jpg') }}" 
-                             alt="{{ $related->title }}"
-                             class="blog-image"
-                             loading="lazy">
-                        @endif
-                    </a>
-                    <div class="blog-content">
-                        @if($related->category)
-                        <span class="blog-category">{{ $related->category->name }}</span>
-                        @endif
-                        <h4 class="white mb-16">
-                            <a href="{{ route('blog.show', $related->slug) }}">{{ $related->title }}</a>
-                        </h4>
-                        <div class="blog-meta">
-                            <span class="light-gray">
-                                <i class="far fa-calendar"></i>
-                                {{ $related->published_at ? $related->published_at->format('M d, Y') : $related->created_at->format('M d, Y') }}
-                            </span>
+                <h1 class="display-5 fw-bold text-dark mb-4" style="line-height: 1.2;">
+                    Pentingnya Migrasi ke Cloud Server untuk Bisnis 2026
+                </h1>
+                
+                <div class="d-flex align-items-center justify-content-center gap-3 text-muted">
+                    <div class="d-flex align-items-center">
+                        <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 35px; height: 35px;">
+                            <i class="fas fa-user-nib small"></i>
                         </div>
+                        <span class="fw-bold text-dark small">Admin Sekawan</span>
                     </div>
-                </article>
+                    <span class="text-opacity-25">|</span>
+                    <div class="small">
+                        <i class="far fa-calendar-alt me-1"></i> 20 Januari 2026
+                    </div>
+                    <span class="text-opacity-25">|</span>
+                    <div class="small">
+                        <i class="far fa-clock me-1"></i> 5 Menit Baca
+                    </div>
+                </div>
             </div>
-            @endforeach
         </div>
     </div>
 </section>
-@endif
 
-{{-- CTA Section --}}
-<section class="cta-section pt-80 pb-80 bg-blue">
-    <div class="container">
-        <div class="row align-items-center">
+<section class="py-5 bg-white">
+    <div class="container py-lg-4">
+        <div class="row justify-content-center">
             <div class="col-lg-8">
-                <h2 class="white mb-16">Have a Project in Mind?</h2>
-                <p class="light-gray fs-18 mb-0">Let's discuss how we can help you achieve your goals</p>
-            </div>
-            <div class="col-lg-4 text-lg-end">
-                <a href="{{ route('contact') }}" class="btn btn-white btn-lg">Contact Us</a>
+                
+                <div class="rounded-4 overflow-hidden shadow-sm mb-5">
+                    <img src="{{ asset('assets/media/images/blog-1.png') }}" class="img-fluid w-100" alt="Featured Image">
+                </div>
+                
+                <div class="article-content text-dark" style="font-size: 1.15rem; line-height: 1.8; color: #334155 !important;">
+                    <p>Dalam era transformasi digital yang bergerak sangat pesat, infrastruktur IT bukan lagi sekadar pendukung, melainkan jantung dari operasional bisnis. Salah satu perubahan paling signifikan di tahun 2026 adalah pergeseran total dari server fisik (on-premise) menuju <strong>Cloud Infrastructure</strong>.</p>
+                    
+                    <h3 class="fw-bold mt-5 mb-3 text-dark">Mengapa Skalabilitas adalah Kunci?</h3>
+                    <p>Banyak pemilik bisnis bertanya-tanya, apakah investasi ini sepadan? Salah satu alasan utamanya adalah <strong>skalabilitas</strong>. Bayangkan saat bisnis Anda mendapatkan lonjakan traffic mendadak; dengan cloud, Anda bisa menambah kapasitas hanya dalam hitungan menit.</p>
+                    
+                    <div class="p-4 my-5 bg-light rounded-4 border-start border-primary border-4 shadow-sm">
+                        <h5 class="fw-bold mb-2"><i class="fas fa-lightbulb text-warning me-2"></i> Insight Utama:</h5>
+                        <p class="mb-0 italic text-muted">"Bisnis yang sukses di masa depan tidak lagi dibatasi oleh kapasitas hardware fisik, melainkan seberapa fleksibel mereka beradaptasi di ekosistem cloud."</p>
+                    </div>
+
+                    <h3 class="fw-bold mt-5 mb-3 text-dark">Keamanan yang Lebih Terjamin</h3>
+                    <p>Berlawanan dengan mitos lama, penyedia layanan cloud saat ini menawarkan standar keamanan yang jauh lebih ketat dibandingkan server kantor biasa. Dengan enkripsi berlapis dan proteksi serangan DDoS yang canggih, data bisnis Anda jauh lebih aman dari ancaman siber.</p>
+                    
+                    <p class="mb-5">Dengan bermigrasi ke cloud, tim IT Anda bisa lebih fokus pada pengembangan inovasi aplikasi daripada pusing memikirkan pemeliharaan kabel atau perangkat keras yang rusak di ruang server.</p>
+                </div>
+
+                <div class="py-4 border-top border-bottom d-flex flex-wrap justify-content-between align-items-center gap-3">
+                    <div class="tags">
+                        <span class="small fw-bold text-muted me-2">Tags:</span>
+                        <a href="#" class="badge bg-light text-muted border text-decoration-none px-3 py-2 rounded-pill">Cloud</a>
+                        <a href="#" class="badge bg-light text-muted border text-decoration-none px-3 py-2 rounded-pill">Digital</a>
+                    </div>
+                    <div class="share-buttons d-flex align-items-center gap-3">
+                        <span class="small fw-bold text-muted">Bagikan:</span>
+                        <a href="#" class="text-secondary hover-primary"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-secondary hover-primary"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-secondary hover-primary"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+
+                <div class="mt-5 p-4 rounded-4 bg-light d-flex align-items-center gap-4">
+                    <div class="bg-white p-1 rounded-circle shadow-sm">
+                        <img src="{{ asset('assets/media/user/admin-avatar.png') }}" class="rounded-circle" width="70" height="70" alt="Admin">
+                    </div>
+                    <div>
+                        <h6 class="fw-bold text-dark mb-1">Ditulis oleh Admin Sekawan</h6>
+                        <p class="small text-muted mb-0">Berdedikasi untuk memberikan wawasan teknologi terbaru guna membantu UMKM dan Perusahaan di Indonesia bertransformasi digital.</p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
 </section>
-@endsection
 
-@push('styles')
+<section class="py-5 bg-light">
+    <div class="container py-4">
+        <h4 class="fw-bold text-center mb-5">Artikel Terkait</h4>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
+                    <img src="{{ asset('assets/media/images/blog-2.png') }}" class="card-img-top" alt="Blog" style="height: 180px; object-fit: cover;">
+                    <div class="card-body">
+                        <h6 class="fw-bold"><a href="#" class="text-dark text-decoration-none">Cara Mengamankan Jaringan Kantor</a></h6>
+                        <small class="text-muted">18 Jan 2026</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
+                    <img src="{{ asset('assets/media/images/blog-3.png') }}" class="card-img-top" alt="Blog" style="height: 180px; object-fit: cover;">
+                    <div class="card-body">
+                        <h6 class="fw-bold"><a href="#" class="text-dark text-decoration-none">Tren Mobile App Development</a></h6>
+                        <small class="text-muted">15 Jan 2026</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <style>
-.blog-category {
-    display: inline-block;
-    padding: 6px 16px;
-    background: rgba(79, 172, 254, 0.1);
-    color: var(--blue);
-    border-radius: 4px;
-    font-size: 14px;
-    font-weight: 600;
-}
-.blog-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 24px;
-    justify-content: center;
-    font-size: 15px;
-}
-.blog-meta i {
-    margin-right: 8px;
-    color: var(--blue);
-}
-.excerpt p {
-    font-weight: 500;
-    line-height: 1.7;
-}
-.content {
-    font-size: 16px;
-    line-height: 1.8;
-}
-.content p {
-    margin-bottom: 20px;
-}
-.content h2,
-.content h3,
-.content h4 {
-    color: #fff;
-    margin-top: 40px;
-    margin-bottom: 20px;
-}
-.content h2 {
-    font-size: 32px;
-}
-.content h3 {
-    font-size: 26px;
-}
-.content h4 {
-    font-size: 22px;
-}
-.content ul,
-.content ol {
-    margin-bottom: 20px;
-    padding-left: 24px;
-}
-.content li {
-    margin-bottom: 12px;
-}
-.content img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    margin: 30px 0;
-}
-.content blockquote {
-    padding: 20px 24px;
-    background: rgba(79, 172, 254, 0.1);
-    border-left: 4px solid var(--blue);
-    margin: 30px 0;
-    font-style: italic;
-}
-.content code {
-    padding: 2px 6px;
-    background: rgba(255,255,255,0.1);
-    color: var(--blue);
-    border-radius: 4px;
-    font-size: 14px;
-}
-.content pre {
-    padding: 20px;
-    background: rgba(0,0,0,0.3);
-    border-radius: 8px;
-    overflow-x: auto;
-    margin: 20px 0;
-}
-.tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-}
-.tag {
-    display: inline-block;
-    padding: 8px 16px;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    color: #fff;
-    border-radius: 6px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-.tag:hover {
-    background: var(--blue);
-    border-color: var(--blue);
-    color: #fff;
-}
-.share-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-}
-.share-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 20px;
-    border-radius: 6px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
-.share-btn.facebook {
-    background: #1877f2;
-    color: #fff;
-}
-.share-btn.twitter {
-    background: #1da1f2;
-    color: #fff;
-}
-.share-btn.linkedin {
-    background: #0077b5;
-    color: #fff;
-}
-.share-btn.whatsapp {
-    background: #25d366;
-    color: #fff;
-}
-.share-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    color: #fff;
-}
-.blog-card {
-    background: rgba(255,255,255,0.03);
-    border-radius: 12px;
-    overflow: hidden;
-    transition: transform 0.3s ease;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-.blog-card:hover {
-    transform: translateY(-8px);
-}
-.blog-image-wrapper {
-    display: block;
-    position: relative;
-    overflow: hidden;
-    padding-top: 60%;
-}
-.blog-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-.blog-content {
-    padding: 24px;
-    flex: 1;
-}
-.blog-content h4 a {
-    color: #fff;
-    text-decoration: none;
-}
-.blog-content h4 a:hover {
-    color: var(--blue);
-}
+    .article-content h3 { 
+        font-size: 1.8rem; 
+        margin-top: 2.5rem; 
+        letter-spacing: -0.5px;
+    }
+    .hover-primary:hover { color: #0d6efd !important; }
+    .italic { font-style: italic; }
+    .breadcrumb-item + .breadcrumb-item::before { content: "›"; font-size: 1.2rem; line-height: 1; }
 </style>
-@endpush
+
+@endsection
