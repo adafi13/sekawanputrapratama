@@ -15,7 +15,7 @@
     </div>
 </section>
 
-<section class="py-5 bg-black">
+<section class="py-5 bg-white">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6 mb-4 mb-lg-0">
