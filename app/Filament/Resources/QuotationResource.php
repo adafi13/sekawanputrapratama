@@ -15,6 +15,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
 class QuotationResource extends Resource
@@ -28,9 +29,17 @@ class QuotationResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'quotation_number';
 
+    // Eager load relationships for better performance
+    protected static array $with = ['customer', 'lead', 'items'];
+
     public static function getNavigationGroup(): ?string
     {
         return 'CRM';
+    }
+
+    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        return parent::getEloquentQuery()->with(['customer', 'lead', 'items']);
     }
 
     public static function form(Schema $schema): Schema
@@ -48,7 +57,7 @@ class QuotationResource extends Resource
                     ->sortable()
                     ->weight('bold'),
                 
-                TextColumn::make('client.company')
+                TextColumn::make('customer.company_name')
                     ->label('Customer')
                     ->searchable()
                     ->sortable(),
@@ -91,7 +100,19 @@ class QuotationResource extends Resource
                     }),
             ])
             ->filters([
-                //
+                SelectFilter::make('lead_id')
+                    ->label('Lead')
+                    ->relationship('lead', 'company_name')
+                    ->searchable()
+                    ->preload(),
+                SelectFilter::make('status')
+                    ->options([
+                        'draft' => 'Draft',
+                        'sent' => 'Sent',
+                        'revised' => 'Revised',
+                        'accepted' => 'Accepted',
+                        'rejected' => 'Rejected',
+                    ]),
             ])
             ->recordActions([
                 Action::make('view')

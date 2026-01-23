@@ -13,6 +13,78 @@ class EditQuotation extends EditRecord
 {
     protected static string $resource = QuotationResource::class;
 
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        // Calculate grand_total from items
+        $items = $data['items'] ?? [];
+        $subtotal = 0;
+        
+        \Log::info('EditQuotation - Items count: ' . count($items));
+        
+        foreach ($items as $item) {
+            $price = floatval($item['unit_price'] ?? 0);
+            $disc = floatval($item['discount_percent'] ?? 0);
+            $itemTotal = $price - ($price * ($disc / 100));
+            $subtotal += $itemTotal;
+        }
+        
+        $discountPercent = floatval($data['discount_percentage'] ?? 0);
+        $afterDiscount = $subtotal - ($subtotal * ($discountPercent / 100));
+        $grandTotal = $afterDiscount;
+        
+        if (!empty($data['include_tax'])) {
+            $taxPercent = floatval($data['tax_percentage'] ?? 12);
+            $tax = $afterDiscount * ($taxPercent / 100);
+            $grandTotal += $tax;
+            $data['tax_amount'] = $tax;
+        } else {
+            $data['tax_amount'] = 0;
+        }
+        
+        $data['subtotal'] = $subtotal;
+        $data['discount_amount'] = $subtotal * ($discountPercent / 100);
+        $data['total_amount'] = $afterDiscount;
+        $data['grand_total'] = $grandTotal;
+        
+        \Log::info('EditQuotation - Calculated grand_total: ' . $grandTotal);
+        
+        return $data;
+    }
+
+    protected function afterSave(): void
+    {
+        // Ensure grand_total is saved - backup method
+        $items = $this->record->items;
+        if ($items->count() > 0 && $this->record->grand_total == 0) {
+            $subtotal = 0;
+            foreach ($items as $item) {
+                $price = floatval($item->unit_price ?? 0);
+                $disc = floatval($item->discount_percent ?? 0);
+                $itemTotal = $price - ($price * ($disc / 100));
+                $subtotal += $itemTotal;
+            }
+            
+            $discountPercent = floatval($this->record->discount_percentage ?? 0);
+            $afterDiscount = $subtotal - ($subtotal * ($discountPercent / 100));
+            $grandTotal = $afterDiscount;
+            
+            if ($this->record->include_tax) {
+                $taxPercent = floatval($this->record->tax_percentage ?? 12);
+                $tax = $afterDiscount * ($taxPercent / 100);
+                $grandTotal += $tax;
+                $this->record->tax_amount = $tax;
+            }
+            
+            $this->record->subtotal = $subtotal;
+            $this->record->discount_amount = $subtotal * ($discountPercent / 100);
+            $this->record->total_amount = $afterDiscount;
+            $this->record->grand_total = $grandTotal;
+            $this->record->saveQuietly();
+            
+            \Log::info('EditQuotation afterSave - Updated grand_total: ' . $grandTotal);
+        }
+    }
+
     protected function getHeaderActions(): array
     {
         return [

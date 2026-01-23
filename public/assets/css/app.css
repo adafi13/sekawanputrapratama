@@ -1569,7 +1569,7 @@ Elements
 -------------------------*/
 .cus-btn {
   background-image: linear-gradient(45deg, #F17A7A 0%, #0A05E6 100%, #E769D5 100%);
-  border-radius: 10px;
+  border-radius: 100px;
   color: #FFFCFA;
   display: block;
   width: clamp(150px, 11.458vw, 260px);
@@ -1585,7 +1585,6 @@ Elements
   display: flex;
   align-items: center;
   gap: clamp(4px, 0.417vw, 12px);
-  background: #141516;
   border-radius: 10px;
   justify-content: center;
   height: 100%;

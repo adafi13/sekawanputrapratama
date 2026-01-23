@@ -24,12 +24,15 @@ class Invoice extends Model
         'bank_account',
         'paid_by',
         'payment_notes',
+        'pdf_path',
+        'pdf_generated_at',
     ];
 
     protected $casts = [
         'amount' => 'decimal:2',
         'due_date' => 'date',
         'paid_at' => 'datetime',
+        'pdf_generated_at' => 'datetime',
     ];
 
     public function project(): BelongsTo
