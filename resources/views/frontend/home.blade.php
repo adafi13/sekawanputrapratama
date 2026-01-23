@@ -1,259 +1,35 @@
 @extends('frontend.layouts.app')
 
 @section('content')
-
-{{-- Hero Section --}}
-<section class="banner">
-    <div class="blur">
-        <div class="animate-1"></div>
-        <div class="animate-2"></div>
-        <div class="animate-3"></div>
-    </div>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="content">
-                <div class="text-reveal mb-32">
-                    <span class='random-word h-91 color-sec'>Transformasi Digital</span>
-                    <h1>Solusi Teknologi <br> Yang <span class='random-word h-91 color-primary'>Terintegrasi</span></h1>
-                </div>
-                <p class="medium-gray mb-32">
-                    Kami membantu bisnis Anda berkembang melalui layanan <br> 
-                    <strong>Web Development</strong>, <strong>App Development</strong>, dan <strong>Infrastruktur Server</strong> yang handal.
-                </p>
-                <a class="cus-btn m-auto" href="{{ route('services.index') }}">
-                    <span>Jelajahi Layanan</span>
-                </a>
-            </div>
+<section class="py-5 text-center position-relative overflow-hidden">
+    <div class="container py-5">
+        <span class="badge rounded-pill bg-primary mb-3 px-3 py-2">#1 IT Solution Partner</span>
+        <h1 class="display-3 fw-bold mb-4">Hentikan Masalah IT, <br> <span class="text-primary">Fokuslah Pada Pertumbuhan Bisnis Anda.</span></h1>
+        <p class="lead text-secondary mb-5 mx-auto" style="max-width: 800px;">
+            Kami membangun sistem digital yang bekerja untuk Anda. Mulai dari Website Premium, Aplikasi Mobile yang Stabil, hingga Infrastruktur Server yang Tidak Pernah Tidur.
+        </p>
+        <div class="d-flex justify-content-center gap-3">
+            <a href="{{ url('/contact') }}" class="btn btn-primary btn-lg px-5 rounded-pill shadow">Mulai Konsultasi Gratis</a>
+            <a href="#services" class="btn btn-outline-light btn-lg px-5 rounded-pill">Lihat Layanan Kami</a>
         </div>
     </div>
 </section>
 
-{{-- Video Section --}}
-<section class="video-sec">
-    <div class="blur-2">
-        <div class="animate-4"></div>
-        <div class="animate-5"></div>
-    </div>
-    <div class="container-fluid">
-        <div class="bg-video">
-            <div class="clothing-video">
-                <video id="videoPlayer" loop playsinline muted autoplay class="mb-32">
-                    <source src="{{ asset('assets/media/tech-video.mp4') }}" type="video/mp4">
-                </video>
-                <h4 class="white text-center mb-32">Ingin tahu kami <br> lebih lanjut?</h4>
-                <a class="cus-btn m-auto" href="{{ route('contact') }}">
-                    <span>Hubungi Kami</span>
-                </a>
+<section class="py-5 bg-black">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <h2 class="h1 fw-bold">Mengapa Bisnis Besar Mempercayakan IT Mereka Kepada Kami?</h2>
             </div>
-        </div>
-    </div>
-</section>
-
-{{-- Portfolio Section --}}
-<section class="portfolio">
-    <div class="blur">
-        <div class="animate-1"></div>
-        <div class="animate-2"></div>
-        <div class="animate-3"></div>
-    </div>
-    <div class="container-fluid">
-        <div class="portfolio-wrapper">
-            <div class="heading text-center">
-                <h2 class="white mb-16">Portofolio <br> Unggulan Kami</h2>
-                <p class="medium-gray mb-32">
-                    Kumpulan karya terbaik kami yang telah membantu banyak klien <br>
-                    mencapai tujuan digital mereka.
-                </p>
-                <a class="cus-btn m-auto mb-64" href="{{ route('portfolio.index') }}">
-                    <span>Lihat Semua Karya</span>
-                </a>
-            </div>
-            
-            @if($portfolios && $portfolios->count() > 0)
-            <ul class="nav nav-tabs mb-48" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all" type="button">
-                        All Work
-                    </button>
-                </li>
-                @foreach($portfolioCategories as $category)
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="cat-{{ $category->slug }}-tab" 
-                            data-bs-toggle="tab" 
-                            data-bs-target="#cat-{{ $category->slug }}" 
-                            type="button">
-                        {{ $category->name }}
-                    </button>
-                </li>
-                @endforeach
-            </ul>
-
-            <div class="tab-content" id="myTabContent">
-                {{-- All Portfolios Tab --}}
-                <div class="tab-pane fade show active" id="all" role="tabpanel">
-                    <div class="tab-wrapper">
-                        <div class="row">
-                            @foreach($portfolios->take(4) as $portfolio)
-                            <div class="col-xl-6 col-lg-6 col-6">
-                                <a href="{{ route('portfolio.show', $portfolio->slug) }}">
-                                    <img src="{{ $portfolio->featured_image ? asset('storage/' . $portfolio->featured_image) : asset('assets/media/images/placeholder.png') }}" 
-                                         loading="lazy" 
-                                         alt="{{ $portfolio->title }}" 
-                                         class="tab-image">
-                                </a>
-                            </div>
-                            @endforeach
-                        </div>
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-6 mb-4">
+                        <h4 class="text-primary fw-bold mb-1">Keamanan Prioritas</h4>
+                        <p class="small text-secondary text-justify">Data Anda adalah aset paling berharga. Kami melindunginya dengan enkripsi standar industri.</p>
                     </div>
-                </div>
-
-                {{-- Category Tabs --}}
-                @foreach($portfolioCategories as $category)
-                <div class="tab-pane fade" id="cat-{{ $category->slug }}" role="tabpanel">
-                    <div class="tab-wrapper">
-                        <div class="row">
-                            @foreach($category->portfolios->take(4) as $portfolio)
-                            <div class="col-xl-6 col-lg-6 col-6">
-                                <a href="{{ route('portfolio.show', $portfolio->slug) }}">
-                                    <img src="{{ $portfolio->featured_image ? asset('storage/' . $portfolio->featured_image) : asset('assets/media/images/placeholder.png') }}" 
-                                         loading="lazy" 
-                                         alt="{{ $portfolio->title }}" 
-                                         class="tab-image">
-                                </a>
-                            </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-            </div>
-            @else
-            <p class="text-center medium-gray">Belum ada portfolio yang ditampilkan.</p>
-            @endif
-        </div>
-    </div>
-</section>
-
-{{-- Services Section --}}
-<section class="services">
-    <div class="blur">
-        <div class="animate-1"></div>
-        <div class="animate-3"></div>
-    </div>
-    <div class="container-fluid">
-        <div class="services-wrapper">
-            <div class="heading text-center">
-                <h2 class="white mb-16">Layanan Profesional <br> Kami</h2>
-                <p class="medium-gray mb-32">
-                    Solusi lengkap untuk mendukung infrastruktur dan <br> 
-                    ekosistem digital bisnis Anda.
-                </p>
-                <a class="cus-btn m-auto mb-64" href="{{ route('services.index') }}">
-                    <span>Lihat Detail Layanan</span>
-                </a>
-            </div>
-            
-            {{-- Service 1: App Development --}}
-            <div class="service-block mb-80">
-                <div class="row align-items-center">
-                    <div class="col-lg-6 col-md-6">
-                        <div class="image-block">
-                            <div class="text-box text-center">
-                                <h2 class="service-number mb-48">1</h2>
-                                <h4 class="white">App Development</h4>
-                                <div class="hover-block">
-                                    <img src="{{ asset('assets/media/images/app-development.png') }}" 
-                                         loading="lazy" 
-                                         style="border-radius: 20px !important;" 
-                                         alt="App Development">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                        <div class="service-text text-center">
-                            <h2 class="white mb-16">App Development</h2>
-                            <ul class="list-unstyled">
-                                <li class="label p-18 dark-black">Mobile App (Android/iOS)</li>
-                                <li class="label p-18 dark-black">Desktop App</li>
-                            </ul>
-                            <p class="medium-gray mb-32">
-                                Aplikasi responsif dan stabil untuk kebutuhan bisnis Anda.
-                            </p>
-                            <a class="cus-btn m-auto" href="{{ route('services.index') }}">
-                                <span>Buat Aplikasi</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {{-- Service 2: Web Development --}}
-            <div class="service-block mb-80">
-                <div class="row align-items-center">
-                    <div class="col-lg-6 col-md-6">
-                        <div class="image-block">
-                            <div class="text-box text-center">
-                                <h2 class="service-number mb-48">2</h2>
-                                <h4 class="white">Web Development</h4>
-                                <div class="hover-block">
-                                    <img src="{{ asset('assets/media/images/web-development.png') }}" 
-                                         loading="lazy" 
-                                         style="border-radius: 20px !important;" 
-                                         alt="Web Development">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                        <div class="service-text text-center">
-                            <h2 class="white mb-16">Web Development</h2>
-                            <ul class="list-unstyled">
-                                <li class="label p-18 dark-black">Company Profile</li>
-                                <li class="label p-18 dark-black">Web App / E-Commerce</li>
-                            </ul>
-                            <p class="medium-gray mb-32">
-                                Website profesional yang cepat dan SEO-friendly.
-                            </p>
-                            <a class="cus-btn m-auto" href="{{ route('services.index') }}">
-                                <span>Buat Website</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {{-- Service 3: Office Server --}}
-            <div class="service-block mb-80">
-                <div class="row align-items-center">
-                    <div class="col-lg-6 col-md-6">
-                        <div class="image-block">
-                            <div class="text-box text-center">
-                                <h2 class="service-number mb-48">3</h2>
-                                <h4 class="white">Office Server</h4>
-                                <div class="hover-block">
-                                    <img src="{{ asset('assets/media/images/office-server.png') }}" 
-                                         loading="lazy" 
-                                         style="border-radius: 20px !important;" 
-                                         alt="Office Server">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                        <div class="service-text text-center">
-                            <h2 class="white mb-16">Office Server</h2>
-                            <ul class="list-unstyled">
-                                <li class="label p-18 dark-black">Instalasi Server</li>
-                                <li class="label p-18 dark-black">Manajemen Jaringan</li>
-                            </ul>
-                            <p class="medium-gray mb-32">
-                                Server aman dan terpusat untuk alur kerja perusahaan.
-                            </p>
-                            <a class="cus-btn m-auto" href="{{ route('services.index') }}">
-                                <span>Konsultasi Server</span>
-                            </a>
-                        </div>
+                    <div class="col-6 mb-4">
+                        <h4 class="text-primary fw-bold mb-1">Dukungan 24/7</h4>
+                        <p class="small text-secondary text-justify">Tim ahli kami selalu siaga memastikan operasional bisnis Anda tidak terganggu semenit pun.</p>
                     </div>
                 </div>
             </div>
@@ -261,73 +37,42 @@
     </div>
 </section>
 
-{{-- Blog Section --}}
-@if($latestBlogs && $latestBlogs->count() > 0)
-<section class="blog">
-    <div class="blur">
-        <div class="animate-2"></div>
-        <div class="animate-3"></div>
+<section id="services" class="py-5">
+    <div class="container text-center mb-5">
+        <h2 class="fw-bold">Solusi yang Kami Tawarkan</h2>
     </div>
-    <div class="container-fluid">
-        <div class="heading text-center">
-            <h2 class="white mb-16">Artikel & Insight</h2>
-            <p class="medium-gray mb-32">
-                Tips, tutorial, dan berita terkini seputar teknologi.
-            </p>
-            <a class="cus-btn m-auto mb-64" href="{{ route('blog.index') }}">
-                <span>Lihat Semua Artikel</span>
-            </a>
-        </div>
-        
-        <div class="row">
-            @foreach($latestBlogs as $blog)
-            <div class="col-md-4 mb-32">
-                <div class="blog-card">
-                    <a href="{{ route('blog.show', $blog->slug) }}">
-                        <img src="{{ $blog->featured_image ? asset('storage/' . $blog->featured_image) : asset('assets/media/images/blog-placeholder.png') }}" 
-                             alt="{{ $blog->title }}" 
-                             loading="lazy"
-                             class="blog-image">
-                    </a>
-                    <div class="blog-content">
-                        <span class="blog-category">{{ $blog->category->name ?? 'Uncategorized' }}</span>
-                        <h4 class="white mb-16">
-                            <a href="{{ route('blog.show', $blog->slug) }}">{{ $blog->title }}</a>
-                        </h4>
-                        <p class="medium-gray">{{ Str::limit(strip_tags($blog->content), 120) }}</p>
-                        <div class="blog-meta">
-                            <span>{{ $blog->published_at ? $blog->published_at->format('d M Y') : $blog->created_at->format('d M Y') }}</span>
-                        </div>
-                    </div>
-                </div>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card bg-secondary bg-opacity-10 border-0 h-100 p-4 rounded-4">
+                <img src="{{ asset('assets/media/images/web-development.png') }}" class="mb-4 rounded" alt="Web">
+                <h3>Web Development</h3>
+                <p class="text-secondary small">Website bukan sekadar pajangan. Kami buatkan mesin penjual otomatis untuk bisnis Anda.</p>
             </div>
-            @endforeach
         </div>
-    </div>
-</section>
-@endif
-
-{{-- Contact CTA Section --}}
-<section class="contact-cta">
-    <div class="blur-2">
-        <div class="animate-4"></div>
-        <div class="animate-5"></div>
-    </div>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="cta-content text-center">
-                    <h2 class="white mb-24">Siap Memulai Proyek Anda?</h2>
-                    <p class="medium-gray mb-32">
-                        Konsultasikan kebutuhan digital bisnis Anda bersama tim ahli kami.
-                    </p>
-                    <a class="cus-btn m-auto" href="{{ route('contact') }}">
-                        <span>Hubungi Kami Sekarang</span>
-                    </a>
-                </div>
+        <div class="col-md-4">
+            <div class="card bg-secondary bg-opacity-10 border-0 h-100 p-4 rounded-4 shadow-sm" style="transform: scale(1.05); border: 1px solid #0d6efd !important;">
+                <img src="{{ asset('assets/media/images/app-development.png') }}" class="mb-4 rounded" alt="App">
+                <h3>App Development</h3>
+                <p class="text-secondary small">Android & iOS. Aplikasi yang ringan, cepat, dan membuat pelanggan betah bertransaksi.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-secondary bg-opacity-10 border-0 h-100 p-4 rounded-4 text-justify">
+                <img src="{{ asset('assets/media/images/office-server.png') }}" class="mb-4 rounded" alt="Server">
+                <h3>Office Server</h3>
+                <p class="text-secondary small">Optimalkan kolaborasi tim dengan infrastruktur server lokal atau cloud yang super aman.</p>
             </div>
         </div>
     </div>
 </section>
 
+<section class="py-5">
+    <div class="container">
+        <div class="bg-primary rounded-5 p-5 text-center">
+            <h2 class="fw-bold mb-3">Siap Untuk Membuat Perubahan?</h2>
+            <p class="mb-4">Jangan biarkan kompetitor mendahului Anda. Konsultasikan ide Anda sekarang.</p>
+            <a href="https://wa.me/6285156412702" class="btn btn-light btn-lg px-5 rounded-pill fw-bold text-primary">Chat Via WhatsApp</a>
+        </div>
+    </div>
+</section>
 @endsection
