@@ -52,14 +52,14 @@
     <div id="scroll-container">
 
         {{-- 2. Header Navigation Modern --}}
-        <header id="main-header">
+        <header id="main-header" style="height: 100px; display: flex; align-items: center;">
             <nav class="main-menu pb-0">
                 <div class="container-fluid px-lg-5">
                     <div class="main-menu__block d-flex align-items-center justify-content-between">
 
                         <div class="main-menu__logo">
                             <a href="{{ route('home') }}">
-                                <img src="{{ asset('assets/media/logo.png') }}" alt="Sekawan Putra Pratama" class="header-logo" style="height: 70px;">
+                                <img src="{{ asset('assets/media/logo.png') }}" alt="Sekawan Putra Pratama" class="header-logo" style="height: 60px;">
                             </a>
                         </div>
 
