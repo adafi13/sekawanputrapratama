@@ -1,0 +1,130 @@
+
+/* =========================================
+    1. MODERN PRELOADER (Logo Pulse)
+    ========================================= */
+#preloader {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #ffffff; z-index: 99999;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+
+.preloader-inner { position: relative; }
+
+/* Logo Animation */
+.preloader-logo {
+    width: 100px; /* Ukuran Logo saat loading */
+    animation: breathe 2s ease-in-out infinite;
+}
+
+/* Garis Loading di bawah logo */
+.loading-bar {
+    width: 150px; height: 3px; background: #f0f0f0;
+    margin-top: 20px; border-radius: 3px; overflow: hidden;
+}
+.loading-bar::after {
+    content: ''; display: block; width: 40%; height: 100%;
+    background: #0d6efd; /* Warna Primary */
+    animation: loading-slide 1s infinite linear;
+}
+
+@keyframes breathe {
+    0% { transform: scale(0.95); opacity: 0.8; }
+    50% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+@keyframes loading-slide {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(250%); }
+}
+
+/* =========================================
+    2. MODERN NAVBAR / HEADER
+    ========================================= */
+header {
+    padding: 20px 0;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* Sticky State (Saat di-scroll) */
+header.sticky {
+    padding: 10px 0;
+    position: fixed; top: 0; width: 100%; z-index: 1000;
+    background: rgba(255, 255, 255, 0.9); /* Lebih transparan dikit */
+    backdrop-filter: blur(20px); /* Blur lebih kuat (Glassmorphism) */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Menu Links Animation */
+.main-menu__list li a {
+    font-weight: 500;
+    color: #333;
+    position: relative;
+    padding: 5px 0;
+    transition: color 0.3s ease;
+}
+
+.main-menu__list li a:hover,
+.main-menu__list li a.active {
+    color: #0d6efd !important; /* Warna Primary */
+}
+
+/* Garis bawah animasi saat hover */
+.main-menu__list li a::after {
+    content: ''; position: absolute; width: 0; height: 2px;
+    bottom: 0; left: 0; background-color: #0d6efd !important;
+    transition: width 0.3s ease;
+}
+
+.main-menu__list li a:hover::after,
+.main-menu__list li a.active::after {
+    width: 100%;
+}
+
+/* Button Header Style */
+.header-btn {
+    background: #0d6efd !important; color: white;
+    padding: 10px 25px; border-radius: 50px;
+    font-weight: 600; font-size: 14px;
+    box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);
+    transition: all 0.3s ease;
+    text-decoration: none !important;
+}
+.header-btn:hover {
+    background: #0b5ed7; transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(13, 110, 253, 0.4); color: white;
+}
+
+/* =========================================
+    3. FLOATING WA & FOOTER
+    ========================================= */
+.float-wa {
+    position: fixed; width: 60px; height: 60px; bottom: 30px; right: 30px;
+    background-color: #25d366; color: #FFF; border-radius: 50%;
+    text-align: center; font-size: 30px; box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+    z-index: 9999; display: flex; align-items: center; justify-content: center;
+    text-decoration: none; transition: all 0.3s ease;
+}
+.float-wa:hover { background-color: #128C7E; transform: translateY(-5px); color: #FFF; }
+
+.pulse-animation { animation: pulse-green 2s infinite; }
+
+@keyframes pulse-green {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+/* Footer */
+.footer-modern { background-color: #0F172A; color: #94a3b8; padding-top: 80px; }
+.footer-widget h5 { color: #fff; font-weight: 700; margin-bottom: 25px; font-size: 1.2rem; }
+.footer-links li { margin-bottom: 12px; }
+.footer-links a { color: #94a3b8; text-decoration: none; transition: 0.3s; }
+.footer-links a:hover { color: #60A5FA; padding-left: 5px; }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding: 25px 0; margin-top: 50px; }
+
+@media (max-width: 767px) {
+    .float-wa { width: 50px; height: 50px; bottom: 20px; right: 20px; font-size: 24px; }
+    header { padding: 15px 0; }
+}

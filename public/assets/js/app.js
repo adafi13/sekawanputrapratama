@@ -4,7 +4,7 @@ var MyScroll = "";
 
   // Deteksi Mobile
   var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Nokia|Opera Mini/i.test(navigator.userAgent) ? true : false;
-  
+
   var Init = {
     i: function (e) {
       Init.s();
@@ -38,7 +38,7 @@ var MyScroll = "";
     preloader: function () {
       setTimeout(function () {
         $("#preloader").fadeOut("slow");
-      }, 1000);
+      }, 300);
     },
 
     // 2. Header
@@ -104,7 +104,7 @@ var MyScroll = "";
     // 3. Smooth Scrollbar (BUG FIX DISINI)
     smoothScrollbar: function () {
       if ($("body").hasClass("tt-smooth-scroll") && !isMobile) {
-        
+
         // Cek library
         if (typeof window.Scrollbar === 'undefined') {
             return;
@@ -120,7 +120,7 @@ var MyScroll = "";
             this.handleHashChange = this.handleHashChange.bind(this);
             window.addEventListener('hashchange', this.handleHashChange);
           }
-          
+
           handleHashChange() {
              this.jumpToHash(window.location.hash);
           }
@@ -141,11 +141,11 @@ var MyScroll = "";
             window.removeEventListener('hashchange', this.handleHashChange);
           }
         }
-        
+
         AnchorPlugin.pluginName = 'anchor'; // Definisi nama plugin
 
         Scrollbar.use(AnchorPlugin);
-        
+
         if(document.querySelector("#scroll-container")) {
             Scrollbar.init(document.querySelector("#scroll-container"), {
                 damping: 0.175,
@@ -167,7 +167,7 @@ var MyScroll = "";
       if ($(".text-reveal").length && document.querySelector('.random-word')) {
         let i = 0;
         const phrases = ['Web Development', 'Apps Development', 'Office Server'];
-        
+
         const randomNum = (num, max) => {
           let j = Math.floor(Math.random() * max);
           return (num === j) ? randomNum(i, max) : j;
@@ -178,7 +178,7 @@ var MyScroll = "";
           if(!phrase) return;
           i = randomNum(i, phrases.length);
           const newPhrase = phrases[i];
-          setTimeout(() => { phrase.textContent = newPhrase; }, 400); 
+          setTimeout(() => { phrase.textContent = newPhrase; }, 400);
         }
 
         randomizeText();
@@ -218,7 +218,7 @@ var MyScroll = "";
           centerMode: true,
           arrows: false,
           speed: 800,
-          autoplaySpeed: 2000, 
+          autoplaySpeed: 2000,
           responsive: [
             { breakpoint: 821, settings: { variableWidth: false, centerMode: false } },
           ],
@@ -272,13 +272,13 @@ var MyScroll = "";
         var _self = $(this);
         var btn = _self.closest("div").find('button[type="submit"]');
         btn.attr("disabled", "disabled");
-        btn.find("span").text("Sending..."); 
+        btn.find("span").text("Sending...");
 
         setTimeout(function() {
              $(".contact-form").trigger("reset");
              btn.removeAttr("disabled");
              btn.find("span").text("Submit");
-             
+
              // Pastikan element pesan ada
              var msgBox = document.getElementById("messages");
              if(msgBox){
