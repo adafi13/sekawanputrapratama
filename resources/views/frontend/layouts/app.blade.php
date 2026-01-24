@@ -59,7 +59,7 @@
 
                         <div class="main-menu__logo">
                             <a href="{{ route('home') }}">
-                                <img src="{{ asset('assets/media/logo.png') }}" alt="Sekawan Putra Pratama" class="header-logo" style="height: 90px;">
+                                <img src="{{ asset('assets/media/logo.png') }}" alt="Sekawan Putra Pratama" class="header-logo" style="height: 70px;">
                             </a>
                         </div>
 
