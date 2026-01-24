@@ -140,8 +140,16 @@
                             <div class="row g-4">
                                 <div class="col-md-6">
                                     <div class="form-floating">
+                                        <input type="text" class="form-control bg-light border-0" name="company_name" id="company_name" placeholder="Nama Perusahaan" value="{{ old('company_name') }}" required>
+                                        <label for="company_name" class="text-secondary">Nama Perusahaan</label>
+                                    </div>
+                                    @error('company_name')<small class="text-danger ps-2">{{ $message }}</small>@enderror
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-floating">
                                         <input type="text" class="form-control bg-light border-0" name="name" id="name" placeholder="Nama" value="{{ old('name') }}" required>
-                                        <label for="name" class="text-secondary">Nama Lengkap</label>
+                                        <label for="name" class="text-secondary">Nama Lengkap (Kontak Person)</label>
                                     </div>
                                     @error('name')<small class="text-danger ps-2">{{ $message }}</small>@enderror
                                 </div>

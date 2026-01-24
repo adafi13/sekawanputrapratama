@@ -7,6 +7,7 @@ use App\Models\BlogCategory;
 use App\Models\Portfolio;
 use App\Models\PortfolioCategory;
 use App\Models\ContactMessage;
+use App\Models\Lead;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -56,6 +57,7 @@ class FrontendController extends Controller
     public function contactStore(Request $request)
     {
         $validated = $request->validate([
+            'company_name' => 'required|string|max:255',
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'phone' => 'nullable|string|max:20',
@@ -64,7 +66,19 @@ class FrontendController extends Controller
         ]);
 
         try {
+            // Save as Contact Message
             ContactMessage::create($validated);
+
+            // Create Lead from contact form
+            Lead::create([
+                'company_name' => $validated['company_name'],
+                'contact_person' => $validated['name'],
+                'email' => $validated['email'],
+                'phone' => $validated['phone'] ?? null,
+                'status' => 'new',
+                'source' => 'website',
+                'notes' => "Layanan: " . ($validated['service'] ?? '-') . "\n\nPesan:\n" . $validated['message'],
+            ]);
 
             return back()->with('success', 'Terima kasih! Pesan Anda telah kami terima. Tim kami akan menghubungi Anda segera.');
         } catch (\Exception $e) {
