@@ -25,75 +25,135 @@
 <section class="py-5 bg-white">
     <div class="container py-lg-5">
         
+        {{-- Category Filter Pills --}}
         <div class="d-flex justify-content-center mb-5 animate-up">
             <div class="p-2 bg-light rounded-pill d-inline-flex gap-1 border shadow-sm">
-                <button class="btn btn-filter active rounded-pill px-4 py-2 fw-bold small" data-filter="all">Semua</button>
-                <button class="btn btn-filter rounded-pill px-4 py-2 fw-bold small" data-filter="web">Website</button>
-                <button class="btn btn-filter rounded-pill px-4 py-2 fw-bold small" data-filter="app">Aplikasi</button>
-                <button class="btn btn-filter rounded-pill px-4 py-2 fw-bold small" data-filter="infra">Infrastruktur</button>
+                <button class="btn btn-filter {{ !request('category') ? 'active' : '' }} rounded-pill px-4 py-2 fw-bold small" data-filter="">Semua</button>
+                @foreach($categories as $cat)
+                    <button class="btn btn-filter {{ request('category') == $cat->slug ? 'active' : '' }} rounded-pill px-4 py-2 fw-bold small" data-filter="{{ $cat->slug }}">{{ $cat->name }}</button>
+                @endforeach
             </div>
+        </div>
+        
+        @if($featuredPortfolios->count() > 0 && !request()->has('search') && !request()->has('category'))
+        <div class="mb-5">
+            <div class="text-center mb-4">
+                <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-2 mb-3">
+                    <i class="fas fa-star me-1"></i> Featured Projects
+                </span>
+                <h2 class="fw-bold text-dark">Proyek Unggulan</h2>
+            </div>
+            <div class="row g-4 mb-5">
+                @foreach($featuredPortfolios as $featured)
+                    <div class="col-md-6 col-lg-4 portfolio-item" data-category="{{ $featured->category ? $featured->category->slug : '' }}" style="opacity: 1; transition: opacity 0.3s ease;">
+                        <div class="card h-100 border-0 shadow-lg rounded-4 overflow-hidden project-card featured">
+                            <div class="position-relative overflow-hidden" style="height: 280px;">
+                                @if($featured->featured_image)
+                                    <img src="{{ Storage::url($featured->featured_image) }}" class="w-100 h-100 object-fit-cover transition-all" alt="{{ $featured->title }}">
+                                @else
+                                    <div class="w-100 h-100 bg-gradient d-flex align-items-center justify-content-center">
+                                        <i class="fas fa-briefcase fa-4x text-white opacity-25"></i>
+                                    </div>
+                                @endif
+                                <div class="project-overlay">
+                                    <a href="{{ route('portfolio.show', $featured->slug) }}" class="btn btn-light rounded-pill fw-bold px-4 py-2">
+                                        <i class="fas fa-eye me-2"></i> Lihat Detail
+                                    </a>
+                                </div>
+                                <span class="position-absolute top-0 end-0 m-3 badge bg-warning text-dark rounded-pill">
+                                    <i class="fas fa-star me-1"></i> Featured
+                                </span>
+                            </div>
+                            <div class="card-body p-4">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    @if($featured->category)
+                                        <span class="badge bg-primary bg-opacity-10 text-primary border-primary border-opacity-10 rounded-pill px-3">
+                                            {{ $featured->category->name }}
+                                        </span>
+                                    @endif
+                                    <small class="text-muted">
+                                        <i class="far fa-calendar-alt me-1"></i> {{ $featured->created_at->format('Y') }}
+                                    </small>
+                                </div>
+                                <h5 class="fw-bold text-dark mb-2">{{ Str::limit($featured->title, 45) }}</h5>
+                                <p class="text-muted small mb-0 text-truncate-2">{{ Str::limit($featured->short_description, 100) }}</p>
+                                @if($featured->client_name)
+                                    <div class="mt-3 pt-3 border-top">
+                                        <small class="text-muted">
+                                            <i class="fas fa-building me-1"></i> {{ $featured->client_name }}
+                                        </small>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+        @endif
+
+        <div class="text-center mb-4">
+            <h3 class="fw-bold text-dark">Semua Proyek</h3>
+            <p class="text-muted">Eksplorasi portofolio lengkap kami</p>
         </div>
 
         <div class="row g-4" id="portfolio-grid">
-            
-            <div class="col-md-6 col-lg-4 portfolio-item" data-category="web">
-                <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden project-card">
-                    <div class="position-relative overflow-hidden">
-                        <img src="{{ asset('assets/media/images/tab-image-1.png') }}" class="card-img-top transition-all" alt="Project 1">
-                        <div class="project-overlay">
-                            <a href="{{ route('portfolio.show', 1) }}" class="btn btn-light rounded-pill fw-bold">Lihat Detail</a>
+            @forelse($portfolios as $portfolio)
+                <div class="col-md-6 col-lg-4 portfolio-item" data-category="{{ $portfolio->category ? $portfolio->category->slug : '' }}" style="opacity: 1; transition: opacity 0.3s ease;">
+                    <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden project-card">
+                        <div class="position-relative overflow-hidden" style="height: 250px;">
+                            @if($portfolio->featured_image)
+                                <img src="{{ Storage::url($portfolio->featured_image) }}" class="w-100 h-100 object-fit-cover transition-all" alt="{{ $portfolio->title }}">
+                            @else
+                                <div class="w-100 h-100 bg-gradient d-flex align-items-center justify-content-center">
+                                    <i class="fas fa-briefcase fa-4x text-white opacity-25"></i>
+                                </div>
+                            @endif
+                            <div class="project-overlay">
+                                <a href="{{ route('portfolio.show', $portfolio->slug) }}" class="btn btn-light rounded-pill fw-bold px-4 py-2">
+                                    <i class="fas fa-eye me-2"></i> Lihat Detail
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="card-body p-4">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <span class="badge bg-primary bg-opacity-10 text-primary border-primary border-opacity-10 rounded-pill px-3">Website</span>
-                            <small class="text-muted"><i class="far fa-calendar-alt me-1"></i> 2025</small>
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                @if($portfolio->category)
+                                    <span class="badge bg-primary bg-opacity-10 text-primary border-primary border-opacity-10 rounded-pill px-3">
+                                        {{ $portfolio->category->name }}
+                                    </span>
+                                @endif
+                                <small class="text-muted">
+                                    <i class="far fa-calendar-alt me-1"></i> {{ $portfolio->created_at->format('Y') }}
+                                </small>
+                            </div>
+                            <h5 class="fw-bold text-dark mb-2">{{ Str::limit($portfolio->title, 50) }}</h5>
+                            <p class="text-muted small mb-0 text-truncate-2">{{ Str::limit($portfolio->short_description, 100) }}</p>
+                            @if($portfolio->client_name)
+                                <div class="mt-3 pt-3 border-top">
+                                    <small class="text-muted">
+                                        <i class="fas fa-building me-1"></i> {{ $portfolio->client_name }}
+                                    </small>
+                                </div>
+                            @endif
                         </div>
-                        <h5 class="fw-bold text-dark">Enterprise System ERP</h5>
-                        <p class="text-muted small mb-0 text-truncate-2">Digitalisasi manajemen perusahaan dengan sistem web yang terintegrasi dan aman.</p>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4 portfolio-item" data-category="app">
-                <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden project-card">
-                    <div class="position-relative overflow-hidden">
-                        <img src="{{ asset('assets/media/images/tab-image-2.png') }}" class="card-img-top transition-all" alt="Project 2">
-                        <div class="project-overlay">
-                            <a href="{{ route('portfolio.show', 2) }}" class="btn btn-light rounded-pill fw-bold">Lihat Detail</a>
-                        </div>
-                    </div>
-                    <div class="card-body p-4">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <span class="badge bg-success bg-opacity-10 text-success border-success border-opacity-10 rounded-pill px-3">Aplikasi</span>
-                            <small class="text-muted"><i class="far fa-calendar-alt me-1"></i> 2025</small>
-                        </div>
-                        <h5 class="fw-bold text-dark">Marketplace Indonesia</h5>
-                        <p class="text-muted small mb-0 text-truncate-2">Aplikasi mobile e-commerce dengan integrasi payment gateway dan kurir otomatis.</p>
+            @empty
+                <div class="col-12">
+                    <div class="text-center py-5">
+                        <i class="fas fa-folder-open fa-4x text-muted mb-3"></i>
+                        <h4 class="text-muted">Belum ada portfolio tersedia</h4>
+                        <p class="text-muted">Portfolio akan muncul di sini setelah dipublikasikan</p>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4 portfolio-item" data-category="infra">
-                <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden project-card">
-                    <div class="position-relative overflow-hidden">
-                        <img src="{{ asset('assets/media/images/tab-image-3.png') }}" class="card-img-top transition-all" alt="Project 3">
-                        <div class="project-overlay">
-                            <a href="{{ route('portfolio.show', 3) }}" class="btn btn-light rounded-pill fw-bold">Lihat Detail</a>
-                        </div>
-                    </div>
-                    <div class="card-body p-4">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <span class="badge bg-danger bg-opacity-10 text-danger border-danger border-opacity-10 rounded-pill px-3">Infrastruktur</span>
-                            <small class="text-muted"><i class="far fa-calendar-alt me-1"></i> 2024</small>
-                        </div>
-                        <h5 class="fw-bold text-dark">Data Center Bekasi</h5>
-                        <p class="text-muted small mb-0 text-truncate-2">Instalasi server core dan manajemen fiber optic untuk konektivitas gedung.</p>
-                    </div>
-                </div>
-            </div>
-
+            @endforelse
         </div>
+
+        @if($portfolios->hasPages())
+        <nav class="mt-5 pt-4">
+            {{ $portfolios->links('pagination::bootstrap-5') }}
+        </nav>
+        @endif
     </div>
 </section>
 
@@ -144,15 +204,20 @@
         const items = document.querySelectorAll('.portfolio-item');
 
         filters.forEach(filter => {
-            filter.addEventListener('click', function() {
+            filter.addEventListener('click', function(e) {
+                e.preventDefault();
+                
                 // Update Active Button
                 filters.forEach(f => f.classList.remove('active'));
                 this.classList.add('active');
 
                 const category = this.getAttribute('data-filter');
 
+                // Filter items with smooth animation
                 items.forEach(item => {
-                    if (category === 'all' || item.getAttribute('data-category') === category) {
+                    const itemCategory = item.getAttribute('data-category');
+                    
+                    if (category === '' || itemCategory === category) {
                         item.style.display = 'block';
                         setTimeout(() => item.style.opacity = '1', 10);
                     } else {
@@ -166,3 +231,4 @@
 </script>
 
 @endsection
+

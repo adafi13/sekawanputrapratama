@@ -19,6 +19,8 @@ class Portfolio extends Model implements HasMedia
         'slug',
         'description',
         'content',
+        'featured_image',
+        'images',
         'challenge',
         'solution',
         'results',
@@ -41,6 +43,7 @@ class Portfolio extends Model implements HasMedia
         'project_date' => 'date',
         'technologies' => 'array',
         'metrics' => 'array',
+        'images' => 'array',
         'is_featured' => 'boolean',
         'order' => 'integer',
     ];

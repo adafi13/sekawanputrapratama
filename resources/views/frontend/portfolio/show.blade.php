@@ -1,168 +1,275 @@
 @extends('frontend.layouts.app')
 
-@section('title', 'Portofolio - Sekawan Putra Pratama')
+@section('title', $portfolio->meta_title ?? $portfolio->title . ' - Portfolio Sekawan Putra Pratama')
+@section('meta_description', $portfolio->meta_description ?? Str::limit($portfolio->short_description, 160))
+@section('meta_keywords', $portfolio->meta_keywords)
 
 @section('content')
 
-<section class="position-relative py-5 overflow-hidden d-flex align-items-center" style="min-height: 400px; background-color: #0F172A;">
-    <div class="position-absolute top-0 start-0 w-100 h-100">
-        <div class="position-absolute" style="top: -10%; left: -5%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(96, 165, 250, 0.1) 0%, rgba(0,0,0,0) 70%); filter: blur(80px);"></div>
-        <div class="position-absolute w-100 h-100" style="background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 30px 30px; opacity: 0.5;"></div>
-    </div>
-
-    <div class="container position-relative z-3 text-center">
-        <span class="d-inline-flex align-items-center px-3 py-2 rounded-pill border border-white border-opacity-10 mb-4" style="background: rgba(255,255,255,0.05); backdrop-filter: blur(10px);">
-            <i class="fas fa-th-large text-primary me-2"></i>
-            <span class="small fw-bold text-white-50 text-uppercase tracking-widest">Showcase Proyek</span>
-        </span>
-        <h1 class="display-3 fw-bold text-white mb-3">Karya <span class="gradient-text">Terbaik Kami</span></h1>
-        <p class="lead text-secondary mx-auto" style="max-width: 600px; font-weight: 300;">
-            Eksplorasi bagaimana kami membantu berbagai klien mencapai potensi maksimal melalui solusi teknologi yang inovatif.
-        </p>
+{{-- Hero Section - Minimalist --}}
+<section class="py-4 bg-light border-bottom">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 small">
+                <li class="breadcrumb-item"><a href="{{ route('portfolio.index') }}" class="text-decoration-none">Portfolio</a></li>
+                @if($portfolio->category)
+                    <li class="breadcrumb-item"><a href="{{ route('portfolio.index', ['category' => $portfolio->category->slug]) }}" class="text-decoration-none">{{ $portfolio->category->name }}</a></li>
+                @endif
+                <li class="breadcrumb-item active">{{ Str::limit($portfolio->title, 40) }}</li>
+            </ol>
+        </nav>
     </div>
 </section>
 
 <section class="py-5 bg-white">
-    <div class="container py-lg-5">
-        
-        <div class="d-flex justify-content-center mb-5 animate-up">
-            <div class="p-2 bg-light rounded-pill d-inline-flex gap-1 border shadow-sm">
-                <button class="btn btn-filter active rounded-pill px-4 py-2 fw-bold small" data-filter="all">Semua</button>
-                <button class="btn btn-filter rounded-pill px-4 py-2 fw-bold small" data-filter="web">Website</button>
-                <button class="btn btn-filter rounded-pill px-4 py-2 fw-bold small" data-filter="app">Aplikasi</button>
-                <button class="btn btn-filter rounded-pill px-4 py-2 fw-bold small" data-filter="infra">Infrastruktur</button>
-            </div>
-        </div>
-
-        <div class="row g-4" id="portfolio-grid">
-            
-            <div class="col-md-6 col-lg-4 portfolio-item" data-category="web">
-                <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden project-card">
-                    <div class="position-relative overflow-hidden">
-                        <img src="{{ asset('assets/media/images/tab-image-1.png') }}" class="card-img-top transition-all" alt="Project 1">
-                        <div class="project-overlay">
-                            <a href="{{ route('portfolio.show', 1) }}" class="btn btn-light rounded-pill fw-bold">Lihat Detail</a>
-                        </div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                {{-- Title & Meta --}}
+                <div class="mb-4">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        @if($portfolio->category)
+                            <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2">{{ $portfolio->category->name }}</span>
+                        @endif
+                        <span class="text-muted small">{{ $portfolio->created_at->format('M Y') }}</span>
+                        @if($portfolio->client_name)
+                            <span class="text-muted small">• {{ $portfolio->client_name }}</span>
+                        @endif
                     </div>
-                    <div class="card-body p-4">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <span class="badge bg-primary bg-opacity-10 text-primary border-primary border-opacity-10 rounded-pill px-3">Website</span>
-                            <small class="text-muted"><i class="far fa-calendar-alt me-1"></i> 2025</small>
-                        </div>
-                        <h5 class="fw-bold text-dark">Enterprise System ERP</h5>
-                        <p class="text-muted small mb-0 text-truncate-2">Digitalisasi manajemen perusahaan dengan sistem web yang terintegrasi dan aman.</p>
-                    </div>
+                    <h1 class="display-5 fw-bold text-dark mb-3">{{ $portfolio->title }}</h1>
+                    <p class="lead text-muted mb-0" style="line-height: 1.6;">{{ $portfolio->short_description }}</p>
                 </div>
             </div>
-
-            <div class="col-md-6 col-lg-4 portfolio-item" data-category="app">
-                <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden project-card">
-                    <div class="position-relative overflow-hidden">
-                        <img src="{{ asset('assets/media/images/tab-image-2.png') }}" class="card-img-top transition-all" alt="Project 2">
-                        <div class="project-overlay">
-                            <a href="{{ route('portfolio.show', 2) }}" class="btn btn-light rounded-pill fw-bold">Lihat Detail</a>
-                        </div>
-                    </div>
-                    <div class="card-body p-4">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <span class="badge bg-success bg-opacity-10 text-success border-success border-opacity-10 rounded-pill px-3">Aplikasi</span>
-                            <small class="text-muted"><i class="far fa-calendar-alt me-1"></i> 2025</small>
-                        </div>
-                        <h5 class="fw-bold text-dark">Marketplace Indonesia</h5>
-                        <p class="text-muted small mb-0 text-truncate-2">Aplikasi mobile e-commerce dengan integrasi payment gateway dan kurir otomatis.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4 portfolio-item" data-category="infra">
-                <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden project-card">
-                    <div class="position-relative overflow-hidden">
-                        <img src="{{ asset('assets/media/images/tab-image-3.png') }}" class="card-img-top transition-all" alt="Project 3">
-                        <div class="project-overlay">
-                            <a href="{{ route('portfolio.show', 3) }}" class="btn btn-light rounded-pill fw-bold">Lihat Detail</a>
-                        </div>
-                    </div>
-                    <div class="card-body p-4">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <span class="badge bg-danger bg-opacity-10 text-danger border-danger border-opacity-10 rounded-pill px-3">Infrastruktur</span>
-                            <small class="text-muted"><i class="far fa-calendar-alt me-1"></i> 2024</small>
-                        </div>
-                        <h5 class="fw-bold text-dark">Data Center Bekasi</h5>
-                        <p class="text-muted small mb-0 text-truncate-2">Instalasi server core dan manajemen fiber optic untuk konektivitas gedung.</p>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
 </section>
 
-<section class="py-5 bg-light">
-    <div class="container text-center py-4">
-        <h3 class="fw-bold text-dark mb-3">Ingin Bisnis Anda Menjadi Portofolio Kami Selanjutnya?</h3>
-        <p class="text-muted mb-4 mx-auto" style="max-width: 600px;">Diskusikan kebutuhan Anda dan mari kita bangun solusi teknologi yang tepat sasaran bersama-sama.</p>
-        <a href="{{ route('contact') }}" class="btn btn-primary rounded-pill px-5 py-3 fw-bold shadow-lg glow-on-hover">
-            Mulai Proyek Sekarang <i class="fas fa-paper-plane ms-2"></i>
-        </a>
+{{-- Featured Image --}}
+<section class="bg-light py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                @if($portfolio->featured_image)
+                <div class="rounded-3 overflow-hidden shadow-sm">
+                    <img src="{{ Storage::url($portfolio->featured_image) }}" class="img-fluid w-100" alt="{{ $portfolio->title }}" style="max-height: 600px; object-fit: cover;">
+                </div>
+                @endif
+            </div>
+        </div>
     </div>
 </section>
+
+{{-- Project Overview - Simple Grid --}}
+<section class="py-5 bg-white">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                
+                @if($portfolio->challenge || $portfolio->solution || $portfolio->results)
+                <div class="row g-4 mb-5">
+                    @if($portfolio->challenge)
+                    <div class="col-md-4">
+                        <div class="border-start border-warning border-3 ps-3">
+                            <h6 class="text-warning fw-bold text-uppercase small mb-2">Challenge</h6>
+                            <p class="text-muted mb-0 small" style="line-height: 1.6;">{{ $portfolio->challenge }}</p>
+                        </div>
+                    </div>
+                    @endif
+
+                    @if($portfolio->solution)
+                    <div class="col-md-4">
+                        <div class="border-start border-primary border-3 ps-3">
+                            <h6 class="text-primary fw-bold text-uppercase small mb-2">Solution</h6>
+                            <p class="text-muted mb-0 small" style="line-height: 1.6;">{{ $portfolio->solution }}</p>
+                        </div>
+                    </div>
+                    @endif
+                    
+                    @if($portfolio->results)
+                    <div class="col-md-4">
+                        <div class="border-start border-success border-3 ps-3">
+                            <h6 class="text-success fw-bold text-uppercase small mb-2">Results</h6>
+                            <p class="text-muted mb-0 small" style="line-height: 1.6;">{{ $portfolio->results }}</p>
+                        </div>
+                    </div>
+                    @endif
+                </div>
+                @endif
+
+                {{-- Content --}}
+                @if($portfolio->content)
+                <div class="mb-5">
+                    <div class="article-content text-muted" style="font-size: 1rem; line-height: 1.8;">
+                        {!! $portfolio->content !!}
+                    </div>
+                </div>
+                @endif
+
+                {{-- Metrics - Clean Cards --}}
+                @if($portfolio->metrics && is_array($portfolio->metrics) && count($portfolio->metrics) > 0)
+                <div class="mb-5">
+                    <h5 class="fw-bold mb-4">Key Metrics</h5>
+                    <div class="row g-3">
+                        @foreach($portfolio->metrics as $metric)
+                            @if(isset($metric['label']) && isset($metric['value']))
+                            <div class="col-md-4">
+                                <div class="p-4 border rounded-3 bg-light text-center h-100">
+                                    <h3 class="fw-bold text-primary mb-1">{{ $metric['value'] }}</h3>
+                                    <p class="text-muted small mb-0">{{ $metric['label'] }}</p>
+                                </div>
+                            </div>
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+                @endif
+
+                {{-- Gallery - Minimal Grid --}}
+                @if($portfolio->images && is_array($portfolio->images) && count($portfolio->images) > 0)
+                <div class="mb-5">
+                    <h5 class="fw-bold mb-4">Gallery</h5>
+                    <div class="row g-3">
+                        @foreach($portfolio->images as $image)
+                            <div class="col-md-4 col-6">
+                                <a href="{{ Storage::url($image) }}" data-lightbox="gallery" data-title="{{ $portfolio->title }}">
+                                    <div class="rounded-2 overflow-hidden gallery-item border" style="height: 200px;">
+                                        <img src="{{ Storage::url($image) }}" class="w-100 h-100 object-fit-cover" alt="{{ $portfolio->title }}">
+                                    </div>
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                @endif
+
+                {{-- Tech Stack - Simple Badges --}}
+                @if($portfolio->technologies)
+                <div class="mb-5">
+                    <h5 class="fw-bold mb-3">Technologies</h5>
+                    <div class="d-flex flex-wrap gap-2">
+                        @foreach(is_array($portfolio->technologies) ? $portfolio->technologies : explode(',', $portfolio->technologies) as $tech)
+                            <span class="badge bg-dark bg-opacity-10 text-dark fw-normal px-3 py-2">{{ is_array($tech) ? $tech : trim($tech) }}</span>
+                        @endforeach
+                    </div>
+                </div>
+                @endif
+
+                {{-- Project Info & CTA - Horizontal Layout --}}
+                @if($portfolio->client_name || $portfolio->project_url)
+                <div class="border-top pt-4">
+                    <div class="row align-items-center">
+                        @if($portfolio->client_name)
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <p class="text-muted small mb-1">Client</p>
+                            <p class="fw-bold mb-0">{{ $portfolio->client_name }}</p>
+                            @if($portfolio->client_industry)
+                                <p class="text-muted small mb-0">{{ $portfolio->client_industry }}</p>
+                            @endif
+                        </div>
+                        @endif
+                        
+                        @if($portfolio->project_url)
+                        <div class="col-md-6 text-md-end">
+                            <a href="{{ $portfolio->project_url }}" target="_blank" class="btn btn-primary px-4">
+                                Visit Project <i class="fas fa-arrow-right ms-2 small"></i>
+                            </a>
+                        </div>
+                        @endif
+                    </div>
+                </div>
+                @endif
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{{-- Related Projects - Minimal Cards --}}
+@if(isset($relatedPortfolios) && $relatedPortfolios->count() > 0)
+<section class="py-5 bg-light border-top">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <h5 class="fw-bold mb-4">Related Projects</h5>
+                
+                <div class="row g-3">
+                    @foreach($relatedPortfolios as $related)
+                        <div class="col-md-4">
+                            <a href="{{ route('portfolio.show', $related->slug) }}" class="text-decoration-none">
+                                <div class="card border-0 shadow-sm h-100 project-card">
+                                    <div class="position-relative overflow-hidden" style="height: 180px;">
+                                        @if($related->featured_image)
+                                            <img src="{{ Storage::url($related->featured_image) }}" class="w-100 h-100 object-fit-cover" alt="{{ $related->title }}">
+                                        @else
+                                            <div class="w-100 h-100 bg-light d-flex align-items-center justify-content-center">
+                                                <i class="fas fa-briefcase fa-2x text-muted opacity-25"></i>
+                                            </div>
+                                        @endif
+                                    </div>
+                                    <div class="card-body p-3">
+                                        @if($related->category)
+                                            <span class="badge bg-primary bg-opacity-10 text-primary small mb-2">{{ $related->category->name }}</span>
+                                        @endif
+                                        <h6 class="fw-bold text-dark mb-1">{{ Str::limit($related->title, 50) }}</h6>
+                                        <p class="text-muted small mb-0">{{ Str::limit($related->short_description, 80) }}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@endif
 
 <style>
-    .gradient-text {
-        background: linear-gradient(135deg, #60A5FA 0%, #A78BFA 100%);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    /* Minimal & Professional Styles */
+    .project-card { 
+        transition: all 0.3s ease; 
+        border-radius: 8px;
     }
-    .tracking-widest { letter-spacing: 3px; }
-    
-    /* Project Card Hover */
-    .project-card { transition: all 0.4s ease; }
-    .project-card:hover { transform: translateY(-10px); }
-    .project-card img { transition: transform 0.6s ease; }
-    .project-card:hover img { transform: scale(1.1); }
-    
-    .project-overlay {
-        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(4px);
-        display: flex; align-items: center; justify-content: center;
-        opacity: 0; transition: opacity 0.4s ease; z-index: 2;
+    .project-card:hover { 
+        transform: translateY(-5px); 
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important; 
     }
-    .project-card:hover .project-overlay { opacity: 1; }
+    .project-card img { transition: transform 0.5s ease; }
+    .project-card:hover img { transform: scale(1.05); }
     
-    /* Filter Button */
-    .btn-filter { color: #64748b; border: none; }
-    .btn-filter:hover { background: rgba(13, 110, 253, 0.05); color: #0d6efd; }
-    .btn-filter.active { background: #0d6efd !important; color: white !important; box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3); }
-
-    .text-truncate-2 {
-        display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    .gallery-item { 
+        transition: all 0.3s ease; 
+        cursor: pointer;
+        background: #f8f9fa;
+    }
+    .gallery-item:hover { 
+        opacity: 0.9;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .article-content img { 
+        max-width: 100%; 
+        height: auto; 
+        border-radius: 8px;
+        margin: 1.5rem 0;
+    }
+    .article-content p { margin-bottom: 1rem; }
+    .article-content h2, .article-content h3, .article-content h4 { 
+        margin-top: 2rem; 
+        margin-bottom: 1rem;
+        font-weight: 700;
+    }
+    .article-content ul, .article-content ol { 
+        margin-bottom: 1rem; 
+        padding-left: 1.5rem;
+    }
+    .article-content blockquote {
+        border-left: 3px solid #0d6efd;
+        padding-left: 1rem;
+        margin: 1.5rem 0;
+        font-style: italic;
+        color: #6c757d;
     }
 </style>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const filters = document.querySelectorAll('.btn-filter');
-        const items = document.querySelectorAll('.portfolio-item');
-
-        filters.forEach(filter => {
-            filter.addEventListener('click', function() {
-                // Update Active Button
-                filters.forEach(f => f.classList.remove('active'));
-                this.classList.add('active');
-
-                const category = this.getAttribute('data-filter');
-
-                items.forEach(item => {
-                    if (category === 'all' || item.getAttribute('data-category') === category) {
-                        item.style.display = 'block';
-                        setTimeout(() => item.style.opacity = '1', 10);
-                    } else {
-                        item.style.opacity = '0';
-                        setTimeout(() => item.style.display = 'none', 300);
-                    }
-                });
-            });
-        });
-    });
-</script>
 
 @endsection

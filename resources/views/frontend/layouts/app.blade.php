@@ -32,10 +32,65 @@
     <link rel="stylesheet" href="{{ asset('assets/css/vendor/slick-slider.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/vendor/video-js.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/vendor/nice-select.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css">
     <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
 
     {{-- Custom Styles for Modern Layout --}}
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
+    
+    <style>
+        /* Gallery hover effect */
+        .gallery-item { 
+            cursor: pointer; 
+            transition: transform 0.3s ease; 
+            position: relative;
+            overflow: hidden;
+        }
+        .gallery-item:hover { 
+            transform: scale(1.05); 
+        }
+        .gallery-item::after {
+            content: '\f002';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 2rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+        .gallery-item:hover img {
+            filter: brightness(0.7);
+        }
+        
+        /* Blog hover effects */
+        .blog-card { transition: all 0.3s ease; }
+        .blog-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important; }
+        .hover-primary:hover { color: #0d6efd !important; }
+        .bg-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        /* Portfolio gallery grid */
+        .portfolio-gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .portfolio-gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+    
     @stack('styles')
 </head>
 
@@ -220,10 +275,20 @@
     <script src="{{ asset('assets/js/vendor/smooth-scrollbar.js') }}"></script>
     <script src="{{ asset('assets/js/vendor/video.js') }}"></script>
     <script src="{{ asset('assets/js/vendor/jquery.nice-select.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
     <script src="{{ asset('assets/js/app.js') }}"></script>
 
     {{-- Scripts Tambahan --}}
     <script src="{{ asset('assets/js/custom.js') }}"></script>
+    
+    <script>
+        // Lightbox configuration
+        lightbox.option({
+            'resizeDuration': 200,
+            'wrapAround': true,
+            'albumLabel': "Image %1 of %2"
+        });
+    </script>
 
     @stack('scripts')
 
