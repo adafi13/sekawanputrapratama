@@ -36,7 +36,8 @@ class LeadObserver
     }
 
     /**
-     * Convert lead to deal: create Customer, Project, and Contract.
+     * Convert lead to deal: create Customer and Project only.
+     * Contract creation moved to manual action with modal confirmation.
      */
     protected function convertToDeal(Lead $lead): void
     {
@@ -59,7 +60,7 @@ class LeadObserver
             $lead->update(['customer_id' => $customer->id]);
         }
 
-        // Create project
+        // Create project only (Contract will be created manually via "Create Contract" action)
         $project = Project::create([
             'lead_id' => $lead->id,
             'customer_id' => $customer->id,
@@ -71,31 +72,11 @@ class LeadObserver
             'start_date' => now(),
         ]);
 
-        // Get the latest accepted quotation
-        $quotation = $lead->quotations()
-            ->where('status', Quotation::STATUS_ACCEPTED)
-            ->latest()
-            ->first();
-
-        // Create contract
-        $contract = Contract::create([
-            'project_id' => $project->id,
-            'customer_id' => $customer->id,
-            'quotation_id' => $quotation?->id,
-            'contract_value' => $lead->deal_value ?? $quotation?->total_amount ?? 0,
-            'start_date' => now(),
-            'end_date' => now()->addDays(90),
-            'terms' => Contract::getDefaultTerms($customer),
-            'status' => Contract::STATUS_DRAFT,
-        ]);
-
-        // Update project with contract
-        $project->update(['contract_id' => $contract->id]);
-
         Notification::make()
-            ->title('Deal Converted Successfully')
-            ->body("Project and Contract have been created for {$customer->company_name}.")
+            ->title('Project Created Successfully')
+            ->body("Project has been created for {$customer->company_name}. **Next: Create Contract** via Actions button.")
             ->success()
+            ->duration(10000) // Show for 10 seconds
             ->send();
     }
 

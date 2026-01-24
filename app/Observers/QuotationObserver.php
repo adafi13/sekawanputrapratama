@@ -9,6 +9,54 @@ use Illuminate\Support\Facades\Log;
 class QuotationObserver
 {
     /**
+     * Handle the Quotation "saving" event.
+     * This runs BEFORE save, allowing us to modify the model.
+     */
+    public function saving(Quotation $quotation): void
+    {
+        $this->calculateTotals($quotation);
+    }
+
+    /**
+     * Calculate and update quotation totals
+     */
+    protected function calculateTotals(Quotation $quotation): void
+    {
+        // Calculate subtotal from items if available
+        if ($quotation->exists && $quotation->relationLoaded('items')) {
+            $subtotal = $quotation->items->sum(function ($item) {
+                $price = floatval($item->unit_price ?? 0);
+                $discountPercent = floatval($item->discount_percent ?? 0);
+                return $price - ($price * ($discountPercent / 100));
+            });
+            
+            $quotation->subtotal = $subtotal;
+        } else {
+            // Use existing subtotal if items not loaded
+            $subtotal = floatval($quotation->subtotal ?? 0);
+        }
+
+        // Calculate discount amount
+        $discountPercent = floatval($quotation->discount_percentage ?? 0);
+        $discountAmount = $subtotal * ($discountPercent / 100);
+        $quotation->discount_amount = $discountAmount;
+
+        // Calculate amount after discount
+        $afterDiscount = $subtotal - $discountAmount;
+
+        // Calculate tax if applicable
+        $taxAmount = 0;
+        if ($quotation->include_tax) {
+            $taxPercent = floatval($quotation->tax_percentage ?? 11);
+            $taxAmount = $afterDiscount * ($taxPercent / 100);
+        }
+        $quotation->tax_amount = $taxAmount;
+
+        // Calculate grand total
+        $quotation->grand_total = $afterDiscount + $taxAmount;
+    }
+    
+    /**
      * Handle the Quotation "created" event.
      */
     public function created(Quotation $quotation): void

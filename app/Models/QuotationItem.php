@@ -20,7 +20,6 @@ class QuotationItem extends Model
         'item_type',
         'name',
         'description',
-        'quantity',
         'unit_price',
         'discount_percent',
         'total',
@@ -28,7 +27,6 @@ class QuotationItem extends Model
     ];
 
     protected $casts = [
-        'quantity' => 'integer',
         'unit_price' => 'decimal:2',
         'discount_percent' => 'decimal:2',
         'total' => 'decimal:2',

@@ -21,6 +21,34 @@ use Filament\Schemas\Components\Utilities\Set;
 
 class QuotationForm
 {
+    /**
+     * Helper method to calculate and update grand_total
+     */
+    protected static function updateGrandTotal(Set $set, Get $get): void
+    {
+        $items = $get('../../items') ?? $get('items') ?? [];
+        $subtotal = 0;
+        
+        foreach ($items as $item) {
+            $price = floatval($item['unit_price'] ?? 0);
+            $disc = floatval($item['discount_percent'] ?? 0);
+            $itemTotal = $price - ($price * ($disc / 100));
+            $subtotal += $itemTotal;
+        }
+        
+        $discountPercent = floatval($get('../../discount_percentage') ?? $get('discount_percentage') ?? 0);
+        $afterDiscount = $subtotal - ($subtotal * ($discountPercent / 100));
+        $grandTotal = $afterDiscount;
+        
+        if ($get('../../include_tax') ?? $get('include_tax')) {
+            $taxPercent = floatval($get('../../tax_percentage') ?? $get('tax_percentage') ?? 12);
+            $tax = $afterDiscount * ($taxPercent / 100);
+            $grandTotal += $tax;
+        }
+        
+        $set('../../grand_total', $grandTotal) ?? $set('grand_total', $grandTotal);
+    }
+    
     public static function getSchema(): array
     {
         return [
@@ -163,6 +191,9 @@ class QuotationForm
                                     ->minValue(0)
                                     ->maxValue(999999999999)
                                     ->live()
+                                    ->afterStateUpdated(function ($state, Set $set, Get $get) {
+                                        QuotationForm::updateGrandTotal($set, $get);
+                                    })
                                     ->columnSpan(2),
                                 TextInput::make('discount_percent')
                                     ->hiddenLabel()
@@ -173,6 +204,9 @@ class QuotationForm
                                     ->maxValue(100)
                                     ->placeholder('Disc')
                                     ->live()
+                                    ->afterStateUpdated(function ($state, Set $set, Get $get) {
+                                        QuotationForm::updateGrandTotal($set, $get);
+                                    })
                                     ->columnSpan(2),
                                 Placeholder::make('item_total')
                                     ->hiddenLabel()
@@ -215,13 +249,19 @@ class QuotationForm
                                         ->minValue(0)
                                         ->maxValue(100)
                                         ->helperText('Applied after item discounts')
-                                        ->live(),
+                                        ->live()
+                                        ->afterStateUpdated(function ($state, Set $set, Get $get) {
+                                            self::updateGrandTotal($set, $get);
+                                        }),
                                     Toggle::make('include_tax')
                                         ->label('Include Tax (PPN)')
                                         ->default(false)
                                         ->live()
                                         ->inline(false)
-                                        ->helperText('Toggle to add tax calculation'),
+                                        ->helperText('Toggle to add tax calculation')
+                                        ->afterStateUpdated(function ($state, Set $set, Get $get) {
+                                            self::updateGrandTotal($set, $get);
+                                        }),
                                     TextInput::make('tax_percentage')
                                         ->label('Tax Rate (%)')
                                         ->numeric()
@@ -231,7 +271,10 @@ class QuotationForm
                                         ->maxValue(100)
                                         ->helperText('Default PPN 12%')
                                         ->live()
-                                        ->visible(fn (Get $get) => $get('include_tax')),
+                                        ->visible(fn (Get $get) => $get('include_tax'))
+                                        ->afterStateUpdated(function ($state, Set $set, Get $get) {
+                                            self::updateGrandTotal($set, $get);
+                                        }),
                                 ]),
                                 Grid::make(1)->schema([
                                     Placeholder::make('subtotal_display')
@@ -305,6 +348,30 @@ class QuotationForm
                                                         Rp ' . number_format($grandTotal, 0, ',', '.') . '
                                                     </div>');
                                         }),
+                                    
+                                    // Hidden field to store grand_total value
+                                    \Filament\Forms\Components\Hidden::make('grand_total')
+                                        ->dehydrated()
+                                        ->afterStateHydrated(function (Set $set, Get $get, $state) {
+                                            // Calculate and set grand_total on form load
+                                            $items = $get('items') ?? [];
+                                            $subtotal = 0;
+                                            foreach ($items as $item) {
+                                                $price = floatval($item['unit_price'] ?? 0);
+                                                $disc = floatval($item['discount_percent'] ?? 0);
+                                                $itemTotal = $price - ($price * ($disc / 100));
+                                                $subtotal += $itemTotal;
+                                            }
+                                            $discountPercent = floatval($get('discount_percentage') ?? 0);
+                                            $afterDiscount = $subtotal - ($subtotal * ($discountPercent / 100));
+                                            $grandTotal = $afterDiscount;
+                                            if ($get('include_tax')) {
+                                                $taxPercent = floatval($get('tax_percentage') ?? 12);
+                                                $tax = $afterDiscount * ($taxPercent / 100);
+                                                $grandTotal += $tax;
+                                            }
+                                            $set('grand_total', $grandTotal);
+                                        }),
                                 ]),
                             ]),
                         ])
@@ -320,7 +387,8 @@ class QuotationForm
                         ')),
                     Section::make()
                         ->schema([
-                            Grid::make(3)->schema([
+                            // Termin 1 (side by side)
+                            Grid::make(2)->schema([
                                 TextInput::make('payment_term_1_percentage')
                                     ->label('Termin 1 (%)')
                                     ->numeric()
@@ -329,6 +397,15 @@ class QuotationForm
                                     ->minValue(0)
                                     ->maxValue(100)
                                     ->helperText('Down Payment'),
+                                Textarea::make('payment_term_1_description')
+                                    ->label('Termin 1 Details')
+                                    ->placeholder('e.g., Down Payment after agreement signed')
+                                    ->default('A1')
+                                    ->rows(2),
+                            ]),
+                            
+                            // Termin 2 (side by side)
+                            Grid::make(2)->schema([
                                 TextInput::make('payment_term_2_percentage')
                                     ->label('Termin 2 (%)')
                                     ->numeric()
@@ -337,6 +414,15 @@ class QuotationForm
                                     ->minValue(0)
                                     ->maxValue(100)
                                     ->helperText('Progress Payment'),
+                                Textarea::make('payment_term_2_description')
+                                    ->label('Termin 2 Details')
+                                    ->placeholder('e.g., Progress Payment at 50% project completion')
+                                    ->default('A2')
+                                    ->rows(2),
+                            ]),
+                            
+                            // Termin 3 (side by side)
+                            Grid::make(2)->schema([
                                 TextInput::make('payment_term_3_percentage')
                                     ->label('Termin 3 (%)')
                                     ->numeric()
@@ -345,54 +431,14 @@ class QuotationForm
                                     ->minValue(0)
                                     ->maxValue(100)
                                     ->helperText('Final Payment'),
+                                Textarea::make('payment_term_3_description')
+                                    ->label('Termin 3 Details')
+                                    ->placeholder('e.g., Final Payment upon project completion & handover')
+                                    ->default('A3')
+                                    ->rows(2),
                             ]),
-                            Textarea::make('payment_term_1_description')
-                                ->label('Termin 1 Details')
-                                ->placeholder('e.g., Down Payment after agreement signed')
-                                ->rows(2)
-                                ->columnSpanFull(),
-                            Textarea::make('payment_term_2_description')
-                                ->label('Termin 2 Details')
-                                ->placeholder('e.g., Progress Payment at 50% project completion')
-                                ->rows(2)
-                                ->columnSpanFull(),
-                            Textarea::make('payment_term_3_description')
-                                ->label('Termin 3 Details')
-                                ->placeholder('e.g., Final Payment upon project completion & handover')
-                                ->rows(2)
-                                ->columnSpanFull(),
                         ])
                         ->extraAttributes(['style' => 'background: #fffbeb; padding: 20px; border-radius: 8px; border: 2px solid #fbbf24;']),
-
-                    // 7. REVISION POLICY
-                    Placeholder::make('revision_header')
-                        ->hiddenLabel()
-                        ->content(new \Illuminate\Support\HtmlString('
-                            <div style="margin-top: 35px; margin-bottom: 15px;">
-                                <h3 style="font-weight: 700; font-size: 14px; color: #1e293b; border-bottom: 2px solid #3b82f6; padding-bottom: 8px;">REVISION POLICY</h3>
-                            </div>
-                        ')),
-                    Section::make()
-                        ->schema([
-                            Grid::make(2)->schema([
-                                TextInput::make('revision_rounds')
-                                    ->label('Maximum Revision Rounds')
-                                    ->numeric()
-                                    ->default(3)
-                                    ->minValue(0)
-                                    ->maxValue(10)
-                                    ->helperText('Free revisions included'),
-                                TextInput::make('validity_days')
-                                    ->label('Revision Period (Days)')
-                                    ->numeric()
-                                    ->default(14)
-                                    ->minValue(1)
-                                    ->maxValue(365)
-                                    ->suffix('days')
-                                    ->helperText('Valid within X days of delivery'),
-                            ]),
-                        ])
-                        ->extraAttributes(['style' => 'background: #eff6ff; padding: 20px; border-radius: 8px; border: 2px solid #3b82f6;']),
 
                     // 8. TERMS & CONDITIONS
                     Placeholder::make('terms_header')
@@ -403,14 +449,32 @@ class QuotationForm
                             </div>
                         ')),
                     CheckboxList::make('terms_and_conditions')
-                        ->hiddenLabel()
+                        ->label('Pilih Syarat & Ketentuan')
                         ->options(Quotation::getDefaultTerms())
                         ->default(array_keys(Quotation::getDefaultTerms()))
-                        ->columns(1)
+                        ->columns(2)
                         ->bulkToggleable(),
+                    
+                    Repeater::make('custom_terms')
+                        ->label('Tambahan Syarat & Ketentuan (Manual)')
+                        ->schema([
+                            Textarea::make('term')
+                                ->label('Ketentuan Tambahan')
+                                ->placeholder('Masukkan syarat dan ketentuan tambahan...')
+                                ->rows(2)
+                                ->required()
+                                ->columnSpanFull(),
+                        ])
+                        ->itemLabel(fn (array $state): ?string => $state['term'] ? \Illuminate\Support\Str::limit($state['term'], 50) : 'Ketentuan baru')
+                        ->addActionLabel('Tambah Ketentuan')
+                        ->collapsible()
+                        ->collapsed(false)
+                        ->defaultItems(0)
+                        ->columnSpanFull(),
+                    
                     Textarea::make('revision_notes')
-                        ->label('Additional Terms')
-                        ->placeholder('Any special terms or conditions not covered above...')
+                        ->label('Catatan Tambahan')
+                        ->placeholder('Catatan khusus lainnya (opsional)...')
                         ->helperText('Optional: Add custom terms specific to this quotation')
                         ->rows(3),
 

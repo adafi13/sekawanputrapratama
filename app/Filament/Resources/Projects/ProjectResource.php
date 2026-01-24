@@ -144,11 +144,13 @@ class ProjectResource extends Resource
                 BadgeColumn::make('status')
                     ->formatStateUsing(fn ($state) => Project::getStatuses()[$state] ?? $state)
                     ->colors([
-                        'warning' => Project::STATUS_AWAITING_CONTRACT,
-                        'gray' => Project::STATUS_PLANNING,
-                        'info' => Project::STATUS_IN_PROGRESS,
-                        'warning' => Project::STATUS_ON_HOLD,
+                        'warning' => [Project::STATUS_AWAITING_CONTRACT, Project::STATUS_AWAITING_DP],
+                        'primary' => Project::STATUS_PLANNING,
+                        'info' => [Project::STATUS_DEVELOPMENT_PHASE_1, Project::STATUS_DEVELOPMENT_PHASE_2],
+                        'purple' => Project::STATUS_UAT,
+                        'indigo' => Project::STATUS_DEPLOYMENT,
                         'success' => Project::STATUS_COMPLETED,
+                        'gray' => Project::STATUS_ON_HOLD,
                         'danger' => Project::STATUS_CANCELLED,
                     ]),
                 TextColumn::make('assignedTo.name')
@@ -185,10 +187,10 @@ class ProjectResource extends Resource
                         ->color('warning')
                         ->requiresConfirmation()
                         ->modalHeading('Sign Contract')
-                        ->modalDescription('By signing this contract, the project will be activated and moved to Planning stage.')
+                        ->modalDescription('By signing this contract, DP invoice will be generated and you can proceed with project planning after payment.')
                         ->modalIcon(Heroicon::OutlinedPencilSquare)
                         ->visible(fn (Project $record) => 
-                            $record->status === Project::STATUS_AWAITING_CONTRACT &&
+                            $record->status === Project::STATUS_AWAITING_DP &&
                             $record->contract &&
                             $record->contract->status === 'draft'
                         )
@@ -207,55 +209,121 @@ class ProjectResource extends Resource
                                 'signed_at' => now(),
                             ]);
                             
-                            // Auto-advance project to PLANNING
-                            $record->update([
-                                'status' => Project::STATUS_PLANNING,
+                            // Generate DP Invoice automatically
+                            $paymentTerms = $contract->payment_terms ?? [];
+                            $dpPercentage = 30; // default
+                            $dpDescription = 'Down Payment (DP)';
+                            
+                            if (isset($paymentTerms[0])) {
+                                $dpPercentage = $paymentTerms[0]['percentage'] ?? 30;
+                                $dpDescription = $paymentTerms[0]['description'] ?? 'Down Payment (DP)';
+                            }
+                            
+                            $dpAmount = ($contract->contract_value * $dpPercentage) / 100;
+                            
+                            // Generate DP Invoice
+                            $invoiceNumber = self::generateInvoiceNumber();
+                            $invoice = \App\Models\Invoice::create([
+                                'project_id' => $record->id,
+                                'invoice_number' => $invoiceNumber,
+                                'payment_stage' => 'dp',
+                                'amount' => $dpAmount,
+                                'status' => \App\Models\Invoice::STATUS_PENDING,
+                                'issue_date' => now(),
+                                'due_date' => now()->addDays(14),
+                                'notes' => "Pembayaran {$dpDescription} - Contract signed",
                             ]);
                             
                             Notification::make()
-                                ->title('Contract Signed')
+                                ->title('Contract Signed Successfully')
                                 ->success()
-                                ->body("Contract signed successfully. Project moved to Planning stage.")
+                                ->body("Contract signed and DP invoice {$invoiceNumber} generated (Rp " . number_format($dpAmount, 0, ',', '.') . "). Please proceed with payment to start planning.")
                                 ->send();
                         }),
                     
                     // Next Stage - Progress project status
                     Action::make('next_stage')
-                        ->label('Next Stage')
-                        ->icon(Heroicon::OutlinedArrowRight)
-                        ->color('success')
+                        ->label(function (Project $record) {
+                            // Jika tidak bisa maju karena pembayaran, beri label peringatan
+                            if (!$record->canAdvanceToNextStage()) {
+                                return 'Pending Payment';
+                            }
+
+                            return match($record->status) {
+                                Project::STATUS_AWAITING_DP => 'Start Planning',
+                                Project::STATUS_PLANNING => 'Start Development Phase 1',
+                                Project::STATUS_DEVELOPMENT_PHASE_1 => 'Advance to Phase 2',
+                                Project::STATUS_DEVELOPMENT_PHASE_2 => 'Open UAT Access',
+                                Project::STATUS_UAT => 'Release to Production',
+                                Project::STATUS_DEPLOYMENT => 'Complete Project',
+                                default => 'Next Stage',
+                            };
+                        })
+                        ->icon(fn (Project $record) => $record->canAdvanceToNextStage() 
+                            ? 'heroicon-o-arrow-right' 
+                            : 'heroicon-o-credit-card'
+                        )
+                        ->color(fn (Project $record) => $record->canAdvanceToNextStage() ? 'success' : 'warning')
                         ->requiresConfirmation()
-                        ->modalHeading(fn (Project $record) => 'Advance to: ' . (Project::getStatuses()[$record->getNextStatus()] ?? 'Next Stage'))
-                        ->modalDescription('Move this project to the next stage.')
-                        ->modalIcon(Heroicon::OutlinedArrowTrendingUp)
-                        ->visible(fn (Project $record) => $record->getNextStatus() !== null)
-                        ->form([
+                        ->modalHeading(function (Project $record) {
+                            $nextStatus = $record->getNextStatus();
+                            return $record->canAdvanceToNextStage() 
+                                ? 'Advance to: ' . (Project::getStatuses()[$nextStatus] ?? 'Next Stage')
+                                : 'Payment Required';
+                        })
+                        ->modalDescription(function (Project $record) {
+                            if (!$record->canAdvanceToNextStage()) {
+                                return match($record->status) {
+                                    Project::STATUS_AWAITING_DP => '❌ Termin 1 (DP 30%) belum lunas. Anda tidak bisa memulai fase Planning.',
+                                    Project::STATUS_DEVELOPMENT_PHASE_2 => '❌ Termin 2 (Progress 40%) belum lunas. Akses UAT tidak dapat dibuka.',
+                                    Project::STATUS_UAT => '❌ Termin 3 (Final 30%) belum lunas. Deploy ke server produksi dilarang.',
+                                    default => 'Silakan selesaikan pembayaran invoice yang menggantung sebelum lanjut.',
+                                };
+                            }
+
+                            return 'Pastikan semua checklist di tahap ini sudah selesai sebelum berpindah ke stage berikutnya.';
+                        })
+                        ->modalIcon(fn (Project $record) => $record->canAdvanceToNextStage() 
+                            ? 'heroicon-o-arrow-trending-up' 
+                            : 'heroicon-o-exclamation-triangle'
+                        )
+                        // Sembunyikan form input NOTES jika pembayaran belum lunas agar admin tidak capek mengetik
+                        ->form(fn (Project $record) => $record->canAdvanceToNextStage() ? [
                             FormComponents\Textarea::make('notes')
                                 ->label('Stage Progression Notes')
-                                ->placeholder('Why are you moving to the next stage?')
+                                ->placeholder('Contoh: Semua fitur phase 1 sudah diapprove klien...')
                                 ->required()
                                 ->rows(3),
-                        ])
-                        ->action(function (Project $record, array $data) {
+                        ] : [])
+                        ->visible(fn (Project $record) => 
+                            $record->status !== Project::STATUS_AWAITING_CONTRACT && 
+                            $record->getNextStatus() !== null
+                        )
+                        ->action(function (Project $record, array $data, $action) {
+                            // Double check di sisi server
+                            if (!$record->canAdvanceToNextStage()) {
+                                Notification::make()
+                                    ->title('Proses Dibatalkan')
+                                    ->danger()
+                                    ->body('Status tidak dapat diubah karena syarat pembayaran belum terpenuhi.')
+                                    ->send();
+                                
+                                $action->halt(); // Menghentikan eksekusi action
+                                return;
+                            }
+
                             $oldStatus = $record->status;
                             $nextStatus = $record->getNextStatus();
                             
-                            // Validate can advance (checks contract signed if needed)
-                            if (!$record->canAdvanceToNextStage()) {
-                                Notification::make()
-                                    ->title('Cannot Advance')
-                                    ->danger()
-                                    ->body('Contract must be signed before advancing from Awaiting Contract stage.')
-                                    ->send();
-                                return;
-                            }
-                            
-                            $record->update(['status' => $nextStatus]);
-                            
+                            $record->update([
+                                'status' => $nextStatus,
+                                // Opsional: simpan notes ke tabel history/log jika ada
+                            ]);
+
                             Notification::make()
-                                ->title('Stage Updated')
+                                ->title('Project Advanced Successfully')
                                 ->success()
-                                ->body("Project moved from " . Project::getStatuses()[$oldStatus] . " to " . Project::getStatuses()[$nextStatus])
+                                ->body("Project moved to " . Project::getStatuses()[$nextStatus])
                                 ->send();
                         }),
                     
@@ -288,79 +356,6 @@ class ProjectResource extends Resource
                                 ->body("Project moved back from " . Project::getStatuses()[$oldStatus] . " to " . Project::getStatuses()[$previousStatus])
                                 ->send();
                         }),
-                    
-                    // Create Invoice - With validation
-                    Action::make('create_invoice')
-                        ->label('Create Invoice')
-                        ->icon(Heroicon::OutlinedDocumentText)
-                        ->color('success')
-                        ->requiresConfirmation()
-                        ->modalHeading('Create Invoice Termin')
-                        ->modalDescription('Generate a new invoice for this project stage.')
-                        ->modalIcon(Heroicon::OutlinedBanknotes)
-                        ->form([
-                            FormComponents\Select::make('stage')
-                                ->label('Payment Stage')
-                                ->options(Invoice::getStages())
-                                ->required()
-                                ->live()
-                                ->afterStateUpdated(function ($state, $set, $get, $livewire) {
-                                    if ($state && $livewire->record) {
-                                        $project = $livewire->record;
-                                        if ($project && $project->budget) {
-                                            // Auto-suggest amounts based on stage
-                                            $suggestion = match($state) {
-                                                Invoice::STAGE_DP => $project->budget * 0.3,
-                                                Invoice::STAGE_PROGRESS => $project->budget * 0.4,
-                                                Invoice::STAGE_FINAL => $project->budget * 0.3,
-                                                default => 0,
-                                            };
-                                            $set('amount', $suggestion);
-                                        }
-                                    }
-                                }),
-                            FormComponents\TextInput::make('amount')
-                                ->label('Invoice Amount')
-                                ->numeric()
-                                ->prefix('Rp')
-                                ->required()
-                                ->helperText('Amount will auto-populate based on project budget and stage'),
-                            FormComponents\DatePicker::make('due_date')
-                                ->label('Due Date')
-                                ->required()
-                                ->default(now()->addDays(30)),
-                            FormComponents\Textarea::make('notes')
-                                ->label('Invoice Notes')
-                                ->placeholder('Add any special terms, conditions, or notes...')
-                                ->rows(3)
-                                ->columnSpanFull(),
-                        ])
-                        ->action(function (Project $record, array $data) {
-                            // Validate contract signed
-                            if (!$record->canCreateInvoice()) {
-                                Notification::make()
-                                    ->title('Cannot Create Invoice')
-                                    ->danger()
-                                    ->body('Contract must be signed (Active status) before creating invoices.')
-                                    ->send();
-                                return;
-                            }
-                            
-                            $invoice = Invoice::create([
-                                'project_id' => $record->id,
-                                'stage' => $data['stage'],
-                                'amount' => $data['amount'],
-                                'due_date' => $data['due_date'],
-                                'notes' => $data['notes'] ?? null,
-                                'status' => Invoice::STATUS_PENDING,
-                            ]);
-
-                            Notification::make()
-                                ->title('Invoice Created')
-                                ->success()
-                                ->body("Invoice {$invoice->invoice_number} has been created successfully.")
-                                ->send();
-                        }),
                 ])
                 ->label('Actions')
                 ->icon(Heroicon::OutlinedEllipsisVertical)
@@ -382,6 +377,22 @@ class ProjectResource extends Resource
         return [
             //
         ];
+    }
+
+    /**
+     * Generate unique invoice number.
+     */
+    protected static function generateInvoiceNumber(): string
+    {
+        $year = date('Y');
+        $month = date('m');
+        
+        // Count invoices this month
+        $count = \App\Models\Invoice::whereYear('created_at', $year)
+            ->whereMonth('created_at', $month)
+            ->count() + 1;
+            
+        return sprintf('INV-%s%s-%04d', $year, $month, $count);
     }
 
     public static function getPages(): array

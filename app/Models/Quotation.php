@@ -51,6 +51,7 @@ class Quotation extends Model
         'prepared_by_position',
         'sales_pic',
         'terms_and_conditions',
+        'custom_terms',
         'pdf_path',
         'pdf_generated_at',
     ];
@@ -71,6 +72,7 @@ class Quotation extends Model
         'revision_rounds' => 'integer',
         'validity_days' => 'integer',
         'terms_and_conditions' => 'array',
+        'custom_terms' => 'array',
         'pdf_generated_at' => 'datetime',
     ];
 
@@ -179,11 +181,17 @@ class Quotation extends Model
     public static function getDefaultTerms(): array
     {
         return [
-            'payment' => 'Payment terms as specified in the payment schedule',
-            'validity' => 'This quotation is valid for 30 days from the date of issue',
-            'changes' => 'Changes to project scope may affect the quoted price',
-            'warranty' => 'All work comes with a standard warranty period',
-            'cancellation' => 'Cancellation policy applies as per agreement',
+            'validity' => 'Penawaran ini berlaku selama 30 hari sejak tanggal diterbitkan.',
+            'tax_exclude' => 'Harga belum termasuk PPN kecuali disebutkan sebaliknya.',
+            'third_party' => 'Tidak termasuk biaya Domain, Hosting, Server, atau API pihak ketiga.',
+            'dp_start' => 'Pengerjaan dimulai setelah Uang Muka (DP) diterima.',
+            'non_refundable' => 'Uang Muka (DP) tidak dapat dikembalikan (Non-Refundable).',
+            'scope_limit' => 'Fitur di luar dokumen ini dikenakan biaya tambahan (Change Request).',
+            'revision_limit' => 'Termasuk maksimal 2x revisi minor.',
+            'timeline_rule' => 'Waktu pengerjaan dimulai setelah data lengkap diterima.',
+            'warranty_30' => 'Termasuk garansi perbaikan bug selama 30 hari setelah serah terima.',
+            'source_code_ownership' => 'Source code diserahkan setelah pelunasan 100%.',
+            'license_only' => 'Source code milik Vendor, Klien hanya hak pakai (Managed Service).',
         ];
     }
 }

@@ -52,10 +52,14 @@ class QuotationsTable
                     })
                     ->formatStateUsing(fn (string $state): string => Quotation::getStatuses()[$state] ?? $state),
                 
-                TextColumn::make('total_amount')
+                TextColumn::make('grand_total')
                     ->label('Total')
                     ->money('IDR')
-                    ->sortable(),
+                    ->sortable()
+                    ->getStateUsing(function (Quotation $record) {
+                        // Use grand_total if available, otherwise fall back to total_amount
+                        return $record->grand_total ?? $record->total_amount ?? 0;
+                    }),
                 
                 TextColumn::make('valid_until')
                     ->label('Valid Until')

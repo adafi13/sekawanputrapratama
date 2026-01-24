@@ -50,7 +50,7 @@ class InvoiceResource extends Resource
                             ->label('Invoice Number')
                             ->disabled()
                             ->helperText('Auto-generated on save'),
-                        Components\Select::make('stage')
+                        Components\Select::make('payment_stage')
                             ->label('Payment Stage')
                             ->options(Invoice::getStages())
                             ->required(),
@@ -73,6 +73,10 @@ class InvoiceResource extends Resource
                         Components\DateTimePicker::make('paid_at')
                             ->label('Paid Date')
                             ->visible(fn ($get) => $get('status') === Invoice::STATUS_PAID),
+                        Components\Select::make('payment_method')
+                            ->label('Payment Method')
+                            ->options(Invoice::getPaymentMethods())
+                            ->visible(fn ($get) => $get('status') === Invoice::STATUS_PAID),
                         Components\Textarea::make('notes')
                             ->rows(3)
                             ->columnSpanFull(),
@@ -92,7 +96,8 @@ class InvoiceResource extends Resource
                     ->label('Project')
                     ->searchable()
                     ->sortable(),
-                BadgeColumn::make('stage')
+                BadgeColumn::make('payment_stage')
+                    ->label('Payment Stage')
                     ->formatStateUsing(fn ($state) => Invoice::getStages()[$state] ?? $state)
                     ->colors([
                         'primary' => Invoice::STAGE_DP,
@@ -120,19 +125,68 @@ class InvoiceResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                SelectFilter::make('stage')
+                SelectFilter::make('payment_stage')
+                    ->label('Payment Stage')
                     ->options(Invoice::getStages()),
                 SelectFilter::make('status')
                     ->options(Invoice::getStatuses()),
             ])
             ->recordActions([
+                Action::make('mark_as_paid')
+                    ->label('Confirm Payment')
+                    ->icon('heroicon-o-check-circle')
+                    ->color('success')
+                    ->visible(fn (Invoice $record) => $record->status !== Invoice::STATUS_PAID)
+                    ->requiresConfirmation()
+                    ->modalHeading('Confirm Payment')
+                    ->modalDescription(fn (Invoice $record) => "Mark invoice {$record->invoice_number} as paid?")
+                    ->form([
+                        Components\DateTimePicker::make('paid_at')
+                            ->label('Payment Date')
+                            ->default(now())
+                            ->required(),
+                        Components\Select::make('payment_method')
+                            ->label('Payment Method')
+                            ->options(Invoice::getPaymentMethods())
+                            ->required(),
+                        Components\Textarea::make('payment_notes')
+                            ->label('Payment Notes')
+                            ->placeholder('Add any payment notes here...')
+                            ->rows(3),
+                    ])
+                    ->action(function (Invoice $record, array $data) {
+                        // Build payment details notes
+                        $paymentMethodLabel = Invoice::getPaymentMethods()[$data['payment_method']] ?? $data['payment_method'];
+                        $paymentDetails = "\n\n--- Payment Details ---\n";
+                        $paymentDetails .= "Paid at: " . \Carbon\Carbon::parse($data['paid_at'])->format('d/m/Y H:i') . "\n";
+                        $paymentDetails .= "Payment method: {$paymentMethodLabel}\n";
+                        
+                        if (!empty($data['payment_notes'])) {
+                            $paymentDetails .= "Notes: {$data['payment_notes']}";
+                        }
+                        
+                        // Append to existing notes
+                        $updatedNotes = ($record->notes ?? '') . $paymentDetails;
+                        
+                        $record->update([
+                            'status' => Invoice::STATUS_PAID,
+                            'paid_at' => $data['paid_at'],
+                            'payment_method' => $data['payment_method'],
+                            'payment_notes' => $data['payment_notes'] ?? null,
+                            'notes' => $updatedNotes,
+                        ]);
+                        
+                        \Filament\Notifications\Notification::make()
+                            ->title('Payment Confirmed')
+                            ->success()
+                            ->body("Invoice {$record->invoice_number} marked as paid.")
+                            ->send();
+                    }),
                 Action::make('download_pdf')
                     ->label('Download PDF')
                     ->icon('heroicon-o-arrow-down-tray')
-                    ->color('success')
+                    ->color('gray')
                     ->action(fn (Invoice $record) => InvoicePdfService::download($record)),
-                EditAction::make(),
-                DeleteAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

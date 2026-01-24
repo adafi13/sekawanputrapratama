@@ -18,6 +18,14 @@ class Contract extends Model
     const STATUS_COMPLETED = 'completed';
     const STATUS_TERMINATED = 'terminated';
 
+    // Project type constants
+    const TYPE_BUY_OUT = 'buy_out';
+    const TYPE_MANAGED_SERVICE = 'managed_service';
+
+    // Maintenance cycle constants
+    const CYCLE_MONTHLY = 'monthly';
+    const CYCLE_YEARLY = 'yearly';
+
     protected $fillable = [
         'contract_number',
         'project_id',
@@ -30,6 +38,13 @@ class Contract extends Model
         'file_path',
         'status',
         'signed_at',
+        'project_type',
+        'warranty_period',
+        'estimated_duration',
+        'payment_terms',
+        'maintenance_fee',
+        'maintenance_cycle',
+        'deliverables',
     ];
 
     protected $casts = [
@@ -37,6 +52,10 @@ class Contract extends Model
         'start_date' => 'date',
         'end_date' => 'date',
         'signed_at' => 'datetime',
+        'maintenance_fee' => 'decimal:2',
+        'payment_terms' => 'array',
+        'warranty_period' => 'integer',
+        'estimated_duration' => 'integer',
     ];
 
     protected static function boot()

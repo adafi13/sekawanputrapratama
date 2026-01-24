@@ -13,7 +13,8 @@ class Invoice extends Model
     protected $fillable = [
         'project_id',
         'invoice_number',
-        'stage',
+        'stage', // Old column (kept for backward compatibility)
+        'payment_stage', // New column for payment workflow (dp, progress, final)
         'amount',
         'due_date',
         'status',
@@ -26,6 +27,7 @@ class Invoice extends Model
         'payment_notes',
         'pdf_path',
         'pdf_generated_at',
+        'issue_date',
     ];
 
     protected $casts = [
