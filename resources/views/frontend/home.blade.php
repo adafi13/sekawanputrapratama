@@ -243,8 +243,9 @@
     /* Efek Nomor Besar di Latar Belakang */
     .service-number-abs {
         position: absolute;
-        top: -40px;
-        right: -20px;
+        top: 50%;
+        transform: translateY(-50%);
+        right: -230px; /* Geser ke sebelah kanan gambar */
         font-size: 150px;
         font-weight: 900;
         color: rgba(13, 110, 253, 0.05); /* Warna tipis */
@@ -252,7 +253,7 @@
         line-height: 1;
     }
     .service-number-abs.left {
-        left: -20px;
+        left: -230px; /* Geser ke sebelah kiri gambar */
         right: auto;
     }
 
@@ -277,7 +278,13 @@
 
     @media (max-width: 991px) {
         .mb-100 { margin-bottom: 60px; }
-        .service-number-abs { font-size: 80px; top: -20px; }
+        .service-number-abs { 
+            font-size: 80px; 
+            top: -20px; 
+            right: 0;
+            transform: none;
+        }
+        .service-number-abs.left { left: 0; }
         .text-lg-end { text-align: center !important; }
         .justify-content-lg-end { justify-content: center !important; }
     }

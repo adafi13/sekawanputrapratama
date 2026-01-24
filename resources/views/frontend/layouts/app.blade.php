@@ -52,8 +52,8 @@
     <div id="scroll-container">
 
         {{-- 2. Header Navigation Modern --}}
-        <header id="main-header" style="height: 100px; display: flex; align-items: center;">
-            <nav class="main-menu pb-0">
+        <header id="main-header" style="height: 80px; display: flex; align-items: center;">
+            <nav class="main-menu">
                 <div class="container-fluid px-lg-5">
                     <div class="main-menu__block d-flex align-items-center justify-content-between">
 
@@ -68,16 +68,16 @@
                                 <ul class="main-menu__list d-flex gap-4 list-unstyled mb-0">
                                     <li><a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}" onclick="open_preloader()">Home</a></li>
                                     <li><a href="{{ route('about') }}" class="{{ request()->routeIs('about') ? 'active' : '' }}" onclick="open_preloader()">About Us</a></li>
-                                    <li><a href="{{ route('services.index') }}" class="{{ request()->routeIs('services.*') ? 'active' : '' }}" onclick="open_preloader()">Layanan</a></li>
+                                    <li><a href="{{ route('services.index') }}" class="{{ request()->routeIs('services.*') ? 'active' : '' }}" onclick="open_preloader()">Services</a></li>
                                     <li><a href="{{ route('portfolio.index') }}" class="{{ request()->routeIs('portfolio.*') ? 'active' : '' }}" onclick="open_preloader()">Portfolio</a></li>
                                     <li><a href="{{ route('blog.index') }}" class="{{ request()->routeIs('blog.*') ? 'active' : '' }}" onclick="open_preloader()">Blog</a></li>
-                                    <li><a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'active' : '' }}" onclick="open_preloader()">Kontak</a></li>
+                                    <li><a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'active' : '' }}" onclick="open_preloader()">Contact</a></li>
                                 </ul>
                             </div>
 
                             <div class="main-menu__right d-flex align-items-center">
                                 <a class="header-btn d-sm-flex d-none align-items-center" href="{{ route('contact') }}">
-                                    <span>Konsultasi Gratis</span>
+                                    <span>Consult Now!</span>
                                     <i class="fas fa-arrow-right ms-2 small"></i>
                                 </a>
 
