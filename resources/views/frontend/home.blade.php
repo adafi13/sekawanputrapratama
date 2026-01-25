@@ -174,7 +174,7 @@
         <div class="row align-items-center g-5 mb-100 animate-up">
             <div class="col-lg-6">
                 <div class="service-image-container position-relative">
-                    <div class="service-number-abs"></div>
+                    <div class="service-number-abs">01</div>
                     <img src="{{ asset('assets/media/images/app-development.png') }}" alt="App Development" class="img-fluid rounded-4 shadow-lg position-relative z-2">
                     <div class="service-blob bg-primary opacity-10 position-absolute"></div>
                 </div>
@@ -195,7 +195,7 @@
         <div class="row align-items-center g-5 mb-100 animate-up">
             <div class="col-lg-6 order-lg-2">
                 <div class="service-image-container position-relative">
-                    <div class="service-number-abs left"></div>
+                    <div class="service-number-abs left">02</div>
                     <img src="{{ asset('assets/media/images/web-development.png') }}" alt="Web Development" class="img-fluid rounded-4 shadow-lg position-relative z-2">
                     <div class="service-blob bg-info opacity-10 position-absolute"></div>
                 </div>
@@ -216,7 +216,7 @@
         <div class="row align-items-center g-5 animate-up">
             <div class="col-lg-6">
                 <div class="service-image-container position-relative">
-                    <div class="service-number-abs"></div>
+                    <div class="service-number-abs">03</div>
                     <img src="{{ asset('assets/media/images/office-server.png') }}" alt="Office Server" class="img-fluid rounded-4 shadow-lg position-relative z-2">
                     <div class="service-blob bg-danger opacity-10 position-absolute"></div>
                 </div>
