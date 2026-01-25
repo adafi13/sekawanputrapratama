@@ -4,7 +4,7 @@
 // Description:  AR App Html Template
 // Version: 1.0.0
 
-===============================================   
+===============================================
 STYLE SHEET INDEXING
 |
 |___ Fonts
@@ -551,7 +551,7 @@ p,
 
 /* PENTING: Class 'white' sekarang menjadi hitam agar terbaca di background putih */
 .white {
-  color: #212529 !important; 
+  color: #212529 !important;
 }
 
 .dark-gray {
@@ -584,7 +584,7 @@ p,
 
 /* Background class yang tadinya hitam sekarang jadi putih/terang */
 .bg-dark-black {
-  background-color: #FFFFFF !important; 
+  background-color: #FFFFFF !important;
 }
 
 .bg-white {
@@ -2333,6 +2333,23 @@ header .main-menu .menu-button-right .main-menu__right .main-menu__search:hover 
   visibility: visible;
   transition: transform 500ms ease 0ms, visibility 500ms ease 0ms;
 }
+.mobile-nav__wrapper {
+  position: fixed; /* WAJIB: Biar nempel di layar, bukan di dalam elemen lain */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999; /* WAJIB: Angka gede biar paling depan */
+  transform: scale(1, 0); /* Trik biar ga ngeblock klik pas lagi close */
+  transform-origin: bottom center;
+  transition: transform 0.5s ease;
+}
+
+/* Pas dibuka, wrapper-nya menuhin layar */
+.mobile-nav__wrapper.expanded {
+  transform: scale(1, 1);
+  transform-origin: top center;
+}
 .mobile-nav__wrapper.expanded .mobile-nav__content {
   opacity: 1;
   visibility: visible;
@@ -2345,21 +2362,20 @@ header .main-menu .menu-button-right .main-menu__right .main-menu__search:hover 
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #000000;
-  opacity: 0.3;
-
+  background-color: rgba(0, 0, 0, 0.7); /* Ganti jadi rgba biar lebih smooth gelapnya */
+  cursor: pointer; /* Biar user tau bisa diklik buat nutup */
+  /* opacity: 0.3; <-- Hapus ini karena udah pake rgba di background */
 }
 .mobile-nav__wrapper .mobile-nav__content {
   width: 300px;
-  background-color: #FFFFFF; /* GANTI */
-  z-index: 10;
-  position: relative;
+  background-color: #FFFFFF;
+  z-index: 10000; /* GANTI: Dari 10 jadi 10000 biar di atas overlay */
+  position: relative; /* Tetap relative ok, karena induknya udah fixed */
   height: 100%;
   overflow-y: auto;
-  padding-top: 30px;
-  padding-bottom: 30px;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding: 30px 15px;
+
+  /* Animasi bawaan lo udah oke, pertahankan */
   opacity: 0;
   visibility: hidden;
   transform: translateX(-100%);
@@ -2445,7 +2461,45 @@ header .main-menu .menu-button-right .main-menu__right .main-menu__search:hover 
   color: #212529; /* GANTI */
   cursor: pointer;
 }
+.mobile-nav__close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 24px;
+  color: #212529;
+  cursor: pointer;
+  z-index: 10001; /* Di atas konten menu */
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #f8f9fa; /* Kasih background dikit biar jelas */
+}
+/* Paksa list menu jadi vertikal (atas-bawah) */
+.mobile-nav__wrapper .mobile-nav__content .main-menu__list {
+    display: flex !important;       /* Pastikan dia flex container */
+    flex-direction: column !important; /* INI KUNCINYA: ubah arah jadi kolom */
+    width: 100% !important;         /* Lebar full */
+    gap: 0 !important;              /* Reset jarak antar menu jika ada */
+}
 
+/* Pastikan setiap item list (li) ngisi lebar penuh */
+.mobile-nav__wrapper .mobile-nav__content .main-menu__list li {
+    display: block !important;
+    width: 100%;
+    margin-bottom: 0; /* Reset margin kalo ada */
+}
+
+/* Opsional: Benerin link-nya biar rapi */
+.mobile-nav__wrapper .mobile-nav__content .main-menu__list li a {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px 0; /* Kasih jarak dikit biar enak dipencet */
+    border-bottom: 1px solid #eee; /* Garis pemisah tipis biar manis */
+}
 .mobile-nav__social {
   display: flex;
   align-items: center;
@@ -3179,7 +3233,7 @@ footer .blur {
     object-fit: contain;
     transition: all 0.3s ease;
     /* GANTI: Jika logo asli Anda putih, uncomment baris bawah ini untuk membalikkannya jadi hitam */
-    /* filter: invert(1); */ 
+    /* filter: invert(1); */
 }
 
 .header-logo:hover {

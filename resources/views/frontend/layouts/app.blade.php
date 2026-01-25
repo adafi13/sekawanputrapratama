@@ -37,17 +37,17 @@
 
     {{-- Custom Styles for Modern Layout --}}
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
-    
+
     <style>
         /* Gallery hover effect */
-        .gallery-item { 
-            cursor: pointer; 
-            transition: transform 0.3s ease; 
+        .gallery-item {
+            cursor: pointer;
+            transition: transform 0.3s ease;
             position: relative;
             overflow: hidden;
         }
-        .gallery-item:hover { 
-            transform: scale(1.05); 
+        .gallery-item:hover {
+            transform: scale(1.05);
         }
         .gallery-item::after {
             content: '\f002';
@@ -68,7 +68,7 @@
         .gallery-item:hover img {
             filter: brightness(0.7);
         }
-        
+
         /* Blog hover effects */
         .blog-card { transition: all 0.3s ease; }
         .blog-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important; }
@@ -76,21 +76,21 @@
         .bg-gradient {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
-        
+
         /* Portfolio gallery grid */
         .portfolio-gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 1rem;
         }
-        
+
         @media (max-width: 768px) {
             .portfolio-gallery-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
     </style>
-    
+
     @stack('styles')
 </head>
 
@@ -120,13 +120,8 @@
 
                         <div class="menu-button-right d-flex align-items-center">
                             <div class="main-menu__nav d-none d-lg-block me-4">
-                                <ul class="main-menu__list d-flex gap-4 list-unstyled mb-0">
-                                    <li><a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}" onclick="open_preloader()">Home</a></li>
-                                    <li><a href="{{ route('about') }}" class="{{ request()->routeIs('about') ? 'active' : '' }}" onclick="open_preloader()">About Us</a></li>
-                                    <li><a href="{{ route('services.index') }}" class="{{ request()->routeIs('services.*') ? 'active' : '' }}" onclick="open_preloader()">Services</a></li>
-                                    <li><a href="{{ route('portfolio.index') }}" class="{{ request()->routeIs('portfolio.*') ? 'active' : '' }}" onclick="open_preloader()">Portfolio</a></li>
-                                    <li><a href="{{ route('blog.index') }}" class="{{ request()->routeIs('blog.*') ? 'active' : '' }}" onclick="open_preloader()">Blog</a></li>
-                                    <li><a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'active' : '' }}" onclick="open_preloader()">Contact</a></li>
+                                <ul class="main-menu__list list-unstyled mb-0">
+                                    @include('frontend.layouts.menu-links')
                                 </ul>
                             </div>
 
@@ -136,8 +131,8 @@
                                     <i class="fas fa-arrow-right ms-2 small"></i>
                                 </a>
 
-                                <a href="#" class="main-menu__toggler mobile-nav__toggler ms-3 d-lg-none">
-                                    <img src="{{ asset('assets/media/vector/menu.png') }}" alt="Menu" style="width: 24px;">
+                                <a href="#" class="main-menu__toggler mobile-nav__toggler ms-3 d-lg-none text-dark">
+                                    <i class="fas fa-bars" style="font-size: 24px;"></i>
                                 </a>
                             </div>
                         </div>
@@ -241,17 +236,18 @@
             </div>
             <div class="mobile-nav__container">
                 <ul class="main-menu__list">
-                    <li><a href="{{ route('home') }}">Home</a></li>
-                    <li><a href="{{ route('about') }}">About Us</a></li>
-                    <li><a href="{{ route('services.index') }}">Services</a></li>
-                    <li><a href="{{ route('portfolio.index') }}">Portfolio</a></li>
-                    <li><a href="{{ route('blog.index') }}">Blog</a></li>
-                    <li><a href="{{ route('contact') }}">Contact</a></li>
+                    @include('frontend.layouts.menu-links')
                 </ul>
             </div>
             <ul class="mobile-nav__contact list-unstyled">
-                <li><i class="fas fa-envelope"></i> <a href="mailto:sekawanputrapratama@gmail.com">sekawanputrapratama@gmail.com</a></li>
-                <li><i class="fa fa-phone-alt"></i> <a href="tel:+6285156412702">+62 851-5641-2702</a></li>
+                <li>
+                    <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                    <a href="mailto:sekawanputrapratama@gmail.com">sekawanputrapratama@gmail.com</a>
+                </li>
+                <li>
+                    <div class="contact-icon"><i class="fa fa-phone-alt"></i></div>
+                    <a href="tel:+6285156412702">+62 851-5641-2702</a>
+                </li>
             </ul>
             <div class="mobile-nav__social mt-4">
                 <a href="#" class="fab fa-facebook-f"></a>
@@ -280,7 +276,7 @@
 
     {{-- Scripts Tambahan --}}
     <script src="{{ asset('assets/js/custom.js') }}"></script>
-    
+
     <script>
         // Lightbox configuration
         lightbox.option({
