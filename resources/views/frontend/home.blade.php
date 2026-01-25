@@ -168,13 +168,13 @@
         <div class="text-center mb-5">
             <h5 class="text-primary fw-bold text-uppercase spacing-1">Solusi Terintegrasi</h5>
             <h2 class="fw-bold text-dark display-5">Layanan Profesional Kami</h2>
-            <p class="text-muted mx-auto" style="max-width: 600px;">Kami memberikan hasil terbaik dengan pendekatan teknologi terkini untuk setiap kebutuhan bisnis Anda.</p>
+            <p class="text-muted mx-auto" style="max-width: 600px;">Kami menghadirkan solusi digital terpadu dengan teknologi terkini untuk meningkatkan efisiensi, produktivitas, dan daya saing bisnis Anda.</p>
         </div>
 
         <div class="row align-items-center g-5 mb-100 animate-up">
             <div class="col-lg-6">
                 <div class="service-image-container position-relative">
-                    <div class="service-number-abs">01</div>
+                    <div class="service-number-abs"></div>
                     <img src="{{ asset('assets/media/images/app-development.png') }}" alt="App Development" class="img-fluid rounded-4 shadow-lg position-relative z-2">
                     <div class="service-blob bg-primary opacity-10 position-absolute"></div>
                 </div>
@@ -195,7 +195,7 @@
         <div class="row align-items-center g-5 mb-100 animate-up">
             <div class="col-lg-6 order-lg-2">
                 <div class="service-image-container position-relative">
-                    <div class="service-number-abs left">02</div>
+                    <div class="service-number-abs left"></div>
                     <img src="{{ asset('assets/media/images/web-development.png') }}" alt="Web Development" class="img-fluid rounded-4 shadow-lg position-relative z-2">
                     <div class="service-blob bg-info opacity-10 position-absolute"></div>
                 </div>
@@ -216,7 +216,7 @@
         <div class="row align-items-center g-5 animate-up">
             <div class="col-lg-6">
                 <div class="service-image-container position-relative">
-                    <div class="service-number-abs">03</div>
+                    <div class="service-number-abs"></div>
                     <img src="{{ asset('assets/media/images/office-server.png') }}" alt="Office Server" class="img-fluid rounded-4 shadow-lg position-relative z-2">
                     <div class="service-blob bg-danger opacity-10 position-absolute"></div>
                 </div>
