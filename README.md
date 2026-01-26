@@ -1,59 +1,129 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Sekawan Putra Pratama - Company Website
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Website perusahaan untuk Sekawan Putra Pratama, menyediakan informasi layanan, portfolio proyek, blog artikel teknologi, dan contact form.
 
-## About Laravel
+## 🚀 Tech Stack
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **Framework**: Laravel 12.47.0
+- **Admin Panel**: Filament v4
+- **Frontend**: Bootstrap 5 + Blade Templates
+- **Database**: MySQL 8.4.3
+- **PHP**: 8.5.1
+- **Image Processing**: Intervention Image v3
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 📦 Fitur Utama
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- ✅ **Admin Panel** (Filament) - Manajemen konten lengkap
+- ✅ **Blog Management** - Artikel dengan kategori dan featured image
+- ✅ **Portfolio Management** - Case study proyek dengan gallery
+- ✅ **Service Pages** - Deskripsi layanan perusahaan
+- ✅ **Team Members** - Profil tim
+- ✅ **Testimonials** - Review klien
+- ✅ **Contact Form** - Form kontak dengan validasi
+- ✅ **SEO Optimized** - Meta title, description, keywords
 
-## Learning Laravel
+## 🔧 Setup Development
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### Prerequisites
+- PHP >= 8.2
+- Composer
+- MySQL
+- Node.js & NPM (optional, untuk compile assets)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Installation
 
-## Laravel Sponsors
+1. **Clone repository**
+   ```bash
+   git clone https://github.com/adafi13/sekawanputrapratama.git
+   cd sekawanputrapratama
+   ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+2. **Install dependencies**
+   ```bash
+   composer install
+   ```
 
-### Premium Partners
+3. **Setup environment**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+4. **Configure database**
+   Edit file `.env`:
+   ```env
+   APP_URL=http://127.0.0.1:8000
+   DB_DATABASE=spp
+   DB_USERNAME=root
+   DB_PASSWORD=
+   ```
 
-## Contributing
+5. **Run migrations**
+   ```bash
+   php artisan migrate
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+6. **Create storage link**
+   ```bash
+   php artisan storage:link
+   ```
 
-## Code of Conduct
+7. **Start development server**
+   ```bash
+   php artisan serve
+   ```
+   
+   Access: http://127.0.0.1:8000
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 📚 Dokumentasi
 
-## Security Vulnerabilities
+Dokumentasi lengkap tersedia di folder **`docs/`**:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- **[Setup & Troubleshooting](docs/SETUP_DAN_TROUBLESHOOTING.md)** - ⚠️ Setup tim & troubleshooting (WAJIB BACA!)
+- **[Workflow](docs/WORKFLOW.md)** - Alur kerja dari Leads hingga Project Completed
+- **[Features](docs/FEATURES.md)** - Dokumentasi lengkap semua fitur
+- **[Database](docs/DATABASE.md)** - Struktur database dan relasi
+- **[Dokumentasi Lengkap](docs/README.md)** - Index semua dokumentasi
 
-## License
+## 🔐 Default Admin Access
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Setelah setup, buat user admin:
+```bash
+php artisan make:filament-user
+```
+
+Access admin panel: http://127.0.0.1:8000/admin
+
+## 🎯 Modules Overview
+
+### Frontend (Public Website)
+- 🏠 Homepage dengan hero section dan service overview
+- 💼 Portfolio showcase dengan case studies
+- 📝 Blog dengan kategori dan search
+- 📧 Contact form dengan validasi
+- 👥 Team & testimonials
+
+### Admin Panel (Filament)
+- 📊 Dashboard dengan statistik real-time
+- 🔄 **CRM Module**: Leads → Quotations → Contracts → Projects → Invoices
+- 📝 **Content Management**: Blog, Portfolio, Services, Team, Testimonials, FAQs
+- 💬 Contact Messages
+- ⚙️ Settings & User Management
+
+## 🤝 Contributing
+
+Untuk tim development:
+1. **WAJIB baca**: [docs/SETUP_DAN_TROUBLESHOOTING.md](docs/SETUP_DAN_TROUBLESHOOTING.md) sebelum mulai coding
+2. Pahami business flow di [docs/WORKFLOW.md](docs/WORKFLOW.md)
+3. Lihat semua fitur di [docs/FEATURES.md](docs/FEATURES.md)
+4. Pelajari database di [docs/DATABASE.md](docs/DATABASE.md)
+
+## 📝 License
+
+This project is proprietary software for Sekawan Putra Pratama.
+
+---
+
+**Developed by**: Sekawan Putra Pratama Development Team  
+**Last Updated**: January 26, 2026  
+**Repository**: https://github.com/adafi13/sekawanputrapratama
