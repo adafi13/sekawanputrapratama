@@ -15,6 +15,7 @@ class PortfolioObserver
     public function saved(Portfolio $portfolio): void
     {
         $this->clearCache($portfolio);
+        $this->moveFromTempUploads($portfolio);
         $this->processImages($portfolio);
     }
 
@@ -25,6 +26,66 @@ class PortfolioObserver
     {
         $this->clearCache($portfolio);
         $this->deleteImages($portfolio);
+    }
+
+    /**
+     * Move files from temp-uploads to final directory after create.
+     */
+    protected function moveFromTempUploads(Portfolio $portfolio): void
+    {
+        $disk = Storage::disk('public');
+        
+        // Move featured image from temp-uploads
+        if ($portfolio->featured_image && str_starts_with($portfolio->featured_image, 'temp-uploads/')) {
+            $oldPath = $portfolio->featured_image;
+            $filename = basename($oldPath);
+            $newPath = "portfolios/{$portfolio->id}/featured.webp";
+            
+            // Ensure directory exists
+            $directory = dirname($newPath);
+            if (!$disk->exists($directory)) {
+                $disk->makeDirectory($directory);
+            }
+            
+            // Move file
+            if ($disk->exists($oldPath)) {
+                $disk->move($oldPath, $newPath);
+                $portfolio->updateQuietly(['featured_image' => $newPath]);
+                \Log::info("Moved portfolio featured image from temp: {$oldPath} -> {$newPath}");
+            }
+        }
+        
+        // Move gallery images from temp-uploads
+        if ($portfolio->images && is_array($portfolio->images) && count($portfolio->images) > 0) {
+            $newImages = [];
+            foreach ($portfolio->images as $index => $imagePath) {
+                if (str_starts_with($imagePath, 'temp-uploads/')) {
+                    $filename = basename($imagePath);
+                    $newPath = "portfolios/{$portfolio->id}/gallery/{$filename}";
+                    
+                    // Ensure gallery directory exists
+                    $galleryDir = "portfolios/{$portfolio->id}/gallery";
+                    if (!$disk->exists($galleryDir)) {
+                        $disk->makeDirectory($galleryDir);
+                    }
+                    
+                    // Move file
+                    if ($disk->exists($imagePath)) {
+                        $disk->move($imagePath, $newPath);
+                        $newImages[] = $newPath;
+                        \Log::info("Moved portfolio gallery image from temp: {$imagePath} -> {$newPath}");
+                    } else {
+                        $newImages[] = $imagePath;
+                    }
+                } else {
+                    $newImages[] = $imagePath;
+                }
+            }
+            
+            if (count($newImages) > 0) {
+                $portfolio->updateQuietly(['images' => $newImages]);
+            }
+        }
     }
 
     /**
