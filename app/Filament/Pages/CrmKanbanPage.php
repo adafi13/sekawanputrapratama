@@ -17,7 +17,7 @@ class CrmKanbanPage extends Page
 {
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedViewColumns;
 
-    protected static string $view = 'filament.pages.crm-kanban-page';
+    protected string $view = 'filament.pages.crm-kanban-page';
 
     protected static ?string $navigationLabel = 'CRM Kanban Board';
 
@@ -192,6 +192,8 @@ class CrmKanbanPage extends Page
      */
     public function mount(): void
     {
+        $this->columns = collect($this->getColumns());
+        $this->cards = collect();
         $this->loadData();
     }
 
@@ -200,7 +202,10 @@ class CrmKanbanPage extends Page
      */
     public function loadData(): void
     {
-        $this->columns = collect($this->getColumns());
+        if (!isset($this->columns)) {
+            $this->columns = collect($this->getColumns());
+        }
+        
         $this->cards = collect();
 
         // Load Leads
@@ -228,20 +233,17 @@ class CrmKanbanPage extends Page
             ->get()
             ->map(function ($lead) {
                 return [
-                    'id' => 'lead_' . $lead->id,
-                    'model_type' => 'lead',
+                    'id' => $lead->id,
+                    'model_type' => 'Lead',
                     'model_id' => $lead->id,
                     'column_id' => 'lead_' . $lead->status,
                     'title' => $lead->company_name,
-                    'subtitle' => $lead->contact_person,
-                    'meta' => [
-                        'email' => $lead->email,
-                        'phone' => $lead->phone,
-                        'assigned_to' => $lead->assignedTo?->name,
-                        'deal_value' => $lead->deal_value ? 'Rp ' . number_format($lead->deal_value, 0, ',', '.') : null,
-                        'priority' => $lead->priority,
-                    ],
-                    'record' => $lead,
+                    'status_label' => ucwords(str_replace('_', ' ', $lead->status)),
+                    'contact_person' => $lead->contact_person,
+                    'email' => $lead->email,
+                    'phone' => $lead->phone,
+                    'priority' => $lead->priority,
+                    'view_url' => route('filament.admin.resources.leads.edit', ['record' => $lead->id]),
                 ];
             });
 
@@ -264,18 +266,15 @@ class CrmKanbanPage extends Page
             ->get()
             ->map(function ($quotation) {
                 return [
-                    'id' => 'quotation_' . $quotation->id,
-                    'model_type' => 'quotation',
+                    'id' => $quotation->id,
+                    'model_type' => 'Quotation',
                     'model_id' => $quotation->id,
                     'column_id' => 'quotation_' . $quotation->status,
-                    'title' => $quotation->quotation_number,
-                    'subtitle' => $quotation->customer?->company_name ?? $quotation->lead?->company_name,
-                    'meta' => [
-                        'total' => 'Rp ' . number_format($quotation->grand_total, 0, ',', '.'),
-                        'valid_until' => $quotation->valid_until?->format('d M Y'),
-                        'items_count' => $quotation->items->count() . ' items',
-                    ],
-                    'record' => $quotation,
+                    'title' => $quotation->customer?->company_name ?? $quotation->lead?->company_name ?? 'N/A',
+                    'status_label' => ucwords(str_replace('_', ' ', $quotation->status)),
+                    'quotation_number' => $quotation->quotation_number,
+                    'total_amount' => $quotation->grand_total,
+                    'view_url' => route('filament.admin.resources.quotations.edit', ['record' => $quotation->id]),
                 ];
             });
 
@@ -297,18 +296,15 @@ class CrmKanbanPage extends Page
             ->get()
             ->map(function ($contract) {
                 return [
-                    'id' => 'contract_' . $contract->id,
-                    'model_type' => 'contract',
+                    'id' => $contract->id,
+                    'model_type' => 'Contract',
                     'model_id' => $contract->id,
                     'column_id' => 'contract_' . $contract->status,
-                    'title' => $contract->contract_number,
-                    'subtitle' => $contract->customer?->company_name,
-                    'meta' => [
-                        'value' => 'Rp ' . number_format($contract->contract_value, 0, ',', '.'),
-                        'signed_date' => $contract->signed_at?->format('d M Y'),
-                        'project_type' => ucwords(str_replace('_', ' ', $contract->project_type ?? '')),
-                    ],
-                    'record' => $contract,
+                    'title' => $contract->customer?->company_name ?? 'N/A',
+                    'status_label' => ucwords(str_replace('_', ' ', $contract->status)),
+                    'contract_number' => $contract->contract_number,
+                    'signed_at' => $contract->signed_at?->format('d M Y'),
+                    'view_url' => route('filament.admin.resources.contracts.edit', ['record' => $contract->id]),
                 ];
             });
 
@@ -341,20 +337,15 @@ class CrmKanbanPage extends Page
                 $paymentStatus = $this->getProjectPaymentStatus($project);
                 
                 return [
-                    'id' => 'project_' . $project->id,
-                    'model_type' => 'project',
+                    'id' => $project->id,
+                    'model_type' => 'Project',
                     'model_id' => $project->id,
                     'column_id' => 'project_' . $project->status,
-                    'title' => $project->project_code,
-                    'subtitle' => $project->customer?->company_name,
-                    'meta' => [
-                        'project_name' => $project->project_name,
-                        'pm' => $project->assignedTo?->name,
-                        'budget' => 'Rp ' . number_format($project->estimated_budget, 0, ',', '.'),
-                        'progress' => $project->progress_percentage . '%',
-                        'payment_status' => $paymentStatus,
-                    ],
-                    'record' => $project,
+                    'title' => $project->project_name ?? $project->project_code,
+                    'status_label' => ucwords(str_replace('_', ' ', $project->status)),
+                    'project_code' => $project->project_code,
+                    'payment_status' => $paymentStatus,
+                    'view_url' => route('filament.admin.resources.projects.edit', ['record' => $project->id]),
                 ];
             });
 

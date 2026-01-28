@@ -99,7 +99,7 @@
                 {{-- Content --}}
                 @if($portfolio->content)
                 <div class="mb-5">
-                    <div class="article-content text-muted" style="font-size: 1rem; line-height: 1.8;">
+                    <div class="article-content text-muted" style="font-size: 1rem; line-height: 1.8; text-align: justify;">
                         {!! $portfolio->content !!}
                     </div>
                 </div>
