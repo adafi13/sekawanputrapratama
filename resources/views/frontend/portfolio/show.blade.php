@@ -99,8 +99,9 @@
                 {{-- Content --}}
                 @if($portfolio->content)
                 <div class="mb-5">
-                    <div class="article-content text-muted" style="font-size: 1rem; line-height: 1.8;">
+                    <div class="article-content text-muted" style="font-size: 1rem; line-height: 1.8; text-align: justify;"> 
                         {!! $portfolio->content !!}
+                        
                     </div>
                 </div>
                 @endif
@@ -262,6 +263,7 @@
     .article-content ul, .article-content ol { 
         margin-bottom: 1rem; 
         padding-left: 1.5rem;
+    
     }
     .article-content blockquote {
         border-left: 3px solid #0d6efd;
@@ -269,6 +271,7 @@
         margin: 1.5rem 0;
         font-style: italic;
         color: #6c757d;
+        
     }
 </style>
 

@@ -55,7 +55,7 @@
                 </div>
                 @endif
                 
-                <div class="article-content text-dark" style="font-size: 1.15rem; line-height: 1.8; color: #334155 !important;">
+                <div class="article-content text-dark" style="font-size: 1.15rem; line-height: 1.8; color: #334155 !important; text-align: justify;">
                     {!! $blog->content !!}
                 </div>
 
