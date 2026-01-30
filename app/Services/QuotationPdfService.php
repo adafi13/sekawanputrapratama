@@ -120,13 +120,21 @@ class QuotationPdfService
     {
         $setting = \App\Models\Setting::first();
         
+        // Use logo from public/assets/media/logo.png as default
+        $logoPath = public_path('assets/media/logo.png');
+        
+        // If settings has a custom logo in storage, use that
+        if ($setting && $setting->company_logo && Storage::disk('public')->exists($setting->company_logo)) {
+            $logoPath = public_path('storage/' . $setting->company_logo);
+        }
+        
         return [
-            'name' => $setting->company_name ?? 'SPP Company',
-            'address' => $setting->company_address ?? '',
-            'phone' => $setting->company_phone ?? '',
-            'email' => $setting->company_email ?? '',
-            'website' => $setting->company_website ?? '',
-            'logo' => $setting->company_logo ?? null,
+            'name' => $setting->company_name ?? 'SEKAWAN PUTRA PRATAMA',
+            'address' => $setting->company_address ?? 'Serang Baru, Bekasi - Indonesia',
+            'phone' => $setting->company_phone ?? '082136033596',
+            'email' => $setting->company_email ?? 'sekawanputrapratama@gmail.com',
+            'website' => $setting->company_website ?? 'www.sekawanputrapratama.com',
+            'logo' => $logoPath,
         ];
     }
 

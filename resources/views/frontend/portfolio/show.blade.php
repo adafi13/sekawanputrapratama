@@ -99,7 +99,11 @@
                 {{-- Content --}}
                 @if($portfolio->content)
                 <div class="mb-5">
+<<<<<<< HEAD
                     <div class="article-content text-muted" style="font-size: 1rem; line-height: 1.8; text-align: justify;"> 
+=======
+                    <div class="article-content text-muted" style="font-size: 1rem; line-height: 1.8; text-align: justify;">
+>>>>>>> 21202806d4f4a13c9e3f5951afdac7733a596257
                         {!! $portfolio->content !!}
                         
                     </div>

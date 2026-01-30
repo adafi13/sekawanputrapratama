@@ -22,27 +22,29 @@
     <link rel="stylesheet" href="{{ asset('assets/css/vendor/video-js.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/vendor/nice-select.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css">
-    <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}?v={{ filemtime(public_path('assets/css/app.css')) }}">
+
+    {{-- Custom CSS --}}
+    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}?v={{ filemtime(public_path('assets/css/custom.css')) }}">
 
     <style>
         /* --- CSS KHUSUS AGAR RAPI DI HP --- */
-        
+
         /* 1. Header Responsif */
         .header-logo { height: 60px; width: auto; } /* Default Desktop */
-        
+
         @media (max-width: 576px) {
             #main-header { height: 70px !important; padding: 0 10px; }
             .header-logo { height: 32px !important; } /* Perkecil logo di HP */
-            
+
             /* Agar tombol Consult Now muat di HP */
             .header-btn {
                 padding: 6px 12px !important;
-                font-size: 11px !important; 
+                font-size: 11px !important;
                 margin-right: 8px;
             }
             .header-btn i { display: none; } /* Sembunyikan panah di tombol saat di HP */
-            
+
             /* Jarak antar elemen footer di HP */
             .footer-widget h5 { font-size: 16px; margin-bottom: 15px; }
             .footer-links li a { font-size: 14px; }
@@ -137,14 +139,14 @@
                             Sekawan Putra Pratama adalah mitra teknologi terpercaya Anda. Kami mengubah ide kompleks menjadi solusi digital yang sederhana.
                         </p>
                         <div class="d-flex gap-3">
-                            <a href="https://www.instagram.com/sekawanputrapratama?igsh=MTUxbjJiaXRsMHh6" 
+                            <a href="https://www.instagram.com/sekawanputrapratama?igsh=MTUxbjJiaXRsMHh6"
                                class="text-white" target="_blank" rel="noopener noreferrer">
                                 <i class="fab fa-instagram fa-lg"></i>
                             </a>
                         </div>
                     </div>
 
-                    {{-- 
+                    {{--
                        FIX RAPIH: Menggunakan 'col-6' pada Layanan & Tautan.
                        Ini membuat menu footer menjadi 2 kolom (kiri-kanan) di layar HP.
                     --}}
@@ -185,7 +187,7 @@
                                 </li>
                                 <li class="d-flex align-items-center gap-2 mb-2">
                                     <i class="fas fa-envelope text-primary"></i>
-                                    <a href="mailto:sekawanputrapratama@gmail.com">sekawanputrapratama@gmail.com</a>
+                                    <a href="mailto:support@sekawanputrapratama.com">support@sekawanputrapratama.com</a>
                                 </li>
                                 <li class="d-flex align-items-center gap-2">
                                     <i class="fab fa-whatsapp text-primary"></i>
@@ -220,7 +222,7 @@
             <ul class="mobile-nav__contact list-unstyled mt-4">
                  <li>
                     <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-                    <a href="mailto:sekawanputrapratama@gmail.com">Email Kami</a>
+                    <a href="mailto:support@sekawanputrapratama.com">Email Kami</a>
                 </li>
                 <li>
                     {{-- FIXED: Icon jadi WA, Link jadi WA.ME (bukan tel:) --}}
@@ -229,16 +231,36 @@
                 </li>
             </ul>
             <div class="mobile-nav__social mt-4">
-                <a href="https://www.instagram.com/sekawanputrapratama?igsh=MTUxbjJiaXRsMHh6" 
+                <a href="https://www.instagram.com/sekawanputrapratama?igsh=MTUxbjJiaXRsMHh6"
                    class="fab fa-instagram" target="_blank" rel="noopener noreferrer"></a>
             </div>
         </div>
     </div>
 
     {{-- WA Float --}}
-    <a href="https://wa.me/6285156412702?text=Halo..." class="float-wa pulse-animation" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+    <div class="wa-float-menu">
+        <ul class="wa-menu-list">
+            <li class="wa-menu-item">
+                <span class="wa-tooltip">Jasa IT & Server</span>
+                <a href="https://wa.me/6285156412702?text=Halo%20Tim%20Sekawan%2C%20saya%20tertarik%20dengan%20layanan%20*Jasa%20IT%20%26%20Server*.%0A%0ADetail%20kebutuhan%20infrastruktur%20kami%3A%0A-%20Setup%20%26%20Maintenance%20Server%0A-%20Instalasi%20Jaringan%20%2F%20Network%0A-%20Managed%20IT%20Services%0A%0AMohon%20info%20untuk%20jadwal%20diskusi%20atau%20penawarannya."
+                class="wa-submenu-btn" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-server"></i>
+                </a>
+            </li>
+
+            <li class="wa-menu-item">
+                <span class="wa-tooltip">Pembuatan Website</span>
+                <a href="https://wa.me/6285156412702?text=Halo%20Tim%20Sekawan%2C%20saya%20berencana%20melakukan%20*Pengembangan%20Website%2FAplikasi%20Web*.%0A%0AGambaran%20singkat%20kebutuhan%20saya%3A%0A-%20Jenis%3A%20(Company%20Profile%20%2F%20Toko%20Online%20%2F%20Sistem%20Custom)%0A-%20Target%3A%20(Segera%20%2F%20Konsultasi%20Dulu)%0A%0ABoleh%20minta%20info%20portofolio%20dan%20penawarannya%3F"
+                class="wa-submenu-btn" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-globe"></i>
+                </a>
+            </li>
+        </ul>
+
+        <a href="javascript:void(0)" class="wa-main-btn" rel="noopener noreferrer">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
 
     {{-- Scripts --}}
     <script src="{{ asset('assets/js/vendor/jquery-3.6.3.min.js') }}"></script>
