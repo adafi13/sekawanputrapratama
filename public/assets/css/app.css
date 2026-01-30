@@ -2298,7 +2298,7 @@ header .main-menu .menu-button-right .main-menu__right .main-menu__search:hover 
   transition: 500ms;
   display: none;
 }
-@media (max-width: 1099px) {
+@media (max-width: 1199px) {
   .mobile-nav__toggler {
     display: flex;
   }

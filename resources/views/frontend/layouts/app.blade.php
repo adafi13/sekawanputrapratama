@@ -96,7 +96,7 @@
 
                         <div class="menu-button-right d-flex align-items-center">
                             {{-- Menu Desktop --}}
-                            <div class="main-menu__nav d-none d-lg-block me-4">
+                            <div class="main-menu__nav d-none d-xl-block me-4">
                                 <ul class="main-menu__list list-unstyled mb-0">
                                     @include('frontend.layouts.menu-links')
                                 </ul>
