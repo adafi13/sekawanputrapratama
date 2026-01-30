@@ -96,7 +96,7 @@
 
                         <div class="menu-button-right d-flex align-items-center">
                             {{-- Menu Desktop --}}
-                            <div class="main-menu__nav d-none d-lg-block me-4">
+                            <div class="main-menu__nav d-none d-xl-block me-4">
                                 <ul class="main-menu__list list-unstyled mb-0">
                                     @include('frontend.layouts.menu-links')
                                 </ul>
@@ -110,7 +110,7 @@
                                 </a>
 
                                 {{-- Burger Menu --}}
-                                <a href="#" class="main-menu__toggler mobile-nav__toggler ms-2 d-lg-none text-dark">
+                                <a href="#" class="main-menu__toggler mobile-nav__toggler ms-2 text-dark">
                                     <i class="fas fa-bars" style="font-size: 24px;"></i>
                                 </a>
                             </div>
