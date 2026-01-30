@@ -110,7 +110,7 @@
                                 </a>
 
                                 {{-- Burger Menu --}}
-                                <a href="#" class="main-menu__toggler mobile-nav__toggler ms-2 d-lg-none text-dark">
+                                <a href="#" class="main-menu__toggler mobile-nav__toggler ms-2 text-dark">
                                     <i class="fas fa-bars" style="font-size: 24px;"></i>
                                 </a>
                             </div>
