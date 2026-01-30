@@ -3208,6 +3208,7 @@ footer .blur {
 .wa-float-menu:hover .wa-main-btn {
     transform: rotate(360deg);
     background-color: #128c7e;
+    color: white;
 }
 
 /* List Menu (Sub-tombol) */
@@ -3269,7 +3270,7 @@ footer .blur {
     white-space: nowrap;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     /* Pastikan tooltip tidak tertutup */
-    pointer-events: none; 
+    pointer-events: none;
 }
 
 /* Logika Hover */
