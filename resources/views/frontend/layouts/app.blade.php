@@ -257,8 +257,7 @@
             </li>
         </ul>
 
-        <a href="https://wa.me/6285156412702?text=Halo%2C%20saya%20ingin%20berkonsultasi%20dengan%20IT%20Consultant%20mengenai%20*Transformasi%20Digital*%20di%20perusahaan%20saya.%20Mohon%20dijadwalkan%20untuk%20diskusi%20solusinya."
-        class="wa-main-btn" target="_blank" rel="noopener noreferrer">
+        <a href="javascript:void(0)" class="wa-main-btn" target="_blank" rel="noopener noreferrer">
             <i class="fab fa-whatsapp"></i>
         </a>
     </div>
