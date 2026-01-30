@@ -257,7 +257,7 @@
             </li>
         </ul>
 
-        <a href="javascript:void(0)" class="wa-main-btn" target="_blank" rel="noopener noreferrer">
+        <a href="javascript:void(0)" class="wa-main-btn" rel="noopener noreferrer">
             <i class="fab fa-whatsapp"></i>
         </a>
     </div>
