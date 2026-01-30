@@ -185,7 +185,7 @@
                                 </li>
                                 <li class="d-flex align-items-center gap-2 mb-2">
                                     <i class="fas fa-envelope text-primary"></i>
-                                    <a href="mailto:sekawanputrapratama@gmail.com">sekawanputrapratama@gmail.com</a>
+                                    <a href="mailto:support@sekawanputrapratama.com">support@sekawanputrapratama.com</a>
                                 </li>
                                 <li class="d-flex align-items-center gap-2">
                                     <i class="fab fa-whatsapp text-primary"></i>
@@ -220,7 +220,7 @@
             <ul class="mobile-nav__contact list-unstyled mt-4">
                  <li>
                     <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-                    <a href="mailto:sekawanputrapratama@gmail.com">Email Kami</a>
+                    <a href="mailto:support@sekawanputrapratama.com">Email Kami</a>
                 </li>
                 <li>
                     {{-- FIXED: Icon jadi WA, Link jadi WA.ME (bukan tel:) --}}
@@ -236,9 +236,30 @@
     </div>
 
     {{-- WA Float --}}
-    <a href="https://wa.me/6285156412702?text=Halo..." class="float-wa pulse-animation" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+    <div class="wa-float-menu">
+        <ul class="wa-menu-list">
+            <li class="wa-menu-item">
+                <span class="wa-tooltip">Jasa IT & Server</span>
+                <a href="https://wa.me/6285156412702?text=Halo%20Tim%20Sekawan%2C%20saya%20tertarik%20dengan%20layanan%20*Jasa%20IT%20%26%20Server*.%0A%0ADetail%20kebutuhan%20infrastruktur%20kami%3A%0A-%20Setup%20%26%20Maintenance%20Server%0A-%20Instalasi%20Jaringan%20%2F%20Network%0A-%20Managed%20IT%20Services%0A%0AMohon%20info%20untuk%20jadwal%20diskusi%20atau%20penawarannya." 
+                class="wa-submenu-btn" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-server"></i>
+                </a>
+            </li>
+            
+            <li class="wa-menu-item">
+                <span class="wa-tooltip">Pembuatan Website</span>
+                <a href="https://wa.me/6285156412702?text=Halo%20Tim%20Sekawan%2C%20saya%20berencana%20melakukan%20*Pengembangan%20Website%2FAplikasi%20Web*.%0A%0AGambaran%20singkat%20kebutuhan%20saya%3A%0A-%20Jenis%3A%20(Company%20Profile%20%2F%20Toko%20Online%20%2F%20Sistem%20Custom)%0A-%20Target%3A%20(Segera%20%2F%20Konsultasi%20Dulu)%0A%0ABoleh%20minta%20info%20portofolio%20dan%20penawarannya%3F" 
+                class="wa-submenu-btn" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-globe"></i>
+                </a>
+            </li>
+        </ul>
+
+        <a href="https://wa.me/6285156412702?text=Halo%2C%20saya%20ingin%20berkonsultasi%20dengan%20IT%20Consultant%20mengenai%20*Transformasi%20Digital*%20di%20perusahaan%20saya.%20Mohon%20dijadwalkan%20untuk%20diskusi%20solusinya." 
+        class="wa-main-btn" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
 
     {{-- Scripts --}}
     <script src="{{ asset('assets/js/vendor/jquery-3.6.3.min.js') }}"></script>

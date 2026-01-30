@@ -347,9 +347,6 @@
         <tbody>
             <tr>
                 <td class="w-half valign-top">
-                    @if($company['logo'])
-                        <img src="{{ public_path('storage/' . $company['logo']) }}" style="height: 40px; margin-bottom: 6px;" alt="Logo">
-                    @endif
                     <div class="company-name">{{ $company['name'] }}</div>
                     <div class="company-info">
                         @if($company['address']){{ $company['address'] }}<br>@endif

@@ -3175,48 +3175,113 @@ footer .blur {
     filter: brightness(1) invert(1);
 }
 
-
-/* --- FLOATING WHATSAPP BUTTON --- */
-.float-wa {
+/* Container Utama: Posisi di Pojok Kanan Bawah */
+.wa-float-menu {
     position: fixed;
-    width: 60px;
-    height: 60px;
-    bottom: 30px;
-    right: 30px;
-    background-color: #25d366;
-    color: #FFF !important; /* WA Tetap Putih iconnya */
-    border-radius: 50px;
-    text-align: center;
-    font-size: 30px;
-    box-shadow: 2px 2px 3px #999;
+    bottom: 30px; /* Jarak dari bawah */
+    right: 30px;  /* Jarak dari kanan */
     z-index: 9999;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+/* Tombol Utama (Hijau) */
+.wa-main-btn {
+    width: 60px;
+    height: 60px;
+    background-color: #25d366;
+    border-radius: 50%;
+    color: white;
+    font-size: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    cursor: pointer;
+    position: relative; /* Penting untuk z-index */
+    z-index: 2; /* Agar selalu di atas list menu */
+    transition: transform 0.3s ease, background 0.3s;
+}
+
+/* Animasi Putar saat Hover */
+.wa-float-menu:hover .wa-main-btn {
+    transform: rotate(360deg);
+    background-color: #128c7e;
+}
+
+/* List Menu (Sub-tombol) */
+.wa-menu-list {
+    position: absolute; /* KUNCI PERBAIKAN: Posisi absolut */
+    bottom: 70px;       /* Muncul 70px di atas tombol utama */
+    right: 0;           /* Rata kanan dengan tombol utama */
+    padding: 0;         /* Reset padding bawaan tema */
+    margin: 0;          /* Reset margin bawaan tema */
+    list-style: none;   /* Hilangkan bullet point */
+    display: flex;
+    flex-direction: column; /* Tumpuk vertikal */
+    gap: 15px;          /* Jarak antar tombol kecil */
+    align-items: flex-end; /* Rata kanan agar tooltip di sebelah kiri */
+    z-index: 1;
+}
+
+/* Item Menu Individual */
+.wa-menu-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Tombol Sub-Menu (Putih) */
+.wa-submenu-btn {
+    width: 50px;
+    height: 50px;
+    background-color: #fff;
+    color: #333;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: all 0.2s;
 }
 
-.float-wa:hover {
-    background-color: #128C7E;
-    transform: scale(1.1);
-    color: #FFF !important;
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+.wa-submenu-btn:hover {
+    background-color: #f0f0f0;
+    color: #25d366;
 }
 
-.float-wa i {
-    margin-top: 2px;
+/* Tooltip Teks */
+.wa-tooltip {
+    background-color: #333;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-family: sans-serif;
+    white-space: nowrap;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    /* Pastikan tooltip tidak tertutup */
+    pointer-events: none; 
 }
 
-@media (max-width: 767px) {
-    .float-wa {
-        width: 50px;
-        height: 50px;
-        bottom: 20px;
-        right: 20px;
-        font-size: 24px;
-    }
+/* Logika Hover */
+.wa-float-menu:hover .wa-menu-item {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
 }
+
+/* Delay Animasi (Agar muncul berurutan dari bawah ke atas) */
+.wa-menu-item:nth-child(2) { transition-delay: 0.05s; }
+.wa-menu-item:nth-child(1) { transition-delay: 0.1s; }
 
 /* =========================================
    PERBAIKAN TAMPILAN LOGO
