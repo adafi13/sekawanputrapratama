@@ -64,7 +64,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-10">
-                
+
                 @if($portfolio->challenge || $portfolio->solution || $portfolio->results)
                 <div class="row g-4 mb-5">
                     @if($portfolio->challenge)
@@ -84,7 +84,7 @@
                         </div>
                     </div>
                     @endif
-                    
+
                     @if($portfolio->results)
                     <div class="col-md-4">
                         <div class="border-start border-success border-3 ps-3">
@@ -99,13 +99,9 @@
                 {{-- Content --}}
                 @if($portfolio->content)
                 <div class="mb-5">
-<<<<<<< HEAD
-                    <div class="article-content text-muted" style="font-size: 1rem; line-height: 1.8; text-align: justify;"> 
-=======
                     <div class="article-content text-muted" style="font-size: 1rem; line-height: 1.8; text-align: justify;">
->>>>>>> 21202806d4f4a13c9e3f5951afdac7733a596257
                         {!! $portfolio->content !!}
-                        
+
                     </div>
                 </div>
                 @endif
@@ -172,7 +168,7 @@
                             @endif
                         </div>
                         @endif
-                        
+
                         @if($portfolio->project_url)
                         <div class="col-md-6 text-md-end">
                             <a href="{{ $portfolio->project_url }}" target="_blank" class="btn btn-primary px-4">
@@ -196,7 +192,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 <h5 class="fw-bold mb-4">Related Projects</h5>
-                
+
                 <div class="row g-3">
                     @foreach($relatedPortfolios as $related)
                         <div class="col-md-4">
@@ -231,43 +227,43 @@
 
 <style>
     /* Minimal & Professional Styles */
-    .project-card { 
-        transition: all 0.3s ease; 
+    .project-card {
+        transition: all 0.3s ease;
         border-radius: 8px;
     }
-    .project-card:hover { 
-        transform: translateY(-5px); 
-        box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important; 
+    .project-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
     }
     .project-card img { transition: transform 0.5s ease; }
     .project-card:hover img { transform: scale(1.05); }
-    
-    .gallery-item { 
-        transition: all 0.3s ease; 
+
+    .gallery-item {
+        transition: all 0.3s ease;
         cursor: pointer;
         background: #f8f9fa;
     }
-    .gallery-item:hover { 
+    .gallery-item:hover {
         opacity: 0.9;
         box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
-    
-    .article-content img { 
-        max-width: 100%; 
-        height: auto; 
+
+    .article-content img {
+        max-width: 100%;
+        height: auto;
         border-radius: 8px;
         margin: 1.5rem 0;
     }
     .article-content p { margin-bottom: 1rem; }
-    .article-content h2, .article-content h3, .article-content h4 { 
-        margin-top: 2rem; 
+    .article-content h2, .article-content h3, .article-content h4 {
+        margin-top: 2rem;
         margin-bottom: 1rem;
         font-weight: 700;
     }
-    .article-content ul, .article-content ol { 
-        margin-bottom: 1rem; 
+    .article-content ul, .article-content ol {
+        margin-bottom: 1rem;
         padding-left: 1.5rem;
-    
+
     }
     .article-content blockquote {
         border-left: 3px solid #0d6efd;
@@ -275,7 +271,7 @@
         margin: 1.5rem 0;
         font-style: italic;
         color: #6c757d;
-        
+
     }
 </style>
 
