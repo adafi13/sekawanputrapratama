@@ -156,12 +156,11 @@
     </div>
 </section>
 
+{{-- Newsletter Section --}}
 <section class="py-5 bg-light">
     <div class="container">
         <div class="bg-white rounded-5 p-4 p-md-5 border shadow-sm position-relative overflow-hidden">
-            
             <div class="position-absolute start-0 top-0 bottom-0 bg-primary" style="width: 6px;"></div>
-
             <div class="row align-items-center">
                 <div class="col-lg-6 mb-4 mb-lg-0 text-center text-lg-start">
                     <div class="d-inline-flex align-items-center mb-3">
@@ -178,17 +177,15 @@
 
                 <div class="col-lg-6">
                     <div class="newsletter-box p-2 p-md-3 bg-light rounded-4 border">
-                        {{-- Form Newsletter yang telah diperbarui --}}
-                        <form class="row g-2" id="newsletterForm">
-                            @csrf
+                        <form class="row g-2" onsubmit="return false;">
                             <div class="col-md-8 col-12">
                                 <div class="form-floating">
-                                    <input type="email" name="email" class="form-control border-0 bg-white rounded-3 shadow-none" id="newsletterEmail" placeholder="name@example.com" required>
+                                    <input type="email" class="form-control border-0 bg-white rounded-3 shadow-none" id="newsletterEmail" placeholder="name@example.com" required>
                                     <label for="newsletterEmail" class="text-muted small">Alamat Email Anda</label>
                                 </div>
                             </div>
                             <div class="col-md-4 col-12">
-                                <button type="submit" id="btnSubscribe" class="btn btn-primary w-100 h-100 py-3 py-md-0 rounded-3 fw-bold transition-all hover-lift">
+                                <button type="submit" class="btn btn-primary w-100 h-100 py-3 py-md-0 rounded-3 fw-bold transition-all hover-lift">
                                     Subscribe
                                 </button>
                             </div>
@@ -202,51 +199,6 @@
         </div>
     </div>
 </section>
-
-<style>
-/* Tipografi & Spasi */
-.tracking-widest { letter-spacing: 2px; }
-
-/* Animasi & Hover */
-.transition-all { transition: all 0.3s ease; }
-
-.hover-lift:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(13, 110, 253, 0.15);
-}
-
-/* Penyesuaian Form Floating agar lebih rapi */
-.form-floating > .form-control {
-    height: calc(3.5rem + 2px);
-    line-height: 1.25;
-}
-
-.form-floating > label {
-    padding: 1rem 0.75rem;
-}
-
-/* Responsive Desktop vs Mobile */
-@media (min-width: 992px) {
-    .newsletter-box {
-        margin-left: 20px;
-    }
-}
-
-@media (max-width: 767px) {
-    .rounded-5 { border-radius: 1.5rem !important; }
-    .display-6 { font-size: 1.8rem; }
-    
-    .newsletter-box {
-        background-color: transparent !important;
-        border: none !important;
-        padding: 0 !important;
-    }
-    
-    .form-control {
-        border: 1px solid #dee2e6 !important;
-    }
-}
-</style>
 
 <style>
     .gradient-text {
@@ -267,6 +219,20 @@
     .btn-filter { color: #64748b; border: none; background: transparent; }
     .btn-filter:hover { background: rgba(13, 110, 253, 0.05); color: #0d6efd; }
     .btn-filter.active { background: #0d6efd !important; color: white !important; box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3); }
+
+    /* Newsletter Styles */
+    .transition-all { transition: all 0.3s ease; }
+    .hover-lift:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(13, 110, 253, 0.15); }
+    .form-floating > .form-control { height: calc(3.5rem + 2px); line-height: 1.25; }
+    .form-floating > label { padding: 1rem 0.75rem; }
+
+    @media (min-width: 992px) { .newsletter-box { margin-left: 20px; } }
+    @media (max-width: 767px) {
+        .rounded-5 { border-radius: 1.5rem !important; }
+        .display-6 { font-size: 1.8rem; }
+        .newsletter-box { background-color: transparent !important; border: none !important; padding: 0 !important; }
+        .form-control { border: 1px solid #dee2e6 !important; }
+    }
 </style>
 
 @endsection
@@ -296,42 +262,6 @@
                         setTimeout(() => item.style.display = 'none', 300);
                     }
                 });
-            });
-        });
-
-        // --- Logic AJAX Newsletter ---
-        $('#newsletterForm').on('submit', function(e) {
-            e.preventDefault();
-            
-            let email = $('#newsletterEmail').val();
-            let btn = $('#btnSubscribe');
-            let originalText = btn.html();
-            
-            // Loading state
-            btn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm"></span>');
-
-            $.ajax({
-                url: "{{ route('newsletter.subscribe') }}",
-                method: "POST",
-                data: {
-                    _token: "{{ csrf_token() }}",
-                    email: email
-                },
-                success: function(response) {
-                    alert('Terima kasih! Email Anda telah terdaftar.');
-                    $('#newsletterEmail').val('');
-                    btn.prop('disabled', false).html(originalText);
-                },
-                error: function(xhr) {
-                    let errorMsg = 'Terjadi kesalahan.';
-                    if(xhr.responseJSON && xhr.responseJSON.errors) {
-                        errorMsg = xhr.responseJSON.errors.email[0];
-                    } else if(xhr.responseJSON && xhr.responseJSON.message) {
-                        errorMsg = xhr.responseJSON.message;
-                    }
-                    alert(errorMsg);
-                    btn.prop('disabled', false).html(originalText);
-                }
             });
         });
     });
