@@ -27,10 +27,10 @@
         
         {{-- Category Filter Pills --}}
         <div class="d-flex justify-content-center mb-5 animate-up">
-            <div class="p-2 bg-light rounded-pill d-inline-flex gap-1 border shadow-sm">
-                <button class="btn btn-filter {{ !request('category') ? 'active' : '' }} rounded-pill px-4 py-2 fw-bold small" data-filter="">Semua Artikel</button>
+            <div class="filter-scroll-wrapper p-2 bg-light rounded-pill d-inline-flex gap-1 border shadow-sm">
+                <button class="btn btn-filter {{ !request('category') ? 'active' : '' }} rounded-pill px-4 py-2 fw-bold small text-nowrap" data-filter="">Semua</button>
                 @foreach($categories as $cat)
-                    <button class="btn btn-filter {{ request('category') == $cat->slug ? 'active' : '' }} rounded-pill px-4 py-2 fw-bold small" data-filter="{{ $cat->slug }}">{{ $cat->name }}</button>
+                    <button class="btn btn-filter {{ request('category') == $cat->slug ? 'active' : '' }} rounded-pill px-4 py-2 fw-bold small text-nowrap" data-filter="{{ $cat->slug }}">{{ $cat->name }}</button>
                 @endforeach
             </div>
         </div>
@@ -121,14 +121,14 @@
                                         </a>
                                     </h5>
                                     <p class="text-muted small mb-3">{{ Str::limit($blog->excerpt, 150) }}</p>
-                                    <div class="d-flex align-items-center justify-content-between pt-2 border-top">
+                                    <div class="d-flex align-items-center mt-auto">
                                         <div class="d-flex align-items-center">
                                             <div class="bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 32px; height: 32px;">
                                                 <i class="fas fa-user small text-primary"></i>
                                             </div>
                                             <small class="text-muted fw-medium">{{ $blog->author->name ?? 'Admin' }}</small>
                                         </div>
-                                        <a href="{{ route('blog.show', $blog->slug) }}" class="btn btn-sm btn-outline-primary rounded-pill px-3">
+                                        <a href="{{ route('blog.show', $blog->slug) }}" class="btn btn-sm btn-outline-primary rounded-pill px-3 ms-auto">
                                             Baca Selengkapnya <i class="fas fa-arrow-right ms-1 small"></i>
                                         </a>
                                     </div>
@@ -158,25 +158,95 @@
 
 <section class="py-5 bg-light">
     <div class="container">
-        <div class="card border-0 rounded-4 bg-primary p-4 p-lg-5 shadow-lg overflow-hidden position-relative">
-            <div class="position-absolute top-0 end-0 opacity-10" style="font-size: 200px; transform: rotate(15deg) translate(20px, -50px);">
-                <i class="fas fa-paper-plane text-white"></i>
-            </div>
-            <div class="row align-items-center position-relative z-2">
-                <div class="col-lg-6 text-center text-lg-start mb-4 mb-lg-0">
-                    <h3 class="text-white fw-bold mb-2">Langganan Newsletter Kami</h3>
-                    <p class="text-white text-opacity-75 mb-0">Dapatkan update teknologi terbaru langsung di email Anda.</p>
+        <div class="bg-white rounded-5 p-4 p-md-5 border shadow-sm position-relative overflow-hidden">
+            
+            <div class="position-absolute start-0 top-0 bottom-0 bg-primary" style="width: 6px;"></div>
+
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0 text-center text-lg-start">
+                    <div class="d-inline-flex align-items-center mb-3">
+                        <div class="bg-primary bg-opacity-10 p-2 rounded-3 me-3">
+                            <i class="fas fa-paper-plane text-primary"></i>
+                        </div>
+                        <span class="fw-bold text-primary text-uppercase small tracking-widest">Newsletter</span>
+                    </div>
+                    <h2 class="fw-bold text-dark mb-3 display-6">Stay ahead of the curve</h2>
+                    <p class="text-muted fs-6 mb-0 pe-lg-5">
+                        Dapatkan kurasi berita teknologi dan update project terbaru dari <span class="text-dark fw-semibold">Sekawan Putra Pratama</span> langsung di inbox Anda.
+                    </p>
                 </div>
+
                 <div class="col-lg-6">
-                    <form class="d-flex gap-2 p-2 bg-white rounded-pill shadow-sm">
-                        <input type="email" class="form-control border-0 bg-transparent ps-4" placeholder="Alamat email Anda..." required>
-                        <button type="submit" class="btn btn-dark rounded-pill px-4">Daftar</button>
-                    </form>
+                    <div class="newsletter-box p-2 p-md-3 bg-light rounded-4 border">
+                        {{-- Form Newsletter yang telah diperbarui --}}
+                        <form class="row g-2" id="newsletterForm">
+                            @csrf
+                            <div class="col-md-8 col-12">
+                                <div class="form-floating">
+                                    <input type="email" name="email" class="form-control border-0 bg-white rounded-3 shadow-none" id="newsletterEmail" placeholder="name@example.com" required>
+                                    <label for="newsletterEmail" class="text-muted small">Alamat Email Anda</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-12">
+                                <button type="submit" id="btnSubscribe" class="btn btn-primary w-100 h-100 py-3 py-md-0 rounded-3 fw-bold transition-all hover-lift">
+                                    Subscribe
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <p class="small text-muted mt-3 text-center text-lg-start">
+                        <i class="fas fa-info-circle me-1 opacity-50"></i> Kami menghargai privasi Anda sepenuhnya.
+                    </p>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<style>
+/* Tipografi & Spasi */
+.tracking-widest { letter-spacing: 2px; }
+
+/* Animasi & Hover */
+.transition-all { transition: all 0.3s ease; }
+
+.hover-lift:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(13, 110, 253, 0.15);
+}
+
+/* Penyesuaian Form Floating agar lebih rapi */
+.form-floating > .form-control {
+    height: calc(3.5rem + 2px);
+    line-height: 1.25;
+}
+
+.form-floating > label {
+    padding: 1rem 0.75rem;
+}
+
+/* Responsive Desktop vs Mobile */
+@media (min-width: 992px) {
+    .newsletter-box {
+        margin-left: 20px;
+    }
+}
+
+@media (max-width: 767px) {
+    .rounded-5 { border-radius: 1.5rem !important; }
+    .display-6 { font-size: 1.8rem; }
+    
+    .newsletter-box {
+        background-color: transparent !important;
+        border: none !important;
+        padding: 0 !important;
+    }
+    
+    .form-control {
+        border: 1px solid #dee2e6 !important;
+    }
+}
+</style>
 
 <style>
     .gradient-text {
@@ -204,23 +274,20 @@
 @push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // --- Logic Category Filter ---
         const filters = document.querySelectorAll('.btn-filter');
         const items = document.querySelectorAll('.blog-item');
 
         filters.forEach(filter => {
             filter.addEventListener('click', function(e) {
                 e.preventDefault();
-                
-                // Update Active Button
                 filters.forEach(f => f.classList.remove('active'));
                 this.classList.add('active');
 
                 const category = this.getAttribute('data-filter');
 
-                // Filter items with smooth animation
                 items.forEach(item => {
                     const itemCategory = item.getAttribute('data-category');
-                    
                     if (category === '' || itemCategory === category) {
                         item.style.display = 'block';
                         setTimeout(() => item.style.opacity = '1', 10);
@@ -229,6 +296,42 @@
                         setTimeout(() => item.style.display = 'none', 300);
                     }
                 });
+            });
+        });
+
+        // --- Logic AJAX Newsletter ---
+        $('#newsletterForm').on('submit', function(e) {
+            e.preventDefault();
+            
+            let email = $('#newsletterEmail').val();
+            let btn = $('#btnSubscribe');
+            let originalText = btn.html();
+            
+            // Loading state
+            btn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm"></span>');
+
+            $.ajax({
+                url: "{{ route('newsletter.subscribe') }}",
+                method: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    email: email
+                },
+                success: function(response) {
+                    alert('Terima kasih! Email Anda telah terdaftar.');
+                    $('#newsletterEmail').val('');
+                    btn.prop('disabled', false).html(originalText);
+                },
+                error: function(xhr) {
+                    let errorMsg = 'Terjadi kesalahan.';
+                    if(xhr.responseJSON && xhr.responseJSON.errors) {
+                        errorMsg = xhr.responseJSON.errors.email[0];
+                    } else if(xhr.responseJSON && xhr.responseJSON.message) {
+                        errorMsg = xhr.responseJSON.message;
+                    }
+                    alert(errorMsg);
+                    btn.prop('disabled', false).html(originalText);
+                }
             });
         });
     });

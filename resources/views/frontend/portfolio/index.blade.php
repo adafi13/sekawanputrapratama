@@ -27,13 +27,13 @@
     
     {{-- Category Filter Pills --}}
     <div class="d-flex justify-content-center mb-5 animate-up">
-        <div class="filter-scroll-wrapper p-2 bg-light rounded-pill-md d-inline-flex gap-1 border shadow-sm">
-            <button class="btn btn-filter {{ !request('category') ? 'active' : '' }} rounded-pill px-4 py-2 fw-bold small text-nowrap" data-filter="">Semua</button>
-            @foreach($categories as $cat)
-                <button class="btn btn-filter {{ request('category') == $cat->slug ? 'active' : '' }} rounded-pill px-4 py-2 fw-bold small text-nowrap" data-filter="{{ $cat->slug }}">{{ $cat->name }}</button>
-            @endforeach
-        </div>
+    <div class="filter-scroll-wrapper p-2 bg-light rounded-pill d-inline-flex gap-1 border shadow-sm">
+        <button class="btn btn-filter {{ !request('category') ? 'active' : '' }} rounded-pill px-4 py-2 fw-bold small text-nowrap" data-filter="">Semua</button>
+        @foreach($categories as $cat)
+            <button class="btn btn-filter {{ request('category') == $cat->slug ? 'active' : '' }} rounded-pill px-4 py-2 fw-bold small text-nowrap" data-filter="{{ $cat->slug }}">{{ $cat->name }}</button>
+        @endforeach
     </div>
+</div>
 </div>
 
 <style>
