@@ -1,6 +1,8 @@
 @extends('frontend.layouts.app')
 
-@section('title', 'Blog & Artikel - Sekawan Putra Pratama')
+@section('title', 'Blog & Artikel IT Terkini | Tips & Tutorial - Sekawan Putra Pratama')
+@section('meta_description', 'Baca artikel terbaru seputar teknologi, tutorial programming, tips IT, dan tren digital. Update mingguan dari expert IT berpengalaman.')
+@section('meta_keywords', 'blog IT, artikel teknologi, tutorial programming, tips website, tutorial aplikasi mobile, berita IT terkini')
 
 @section('content')
 
@@ -27,10 +29,10 @@
         
         {{-- Category Filter Pills --}}
         <div class="d-flex justify-content-center mb-5 animate-up">
-            <div class="p-2 bg-light rounded-pill d-inline-flex gap-1 border shadow-sm">
-                <button class="btn btn-filter {{ !request('category') ? 'active' : '' }} rounded-pill px-4 py-2 fw-bold small" data-filter="">Semua Artikel</button>
+            <div class="filter-scroll-wrapper p-2 bg-light rounded-pill d-inline-flex flex-nowrap gap-1 border shadow-sm" style="max-width: fit-content;">
+                <button class="btn btn-filter {{ !request('category') ? 'active' : '' }} rounded-pill px-4 py-2 fw-bold small text-nowrap" data-filter="">Semua Artikel</button>
                 @foreach($categories as $cat)
-                    <button class="btn btn-filter {{ request('category') == $cat->slug ? 'active' : '' }} rounded-pill px-4 py-2 fw-bold small" data-filter="{{ $cat->slug }}">{{ $cat->name }}</button>
+                    <button class="btn btn-filter {{ request('category') == $cat->slug ? 'active' : '' }} rounded-pill px-4 py-2 fw-bold small text-nowrap" data-filter="{{ $cat->slug }}">{{ $cat->name }}</button>
                 @endforeach
             </div>
         </div>
@@ -158,46 +160,50 @@
 
 <section class="py-5 bg-light">
     <div class="container">
-        <div class="card border-0 rounded-4 bg-primary p-4 p-lg-5 shadow-lg overflow-hidden position-relative">
-            <div class="position-absolute top-0 end-0 opacity-10" style="font-size: 200px; transform: rotate(15deg) translate(20px, -50px);">
-                <i class="fas fa-paper-plane text-white"></i>
-            </div>
-            <div class="row align-items-center position-relative z-2">
-                <div class="col-lg-6 text-center text-lg-start mb-4 mb-lg-0">
-                    <h3 class="text-white fw-bold mb-2">Langganan Newsletter Kami</h3>
-                    <p class="text-white text-opacity-75 mb-0">Dapatkan update teknologi terbaru langsung di email Anda.</p>
+        <div class="bg-white rounded-5 p-4 p-md-5 border shadow-sm position-relative overflow-hidden">
+            
+            <div class="position-absolute start-0 top-0 bottom-0 bg-primary" style="width: 6px;"></div>
+
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0 text-center text-lg-start">
+                    <div class="d-inline-flex align-items-center mb-3">
+                        <div class="bg-primary bg-opacity-10 p-2 rounded-3 me-3">
+                            <i class="fas fa-paper-plane text-primary"></i>
+                        </div>
+                        <span class="fw-bold text-primary text-uppercase small tracking-widest">Newsletter</span>
+                    </div>
+                    <h2 class="fw-bold text-dark mb-3 display-6">Stay ahead of the curve</h2>
+                    <p class="text-muted fs-6 mb-0 pe-lg-5">
+                        Dapatkan kurasi berita teknologi dan update project terbaru dari <span class="text-dark fw-semibold">Sekawan Putra Pratama</span> langsung di inbox Anda.
+                    </p>
                 </div>
+
                 <div class="col-lg-6">
-                    <form class="d-flex gap-2 p-2 bg-white rounded-pill shadow-sm">
-                        <input type="email" class="form-control border-0 bg-transparent ps-4" placeholder="Alamat email Anda..." required>
-                        <button type="submit" class="btn btn-dark rounded-pill px-4">Daftar</button>
-                    </form>
+                    <div class="newsletter-box p-2 p-md-3 bg-light rounded-4 border">
+                        {{-- Form Newsletter yang telah diperbarui --}}
+                        <form class="row g-2" id="newsletterForm">
+                            @csrf
+                            <div class="col-md-8 col-12">
+                                <div class="form-floating">
+                                    <input type="email" name="email" class="form-control border-0 bg-white rounded-3 shadow-none" id="newsletterEmail" placeholder="name@example.com" required>
+                                    <label for="newsletterEmail" class="text-muted small">Alamat Email Anda</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-12">
+                                <button type="submit" id="btnSubscribe" class="btn btn-primary w-100 h-100 py-3 py-md-0 rounded-3 fw-bold transition-all hover-lift">
+                                    Subscribe
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <p class="small text-muted mt-3 text-center text-lg-start">
+                        <i class="fas fa-info-circle me-1 opacity-50"></i> Kami menghargai privasi Anda sepenuhnya.
+                    </p>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
-<style>
-    .gradient-text {
-        background: linear-gradient(135deg, #60A5FA 0%, #A78BFA 100%);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    }
-    .tracking-widest { letter-spacing: 3px; }
-    
-    .blog-card { transition: all 0.3s ease; }
-    .blog-card:hover { transform: translateX(5px); box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important; }
-    .blog-card img { transition: transform 0.5s ease; }
-    .blog-card:hover img { transform: scale(1.05); }
-    
-    .hover-primary:hover { color: #0d6efd !important; }
-    .page-link { width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; }
-    
-    /* Filter Button */
-    .btn-filter { color: #64748b; border: none; background: transparent; }
-    .btn-filter:hover { background: rgba(13, 110, 253, 0.05); color: #0d6efd; }
-    .btn-filter.active { background: #0d6efd !important; color: white !important; box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3); }
-</style>
 
 @endsection
 

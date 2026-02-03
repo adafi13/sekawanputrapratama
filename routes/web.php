@@ -4,6 +4,7 @@ use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\QuotationController;
+use App\Http\Controllers\SitemapController;
 use Illuminate\Support\Facades\Route;
 
 // Public Frontend Routes
@@ -22,6 +23,9 @@ Route::get('/portfolio/{slug}', [PortfolioController::class, 'show'])->name('por
 
 // Services Route (Static page for now)
 Route::view('/services', 'frontend.services')->name('services.index');
+
+// Sitemap Route
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap.index');
 
 // Quotation PDF Download Route (Admin authenticated)
 Route::middleware(['auth'])->group(function () {

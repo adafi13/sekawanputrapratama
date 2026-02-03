@@ -142,38 +142,4 @@
 </section>
 @endif
 
-<style>
-    .article-content h3 { 
-        font-size: 1.8rem; 
-        margin-top: 2.5rem; 
-        letter-spacing: -0.5px;
-    }
-    .article-content h2 {
-        font-size: 2rem;
-        margin-top: 3rem;
-        letter-spacing: -0.5px;
-    }
-    .article-content img {
-        max-width: 100%;
-        height: auto;
-        border-radius: 0.5rem;
-        margin: 1.5rem 0;
-    }
-    .article-content p {
-        margin-bottom: 1.2rem;
-    }
-    .article-content ul, .article-content ol {
-        margin: 1.5rem 0;
-        padding-left: 2rem;
-    }
-    .article-content li {
-        margin-bottom: 0.5rem;
-    }
-    .hover-primary:hover { color: #0d6efd !important; }
-    .blog-card { transition: all 0.3s ease; }
-    .blog-card:hover { transform: translateY(-5px); }
-    .italic { font-style: italic; }
-    .breadcrumb-item + .breadcrumb-item::before { content: "›"; font-size: 1.2rem; line-height: 1; }
-</style>
-
 @endsection

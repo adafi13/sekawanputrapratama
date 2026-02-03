@@ -1,4 +1,22 @@
 User-agent: *
 Allow: /
 
-Sitemap: /sitemap.xml
+# Block admin and private pages
+Disallow: /admin/
+Disallow: /filament/
+Disallow: /login
+Disallow: /register
+Disallow: /password/
+
+# Allow specific bots
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+# Crawl delay
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: {{ url('/sitemap.xml') }}

@@ -6,9 +6,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     {{-- SEO & Meta Tags --}}
-    <title>{{ $title ?? 'Sekawan Putra Pratama - IT Consultant & Software House' }}</title>
-    <meta name="description" content="{{ $description ?? 'Jasa Pembuatan Website, Aplikasi Android/iOS, dan Instalasi Server Kantor Terpercaya.' }}">
+    <title>@yield('title', 'Sekawan Putra Pratama - Jasa IT Terpercaya | Software House & IT Consultant')</title>
+    <meta name="description" content="@yield('meta_description', 'Jasa pembuatan website profesional, aplikasi mobile Android/iOS, instalasi server & jaringan kantor. Software house terpercaya sejak 2015. Konsultasi GRATIS!')">
+    <meta name="keywords" content="@yield('meta_keywords', 'jasa pembuatan website, software house, jasa IT, pembuatan aplikasi android, pembuatan aplikasi iOS, instalasi server, instalasi jaringan kantor, IT consultant, jasa IT terpercaya, web developer Indonesia')">
+    <meta name="author" content="Sekawan Putra Pratama">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <link rel="canonical" href="{{ url()->current() }}">
+    
+    {{-- Open Graph / Facebook --}}
+    <meta property="og:type" content="@yield('og_type', 'website')">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="@yield('og_title', 'Sekawan Putra Pratama - Solusi IT Terintegrasi & Terpercaya')">
+    <meta property="og:description" content="@yield('og_description', 'Software house & IT consultant terpercaya. Jasa pembuatan website, aplikasi mobile, instalasi server & jaringan kantor. Konsultasi GRATIS!')">
+    <meta property="og:image" content="@yield('og_image', asset('assets/media/logo.png'))">
+    <meta property="og:site_name" content="Sekawan Putra Pratama">
+    <meta property="og:locale" content="id_ID">
+    
+    {{-- Twitter Card --}}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{{ url()->current() }}">
+    <meta name="twitter:title" content="@yield('twitter_title', 'Sekawan Putra Pratama - Software House & IT Consultant')">
+    <meta name="twitter:description" content="@yield('twitter_description', 'Jasa IT terpercaya: Website, Aplikasi Mobile, Server & Jaringan. Konsultasi GRATIS!')">
+    <meta name="twitter:image" content="@yield('twitter_image', asset('assets/media/logo.png'))">
+    
+    <script type="application/ld+json">
+    @php
+    echo json_encode([
+        '@context' => 'https://schema.org',
+        '@type' => 'LocalBusiness',
+        'name' => 'Sekawan Putra Pratama',
+        'image' => asset('assets/media/logo.png'),
+        '@id' => route('home'),
+        'url' => route('home'),
+        'telephone' => '+62-851-5641-2702',
+        'priceRange' => 'Rp 5.000.000 - Rp 100.000.000',
+        'address' => [
+            '@type' => 'PostalAddress',
+            'streetAddress' => 'Perumahan Mega Regency, Blk. L5, No 23',
+            'addressLocality' => 'Bekasi',
+            'postalCode' => '17156',
+            'addressCountry' => 'ID'
+        ],
+        'geo' => [
+            '@type' => 'GeoCoordinates',
+            'latitude' => -6.2088,
+            'longitude' => 106.8456
+        ],
+        'openingHoursSpecification' => [
+            '@type' => 'OpeningHoursSpecification',
+            'dayOfWeek' => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+            'opens' => '09:00',
+            'closes' => '17:00'
+        ],
+        'sameAs' => [
+            'https://www.facebook.com/sekawanputrapratama',
+            'https://www.instagram.com/sekawanputrapratama',
+            'https://www.linkedin.com/company/sekawanputrapratama'
+        ]
+    ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+    @endphp
+    </script>
 
     {{-- Icons --}}
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/media/favicon.png') }}">
@@ -22,29 +79,27 @@
     <link rel="stylesheet" href="{{ asset('assets/css/vendor/video-js.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/vendor/nice-select.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css">
-    <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}?v={{ filemtime(public_path('assets/css/app.css')) }}">
-
-    {{-- Custom CSS --}}
-    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}?v={{ filemtime(public_path('assets/css/custom.css')) }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
 
     <style>
         /* --- CSS KHUSUS AGAR RAPI DI HP --- */
-
+        
         /* 1. Header Responsif */
         .header-logo { height: 60px; width: auto; } /* Default Desktop */
-
+        
         @media (max-width: 576px) {
             #main-header { height: 70px !important; padding: 0 10px; }
             .header-logo { height: 32px !important; } /* Perkecil logo di HP */
-
+            
             /* Agar tombol Consult Now muat di HP */
             .header-btn {
                 padding: 6px 12px !important;
-                font-size: 11px !important;
+                font-size: 11px !important; 
                 margin-right: 8px;
             }
             .header-btn i { display: none; } /* Sembunyikan panah di tombol saat di HP */
-
+            
             /* Jarak antar elemen footer di HP */
             .footer-widget h5 { font-size: 16px; margin-bottom: 15px; }
             .footer-links li a { font-size: 14px; }
@@ -96,7 +151,7 @@
 
                         <div class="menu-button-right d-flex align-items-center">
                             {{-- Menu Desktop --}}
-                            <div class="main-menu__nav d-none d-xl-block me-4">
+                            <div class="main-menu__nav d-none d-lg-block me-4">
                                 <ul class="main-menu__list list-unstyled mb-0">
                                     @include('frontend.layouts.menu-links')
                                 </ul>
@@ -110,7 +165,7 @@
                                 </a>
 
                                 {{-- Burger Menu --}}
-                                <a href="#" class="main-menu__toggler mobile-nav__toggler ms-2 text-dark">
+                                <a href="#" class="main-menu__toggler mobile-nav__toggler ms-2 d-lg-none text-dark">
                                     <i class="fas fa-bars" style="font-size: 24px;"></i>
                                 </a>
                             </div>
@@ -139,14 +194,14 @@
                             Sekawan Putra Pratama adalah mitra teknologi terpercaya Anda. Kami mengubah ide kompleks menjadi solusi digital yang sederhana.
                         </p>
                         <div class="d-flex gap-3">
-                            <a href="https://www.instagram.com/sekawanputrapratama?igsh=MTUxbjJiaXRsMHh6"
+                            <a href="https://www.instagram.com/sekawanputrapratama?igsh=MTUxbjJiaXRsMHh6" 
                                class="text-white" target="_blank" rel="noopener noreferrer">
                                 <i class="fab fa-instagram fa-lg"></i>
                             </a>
                         </div>
                     </div>
 
-                    {{--
+                    {{-- 
                        FIX RAPIH: Menggunakan 'col-6' pada Layanan & Tautan.
                        Ini membuat menu footer menjadi 2 kolom (kiri-kanan) di layar HP.
                     --}}
@@ -210,57 +265,383 @@
     <div class="mobile-nav__wrapper">
         <div class="mobile-nav__overlay mobile-nav__toggler"></div>
         <div class="mobile-nav__content">
-            <span class="mobile-nav__close mobile-nav__toggler"><i class="fa fa-times"></i></span>
-            <div class="logo-box">
-                <a href="{{ route('home') }}"><img src="{{ asset('assets/media/logo.png') }}" width="150" alt="Logo"></a>
+            <div class="mobile-nav__header">
+                <div class="logo-box">
+                    <a href="{{ route('home') }}"><img src="{{ asset('assets/media/logo.png') }}" width="120" alt="Logo"></a>
+                </div>
+                <span class="mobile-nav__close mobile-nav__toggler">
+                    <i class="fa fa-times"></i>
+                </span>
             </div>
-            <div class="mobile-nav__container">
-                <ul class="main-menu__list">
-                    @include('frontend.layouts.menu-links')
+            
+            <div class="mobile-nav__body">
+                <div class="mobile-nav__container">
+                    <ul class="main-menu__list">
+                        @include('frontend.layouts.menu-links')
+                    </ul>
+                </div>
+                
+                <div class="mobile-nav__divider"></div>
+                
+                <ul class="mobile-nav__contact list-unstyled">
+                    <li>
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="contact-info">
+                            <span class="contact-label">Email</span>
+                            <a href="mailto:support@sekawanputrapratama.com">support@sekawanputrapratama.com</a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
+                        <div class="contact-info">
+                            <span class="contact-label">WhatsApp</span>
+                            <a href="https://wa.me/6285156412702" target="_blank">+62 851-5641-2702</a>
+                        </div>
+                    </li>
                 </ul>
+                
+                <div class="mobile-nav__divider"></div>
+                
+                <div class="mobile-nav__social">
+                    <p class="social-title">Follow Us</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/sekawanputrapratama?igsh=MTUxbjJiaXRsMHh6" 
+                           class="social-link" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
-            <ul class="mobile-nav__contact list-unstyled mt-4">
-                 <li>
-                    <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-                    <a href="mailto:support@sekawanputrapratama.com">Email Kami</a>
-                </li>
-                <li>
-                    {{-- FIXED: Icon jadi WA, Link jadi WA.ME (bukan tel:) --}}
-                    <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
-                    <a href="https://wa.me/6285156412702" target="_blank">WhatsApp Kami</a>
-                </li>
-            </ul>
-            <div class="mobile-nav__social mt-4">
-                <a href="https://www.instagram.com/sekawanputrapratama?igsh=MTUxbjJiaXRsMHh6"
-                   class="fab fa-instagram" target="_blank" rel="noopener noreferrer"></a>
+            
+            <div class="mobile-nav__footer">
+                <p class="mb-0">&copy; {{ date('Y') }} Sekawan Putra Pratama</p>
             </div>
         </div>
     </div>
 
+    <style>
+        /* Modern Mobile Navigation Styles */
+        .mobile-nav__wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            pointer-events: none;
+            transition: pointer-events 0s linear 0.3s;
+        }
+        
+        .mobile-nav__wrapper.active {
+            pointer-events: auto;
+            transition-delay: 0s;
+        }
+        
+        .mobile-nav__overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(2px);
+            opacity: 0;
+            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1;
+            pointer-events: auto;
+            cursor: pointer;
+        }
+        
+        .mobile-nav__wrapper.active .mobile-nav__overlay {
+            opacity: 1;
+        }
+        
+        .mobile-nav__content {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 280px;
+            max-width: 80vw;
+            height: 100%;
+            background: #ffffff;
+            box-shadow: -2px 0 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 2;
+            pointer-events: auto;
+        }
+        
+        .mobile-nav__wrapper.active .mobile-nav__content {
+            transform: translateX(0);
+        }
+        
+        /* Header */
+        .mobile-nav__header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            background: #0F172A;
+            flex-shrink: 0;
+        }
+        
+        .mobile-nav__close {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            color: white;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            flex-shrink: 0;
+        }
+        
+        .mobile-nav__close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Body */
+        .mobile-nav__body {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 15px;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .mobile-nav__body::-webkit-scrollbar {
+            width: 3px;
+        }
+        
+        .mobile-nav__body::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 10px;
+        }
+        
+        /* Menu Items */
+        .mobile-nav__container .main-menu__list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .mobile-nav__container .main-menu__list > li {
+            margin-bottom: 3px;
+        }
+        
+        .mobile-nav__container .main-menu__list > li > a {
+            display: block;
+            padding: 10px 12px;
+            color: #1f2937;
+            font-weight: 600;
+            font-size: 14px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+        
+        .mobile-nav__container .main-menu__list > li > a:hover,
+        .mobile-nav__container .main-menu__list > li > a.active {
+            background: #f3f4f6;
+            color: #0F172A;
+        }
+        
+        /* Divider */
+        .mobile-nav__divider {
+            height: 1px;
+            background: #e5e7eb;
+            margin: 15px 0;
+        }
+        
+        /* Contact */
+        .mobile-nav__contact {
+            padding: 0;
+            margin: 0;
+        }
+        
+        .mobile-nav__contact li {
+            display: flex;
+            align-items: flex-start;
+            padding: 10px 0;
+            gap: 10px;
+        }
+        
+        .mobile-nav__contact .contact-icon {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            border-radius: 8px;
+            color: #0F172A;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        
+        .mobile-nav__contact .contact-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+        
+        .mobile-nav__contact .contact-label {
+            font-size: 10px;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+            font-weight: 600;
+        }
+        
+        .mobile-nav__contact .contact-info a {
+            color: #1f2937;
+            font-weight: 600;
+            font-size: 12px;
+            text-decoration: none;
+            transition: color 0.2s ease;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            line-height: 1.4;
+        }
+        
+        .mobile-nav__contact .contact-info a:hover {
+            color: #0F172A;
+        }
+        
+        /* Social */
+        .mobile-nav__social {
+            margin-top: 5px;
+        }
+        
+        .mobile-nav__social .social-title {
+            font-size: 10px;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .mobile-nav__social .social-links {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .mobile-nav__social .social-link {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            color: #0F172A;
+            font-size: 20px;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+        
+        .mobile-nav__social .social-link:hover {
+            color: #6b7280;
+        }
+        
+        /* Footer */
+        .mobile-nav__footer {
+            padding: 12px 15px;
+            background: #f9fafb;
+            border-top: 1px solid #e5e7eb;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        
+        .mobile-nav__footer p {
+            font-size: 10px;
+            color: #6b7280;
+            font-weight: 500;
+        }
+        
+        /* Smooth Entrance Animation for Menu Items */
+        .mobile-nav__wrapper.active .mobile-nav__container .main-menu__list > li {
+            animation: fadeInUp 0.3s ease forwards;
+            opacity: 0;
+        }
+        
+        .mobile-nav__wrapper.active .mobile-nav__container .main-menu__list > li:nth-child(1) { animation-delay: 0.05s; }
+        .mobile-nav__wrapper.active .mobile-nav__container .main-menu__list > li:nth-child(2) { animation-delay: 0.1s; }
+        .mobile-nav__wrapper.active .mobile-nav__container .main-menu__list > li:nth-child(3) { animation-delay: 0.15s; }
+        .mobile-nav__wrapper.active .mobile-nav__container .main-menu__list > li:nth-child(4) { animation-delay: 0.2s; }
+        .mobile-nav__wrapper.active .mobile-nav__container .main-menu__list > li:nth-child(5) { animation-delay: 0.25s; }
+        .mobile-nav__wrapper.active .mobile-nav__container .main-menu__list > li:nth-child(6) { animation-delay: 0.3s; }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+
     {{-- WA Float --}}
-    <div class="wa-float-menu">
+    <div class="wa-float-menu" id="wa-float-menu">
         <ul class="wa-menu-list">
             <li class="wa-menu-item">
                 <span class="wa-tooltip">Jasa IT & Server</span>
-                <a href="https://wa.me/6285156412702?text=Halo%20Tim%20Sekawan%2C%20saya%20tertarik%20dengan%20layanan%20*Jasa%20IT%20%26%20Server*.%0A%0ADetail%20kebutuhan%20infrastruktur%20kami%3A%0A-%20Setup%20%26%20Maintenance%20Server%0A-%20Instalasi%20Jaringan%20%2F%20Network%0A-%20Managed%20IT%20Services%0A%0AMohon%20info%20untuk%20jadwal%20diskusi%20atau%20penawarannya."
+                <a href="https://wa.me/6285156412702?text=Halo%20Tim%20Sekawan%2C%20saya%20tertarik%20dengan%20layanan%20*Jasa%20IT%20%26%20Server*.%0A%0ADetail%20kebutuhan%20infrastruktur%20kami%3A%0A-%20Setup%20%26%20Maintenance%20Server%0A-%20Instalasi%20Jaringan%20%2F%20Network%0A-%20Managed%20IT%20Services%0A%0AMohon%20info%20untuk%20jadwal%20diskusi%20atau%20penawarannya." 
                 class="wa-submenu-btn" target="_blank" rel="noopener noreferrer">
                     <i class="fas fa-server"></i>
                 </a>
             </li>
-
+            
             <li class="wa-menu-item">
                 <span class="wa-tooltip">Pembuatan Website</span>
-                <a href="https://wa.me/6285156412702?text=Halo%20Tim%20Sekawan%2C%20saya%20berencana%20melakukan%20*Pengembangan%20Website%2FAplikasi%20Web*.%0A%0AGambaran%20singkat%20kebutuhan%20saya%3A%0A-%20Jenis%3A%20(Company%20Profile%20%2F%20Toko%20Online%20%2F%20Sistem%20Custom)%0A-%20Target%3A%20(Segera%20%2F%20Konsultasi%20Dulu)%0A%0ABoleh%20minta%20info%20portofolio%20dan%20penawarannya%3F"
+                <a href="https://wa.me/6285156412702?text=Halo%20Tim%20Sekawan%2C%20saya%20berencana%20melakukan%20*Pengembangan%20Website%2FAplikasi%20Web*.%0A%0AGambaran%20singkat%20kebutuhan%20saya%3A%0A-%20Jenis%3A%20(Company%20Profile%20%2F%20Toko%20Online%20%2F%20Sistem%20Custom)%0A-%20Target%3A%20(Segera%20%2F%20Konsultasi%20Dulu)%0A%0ABoleh%20minta%20info%20portofolio%20dan%20penawarannya%3F" 
                 class="wa-submenu-btn" target="_blank" rel="noopener noreferrer">
                     <i class="fas fa-globe"></i>
                 </a>
             </li>
+
+            <li class="wa-menu-item">
+                <span class="wa-tooltip">Konsultasi Umum</span>
+                <a href="https://wa.me/6285156412702?text=Halo%2C%20saya%20ingin%20berkonsultasi%20dengan%20IT%20Consultant%20mengenai%20*Transformasi%20Digital*%20di%20perusahaan%20saya.%20Mohon%20dijadwalkan%20untuk%20diskusi%20solusinya." 
+                class="wa-submenu-btn" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-comments"></i>
+                </a>
+            </li>
         </ul>
 
-        <a href="javascript:void(0)" class="wa-main-btn" rel="noopener noreferrer">
-            <i class="fab fa-whatsapp"></i>
-        </a>
+        <div class="wa-main-btn" onclick="toggleWAMenu()">
+            <i class="fab fa-whatsapp my-float-icon"></i>
+            <i class="fas fa-times my-close-icon"></i>
+        </div>
     </div>
+
+    <script>
+        function toggleWAMenu() {
+            var menu = document.getElementById('wa-float-menu');
+            menu.classList.toggle('active');
+        }
+
+        document.addEventListener('click', function(event) {
+            var menu = document.getElementById('wa-float-menu');
+            var isClickInside = menu.contains(event.target);
+            
+            if (menu.classList.contains('active') && !isClickInside) {
+                menu.classList.remove('active');
+            }
+        });
+    </script>
 
     {{-- Scripts --}}
     <script src="{{ asset('assets/js/vendor/jquery-3.6.3.min.js') }}"></script>
@@ -276,6 +657,18 @@
     <script>
         lightbox.option({ 'resizeDuration': 200, 'wrapAround': true });
     </script>
+
     @stack('scripts')
+
+    {{-- Google Analytics - Uncomment dan ganti G-XXXXXXXXXX dengan ID Anda
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    --}}
+
 </body>
 </html>

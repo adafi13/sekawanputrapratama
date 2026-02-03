@@ -1,6 +1,8 @@
 @extends('frontend.layouts.app')
 
-@section('title', 'Portofolio - Sekawan Putra Pratama')
+@section('title', 'Portfolio Proyek IT | Website & Aplikasi - Sekawan Putra Pratama')
+@section('meta_description', 'Lihat portfolio proyek IT kami: website perusahaan, aplikasi mobile, sistem ERP, dan instalasi server. Pengalaman 50+ proyek sukses. Konsultasi GRATIS!')
+@section('meta_keywords', 'portfolio IT, contoh website, contoh aplikasi mobile, proyek IT, portfolio software house, jasa pembuatan website terpercaya')
 
 @section('content')
 
@@ -24,58 +26,16 @@
 
 <section class="py-5 bg-white">
     <div class="container py-lg-5">
-    
-    {{-- Category Filter Pills --}}
-    <div class="d-flex justify-content-center mb-5 animate-up">
-        <div class="filter-scroll-wrapper p-2 bg-light rounded-pill-md d-inline-flex gap-1 border shadow-sm">
-            <button class="btn btn-filter {{ !request('category') ? 'active' : '' }} rounded-pill px-4 py-2 fw-bold small text-nowrap" data-filter="">Semua</button>
-            @foreach($categories as $cat)
-                <button class="btn btn-filter {{ request('category') == $cat->slug ? 'active' : '' }} rounded-pill px-4 py-2 fw-bold small text-nowrap" data-filter="{{ $cat->slug }}">{{ $cat->name }}</button>
-            @endforeach
+        
+        {{-- Category Filter Pills --}}
+        <div class="d-flex justify-content-center mb-5 animate-up">
+            <div class="filter-scroll-wrapper p-2 bg-light rounded-pill d-inline-flex flex-nowrap gap-1 border shadow-sm" style="max-width: fit-content;">
+                <button class="btn btn-filter {{ !request('category') ? 'active' : '' }} rounded-pill px-4 py-2 fw-bold small text-nowrap" data-filter="">Semua</button>
+                @foreach($categories as $cat)
+                    <button class="btn btn-filter {{ request('category') == $cat->slug ? 'active' : '' }} rounded-pill px-4 py-2 fw-bold small text-nowrap" data-filter="{{ $cat->slug }}">{{ $cat->name }}</button>
+                @endforeach
+            </div>
         </div>
-    </div>
-</div>
-
-<style>
-/* CSS UNTUK MERAPIKAN FILTER DI MOBILE */
-@media (max-width: 768px) {
-    /* Mengizinkan tombol untuk berderet ke samping dan bisa di-scroll secara horizontal */
-    .filter-scroll-wrapper {
-        display: flex !important;
-        overflow-x: auto; /* Aktifkan scroll horizontal */
-        white-space: nowrap; /* Mencegah tombol turun ke bawah */
-        width: 100%; /* Memenuhi lebar layar HP */
-        max-width: 100vw;
-        -webkit-overflow-scrolling: touch; /* Scroll halus di iOS */
-        padding: 10px 15px !important;
-        scrollbar-width: none; /* Sembunyikan scrollbar di Firefox */
-        border-radius: 12px !important; /* Ganti pill menjadi rounded biasa agar tidak aneh saat penuh */
-    }
-
-    /* Sembunyikan scrollbar di Chrome/Safari */
-    .filter-scroll-wrapper::-webkit-scrollbar {
-        display: none;
-    }
-
-    /* Pastikan tombol tidak mengecil (tetap proporsional) */
-    .btn-filter {
-        flex: 0 0 auto;
-        font-size: 12px !important;
-        padding: 8px 20px !important;
-    }
-
-    /* Menghilangkan shadow di mobile agar terlihat lebih 'flat' dan bersih */
-    .filter-scroll-wrapper.shadow-sm {
-        box-shadow: none !important;
-        background-color: #f8f9fa !important;
-    }
-}
-
-/* Tambahan agar teks tombol tidak pecah */
-.text-nowrap {
-    white-space: nowrap;
-}
-</style>
         
         @if($featuredPortfolios->count() > 0 && !request()->has('search') && !request()->has('category'))
         <div class="mb-5">
@@ -208,37 +168,6 @@
         </a>
     </div>
 </section>
-
-<style>
-    .gradient-text {
-        background: linear-gradient(135deg, #60A5FA 0%, #A78BFA 100%);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    }
-    .tracking-widest { letter-spacing: 3px; }
-    
-    /* Project Card Hover */
-    .project-card { transition: all 0.4s ease; }
-    .project-card:hover { transform: translateY(-10px); }
-    .project-card img { transition: transform 0.6s ease; }
-    .project-card:hover img { transform: scale(1.1); }
-    
-    .project-overlay {
-        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(4px);
-        display: flex; align-items: center; justify-content: center;
-        opacity: 0; transition: opacity 0.4s ease; z-index: 2;
-    }
-    .project-card:hover .project-overlay { opacity: 1; }
-    
-    /* Filter Button */
-    .btn-filter { color: #64748b; border: none; }
-    .btn-filter:hover { background: rgba(13, 110, 253, 0.05); color: #0d6efd; }
-    .btn-filter.active { background: #0d6efd !important; color: white !important; box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3); }
-
-    .text-truncate-2 {
-        display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
-    }
-</style>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
