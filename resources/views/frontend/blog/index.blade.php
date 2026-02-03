@@ -29,8 +29,13 @@
         
         {{-- Category Filter Pills --}}
         <div class="d-flex justify-content-center mb-5 animate-up">
+<<<<<<< HEAD
             <div class="filter-scroll-wrapper p-2 bg-light rounded-pill d-inline-flex flex-nowrap gap-1 border shadow-sm" style="max-width: fit-content;">
                 <button class="btn btn-filter {{ !request('category') ? 'active' : '' }} rounded-pill px-4 py-2 fw-bold small text-nowrap" data-filter="">Semua Artikel</button>
+=======
+            <div class="filter-scroll-wrapper p-2 bg-light rounded-pill d-inline-flex gap-1 border shadow-sm">
+                <button class="btn btn-filter {{ !request('category') ? 'active' : '' }} rounded-pill px-4 py-2 fw-bold small text-nowrap" data-filter="">Semua</button>
+>>>>>>> 0635b2a6b67d4aae630f249ae45608a224c445a7
                 @foreach($categories as $cat)
                     <button class="btn btn-filter {{ request('category') == $cat->slug ? 'active' : '' }} rounded-pill px-4 py-2 fw-bold small text-nowrap" data-filter="{{ $cat->slug }}">{{ $cat->name }}</button>
                 @endforeach
@@ -123,14 +128,14 @@
                                         </a>
                                     </h5>
                                     <p class="text-muted small mb-3">{{ Str::limit($blog->excerpt, 150) }}</p>
-                                    <div class="d-flex align-items-center justify-content-between pt-2 border-top">
+                                    <div class="d-flex align-items-center mt-auto">
                                         <div class="d-flex align-items-center">
                                             <div class="bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 32px; height: 32px;">
                                                 <i class="fas fa-user small text-primary"></i>
                                             </div>
                                             <small class="text-muted fw-medium">{{ $blog->author->name ?? 'Admin' }}</small>
                                         </div>
-                                        <a href="{{ route('blog.show', $blog->slug) }}" class="btn btn-sm btn-outline-primary rounded-pill px-3">
+                                        <a href="{{ route('blog.show', $blog->slug) }}" class="btn btn-sm btn-outline-primary rounded-pill px-3 ms-auto">
                                             Baca Selengkapnya <i class="fas fa-arrow-right ms-1 small"></i>
                                         </a>
                                     </div>
@@ -158,12 +163,17 @@
     </div>
 </section>
 
+{{-- Newsletter Section --}}
 <section class="py-5 bg-light">
     <div class="container">
         <div class="bg-white rounded-5 p-4 p-md-5 border shadow-sm position-relative overflow-hidden">
+<<<<<<< HEAD
             
             <div class="position-absolute start-0 top-0 bottom-0 bg-primary" style="width: 6px;"></div>
 
+=======
+            <div class="position-absolute start-0 top-0 bottom-0 bg-primary" style="width: 6px;"></div>
+>>>>>>> 0635b2a6b67d4aae630f249ae45608a224c445a7
             <div class="row align-items-center">
                 <div class="col-lg-6 mb-4 mb-lg-0 text-center text-lg-start">
                     <div class="d-inline-flex align-items-center mb-3">
@@ -180,17 +190,28 @@
 
                 <div class="col-lg-6">
                     <div class="newsletter-box p-2 p-md-3 bg-light rounded-4 border">
+<<<<<<< HEAD
                         {{-- Form Newsletter yang telah diperbarui --}}
                         <form class="row g-2" id="newsletterForm">
                             @csrf
                             <div class="col-md-8 col-12">
                                 <div class="form-floating">
                                     <input type="email" name="email" class="form-control border-0 bg-white rounded-3 shadow-none" id="newsletterEmail" placeholder="name@example.com" required>
+=======
+                        <form class="row g-2" onsubmit="return false;">
+                            <div class="col-md-8 col-12">
+                                <div class="form-floating">
+                                    <input type="email" class="form-control border-0 bg-white rounded-3 shadow-none" id="newsletterEmail" placeholder="name@example.com" required>
+>>>>>>> 0635b2a6b67d4aae630f249ae45608a224c445a7
                                     <label for="newsletterEmail" class="text-muted small">Alamat Email Anda</label>
                                 </div>
                             </div>
                             <div class="col-md-4 col-12">
+<<<<<<< HEAD
                                 <button type="submit" id="btnSubscribe" class="btn btn-primary w-100 h-100 py-3 py-md-0 rounded-3 fw-bold transition-all hover-lift">
+=======
+                                <button type="submit" class="btn btn-primary w-100 h-100 py-3 py-md-0 rounded-3 fw-bold transition-all hover-lift">
+>>>>>>> 0635b2a6b67d4aae630f249ae45608a224c445a7
                                     Subscribe
                                 </button>
                             </div>
@@ -205,28 +226,63 @@
     </div>
 </section>
 
+<<<<<<< HEAD
+=======
+<style>
+    .gradient-text {
+        background: linear-gradient(135deg, #60A5FA 0%, #A78BFA 100%);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .tracking-widest { letter-spacing: 3px; }
+    
+    .blog-card { transition: all 0.3s ease; }
+    .blog-card:hover { transform: translateX(5px); box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important; }
+    .blog-card img { transition: transform 0.5s ease; }
+    .blog-card:hover img { transform: scale(1.05); }
+    
+    .hover-primary:hover { color: #0d6efd !important; }
+    .page-link { width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; }
+    
+    /* Filter Button */
+    .btn-filter { color: #64748b; border: none; background: transparent; }
+    .btn-filter:hover { background: rgba(13, 110, 253, 0.05); color: #0d6efd; }
+    .btn-filter.active { background: #0d6efd !important; color: white !important; box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3); }
+
+    /* Newsletter Styles */
+    .transition-all { transition: all 0.3s ease; }
+    .hover-lift:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(13, 110, 253, 0.15); }
+    .form-floating > .form-control { height: calc(3.5rem + 2px); line-height: 1.25; }
+    .form-floating > label { padding: 1rem 0.75rem; }
+
+    @media (min-width: 992px) { .newsletter-box { margin-left: 20px; } }
+    @media (max-width: 767px) {
+        .rounded-5 { border-radius: 1.5rem !important; }
+        .display-6 { font-size: 1.8rem; }
+        .newsletter-box { background-color: transparent !important; border: none !important; padding: 0 !important; }
+        .form-control { border: 1px solid #dee2e6 !important; }
+    }
+</style>
+
+>>>>>>> 0635b2a6b67d4aae630f249ae45608a224c445a7
 @endsection
 
 @push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // --- Logic Category Filter ---
         const filters = document.querySelectorAll('.btn-filter');
         const items = document.querySelectorAll('.blog-item');
 
         filters.forEach(filter => {
             filter.addEventListener('click', function(e) {
                 e.preventDefault();
-                
-                // Update Active Button
                 filters.forEach(f => f.classList.remove('active'));
                 this.classList.add('active');
 
                 const category = this.getAttribute('data-filter');
 
-                // Filter items with smooth animation
                 items.forEach(item => {
                     const itemCategory = item.getAttribute('data-category');
-                    
                     if (category === '' || itemCategory === category) {
                         item.style.display = 'block';
                         setTimeout(() => item.style.opacity = '1', 10);

@@ -129,6 +129,7 @@ header.sticky {
     header { padding: 15px 0; }
 }
 
+<<<<<<< HEAD
 /* =========================================
     4. FILTER PILLS (BLOG & PORTFOLIO)
     ========================================= */
@@ -159,10 +160,37 @@ header.sticky {
     background: #0d6efd !important;
     color: white !important;
     box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);
+=======
+/* CSS untuk Fitur Scroll Kategori di Mobile */
+@media (max-width: 768px) {
+    .filter-scroll-wrapper {
+        display: flex !important;
+        overflow-x: auto; /* Mengaktifkan scroll ke samping */
+        white-space: nowrap;
+        width: 100%;
+        max-width: 100vw;
+        -webkit-overflow-scrolling: touch; /* Scroll halus di iOS */
+        padding: 12px 15px !important;
+        scrollbar-width: none; /* Sembunyikan scrollbar di Firefox */
+        border-radius: 12px !important; /* Bentuk lebih kotak di mobile agar tidak terpotong aneh */
+    }
+
+    /* Sembunyikan scrollbar di Chrome, Safari, dan Opera */
+    .filter-scroll-wrapper::-webkit-scrollbar {
+        display: none;
+    }
+
+    .btn-filter {
+        flex: 0 0 auto; /* Mencegah tombol menyusut */
+        font-size: 13px !important;
+        padding: 8px 18px !important;
+    }
+>>>>>>> 0635b2a6b67d4aae630f249ae45608a224c445a7
 }
 
 .text-nowrap {
     white-space: nowrap;
+<<<<<<< HEAD
 }
 
 /* Mobile Responsive Filter Pills */
@@ -345,3 +373,6 @@ header.sticky {
     align-items: center;
     justify-content: center;
 }
+=======
+}
+>>>>>>> 0635b2a6b67d4aae630f249ae45608a224c445a7
