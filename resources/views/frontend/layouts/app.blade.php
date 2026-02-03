@@ -11,6 +11,7 @@
     <meta name="keywords" content="@yield('meta_keywords', 'jasa pembuatan website, software house, jasa IT, pembuatan aplikasi android, pembuatan aplikasi iOS, instalasi server, instalasi jaringan kantor, IT consultant, jasa IT terpercaya, web developer Indonesia')">
     <meta name="author" content="Sekawan Putra Pratama">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="google-site-verification" content="QA19JgfEL-FvNWKVq9ZEq3fxNp8iNpedmgrrMpUGuGM">
     <link rel="canonical" href="{{ url()->current() }}">
     
     {{-- Open Graph / Facebook --}}
@@ -660,15 +661,15 @@
 
     @stack('scripts')
 
-    {{-- Google Analytics - Uncomment dan ganti G-XXXXXXXXXX dengan ID Anda
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    {{-- Google Analytics - Uncomment dan ganti G-XXXXXXXXXX dengan ID Anda --}}
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y8530X1QEN"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', 'G-XXXXXXXXXX');
+        gtag('config', 'G-Y8530X1QEN');
     </script>
-    --}}
+   
 
 </body>
 </html>

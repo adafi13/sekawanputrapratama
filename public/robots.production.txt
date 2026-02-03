@@ -1,0 +1,26 @@
+User-agent: *
+Allow: /
+
+# Block admin and private pages
+Disallow: /admin/
+Disallow: /filament/
+Disallow: /login
+Disallow: /register
+Disallow: /password/
+Disallow: /api/
+
+# Allow specific bots
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Crawl delay
+Crawl-delay: 1
+
+# Sitemap location (UPDATE WITH YOUR PRODUCTION DOMAIN)
+Sitemap: http://spp.test/sitemap.xml

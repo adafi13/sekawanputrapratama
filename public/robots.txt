@@ -1,22 +1,26 @@
-User-agent: *
-Allow: /
-
-# Block admin and private pages
-Disallow: /admin/
-Disallow: /filament/
-Disallow: /login
-Disallow: /register
-Disallow: /password/
-
-# Allow specific bots
-User-agent: Googlebot
-Allow: /
-
-User-agent: Googlebot-Image
-Allow: /
-
-# Crawl delay
-Crawl-delay: 1
-
-# Sitemap location
-Sitemap: {{ url('/sitemap.xml') }}
+User-agent: * 
+Allow: / 
+ 
+# Block admin and private pages 
+Disallow: /admin/ 
+Disallow: /filament/ 
+Disallow: /login 
+Disallow: /register 
+Disallow: /password/ 
+Disallow: /api/ 
+ 
+# Allow specific bots 
+User-agent: Googlebot 
+Allow: / 
+ 
+User-agent: Googlebot-Image 
+Allow: / 
+ 
+User-agent: Bingbot 
+Allow: / 
+ 
+# Crawl delay 
+Crawl-delay: 1 
+ 
+# Sitemap location 
+Sitemap: https://sekawanputrapratama.com/sitemap.xml
