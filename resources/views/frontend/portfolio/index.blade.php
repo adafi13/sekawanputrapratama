@@ -36,17 +36,6 @@
                 @endforeach
             </div>
         </div>
-        width: 100%; /* Memenuhi lebar layar HP */
-        max-width: 100vw;
-        -webkit-overflow-scrolling: touch; /* Scroll halus di iOS */
-        padding: 10px 15px !important;
-        scrollbar-width: none; /* Sembunyikan scrollbar di Firefox */
-        border-radius: 12px !important; /* Ganti pill menjadi rounded biasa agar tidak aneh saat penuh */
-    }
-
-    /* Sembunyikan scrollbar di Chrome/Safari */
-    .filter-scroll-wrapper::-webkit-scrollbar {
-        display: none;
 
         @if($featuredPortfolios->count() > 0 && !request()->has('search') && !request()->has('category'))
         <div class="mb-5">
