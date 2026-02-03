@@ -12,6 +12,7 @@ Route::get('/', [FrontendController::class, 'home'])->name('home');
 Route::get('/about', [FrontendController::class, 'about'])->name('about');
 Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
 Route::post('/contact', [FrontendController::class, 'contactStore'])->name('contact.store');
+Route::post('/newsletter-subscribe', [FrontendController::class, 'newsletterStore'])->name('newsletter.store');
 
 // Blog Routes
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');

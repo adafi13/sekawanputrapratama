@@ -177,18 +177,44 @@
                     </p>
                 </div>
 
+                {{-- MODIFIKASI: Bagian Form Newsletter --}}
                 <div class="col-lg-6">
                     <div class="newsletter-box p-2 p-md-3 bg-light rounded-4 border">
-                        <form class="row g-2" id="newsletterForm">
+                        
+                        {{-- Pesan Sukses (Muncul jika berhasil) --}}
+                        @if(session('success'))
+                            <div class="alert alert-success alert-dismissible fade show mb-3 py-2 fs-6" role="alert">
+                                <i class="fas fa-check-circle me-2"></i> {{ session('success') }}
+                                <button type="button" class="btn-close py-2" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
+
+                        <form class="row g-2" action="{{ route('newsletter.store') }}" method="POST">
                             @csrf
                             <div class="col-md-8 col-12">
                                 <div class="form-floating">
-                                    <input type="email" name="email" class="form-control border-0 bg-white rounded-3 shadow-none" id="newsletterEmail" placeholder="name@example.com" required>
+                                    <input type="email" 
+                                            name="email" 
+                                            class="form-control border-0 bg-white rounded-3 shadow-none @error('email') is-invalid @enderror" 
+                                            id="newsletterEmail" 
+                                            placeholder="name@example.com" 
+                                            value="{{ old('email') }}"
+                                            {{-- REVISI: Pattern Regex untuk mewajibkan @ dan . --}}
+                                            pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+                                            title="Email harus menyertakan simbol '@' dan tanda titik '.' (contoh: nama@domain.com)"
+                                            required>
                                     <label for="newsletterEmail" class="text-muted small">Alamat Email Anda</label>
+                                    
+                                    {{-- Pesan Error Validasi --}}
+                                    @error('email')
+                                        <div class="invalid-feedback text-start ps-2">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-4 col-12">
-                                <button type="submit" id="btnSubscribe" class="btn btn-primary w-100 h-100 py-3 py-md-0 rounded-3 fw-bold transition-all hover-lift">
+                                <button type="submit" class="btn btn-primary w-100 h-100 py-3 py-md-0 rounded-3 fw-bold transition-all hover-lift">
                                     Subscribe
                                 </button>
                             </div>
@@ -198,6 +224,8 @@
                         <i class="fas fa-info-circle me-1 opacity-50"></i> Kami menghargai privasi Anda sepenuhnya.
                     </p>
                 </div>
+                {{-- Akhir Modifikasi --}}
+
             </div>
         </div>
     </div>

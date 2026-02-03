@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\NewsletterSubscriber;
 use App\Models\BlogPost;
 use App\Models\BlogCategory;
 use App\Models\Portfolio;
@@ -16,6 +17,31 @@ use Illuminate\Support\Facades\Mail;
 
 class FrontendController extends Controller
 {
+    /**
+     * Handle Newsletter Subscription
+     */
+    public function newsletterStore(Request $request)
+    {
+        // 1. Validasi: Pastikan format email benar (standar RFC) & belum terdaftar
+        // 'email:filter' menggunakan filter PHP native yang mewajibkan format standar (user@domain.ext)
+        $request->validate([
+            'email' => 'required|email:filter|unique:newsletter_subscribers,email',
+        ], [
+            'email.required' => 'Email wajib diisi.',
+            'email.email' => 'Format email tidak valid (harus mengandung "@" dan ".").',
+            'email.unique' => 'Email ini sudah berlangganan sebelumnya.',
+        ]);
+
+        // 2. Simpan ke tabel newsletter_subscribers
+        NewsletterSubscriber::create([
+            'email' => $request->email,
+            'is_active' => true,
+        ]);
+
+        // 3. Kembali dengan notifikasi sukses
+        return back()->with('success', 'Terima kasih telah berlangganan newsletter kami!');
+    }
+
     /**
      * Display the homepage
      */
