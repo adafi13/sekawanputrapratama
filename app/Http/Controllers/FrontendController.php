@@ -8,8 +8,11 @@ use App\Models\Portfolio;
 use App\Models\PortfolioCategory;
 use App\Models\ContactMessage;
 use App\Models\Lead;
+use App\Mail\NewLeadNotification;
+use App\Mail\LeadThankYou;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class FrontendController extends Controller
 {
@@ -70,7 +73,7 @@ class FrontendController extends Controller
             ContactMessage::create($validated);
 
             // Create Lead from contact form
-            Lead::create([
+            $lead = Lead::create([
                 'company_name' => $validated['company_name'],
                 'contact_person' => $validated['name'],
                 'email' => $validated['email'],
@@ -79,6 +82,12 @@ class FrontendController extends Controller
                 'source' => 'website',
                 'notes' => "Layanan: " . ($validated['service'] ?? '-') . "\n\nPesan:\n" . $validated['message'],
             ]);
+
+            // Send email notification to admin
+            Mail::to('admin@sekawanputrapratama.com')->send(new NewLeadNotification($lead));
+            
+            // Send thank you email to customer
+            Mail::to($lead->email)->send(new LeadThankYou($lead));
 
             return back()->with('success', 'Terima kasih! Pesan Anda telah kami terima. Tim kami akan menghubungi Anda segera.');
         } catch (\Exception $e) {

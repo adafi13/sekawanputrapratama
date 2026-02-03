@@ -20,6 +20,9 @@
     <meta property="og:title" content="@yield('og_title', 'Sekawan Putra Pratama - Solusi IT Terintegrasi & Terpercaya')">
     <meta property="og:description" content="@yield('og_description', 'Software house & IT consultant terpercaya. Jasa pembuatan website, aplikasi mobile, instalasi server & jaringan kantor. Konsultasi GRATIS!')">
     <meta property="og:image" content="@yield('og_image', asset('assets/media/logo.png'))">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Sekawan Putra Pratama - Software House & IT Consultant">
     <meta property="og:site_name" content="Sekawan Putra Pratama">
     <meta property="og:locale" content="id_ID">
     
@@ -29,6 +32,7 @@
     <meta name="twitter:title" content="@yield('twitter_title', 'Sekawan Putra Pratama - Software House & IT Consultant')">
     <meta name="twitter:description" content="@yield('twitter_description', 'Jasa IT terpercaya: Website, Aplikasi Mobile, Server & Jaringan. Konsultasi GRATIS!')">
     <meta name="twitter:image" content="@yield('twitter_image', asset('assets/media/logo.png'))">
+    <meta name="twitter:image:alt" content="Sekawan Putra Pratama Logo">
     
     <script type="application/ld+json">
     @php
@@ -68,9 +72,15 @@
     @endphp
     </script>
 
-    {{-- Icons --}}
+    {{-- Icons & Favicons --}}
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/media/favicon.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/media/favicon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/media/favicon.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('assets/media/logo.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/media/logo.png') }}">
     <link rel="apple-touch-icon" href="{{ asset('assets/media/favicon.png') }}">
+    <meta name="msapplication-TileImage" content="{{ asset('assets/media/logo.png') }}">
+    <meta name="msapplication-TileColor" content="#0F172A">'
 
     {{-- CSS Libraries --}}
     <link rel="stylesheet" href="{{ asset('assets/css/vendor/font-awesome.css') }}">
