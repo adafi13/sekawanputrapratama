@@ -26,7 +26,6 @@
 
 <section class="py-5 bg-white">
     <div class="container py-lg-5">
-<<<<<<< HEAD
         
         {{-- Category Filter Pills --}}
         <div class="d-flex justify-content-center mb-5 animate-up">
@@ -37,27 +36,6 @@
                 @endforeach
             </div>
         </div>
-=======
-    
-    {{-- Category Filter Pills --}}
-    <div class="d-flex justify-content-center mb-5 animate-up">
-    <div class="filter-scroll-wrapper p-2 bg-light rounded-pill d-inline-flex gap-1 border shadow-sm">
-        <button class="btn btn-filter {{ !request('category') ? 'active' : '' }} rounded-pill px-4 py-2 fw-bold small text-nowrap" data-filter="">Semua</button>
-        @foreach($categories as $cat)
-            <button class="btn btn-filter {{ request('category') == $cat->slug ? 'active' : '' }} rounded-pill px-4 py-2 fw-bold small text-nowrap" data-filter="{{ $cat->slug }}">{{ $cat->name }}</button>
-        @endforeach
-    </div>
-</div>
-</div>
-
-<style>
-/* CSS UNTUK MERAPIKAN FILTER DI MOBILE */
-@media (max-width: 768px) {
-    /* Mengizinkan tombol untuk berderet ke samping dan bisa di-scroll secara horizontal */
-    .filter-scroll-wrapper {
-        display: flex !important;
-        overflow-x: auto; /* Aktifkan scroll horizontal */
-        white-space: nowrap; /* Mencegah tombol turun ke bawah */
         width: 100%; /* Memenuhi lebar layar HP */
         max-width: 100vw;
         -webkit-overflow-scrolling: touch; /* Scroll halus di iOS */
@@ -69,29 +47,7 @@
     /* Sembunyikan scrollbar di Chrome/Safari */
     .filter-scroll-wrapper::-webkit-scrollbar {
         display: none;
-    }
 
-    /* Pastikan tombol tidak mengecil (tetap proporsional) */
-    .btn-filter {
-        flex: 0 0 auto;
-        font-size: 12px !important;
-        padding: 8px 20px !important;
-    }
-
-    /* Menghilangkan shadow di mobile agar terlihat lebih 'flat' dan bersih */
-    .filter-scroll-wrapper.shadow-sm {
-        box-shadow: none !important;
-        background-color: #f8f9fa !important;
-    }
-}
-
-/* Tambahan agar teks tombol tidak pecah */
-.text-nowrap {
-    white-space: nowrap;
-}
-</style>
->>>>>>> 0635b2a6b67d4aae630f249ae45608a224c445a7
-        
         @if($featuredPortfolios->count() > 0 && !request()->has('search') && !request()->has('category'))
         <div class="mb-5">
             <div class="text-center mb-4">
