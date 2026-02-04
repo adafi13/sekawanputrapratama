@@ -365,16 +365,27 @@
     </div>
 </section>
 
-<section class="py-5" style="background: linear-gradient(135deg, #0d6efd 0%, #0b5ed7 100%);">
-    <div class="container py-4 text-center">
-        <h2 class="text-white fw-bold display-6 mb-3">Siap Mengembangkan Bisnis Anda?</h2>
-        <p class="text-white text-opacity-75 mb-5 mx-auto" style="max-width: 600px;">Jangan biarkan ide hebat Anda tertunda. Konsultasikan kebutuhan teknologi Anda bersama tim ahli kami sekarang juga.</p>
-        <div class="d-flex justify-content-center gap-3">
-            <a href="{{ route('contact') }}" class="btn btn-light btn-lg rounded-pill px-5 fw-bold text-primary">Mulai Konsultasi</a>
-            <a href="https://wa.me/6285156412702" class="btn btn-outline-light btn-lg rounded-pill px-5 fw-bold">Chat WhatsApp</a>
+    <section class="py-5" style="background: linear-gradient(135deg, #0d6efd 0%, #0b5ed7 100%);">
+        <div class="container py-4 text-center">
+            <h2 class="text-white fw-bold display-6 mb-3 px-2">Siap Mengembangkan Bisnis Anda?</h2>
+            
+            <p class="text-white text-opacity-75 mb-4 mb-md-5 mx-auto px-3" style="max-width: 600px; font-size: 1.1rem;">
+                Jangan biarkan ide hebat Anda tertunda. Konsultasikan kebutuhan teknologi Anda bersama tim ahli kami sekarang juga.
+            </p>
+
+            <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-3 px-4">
+                <a href="{{ route('contact') }}" 
+                class="btn btn-light btn-lg rounded-pill px-5 fw-bold text-primary w-100 w-md-auto shadow-sm">
+                    Mulai Konsultasi
+                </a>
+                
+                <a href="https://wa.me/6285156412702" 
+                class="btn btn-outline-light btn-lg rounded-pill px-5 fw-bold w-100 w-md-auto">
+                    <i class="fab fa-whatsapp me-2"></i> Chat WhatsApp
+                </a>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
 <style>
     .spacing-1 { letter-spacing: 1px; }

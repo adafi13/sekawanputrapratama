@@ -229,12 +229,19 @@
 </section>
 
 <section class="py-5 bg-white">
-    <div class="container text-center py-4">
-        <h3 class="fw-bold text-dark mb-3">Siap Berkolaborasi dengan Tim Kami?</h3>
-        <p class="text-muted mb-4">Jangan ragu untuk mendiskusikan ide Anda. Kami siap membantu.</p>
-        <a href="{{ route('contact') }}" class="btn btn-primary rounded-pill px-5 py-3 fw-bold shadow-lg glow-on-hover">
-            Hubungi Kami Sekarang <i class="fas fa-arrow-right ms-2"></i>
-        </a>
+    <div class="container text-center py-5">
+        <div class="p-5 rounded-5 shadow-2xl position-relative overflow-hidden" 
+             style="background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);">
+            <div class="position-absolute top-0 start-0 w-100 h-100 opacity-10" style="background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');"></div>
+            
+            <div class="position-relative z-2">
+                <h2 class="fw-bold text-white display-6 mb-3">Siap Berkolaborasi dengan Tim Kami?</h2>
+                <p class="text-white text-opacity-75 mb-5 mx-auto lead" style="max-width: 600px;">Jangan ragu untuk mendiskusikan ide Anda. Kami siap membantu mentransformasi bisnis Anda ke level digital.</p>
+                <a href="{{ route('contact') }}" class="btn btn-light rounded-pill px-5 py-3 fw-bold shadow-lg hover-up transition-all" style="font-size: 1.1rem; color: #1e40af;">
+                    Hubungi Kami Sekarang <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+            </div>
+        </div>
     </div>
 </section>
 
