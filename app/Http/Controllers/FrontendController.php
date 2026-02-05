@@ -110,10 +110,10 @@ class FrontendController extends Controller
             ]);
 
             // Send email notification to admin
-            Mail::to('admin@sekawanputrapratama.com')->queue(new NewLeadNotification($lead));
-            
+            Mail::to('admin@sekawanputrapratama.com')->send(new NewLeadNotification($lead));
+
             // Send thank you email to customer
-            Mail::to($lead->email)->queue(new LeadThankYou($lead));
+            Mail::to($lead->email)->send(new LeadThankYou($lead));
 
             return back()->with('success', 'Terima kasih! Pesan Anda telah kami terima. Tim kami akan menghubungi Anda segera.');
         } catch (\Exception $e) {
