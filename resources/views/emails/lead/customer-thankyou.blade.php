@@ -42,19 +42,22 @@
             font-size: 16px;
             margin: 0;
         }
+        .checkmark-container {
+            text-align: center;
+            margin: 0 auto 20px auto;
+        }
         .checkmark {
             width: 80px;
             height: 80px;
             background: #10B981;
             border-radius: 50%;
-            margin: 0 auto 20px auto;
-            text-align: center;
-            line-height: 80px;
+            margin: 0 auto;
         }
         .checkmark-icon {
             color: white;
-            font-size: 48px;
+            font-size: 50px;
             font-weight: bold;
+            line-height: 80px;
         }
         .content {
             color: #475569;
@@ -185,8 +188,14 @@
             <img src="{{ url('assets/media/logo.png') }}" alt="Sekawan Putra Pratama">
         </div>
 
-        <div class="checkmark">
-            <span class="checkmark-icon">✓</span>
+        <div class="checkmark-container">
+            <table border="0" cellpadding="0" cellspacing="0" style="margin: 0 auto;">
+                <tr>
+                    <td class="checkmark" align="center" valign="middle">
+                        <span class="checkmark-icon">✓</span>
+                    </td>
+                </tr>
+            </table>
         </div>
 
         <div class="header">
