@@ -200,8 +200,12 @@
 
                                 {{-- Submit --}}
                                 <div class="col-12 mt-4">
-                                    <button type="submit" class="btn btn-primary w-100 py-3 rounded-pill fw-bold shadow-glow hover-up transition-all">
-                                        Kirim Pesan Sekarang <i class="fas fa-paper-plane ms-2"></i>
+                                    <button type="submit" id="submitBtn" class="btn btn-primary w-100 py-3 rounded-pill fw-bold shadow-glow hover-up transition-all">
+                                        <span class="btn-text">Kirim Pesan Sekarang <i class="fas fa-paper-plane ms-2"></i></span>
+                                        <span class="btn-loading d-none">
+                                            <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                                            Mengirim Pesan...
+                                        </span>
                                     </button>
                                     <p class="text-center text-muted mt-3 small mb-0">
                                         <i class="fas fa-lock me-1"></i> Privasi Anda terjamin aman. Tim kami membalas dalam <span class="text-dark fw-bold">1x24 Jam</span>.
@@ -286,6 +290,36 @@
             setTimeout(typeEffect, typeSpeed);
         }
         typeEffect();
+
+        // Form Submit Loading State
+        const contactForm = document.querySelector('form[action="{{ route('contact.store') }}"]');
+        const submitBtn = document.getElementById('submitBtn');
+        const btnText = submitBtn.querySelector('.btn-text');
+        const btnLoading = submitBtn.querySelector('.btn-loading');
+
+        if (contactForm && submitBtn) {
+            contactForm.addEventListener('submit', function(e) {
+                // Show loading state
+                submitBtn.disabled = true;
+                btnText.classList.add('d-none');
+                btnLoading.classList.remove('d-none');
+
+                // Optional: Add visual feedback
+                submitBtn.style.opacity = '0.7';
+                submitBtn.style.cursor = 'not-allowed';
+            });
+        }
+
+        // Reset button state if there's an error message on page load
+        if (document.querySelector('.alert-danger')) {
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                btnText.classList.remove('d-none');
+                btnLoading.classList.add('d-none');
+                submitBtn.style.opacity = '1';
+                submitBtn.style.cursor = 'pointer';
+            }
+        }
     });
 </script>
 
