@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Lead;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\AutoReplyContact; // Memanggil file mailer yang baru dibuat
+use App\Mail\AutoReplyContact;      // Surat untuk Klien
+use App\Mail\AdminLeadNotification; // Surat untuk Admin (BARU)
 
 class ContactController extends Controller
 {
@@ -17,7 +18,17 @@ class ContactController extends Controller
 
     public function store(Request $request)
     {
-        // 1. Validasi Input
+        // 1. BERSIHKAN & VALIDASI DUPLIKAT
+        $cleanEmail = strtolower(trim($request->input('email')));
+        $existingLead = Lead::where('email', $cleanEmail)->exists();
+
+        if ($existingLead) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Mohon maaf, email ini SUDAH TERDAFTAR. Tim kami sedang memproses pesan Anda sebelumnya.');
+        }
+
+        // 2. VALIDASI DATA
         $data = $request->validate([
             'company_name' => 'required|string|max:255',
             'name' => 'required|string|max:255',
@@ -26,21 +37,24 @@ class ContactController extends Controller
             'service' => 'required|string',
             'message' => 'required|string',
         ]);
+        $data['email'] = $cleanEmail;
 
-        // 2. Simpan ke Database (Lead)
-        // Pastikan Model Lead Anda punya $fillable yang sesuai
+        // 3. SIMPAN DATABASE
         $lead = Lead::create($data);
 
-        // 3. KIRIM EMAIL OTOMATIS KE CLIENT
+        // 4. KIRIM EMAIL (DUA ARAH BERBEDA)
         try {
+            // A. Ke Klien: Pakai "AutoReplyContact" (Isinya Terima Kasih)
             Mail::to($data['email'])->send(new AutoReplyContact($data));
+
+            // B. Ke Admin: Pakai "AdminLeadNotification" (Isinya Data Teknis & Tombol WA)
+            $adminEmail = 'sekawanputrapratama@gmail.com'; 
+            Mail::to($adminEmail)->send(new AdminLeadNotification($data)); 
+            
         } catch (\Exception $e) {
-            // Jika email gagal kirim, kita catat errornya di log tapi tidak stop aplikasi
-            // agar user tetap melihat pesan sukses di layar.
-            \Log::error('Gagal mengirim email auto-reply: ' . $e->getMessage());
+            \Log::error('Gagal kirim email: ' . $e->getMessage());
         }
 
-        // 4. Redirect kembali dengan pesan sukses
-        return redirect()->back()->with('success', 'Pesan Anda berhasil dikirim! Silakan cek inbox email Anda untuk konfirmasi.');
+        return redirect()->back()->with('success', 'Pesan Anda berhasil dikirim! Silakan cek inbox email Anda.');
     }
 }
