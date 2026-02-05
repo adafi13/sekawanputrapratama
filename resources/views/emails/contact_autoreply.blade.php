@@ -10,14 +10,14 @@
     <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f1f5f9; padding: 40px 0;">
         <tr>
             <td align="center">
-                
+
                 <table border="0" cellpadding="0" cellspacing="0" width="600" style="background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); max-width: 600px; width: 100%;">
-                    
+
                     <tr>
                         <td align="center" style="background-color: #0F172A; padding: 30px 20px;">
-                            <img src="{{ asset('assets/media/logo.png') }}" 
-                                 alt="Sekawan Putra Pratama" 
-                                 width="200" 
+                            <img src="{{ url('assets/media/logo.png') }}"
+                                 alt="Sekawan Putra Pratama"
+                                 width="200"
                                  style="display: block; border: 0; max-width: 200px; height: auto;">
                         </td>
                     </tr>
@@ -27,11 +27,11 @@
                             <p style="margin: 0 0 20px; font-size: 16px; color: #334155; line-height: 1.6;">
                                 Halo <strong>{{ $data['name'] }}</strong>,
                             </p>
-                            
+
                             <p style="margin: 0 0 20px; font-size: 16px; color: #334155; line-height: 1.6;">
                                 Terima kasih telah menghubungi kami. Permintaan Anda mengenai layanan <strong style="color: #2563eb;">{{ $data['service'] }}</strong> telah kami terima.
                             </p>
-                            
+
                             <p style="margin: 0 0 30px; font-size: 16px; color: #334155; line-height: 1.6;">
                                 Tim kami sedang meninjau detailnya dan akan segera menghubungi Anda kembali.
                             </p>
@@ -40,7 +40,7 @@
                                 <tr>
                                     <td style="padding: 20px;">
                                         <h3 style="margin: 0 0 15px; font-size: 14px; color: #64748b; text-transform: uppercase; border-bottom: 1px solid #cbd5e1; padding-bottom: 10px;">Ringkasan Pesan Anda:</h3>
-                                        
+
                                         <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom: 8px;">
                                             <tr>
                                                 <td width="100" style="font-size: 14px; color: #64748b; font-weight: bold; vertical-align: top;">Perusahaan</td>

@@ -45,15 +45,13 @@
         .checkmark {
             width: 80px;
             height: 80px;
-            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            background: #10B981;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             margin: 0 auto 20px auto;
+            text-align: center;
+            line-height: 80px;
         }
-        .checkmark::after {
-            content: "✓";
+        .checkmark-icon {
             color: white;
             font-size: 48px;
             font-weight: bold;
@@ -184,10 +182,12 @@
 <body>
     <div class="container">
         <div class="logo">
-            <img src="{{ asset('assets/media/logo.png') }}" alt="Sekawan Putra Pratama">
+            <img src="{{ url('assets/media/logo.png') }}" alt="Sekawan Putra Pratama">
         </div>
 
-        <div class="checkmark"></div>
+        <div class="checkmark">
+            <span class="checkmark-icon">✓</span>
+        </div>
 
         <div class="header">
             <h1>Terima Kasih, {{ explode(' ', $lead->contact_person)[0] }}! 🎉</h1>
@@ -196,9 +196,9 @@
 
         <div class="content">
             <p>Halo <strong>{{ $lead->contact_person }}</strong>,</p>
-            
+
             <p>
-                Terima kasih telah menghubungi <strong>Sekawan Putra Pratama</strong>. 
+                Terima kasih telah menghubungi <strong>Sekawan Putra Pratama</strong>.
                 Kami sangat menghargai kepercayaan Anda dan antusias untuk membantu mewujudkan kebutuhan IT bisnis Anda.
             </p>
 
@@ -209,7 +209,7 @@
 
         <div class="info-box">
             <h3>📋 Detail Permintaan Anda:</h3>
-            
+
             <div class="info-item">
                 <span class="icon">🏢</span>
                 <div class="text">
@@ -258,11 +258,11 @@
         <div class="cta-box">
             <h3>Butuh Respon Lebih Cepat?</h3>
             <p style="color: #64748B; margin: 10px 0;">Hubungi kami langsung via WhatsApp atau telepon:</p>
-            
+
             <a href="https://wa.me/6285156412702?text=Halo%20Tim%20Sekawan%2C%20saya%20{{ urlencode($lead->contact_person) }}%20dari%20{{ urlencode($lead->company_name) }}.%20Saya%20baru%20submit%20form%20di%20website." class="btn btn-success">
                 💬 WhatsApp Sekarang
             </a>
-            
+
             <a href="tel:+6285156412702" class="btn">
                 📞 Telepon Kami
             </a>
@@ -271,20 +271,20 @@
         <div class="content">
             <p>
                 <strong>Catatan Penting:</strong><br>
-                Jika Anda tidak menerima respon dari kami dalam 24 jam (di hari kerja), 
+                Jika Anda tidak menerima respon dari kami dalam 24 jam (di hari kerja),
                 silakan cek folder spam/junk email Anda atau hubungi kami langsung via WhatsApp.
             </p>
         </div>
 
         <div class="footer">
-            <img src="{{ asset('assets/media/logo.png') }}" alt="SPP" class="footer-logo">
-            
+            <img src="{{ url('assets/media/logo.png') }}" alt="SPP" class="footer-logo">
+
             <div class="footer-text">
                 <strong>Sekawan Putra Pratama</strong><br>
                 Software House & IT Consultant<br>
                 Perumahan Mega Regency, Blk. L5, No 23, Bekasi<br>
                 <br>
-                <strong>Email:</strong> support@sekawanputrapratama.com<br>
+                <strong>Email:</strong> sekawanputrapratama@gmail.com<br>
                 <strong>WhatsApp:</strong> +62 851-5641-2702
             </div>
 
@@ -295,7 +295,7 @@
 
             <p style="font-size: 12px; color: #94A3B8; margin-top: 20px;">
                 Email ini dikirim otomatis. Mohon jangan balas ke email ini.<br>
-                Untuk pertanyaan, silakan hubungi support@sekawanputrapratama.com
+                Untuk pertanyaan, silakan hubungi sekawanputrapratama@gmail.com
             </p>
         </div>
     </div>
