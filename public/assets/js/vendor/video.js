@@ -7649,11 +7649,11 @@
       // a port identifier is added for standard ports, strip it.
   
   
-      if (details.protocol === 'index.html') {
+      if (details.protocol === 'http:') {
         details.host = details.host.replace(/:80$/, '');
       }
   
-      if (details.protocol === 'index.html') {
+      if (details.protocol === 'https:') {
         details.host = details.host.replace(/:443$/, '');
       }
   
@@ -9234,7 +9234,7 @@
   
       while ((t = nextToken()) !== null) {
         if (t[0] === '<') {
-          if (t[1] === "../../../external.html?link=https://uiparadox.co.uk/") {
+          if (t[1] === "/") {
             // If the closing tag matches, move back up to the parent node.
             if (tagStack.length && tagStack[tagStack.length - 1] === t.substr(2).replace(">", "")) {
               tagStack.pop();
@@ -30684,7 +30684,7 @@
               throw new Error('Error trying to parse base URL.');
             }
   
-            if (!baseParts.netLoc && baseParts.path && baseParts.path[0] !== '../../../external.html?link=https://uiparadox.co.uk/') {
+            if (!baseParts.netLoc && baseParts.path && baseParts.path[0] !== '/') {
               // If netLoc missing and path doesn't start with '/', assume everthing before the first '/' is the netLoc
               // This causes 'example.com/a' to be handled as '//example.com/a' instead of '/example.com/a'
               var pathParts = FIRST_SEGMENT_REGEX.exec(baseParts.path);
@@ -30693,7 +30693,7 @@
             }
   
             if (baseParts.netLoc && !baseParts.path) {
-              baseParts.path = '../../../external.html?link=https://uiparadox.co.uk/';
+              baseParts.path = '/';
             }
   
             var builtParts = {
@@ -30714,7 +30714,7 @@
               builtParts.netLoc = baseParts.netLoc; // 4) If the embedded URL path is preceded by a slash "/", the
               // path is not relative and we skip to Step 7.
   
-              if (relativeParts.path[0] !== '../../../external.html?link=https://uiparadox.co.uk/') {
+              if (relativeParts.path[0] !== '/') {
                 if (!relativeParts.path) {
                   // 5) If the embedded URL path is empty (and not preceded by a
                   // slash), then the embedded URL inherits the base URL path
@@ -30737,7 +30737,7 @@
                   // slash is present) is removed and the embedded URL's path is
                   // appended in its place.
                   var baseURLPath = baseParts.path;
-                  var newPath = baseURLPath.substring(0, baseURLPath.lastIndexOf('../../../external.html?link=https://uiparadox.co.uk/') + 1) + relativeParts.path;
+                  var newPath = baseURLPath.substring(0, baseURLPath.lastIndexOf('/') + 1) + relativeParts.path;
                   builtParts.path = URLToolkit.normalizePath(newPath);
                 }
               }
@@ -30793,7 +30793,7 @@
       })();
     });
   
-    var DEFAULT_LOCATION = '../../../external.html?link=http://example.com/';
+    var DEFAULT_LOCATION = 'http://example.com/';
   
     var resolveUrl$1 = function resolveUrl(baseUrl, relativeUrl) {
       // return early if we don't need to resolve
@@ -30815,13 +30815,13 @@
       var removeLocation = !window_1.location && !/\/\//i.test(baseUrl); // if the base URL is relative then combine with the current location
   
       if (nativeURL) {
-        baseUrl = new window_1.URL(baseUrl%2c%20window_1.html);
+        baseUrl = new window_1.URL(baseUrl, window_1.location.href);
       } else if (!/\/\//i.test(baseUrl)) {
         baseUrl = urlToolkit.buildAbsoluteURL(window_1.location && window_1.location.href || '', baseUrl);
       }
   
       if (nativeURL) {
-        var newUrl = new URL(relativeUrl%2c%20baseUrl.html); // if we're a protocol-less url, remove the protocol
+        var newUrl = new URL(relativeUrl, baseUrl.href); // if we're a protocol-less url, remove the protocol
         // and if we're location-less, remove the location
         // otherwise, return the url unmodified
   
@@ -33347,7 +33347,7 @@
               //case S_EQ:
   
               default:
-                throw new Error("attribute invalid close char('../../../external.html?link=https://uiparadox.co.uk/')");
+                throw new Error("attribute invalid close char('/')");
               // No known test case
             }
   
@@ -33379,7 +33379,7 @@
               case S_ATTR:
                 value = source.slice(start, p);
   
-                if (value.slice(-1) === '../../../external.html?link=https://uiparadox.co.uk/') {
+                if (value.slice(-1) === '/') {
                   el.closed = true;
                   value = value.slice(0, -1);
                 }
@@ -33529,7 +33529,7 @@
           }
   
           currentNSMap[nsPrefix] = localNSMap[nsPrefix] = value;
-          a.uri = '../../../external.html?link=http://www.w3.org/2000/xmlns/';
+          a.uri = 'http://www.w3.org/2000/xmlns/';
           domBuilder.startPrefixMapping(nsPrefix, value);
         }
       }
@@ -33543,7 +33543,7 @@
         if (prefix) {
           //no prefix attribute has no namespace
           if (prefix === 'xml') {
-            a.uri = '../../../external.html?link=http://www.w3.org/XML/1998/namespace';
+            a.uri = 'http://www.w3.org/XML/1998/namespace';
           }
   
           if (prefix !== 'xmlns') {
@@ -34296,7 +34296,7 @@
       doc && doc._inc++;
       var ns = newAttr.namespaceURI;
   
-      if (ns == '../../../external.html?link=http://www.w3.org/2000/xmlns/') {
+      if (ns == 'http://www.w3.org/2000/xmlns/') {
         //update namespace
         delete el._nsMap[newAttr.prefix ? newAttr.localName : ''];
       }
@@ -34849,7 +34849,7 @@
         return false;
       }
   
-      if (prefix === "xml" && uri === "http://www.w3.org/XML/1998/namespace" || uri == '../../../external.html?link=http://www.w3.org/2000/xmlns/') {
+      if (prefix === "xml" && uri === "http://www.w3.org/XML/1998/namespace" || uri == 'http://www.w3.org/2000/xmlns/') {
         return false;
       }
   
@@ -58105,7 +58105,7 @@
             // Entered into the middle of an ad cue
             // Assumes tag formate to be
             // #EXT-X-CUE-OUT-CONT:10/30
-            var _segment$cueOutCont$s = segment.cueOutCont.split('../../../external.html?link=https://uiparadox.co.uk/').map(parseFloat),
+            var _segment$cueOutCont$s = segment.cueOutCont.split('/').map(parseFloat),
                 adOffset = _segment$cueOutCont$s[0],
                 adTotal = _segment$cueOutCont$s[1];
   

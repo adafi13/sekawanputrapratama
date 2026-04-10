@@ -742,7 +742,7 @@ $.extend( $.validator, {
 
 				// Legacy browsers
 				// Unix-based path
-				idx = val.lastIndexOf( "../../../external.html?link=https://uiparadox.co.uk/" );
+				idx = val.lastIndexOf( "/" );
 				if ( idx >= 0 ) {
 					return val.substr( idx + 1 );
 				}
