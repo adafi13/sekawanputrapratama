@@ -82,6 +82,11 @@
     <meta name="msapplication-TileImage" content="{{ asset('assets/media/logo.png') }}">
     <meta name="msapplication-TileColor" content="#0F172A">
 
+    {{-- Google Fonts: Poppins + Inter --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     {{-- CSS Libraries --}}
     <link rel="stylesheet" href="{{ asset('assets/css/vendor/font-awesome.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/vendor/bootstrap.min.css') }}">
@@ -94,43 +99,153 @@
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
 
     <style>
-        /* --- CSS KHUSUS AGAR RAPI DI HP --- */
-
-        /* 1. Header Responsif */
-        .header-logo { height: 60px; width: auto; } /* Default Desktop */
-
-        @media (max-width: 576px) {
-            #main-header { height: 70px !important; padding: 0 10px; }
-            .header-logo { height: 32px !important; } /* Perkecil logo di HP */
-
-            /* Agar tombol Consult Now muat di HP */
-            .header-btn {
-                padding: 6px 12px !important;
-                font-size: 11px !important;
-                margin-right: 8px;
-            }
-            .header-btn i { display: none; } /* Sembunyikan panah di tombol saat di HP */
-
-            /* Jarak antar elemen footer di HP */
-            .footer-widget h5 { font-size: 16px; margin-bottom: 15px; }
-            .footer-links li a { font-size: 14px; }
+        /* ============================================================
+           SPP ENTERPRISE DESIGN SYSTEM — v2.0
+        ============================================================ */
+        :root {
+            --midnight-blue:    #0D1B3E;
+            --navy-dark:        #0A1628;
+            --electric-blue:    #2563EB;
+            --electric-hover:   #1D4ED8;
+            --cool-blue-light:  #3B82F6;
+            --off-white:        #F1F5F9;
+            --slate-100:        #F1F5F9;
+            --slate-200:        #E2E8F0;
+            --slate-400:        #94A3B8;
+            --slate-600:        #475569;
+            --glass-bg:         rgba(255,255,255,0.06);
+            --glass-border:     rgba(255,255,255,0.12);
+            --font-heading:     'Poppins', sans-serif;
+            --font-body:        'Inter', sans-serif;
+            --radius-lg:        16px;
+            --radius-xl:        24px;
+            --transition:       all 0.3s cubic-bezier(0.4,0,0.2,1);
+            --shadow-card:      0 20px 60px rgba(0,0,0,0.12);
+            --shadow-glow:      0 0 40px rgba(37,99,235,0.3);
         }
 
-        /* 2. Tombol WA Floating */
-        .float-wa {
-            position: fixed; bottom: 25px; right: 25px;
-            width: 55px; height: 55px;
-            background-color: #25d366; color: #fff;
-            border-radius: 50%; text-align: center;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 28px; box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
-            z-index: 9999; text-decoration: none;
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--off-white);
+            color: var(--midnight-blue);
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* 3. Perbaikan Gallery & Hover (Bawaan) */
-        .gallery-item { cursor: pointer; transition: transform 0.3s ease; position: relative; overflow: hidden; }
-        .gallery-item:hover { transform: scale(1.05); }
+        h1,h2,h3,h4,h5,h6 { font-family: var(--font-heading); }
+
+        /* ---- NAVBAR ---- */
+        #main-header {
+            position: fixed !important;
+            top: 0; left: 0; right: 0;
+            z-index: 9000;
+            height: 80px !important;
+            background: transparent;
+            border-bottom: 1px solid transparent;
+            transition: var(--transition);
+        }
+        #main-header.scrolled {
+            background: rgba(13,27,62,0.95) !important;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom-color: rgba(255,255,255,0.08) !important;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+        }
+        .main-menu__list > li > a {
+            color: rgba(255,255,255,0.85) !important;
+            font-family: var(--font-body);
+            font-weight: 500;
+            font-size: 14px;
+            letter-spacing: 0.3px;
+            transition: color 0.2s ease;
+            padding: 6px 16px !important;
+            text-decoration: none;
+        }
+        .main-menu__list > li > a:hover {
+            color: #ffffff !important;
+        }
+        .header-logo { height: 52px; width: auto; }
+
+        /* ---- NAV CTA BUTTON ---- */
+        .header-btn {
+            background: var(--electric-blue);
+            color: #fff !important;
+            padding: 10px 22px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 14px;
+            font-family: var(--font-body);
+            text-decoration: none;
+            transition: var(--transition);
+            white-space: nowrap;
+            border: none;
+            box-shadow: 0 4px 20px rgba(37,99,235,0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .header-btn:hover {
+            background: var(--electric-hover);
+            color: #fff !important;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(37,99,235,0.5);
+            text-decoration: none;
+        }
+
+        /* Push content below fixed nav */
+        #scroll-container > main:first-child section:first-child,
+        #scroll-container > main section:first-child {
+            padding-top: 0;
+        }
+
+        /* ---- FOOTER ---- */
+        .footer-modern {
+            background: var(--navy-dark) !important;
+            color: rgba(255,255,255,0.7);
+            padding: 80px 0 0;
+            font-family: var(--font-body);
+        }
+        .footer-modern p { color: rgba(255,255,255,0.6); font-size: 14px; line-height: 1.8; }
+        .footer-widget h5 {
+            color: #fff;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links li a {
+            color: rgba(255,255,255,0.55);
+            font-size: 14px;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        .footer-links li a:hover { color: var(--cool-blue-light); }
+        .footer-links li i { color: var(--electric-blue); }
+        .footer-bottom {
+            margin-top: 60px;
+            padding: 24px 0;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            color: rgba(255,255,255,0.4);
+            font-size: 13px;
+        }
+
+        /* ---- GALLERY ---- */
+        .gallery-item { cursor: pointer; transition: var(--transition); position: relative; overflow: hidden; }
+        .gallery-item:hover { transform: scale(1.04); }
         .gallery-item:hover img { filter: brightness(0.7); }
+
+        /* ---- RESPONSIVE ---- */
+        @media (max-width: 576px) {
+            #main-header { height: 68px !important; }
+            .header-logo { height: 34px !important; }
+            .header-btn { padding: 8px 14px !important; font-size: 12px !important; }
+            .footer-widget h5 { font-size: 14px; }
+        }
     </style>
 
     @stack('styles')
@@ -149,7 +264,7 @@
     <div id="scroll-container">
 
         {{-- Header Navigation --}}
-        <header id="main-header" style="height: 80px; display: flex; align-items: center;">
+        <header id="main-header" style="display: flex; align-items: center;">
             <nav class="main-menu w-100">
                 <div class="container-fluid px-lg-5 px-3">
                     <div class="main-menu__block d-flex align-items-center justify-content-between">
@@ -163,21 +278,18 @@
                         <div class="menu-button-right d-flex align-items-center">
                             {{-- Menu Desktop --}}
                             <div class="main-menu__nav d-none d-lg-block me-4">
-                                <ul class="main-menu__list list-unstyled mb-0">
+                                <ul class="main-menu__list list-unstyled mb-0 d-flex gap-1">
                                     @include('frontend.layouts.menu-links')
                                 </ul>
                             </div>
 
-                            <div class="main-menu__right d-flex align-items-center">
-                                {{-- Tombol Consult Now (Dibuat Visible di HP: d-flex) --}}
-                                <a class="header-btn d-flex align-items-center" href="{{ route('contact') }}">
-                                    <span>Consult Now!</span>
-                                    <i class="fas fa-arrow-right ms-2 small d-none d-sm-inline"></i>
+                            <div class="main-menu__right d-flex align-items-center gap-3">
+                                <a class="header-btn" href="{{ route('contact') }}">
+                                    <span>Request a Consultation</span>
+                                    <i class="fas fa-arrow-right small d-none d-sm-inline"></i>
                                 </a>
-
-                                {{-- Burger Menu --}}
-                                <a href="#" class="main-menu__toggler mobile-nav__toggler ms-2 d-lg-none text-dark">
-                                    <i class="fas fa-bars" style="font-size: 24px;"></i>
+                                <a href="#" class="main-menu__toggler mobile-nav__toggler d-lg-none" style="color:#fff; font-size:22px;">
+                                    <i class="fas fa-bars"></i>
                                 </a>
                             </div>
                         </div>
@@ -667,6 +779,17 @@
     <script src="{{ asset('assets/js/custom.js') }}"></script>
     <script>
         lightbox.option({ 'resizeDuration': 200, 'wrapAround': true });
+        /* Scroll-aware navbar */
+        (function(){
+            var hdr = document.getElementById('main-header');
+            if(!hdr) return;
+            function onScroll(){
+                if(window.scrollY > 50){ hdr.classList.add('scrolled'); }
+                else { hdr.classList.remove('scrolled'); }
+            }
+            window.addEventListener('scroll', onScroll, {passive:true});
+            onScroll();
+        })();
     </script>
 
     @stack('scripts')

@@ -17,6 +17,8 @@ use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Support\HtmlString;
+use Filament\View\PanelsRenderHook;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class AdminPanelProvider extends PanelProvider
@@ -32,8 +34,12 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogo(asset('assets/media/logo.png'))
             ->favicon(asset('assets/media/favicon.png'))
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => '#2563EB',
             ])
+            ->renderHook(
+                'panels::head.end',
+                fn (): HtmlString => new HtmlString('<link rel="stylesheet" href="' . asset('css/admin-custom.css') . '">'),
+            )
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([

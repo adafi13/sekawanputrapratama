@@ -1,0 +1,151 @@
+/* Admin Custom CSS for Sekawan Putra Pratama - Premium Redesign */
+
+:root {
+    --adm-bg: #030712;
+    --adm-primary: #3B82F6;
+    --adm-secondary: #6366F1;
+}
+
+/* Fix for Filament 3 Background */
+.fi-body {
+    background-color: var(--adm-bg) !important;
+}
+
+.fi-body.fi-panel-admin.fi-page-login {
+    background: var(--adm-bg) !important;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+/* Animated Background Blobs */
+.fi-body.fi-page-login::before,
+.fi-body.fi-page-login::after {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    filter: blur(120px);
+    z-index: 0;
+    opacity: 0.4;
+    animation: blobMove 20s infinite alternate;
+}
+
+.fi-body.fi-page-login::before {
+    background: radial-gradient(circle, var(--adm-primary), transparent);
+    top: -100px;
+    left: -100px;
+}
+
+.fi-body.fi-page-login::after {
+    background: radial-gradient(circle, var(--adm-secondary), transparent);
+    bottom: -100px;
+    right: -100px;
+    animation-delay: -10s;
+}
+
+@keyframes blobMove {
+    0% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(100px, 50px) scale(1.1); }
+    66% { transform: translate(-50px, 150px) scale(0.9); }
+    100% { transform: translate(0, 0) scale(1); }
+}
+
+/* Grid Overlay */
+.fi-body.fi-page-login main::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Card Login Redesign */
+.fi-page-login .fi-card {
+    background: rgba(255, 255, 255, 0.02) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 32px !important;
+    box-shadow: 0 25px 80px -12px rgba(0, 0, 0, 0.8) !important;
+    z-index: 10;
+    width: 100%;
+    max-width: 450px;
+    padding: 20px;
+    margin: auto;
+}
+
+/* Typography */
+.fi-page-login .fi-header-title {
+    font-size: 1.8rem !important;
+    font-weight: 800 !important;
+    background: linear-gradient(135deg, #fff, #94a3b8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.5px;
+}
+
+.fi-page-login .fi-header-sub-title, 
+.fi-page-login label,
+.fi-page-login .fi-checkbox-label {
+    color: rgba(255, 255, 255, 0.6) !important;
+    font-weight: 500 !important;
+}
+
+/* Form Inputs */
+.fi-page-login input {
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #fff !important;
+    border-radius: 14px !important;
+    padding: 12px 16px !important;
+    transition: all 0.3s ease !important;
+}
+
+.fi-page-login input:focus {
+    background: rgba(255, 255, 255, 0.07) !important;
+    border-color: var(--adm-primary) !important;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15) !important;
+}
+
+/* Button */
+.fi-page-login button[type="submit"] {
+    background: linear-gradient(135deg, #2563EB, #4F46E5) !important;
+    border: none !important;
+    border-radius: 14px !important;
+    height: 48px !important;
+    font-weight: 700 !important;
+    font-size: 1rem !important;
+    box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.4) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.fi-page-login button[type="submit"]:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 15px 30px -5px rgba(37, 99, 235, 0.6) !important;
+    filter: brightness(1.1);
+}
+
+.fi-page-login button[type="submit"]:active {
+    transform: translateY(0) !important;
+}
+
+/* Logo */
+.fi-logo {
+    margin-bottom: 24px !important;
+    filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.3)) !important;
+}
+
+/* Responsive Fix */
+@media (max-width: 640px) {
+    .fi-page-login .fi-card {
+        margin: 20px !important;
+        border-radius: 24px !important;
+    }
+}
