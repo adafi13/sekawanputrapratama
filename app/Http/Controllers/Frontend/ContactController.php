@@ -36,6 +36,14 @@ class ContactController extends Controller
             'phone' => 'required|string|max:20',
             'service' => 'required|string',
             'message' => 'required|string',
+        ], [
+            'company_name.required' => 'Nama perusahaan wajib diisi.',
+            'name.required' => 'Nama lengkap wajib diisi.',
+            'email.required' => 'Alamat email wajib diisi.',
+            'email.email' => 'Format email tidak valid.',
+            'phone.required' => 'Nomor WhatsApp wajib diisi.',
+            'service.required' => 'Silakan pilih layanan yang Anda minati.',
+            'message.required' => 'Detail kebutuhan atau pesan wajib diisi.',
         ]);
         $data['email'] = $cleanEmail;
 
