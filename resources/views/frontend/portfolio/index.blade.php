@@ -187,11 +187,11 @@
         font-weight: 600;
     }
 
-    /* Animation */
+    /* Reveal Animation - simplified */
     .reveal {
         opacity: 0;
-        transform: translateY(40px);
-        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        transform: translateY(20px);
+        transition: all 0.6s ease-out;
     }
 
     .reveal.active {
@@ -324,8 +324,8 @@
             </div>
 
             <div class="row g-4" id="portfolio-grid">
-                @forelse($portfolios as $portfolio)
-                    <div class="col-md-6 col-lg-4 portfolio-item reveal" data-category="{{ $portfolio->category ? $portfolio->category->slug : '' }}">
+                @foreach($portfolios as $portfolio)
+                    <div class="col-md-6 col-lg-4 portfolio-item" data-category="{{ $portfolio->category ? $portfolio->category->slug : '' }}">
                         <div class="project-card">
                             <div class="project-image-wrapper">
                                 @php
@@ -366,15 +366,16 @@
                             </div>
                         </div>
                     </div>
-                @empty
-                    <div class="col-12 text-center py-5 reveal">
+                @endforeach
+                @if($portfolios->isEmpty())
+                    <div class="col-12 text-center py-5">
                         <div class="py-5">
                             <i class="fas fa-folder-open fa-4x text-light mb-4" style="color: #E2E8F0 !important;"></i>
                             <h4 class="text-muted">Belum ada portofolio yang tersedia</h4>
                             <p class="text-secondary">Kami sedang mengerjakan proyek-proyek menarik. Kembali lagi nanti!</p>
                         </div>
                     </div>
-                @endforelse
+                @endif
             </div>
 
             @if($portfolios->hasPages())
