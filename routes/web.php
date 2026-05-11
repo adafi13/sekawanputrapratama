@@ -19,8 +19,8 @@ Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 
 // Portfolio Routes
-Route::get('/portfolio', [PortfolioController::class, 'index'])->name('portfolio.index');
-Route::get('/portfolio/{slug}', [PortfolioController::class, 'show'])->name('portfolio.show');
+Route::get('/portfolio', [App\Http\Controllers\Frontend\PortfolioController::class, 'index'])->name('portfolio.index');
+Route::get('/portfolio/{slug}', [App\Http\Controllers\Frontend\PortfolioController::class, 'show'])->name('portfolio.show');
 
 // Services Route (Static page for now)
 Route::view('/services', 'frontend.services')->name('services.index');

@@ -10,13 +10,33 @@ use Illuminate\View\View;
 
 class PortfolioController extends Controller
 {
-    public function index(): View
+    public function index(\Illuminate\Http\Request $request): View
     {
         $categories = PortfolioCategory::orderBy('order')->get();
         
-        $portfolios = Portfolio::with(['category', 'media'])
-            ->orderBy('order', 'asc')
-            ->get();
+        $query = Portfolio::with(['category', 'media']);
+
+        // Search functionality
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('short_description', 'like', "%{$search}%")
+                  ->orWhere('content', 'like', "%{$search}%");
+            });
+        }
+
+        // Category filter
+        if ($request->filled('category')) {
+            $query->whereHas('category', function($q) use ($request) {
+                $q->where('slug', $request->category);
+            });
+        }
+
+        $portfolios = $query->orderBy('order', 'asc')
+            ->orderBy('created_at', 'desc')
+            ->paginate(12)
+            ->withQueryString();
 
         $featuredPortfolios = Portfolio::with(['category', 'media'])
             ->where('is_featured', true)
