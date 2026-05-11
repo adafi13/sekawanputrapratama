@@ -665,7 +665,7 @@
       <div class="col-lg-4 col-md-6 reveal" style="transition-delay: {{ $index * 150 }}ms">
         <div class="blog-card-new">
           <div class="bcn-img-wrap">
-            <img src="{{ $blog->thumbnail ? asset('storage/'.$blog->thumbnail) : asset('assets/media/images/placeholder-blog.png') }}" alt="{{ $blog->title }}" class="bcn-img">
+            <img src="{{ $blog->featured_image ? Storage::url($blog->featured_image) : asset('assets/media/images/blog-image-1.png') }}" alt="{{ $blog->title }}" class="bcn-img">
             <span class="bcn-cat">{{ $blog->category->name ?? 'Uncategorized' }}</span>
           </div>
           <div class="bcn-body">
