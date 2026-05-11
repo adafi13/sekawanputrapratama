@@ -12,21 +12,19 @@ class PortfolioController extends Controller
 {
     public function index(): View
     {
-        $cacheKey = 'portfolio_listing';
+        $categories = PortfolioCategory::orderBy('order')->get();
+        
+        $portfolios = Portfolio::with('category')
+            ->orderBy('order', 'asc')
+            ->get();
 
-        $data = Cache::remember($cacheKey, now()->addMinutes(60), function () {
-            return [
-                'categories' => PortfolioCategory::orderBy('order')
-                    ->select(['id', 'name', 'slug', 'order'])
-                    ->get(),
-                'portfolios' => Portfolio::with('media')
-                    ->orderBy('order')
-                    ->select(['id', 'title', 'slug', 'category_id', 'is_featured', 'order'])
-                    ->get(),
-            ];
-        });
+        $featuredPortfolios = Portfolio::with('category')
+            ->where('is_featured', true)
+            ->orderBy('order', 'asc')
+            ->take(6)
+            ->get();
 
-        return view('frontend.portfolio.index', $data);
+        return view('frontend.portfolio.index', compact('categories', 'portfolios', 'featuredPortfolios'));
     }
 
     public function show(string $slug): View
