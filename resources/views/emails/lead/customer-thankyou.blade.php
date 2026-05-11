@@ -185,7 +185,7 @@
 <body>
     <div class="container">
         <div class="logo">
-            <img src="{{ url('assets/media/logo.png') }}" alt="PT Sekawan Putra Pratama">
+            <img src="https://sekawanputrapratama.com/assets/media/logo.png" alt="PT Sekawan Putra Pratama">
         </div>
 
         <div class="checkmark-container">
@@ -286,7 +286,7 @@
         </div>
 
         <div class="footer">
-            <img src="{{ url('assets/media/logo.png') }}" alt="SPP" class="footer-logo">
+            <img src="https://sekawanputrapratama.com/assets/media/logo.png" alt="SPP" class="footer-logo">
 
             <div class="footer-text">
                 <strong>PT Sekawan Putra Pratama</strong><br>

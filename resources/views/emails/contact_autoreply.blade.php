@@ -15,7 +15,7 @@
 
                     <tr>
                         <td align="center" style="background-color: #0F172A; padding: 40px 20px;">
-                            <img src="{{ $message->embed(public_path('assets/media/logo.png')) }}"
+                            <img src="https://sekawanputrapratama.com/assets/media/logo.png"
                                  alt="PT Sekawan Putra Pratama"
                                  width="180"
                                  style="display: block; border: 0; max-width: 180px; height: auto;">

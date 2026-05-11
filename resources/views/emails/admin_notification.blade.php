@@ -15,7 +15,7 @@
                     
                     <tr>
                         <td style="background-color: #dc2626; padding: 20px; text-align: center;">
-                            <img src="{{ $message->embed(public_path('assets/media/logo.png')) }}" alt="Logo" width="120" style="margin-bottom: 10px;"><br>
+                            <img src="https://sekawanputrapratama.com/assets/media/logo.png" alt="Logo" width="120" style="margin-bottom: 10px;"><br>
                             <h2 style="color: #ffffff; margin: 0; font-size: 20px;">🔔 LEAD / PROSPEK BARU</h2>
                         </td>
                     </tr>
