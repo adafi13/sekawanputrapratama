@@ -14,11 +14,11 @@ class PortfolioController extends Controller
     {
         $categories = PortfolioCategory::orderBy('order')->get();
         
-        $portfolios = Portfolio::with('category')
+        $portfolios = Portfolio::with(['category', 'media'])
             ->orderBy('order', 'asc')
             ->get();
 
-        $featuredPortfolios = Portfolio::with('category')
+        $featuredPortfolios = Portfolio::with(['category', 'media'])
             ->where('is_featured', true)
             ->orderBy('order', 'asc')
             ->take(6)
@@ -29,24 +29,17 @@ class PortfolioController extends Controller
 
     public function show(string $slug): View
     {
-        $cacheKey = "portfolio_{$slug}";
-
-        $portfolio = Cache::remember($cacheKey, now()->addMinutes(60), function () use ($slug) {
-            return Portfolio::with(['category:id,name,slug', 'media'])
-                ->where('slug', $slug)
-                ->firstOrFail();
-        });
+        $portfolio = Portfolio::with(['category', 'media'])
+            ->where('slug', $slug)
+            ->firstOrFail();
 
         // Get related portfolios
-        $relatedPortfolios = Cache::remember("portfolio_related_{$portfolio->category_id}", now()->addMinutes(60), function () use ($portfolio) {
-            return Portfolio::with('media')
-                ->where('category_id', $portfolio->category_id)
-                ->where('id', '!=', $portfolio->id)
-                ->orderBy('order')
-                ->select(['id', 'title', 'slug', 'category_id'])
-                ->limit(3)
-                ->get();
-        });
+        $relatedPortfolios = Portfolio::with(['category', 'media'])
+            ->where('category_id', $portfolio->category_id)
+            ->where('id', '!=', $portfolio->id)
+            ->orderBy('order', 'asc')
+            ->limit(3)
+            ->get();
 
         return view('frontend.portfolio.show', compact('portfolio', 'relatedPortfolios'));
     }

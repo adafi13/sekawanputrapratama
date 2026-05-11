@@ -230,9 +230,15 @@
     <div class="container">
         <div class="row g-4">
             <div class="col-lg-8 reveal">
-                @if($portfolio->featured_image)
+                @php
+                    $imageUrl = $portfolio->getFirstMediaUrl('featured_image');
+                    if (!$imageUrl && $portfolio->featured_image) {
+                        $imageUrl = Storage::url($portfolio->featured_image);
+                    }
+                @endphp
+                @if($imageUrl)
                     <div class="rounded-4 overflow-hidden shadow-lg border">
-                        <img src="{{ Storage::url($portfolio->featured_image) }}" class="w-100" alt="{{ $portfolio->title }}">
+                        <img src="{{ $imageUrl }}" class="w-100" alt="{{ $portfolio->title }}">
                     </div>
                 @else
                     <div class="rounded-4 bg-light d-flex align-items-center justify-content-center border" style="height: 450px;">
@@ -361,15 +367,30 @@
             <h2>Galeri Proyek</h2>
         </div>
         <div class="row g-4 reveal">
-            @foreach($portfolio->images as $image)
-                <div class="col-lg-4 col-md-6">
-                    <a href="{{ Storage::url($image) }}" data-lightbox="project-gallery" data-title="{{ $portfolio->title }}">
-                        <div class="gallery-thumb shadow-sm">
-                            <img src="{{ Storage::url($image) }}" alt="Project Screenshot">
-                        </div>
-                    </a>
-                </div>
-            @endforeach
+            @php
+                $galleryImages = $portfolio->getMedia('images');
+            @endphp
+            @if($galleryImages->count() > 0)
+                @foreach($galleryImages as $media)
+                    <div class="col-lg-4 col-md-6">
+                        <a href="{{ $media->getUrl() }}" data-lightbox="project-gallery" data-title="{{ $portfolio->title }}">
+                            <div class="gallery-thumb shadow-sm">
+                                <img src="{{ $media->getUrl() }}" alt="Project Screenshot">
+                            </div>
+                        </a>
+                    </div>
+                @endforeach
+            @elseif($portfolio->images && is_array($portfolio->images))
+                @foreach($portfolio->images as $image)
+                    <div class="col-lg-4 col-md-6">
+                        <a href="{{ Storage::url($image) }}" data-lightbox="project-gallery" data-title="{{ $portfolio->title }}">
+                            <div class="gallery-thumb shadow-sm">
+                                <img src="{{ Storage::url($image) }}" alt="Project Screenshot">
+                            </div>
+                        </a>
+                    </div>
+                @endforeach
+            @endif
         </div>
     </div>
 </section>
@@ -388,8 +409,14 @@
                 <div class="col-md-4">
                     <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden" style="transition: var(--transition);">
                         <div class="position-relative overflow-hidden" style="height: 200px;">
-                            @if($related->featured_image)
-                                <img src="{{ Storage::url($related->featured_image) }}" class="w-100 h-100 object-fit-cover" alt="{{ $related->title }}">
+                            @php
+                                $relImageUrl = $related->getFirstMediaUrl('featured_image');
+                                if (!$relImageUrl && $related->featured_image) {
+                                    $relImageUrl = Storage::url($related->featured_image);
+                                }
+                            @endphp
+                            @if($relImageUrl)
+                                <img src="{{ $relImageUrl }}" class="w-100 h-100 object-fit-cover" alt="{{ $related->title }}">
                             @else
                                 <div class="w-100 h-100 bg-light d-flex align-items-center justify-content-center">
                                     <i class="fas fa-briefcase fa-2x text-muted opacity-25"></i>

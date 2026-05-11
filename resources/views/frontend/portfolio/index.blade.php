@@ -273,8 +273,14 @@
                     <div class="col-md-6 portfolio-item reveal" data-category="{{ $featured->category ? $featured->category->slug : '' }}">
                         <div class="project-card">
                             <div class="project-image-wrapper">
-                                @if($featured->featured_image)
-                                    <img src="{{ Storage::url($featured->featured_image) }}" alt="{{ $featured->title }}">
+                                @php
+                                    $imageUrl = $featured->getFirstMediaUrl('featured_image');
+                                    if (!$imageUrl && $featured->featured_image) {
+                                        $imageUrl = Storage::url($featured->featured_image);
+                                    }
+                                @endphp
+                                @if($imageUrl)
+                                    <img src="{{ $imageUrl }}" alt="{{ $featured->title }}">
                                 @else
                                     <div class="w-100 h-100 bg-light d-flex align-items-center justify-content-center text-muted">
                                         <i class="fas fa-image fa-3x"></i>
@@ -322,8 +328,14 @@
                     <div class="col-md-6 col-lg-4 portfolio-item reveal" data-category="{{ $portfolio->category ? $portfolio->category->slug : '' }}">
                         <div class="project-card">
                             <div class="project-image-wrapper">
-                                @if($portfolio->featured_image)
-                                    <img src="{{ Storage::url($portfolio->featured_image) }}" alt="{{ $portfolio->title }}">
+                                @php
+                                    $imageUrl = $portfolio->getFirstMediaUrl('featured_image');
+                                    if (!$imageUrl && $portfolio->featured_image) {
+                                        $imageUrl = Storage::url($portfolio->featured_image);
+                                    }
+                                @endphp
+                                @if($imageUrl)
+                                    <img src="{{ $imageUrl }}" alt="{{ $portfolio->title }}">
                                 @else
                                     <div class="w-100 h-100 bg-light d-flex align-items-center justify-content-center text-muted">
                                         <i class="fas fa-image fa-3x"></i>
