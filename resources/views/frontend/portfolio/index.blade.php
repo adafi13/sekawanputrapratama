@@ -104,6 +104,7 @@
     .project-image-wrapper {
         position: relative;
         height: 250px;
+        background-color: #f1f5f9;
         overflow: hidden;
     }
 
