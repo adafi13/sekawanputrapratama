@@ -13,7 +13,7 @@ class PortfolioController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Portfolio::query()->with('category');
+        $query = Portfolio::query()->with(['category', 'media']);
 
         // Search functionality
         if ($request->filled('search')) {
@@ -39,7 +39,8 @@ class PortfolioController extends Controller
 
         $categories = PortfolioCategory::withCount('portfolios')->get();
         
-        $featuredPortfolios = Portfolio::where('is_featured', true)
+        $featuredPortfolios = Portfolio::with(['category', 'media'])
+            ->where('is_featured', true)
             ->orderBy('order', 'asc')
             ->take(6)
             ->get();
@@ -53,11 +54,12 @@ class PortfolioController extends Controller
     public function show($slug)
     {
         $portfolio = Portfolio::where('slug', $slug)
-            ->with('category')
+            ->with(['category', 'media'])
             ->firstOrFail();
 
         $relatedPortfolios = Portfolio::where('category_id', $portfolio->category_id)
             ->where('id', '!=', $portfolio->id)
+            ->with(['category', 'media'])
             ->orderBy('order', 'asc')
             ->take(3)
             ->get();
