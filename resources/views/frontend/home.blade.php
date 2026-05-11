@@ -1,10 +1,10 @@
 @extends('frontend.layouts.app')
 
-@section('title', 'Jasa IT Terpercaya | Software House & IT Consultant - Sekawan Putra Pratama')
+@section('title', 'Jasa IT Terpercaya | Software House & IT Consultant - PT Sekawan Putra Pratama')
 @section('meta_description', 'Software house terpercaya sejak 2024. Jasa pembuatan website profesional, aplikasi mobile Android/iOS, instalasi server & jaringan kantor. Konsultasi GRATIS! Hubungi kami sekarang.')
 @section('meta_keywords', 'jasa IT terpercaya, software house Indonesia, jasa pembuatan website, aplikasi mobile, instalasi server, IT consultant Jakarta, web developer profesional')
 
-@section('og_title', 'Sekawan Putra Pratama - Solusi IT Terintegrasi & Terpercaya')
+@section('og_title', 'PT Sekawan Putra Pratama - Solusi IT Terintegrasi & Terpercaya')
 @section('og_description', 'Software house & IT consultant terpercaya sejak 2015. Website, Aplikasi Mobile, Server & Jaringan. Konsultasi GRATIS!')
 
 @section('content')
@@ -582,7 +582,7 @@
   <div class="container">
     <div class="section-header text-center mb-5 reveal">
       <span class="section-pill section-pill-light">Keunggulan Kami</span>
-      <h2 class="section-title mt-3 text-white">Mengapa Memilih <span class="text-eb">Sekawan Putra Pratama?</span></h2>
+      <h2 class="section-title mt-3 text-white">Mengapa Memilih <span class="text-eb">PT Sekawan Putra Pratama?</span></h2>
       <p class="section-sub">Kami memberikan lebih dari sekadar kode — kami memberikan solusi bisnis yang strategis.</p>
     </div>
     <div class="row g-4">

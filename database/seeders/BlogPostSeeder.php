@@ -27,7 +27,7 @@ class BlogPostSeeder extends Seeder
                 'content' => '<p>Di era di mana penggunaan smartphone mendominasi akses internet, memiliki website yang responsif bukan lagi pilihan, melainkan keharusan. Website responsif memastikan tampilan halaman web Anda menyesuaikan diri secara otomatis dengan ukuran layar perangkat pengguna, baik itu desktop, tablet, maupun ponsel.</p>
                 <h4>Mengapa Hal Ini Penting?</h4>
                 <p>Google memprioritaskan website yang "Mobile-Friendly" dalam hasil pencarian mereka. Jika website Anda sulit dibaca di HP, besar kemungkinan pengunjung akan segera meninggalkannya (Bounce Rate tinggi), yang berdampak buruk pada reputasi bisnis Anda.</p>
-                <p>Sekawan Putra Pratama berkomitmen membantu Anda membangun website yang tidak hanya indah secara visual, tetapi juga berkinerja tinggi di segala perangkat. Hubungi kami untuk audit website gratis.</p>',
+                <p>PT Sekawan Putra Pratama berkomitmen membantu Anda membangun website yang tidak hanya indah secara visual, tetapi juga berkinerja tinggi di segala perangkat. Hubungi kami untuk audit website gratis.</p>',
                 'category_id' => $techCategory?->id,
                 'author_id' => $author?->id,
                 'status' => 'published',

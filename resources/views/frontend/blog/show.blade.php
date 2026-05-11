@@ -1,138 +1,247 @@
 @extends('frontend.layouts.app')
 
-@section('title', $blog->meta_title ?? $blog->title . ' - Sekawan Putra Pratama')
+@section('title', ($blog->meta_title ?? $blog->title) . ' - PT Sekawan Putra Pratama')
 @section('meta_description', $blog->meta_description ?? Str::limit($blog->excerpt, 160))
-@section('meta_keywords', $blog->meta_keywords)
+
+@push('styles')
+<style>
+    .blog-detail-hero {
+        background-color: var(--navy-dark);
+        padding: 140px 0 80px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .blog-detail-hero::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-image: radial-gradient(rgba(37, 99, 235, 0.1) 1px, transparent 1px);
+        background-size: 30px 30px;
+        opacity: 0.2;
+    }
+
+    .breadcrumb-item + .breadcrumb-item::before {
+        color: rgba(255,255,255,0.3);
+    }
+
+    .article-container {
+        margin-top: -60px;
+        position: relative;
+        z-index: 10;
+    }
+
+    .article-card {
+        background: #fff;
+        border-radius: 24px;
+        padding: 50px;
+        box-shadow: var(--shadow-card);
+        border: 1px solid rgba(226, 232, 240, 0.5);
+    }
+
+    .article-content {
+        font-size: 1.15rem;
+        line-height: 1.8;
+        color: #334155;
+    }
+
+    .article-content p {
+        margin-bottom: 1.5rem;
+    }
+
+    .article-content h2, .article-content h3 {
+        color: var(--midnight-blue);
+        font-weight: 700;
+        margin-top: 2.5rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .article-content img {
+        border-radius: 16px;
+        margin: 2rem 0;
+        max-width: 100%;
+        height: auto;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    }
+
+    .author-box-modern {
+        background: #F8FAFC;
+        border-radius: 20px;
+        padding: 30px;
+        display: flex;
+        align-items: center;
+        gap: 25px;
+        margin-top: 50px;
+        border: 1px solid #E2E8F0;
+    }
+
+    .author-avatar-lg {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: var(--electric-blue);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+        flex-shrink: 0;
+    }
+
+    .share-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 8px 20px;
+        background: #fff;
+        border: 1px solid #E2E8F0;
+        border-radius: 100px;
+        color: var(--slate-600);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 600;
+        transition: var(--transition);
+    }
+
+    .share-pill:hover {
+        background: var(--slate-100);
+        color: var(--electric-blue);
+        border-color: var(--electric-blue);
+    }
+
+    .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+        .blog-detail-hero { padding: 120px 0 100px; }
+        .article-card { padding: 25px; }
+        .author-box-modern { flex-direction: column; text-align: center; }
+    }
+</style>
+@endpush
 
 @section('content')
 
-<section class="py-5 bg-light border-bottom">
-    <div class="container py-4">
-        <div class="row justify-content-center text-center">
-            <div class="col-lg-9">
-                <nav aria-label="breadcrumb" class="mb-4">
-                    <ol class="breadcrumb justify-content-center bg-transparent p-0">
-                        <li class="breadcrumb-item"><a href="{{ route('blog.index') }}" class="text-decoration-none">Blog</a></li>
-                        @if($blog->category)
-                            <li class="breadcrumb-item active text-muted" aria-current="page">{{ $blog->category->name }}</li>
-                        @endif
-                    </ol>
-                </nav>
-                
-                <h1 class="display-5 fw-bold text-dark mb-4" style="line-height: 1.2;">
-                    {{ $blog->title }}
-                </h1>
-                
-                <div class="d-flex align-items-center justify-content-center gap-3 text-muted flex-wrap">
-                    <div class="d-flex align-items-center">
-                        <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 35px; height: 35px;">
-                            <i class="fas fa-user small"></i>
-                        </div>
-                        <span class="fw-bold text-dark small">{{ $blog->author->name ?? 'Admin' }}</span>
-                    </div>
-                    <span class="text-opacity-25">|</span>
-                    <div class="small">
-                        <i class="far fa-calendar-alt me-1"></i> {{ $blog->published_at->format('d F Y') }}
-                    </div>
-                    <span class="text-opacity-25">|</span>
-                    <div class="small">
-                        <i class="far fa-eye me-1"></i> {{ $blog->views }} views
-                    </div>
-                </div>
+{{-- Blog Hero --}}
+<section class="blog-detail-hero">
+    <div class="container position-relative z-1 text-center">
+        <nav aria-label="breadcrumb" class="mb-4 d-flex justify-content-center reveal">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ route('blog.index') }}" class="text-white-50 text-decoration-none">Blog</a></li>
+                @if($blog->category)
+                    <li class="breadcrumb-item"><a href="{{ route('blog.index', ['category' => $blog->category->slug]) }}" class="text-white-50 text-decoration-none">{{ $blog->category->name }}</a></li>
+                @endif
+                <li class="breadcrumb-item active text-white" aria-current="page">Artikel</li>
+            </ol>
+        </nav>
+        <div class="reveal">
+            <h1 class="display-5 fw-bold text-white mb-4" style="max-width: 900px; margin-left: auto; margin-right: auto; line-height: 1.3;">
+                {{ $blog->title }}
+            </h1>
+            <div class="d-flex align-items-center justify-content-center gap-4 text-white-50 small fw-medium">
+                <span class="d-flex align-items-center gap-2">
+                    <i class="far fa-calendar-alt text-primary"></i> {{ $blog->published_at->format('M d, Y') }}
+                </span>
+                <span class="d-flex align-items-center gap-2">
+                    <i class="far fa-user text-primary"></i> {{ $blog->author->name ?? 'Admin' }}
+                </span>
+                <span class="d-flex align-items-center gap-2">
+                    <i class="far fa-eye text-primary"></i> {{ $blog->views }} Views
+                </span>
             </div>
         </div>
     </div>
 </section>
 
-<section class="py-5 bg-white">
-    <div class="container py-lg-4">
+{{-- Article Content --}}
+<section class="pb-5 mb-5 bg-white">
+    <div class="container article-container">
         <div class="row justify-content-center">
-            <div class="col-lg-8">
-                
-                @if($blog->featured_image)
-                <div class="rounded-4 overflow-hidden shadow-sm mb-5">
-                    <img src="{{ Storage::url($blog->featured_image) }}" class="img-fluid w-100" alt="{{ $blog->title }}">
-                </div>
-                @endif
-                
-                <div class="article-content text-dark" style="font-size: 1.15rem; line-height: 1.8; color: #334155 !important; text-align: justify;">
-                    {!! $blog->content !!}
-                </div>
+            <div class="col-lg-10">
+                <div class="article-card reveal">
+                    @if($blog->featured_image)
+                        <div class="rounded-4 overflow-hidden mb-5 shadow-lg">
+                            <img src="{{ Storage::url($blog->featured_image) }}" class="w-100" alt="{{ $blog->title }}">
+                        </div>
+                    @endif
 
-                <div class="py-4 border-top border-bottom d-flex flex-wrap justify-content-between align-items-center gap-3 mt-5">
-                    @if($blog->category)
-                    <div class="tags">
-                        <span class="small fw-bold text-muted me-2">Kategori:</span>
-                        <a href="{{ route('blog.index') }}?category={{ $blog->category->slug }}" class="badge bg-light text-muted border text-decoration-none px-3 py-2 rounded-pill">
-                            {{ $blog->category->name }}
-                        </a>
+                    <div class="article-content">
+                        {!! $blog->content !!}
+                    </div>
+
+                    {{-- Tags & Share --}}
+                    <div class="mt-5 pt-5 border-top d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-4">
+                        <div class="d-flex align-items-center gap-3">
+                            <span class="fw-bold text-dark small">Bagikan:</span>
+                            <div class="d-flex gap-2">
+                                <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url()->current()) }}" target="_blank" class="share-pill">
+                                    <i class="fab fa-facebook-f"></i> Facebook
+                                </a>
+                                <a href="https://twitter.com/intent/tweet?url={{ urlencode(url()->current()) }}&text={{ urlencode($blog->title) }}" target="_blank" class="share-pill">
+                                    <i class="fab fa-twitter"></i> Twitter
+                                </a>
+                                <a href="https://wa.me/?text={{ urlencode($blog->title . ' - ' . url()->current()) }}" target="_blank" class="share-pill">
+                                    <i class="fab fa-whatsapp"></i> WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Author Box --}}
+                    @if($blog->author)
+                    <div class="author-box-modern">
+                        <div class="author-avatar-lg">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div>
+                            <span class="text-primary fw-bold text-uppercase small tracking-widest d-block mb-1">Penulis</span>
+                            <h4 class="fw-bold text-dark mb-2">{{ $blog->author->name }}</h4>
+                            <p class="text-secondary mb-0 small">Expert IT di PT Sekawan Putra Pratama yang berfokus pada pengembangan solusi digital yang inovatif dan terukur untuk membantu transformasi bisnis.</p>
+                        </div>
                     </div>
                     @endif
-                    <div class="share-buttons d-flex align-items-center gap-3">
-                        <span class="small fw-bold text-muted">Bagikan:</span>
-                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('blog.show', $blog->slug)) }}" target="_blank" class="text-secondary hover-primary">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="https://twitter.com/intent/tweet?url={{ urlencode(route('blog.show', $blog->slug)) }}&text={{ urlencode($blog->title) }}" target="_blank" class="text-secondary hover-primary">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="https://wa.me/?text={{ urlencode($blog->title . ' - ' . route('blog.show', $blog->slug)) }}" target="_blank" class="text-secondary hover-primary">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
-                    </div>
                 </div>
-
-                @if($blog->author)
-                <div class="mt-5 p-4 rounded-4 bg-light d-flex align-items-center gap-4">
-                    <div class="bg-white p-1 rounded-circle shadow-sm">
-                        <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 70px; height: 70px;">
-                            <i class="fas fa-user fa-2x"></i>
-                        </div>
-                    </div>
-                    <div>
-                        <h6 class="fw-bold text-dark mb-1">Ditulis oleh {{ $blog->author->name }}</h6>
-                        <p class="small text-muted mb-0">Berdedikasi untuk memberikan wawasan teknologi terbaru guna membantu UMKM dan Perusahaan di Indonesia bertransformasi digital.</p>
-                    </div>
-                </div>
-                @endif
-
             </div>
         </div>
     </div>
 </section>
 
+{{-- Related Posts --}}
 @if(isset($relatedPosts) && $relatedPosts->count() > 0)
-<section class="py-5 bg-light">
+<section class="py-5 bg-light border-top">
     <div class="container py-4">
-        <h4 class="fw-bold text-center mb-5">Artikel Terkait</h4>
-        <div class="row g-4">
+        <div class="d-flex justify-content-between align-items-center mb-5 reveal">
+            <h3 class="fw-bold m-0" style="color: var(--midnight-blue);">Artikel Terkait</h3>
+            <a href="{{ route('blog.index') }}" class="btn btn-outline-primary rounded-pill px-4">Lihat Semua</a>
+        </div>
+        <div class="row g-4 reveal">
             @foreach($relatedPosts as $related)
                 <div class="col-md-4">
-                    <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden blog-card">
+                    <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden bg-white" style="transition: var(--transition);">
                         <div class="position-relative overflow-hidden" style="height: 200px;">
                             @if($related->featured_image)
-                                <img src="{{ Storage::url($related->featured_image) }}" class="card-img-top w-100 h-100 object-fit-cover" alt="{{ $related->title }}">
+                                <img src="{{ Storage::url($related->featured_image) }}" class="w-100 h-100 object-fit-cover" alt="{{ $related->title }}">
                             @else
-                                <div class="w-100 h-100 bg-gradient d-flex align-items-center justify-content-center">
-                                    <i class="fas fa-newspaper fa-3x text-white opacity-25"></i>
+                                <div class="w-100 h-100 bg-light d-flex align-items-center justify-content-center text-muted">
+                                    <i class="fas fa-newspaper fa-2x opacity-25"></i>
                                 </div>
                             @endif
+                            <a href="{{ route('blog.show', $related->slug) }}" class="stretched-link"></a>
                         </div>
                         <div class="card-body p-4">
-                            @if($related->category)
-                                <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 mb-2">
-                                    {{ $related->category->name }}
-                                </span>
-                            @endif
-                            <h6 class="fw-bold mb-2">
-                                <a href="{{ route('blog.show', $related->slug) }}" class="text-dark text-decoration-none hover-primary">
-                                    {{ Str::limit($related->title, 50) }}
-                                </a>
-                            </h6>
-                            <p class="text-muted small mb-3">{{ Str::limit($related->excerpt, 80) }}</p>
-                            <small class="text-muted">
-                                <i class="far fa-calendar me-1"></i> {{ $related->published_at->format('d M Y') }}
-                            </small>
+                            <div class="text-primary fw-bold text-uppercase mb-2" style="font-size: 10px; letter-spacing: 1px;">
+                                {{ $related->category->name ?? 'General' }}
+                            </div>
+                            <h5 class="fw-bold text-dark mb-2">{{ Str::limit($related->title, 50) }}</h5>
+                            <p class="text-muted small mb-0">{{ Str::limit($related->excerpt ?? strip_tags($related->content), 80) }}</p>
                         </div>
                     </div>
                 </div>
@@ -142,4 +251,40 @@
 </section>
 @endif
 
+{{-- Final CTA --}}
+<section class="py-5 bg-white">
+    <div class="container reveal">
+        <div class="rounded-4 p-5 text-center bg-light border">
+            <h2 class="fw-bold mb-3" style="color: var(--midnight-blue);">Ingin Diskusi Lebih Lanjut?</h2>
+            <p class="text-secondary mb-4 mx-auto" style="max-width: 600px;">Tim ahli kami siap membantu Anda mengimplementasikan solusi teknologi yang dibahas dalam artikel ini.</p>
+            <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
+                <a href="{{ route('contact') }}" class="btn btn-primary rounded-pill px-5 py-3 fw-bold shadow">Hubungi Kami</a>
+                <a href="https://wa.me/6285156412702" class="btn btn-outline-success rounded-pill px-5 py-3 fw-bold">
+                    <i class="fab fa-whatsapp me-2"></i> Konsultasi WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const reveal = () => {
+            const reveals = document.querySelectorAll('.reveal');
+            reveals.forEach(el => {
+                const windowHeight = window.innerHeight;
+                const elementTop = el.getBoundingClientRect().top;
+                const elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    el.classList.add('active');
+                }
+            });
+        };
+        window.addEventListener('scroll', reveal);
+        reveal();
+    });
+</script>
+@endpush

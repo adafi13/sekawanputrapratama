@@ -30,7 +30,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
-            ->brandName('Sekawan Putra Pratama')
+            ->brandName('PT Sekawan Putra Pratama')
             ->brandLogo(asset('assets/media/logo.png'))
             ->favicon(asset('assets/media/favicon.png'))
             ->colors([

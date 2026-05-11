@@ -8,8 +8,9 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class LeadThankYou extends Mailable
+class LeadThankYou extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -29,7 +30,7 @@ class LeadThankYou extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Terima Kasih - Sekawan Putra Pratama',
+            subject: 'Terima Kasih - PT Sekawan Putra Pratama',
         );
     }
 

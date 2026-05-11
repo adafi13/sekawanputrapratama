@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terima Kasih - Sekawan Putra Pratama</title>
+    <title>Terima Kasih - PT Sekawan Putra Pratama</title>
 </head>
 <body style="margin: 0; padding: 0; background-color: #f1f5f9; font-family: 'Segoe UI', Helvetica, Arial, sans-serif;">
 
@@ -15,8 +15,8 @@
 
                     <tr>
                         <td align="center" style="background-color: #0F172A; padding: 40px 20px;">
-                            <img src="{{ url('assets/media/logo.png') }}"
-                                 alt="Sekawan Putra Pratama"
+                            <img src="{{ $message->embed(public_path('assets/media/logo.png')) }}"
+                                 alt="PT Sekawan Putra Pratama"
                                  width="180"
                                  style="display: block; border: 0; max-width: 180px; height: auto;">
                         </td>
@@ -101,7 +101,7 @@
 
                     <tr>
                         <td align="center" style="background-color: #f8fafc; padding: 30px; border-top: 1px solid #e2e8f0;">
-                            <p style="margin: 0 0 5px; font-size: 14px; font-weight: bold; color: #475569;">Sekawan Putra Pratama</p>
+                            <p style="margin: 0 0 5px; font-size: 14px; font-weight: bold; color: #475569;">PT Sekawan Putra Pratama</p>
                             <p style="margin: 0 0 20px; font-size: 12px; color: #64748b; line-height: 1.5;">
                                 Perumahan Mega Regency, Blk. L5, No 23, Sukaragam,<br>
                                 Kec. Serang Baru, Kabupaten Bekasi, Jawa Barat 17330
@@ -110,7 +110,7 @@
                                 Butuh bantuan? WhatsApp Kami
                             </a>
                             <p style="margin: 20px 0 0; font-size: 11px; color: #94a3b8;">
-                                &copy; {{ date('Y') }} Sekawan Putra Pratama. All rights reserved.
+                                &copy; {{ date('Y') }} PT Sekawan Putra Pratama. All rights reserved.
                             </p>
                         </td>
                     </tr>

@@ -1,6 +1,6 @@
 @extends('frontend.layouts.app')
 
-@section('title', 'Halaman Tidak Ditemukan - Sekawan Putra Pratama')
+@section('title', 'Halaman Tidak Ditemukan - PT Sekawan Putra Pratama')
 
 @section('content')
 <section class="error-section text-center">

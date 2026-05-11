@@ -47,7 +47,7 @@ class TestimonialSeeder extends Seeder
                 'order' => 3,
             ],
             [
-                'testimonial' => 'Website e-commerce yang dibuat sangat lengkap dengan fitur pembayaran dan manajemen produk. Support pasca launch juga sangat baik. Terima kasih Sekawan Putra Pratama!',
+                'testimonial' => 'Website e-commerce yang dibuat sangat lengkap dengan fitur pembayaran dan manajemen produk. Support pasca launch juga sangat baik. Terima kasih PT Sekawan Putra Pratama!',
                 'client_name' => 'Dewi Lestari',
                 'client_company' => 'Toko Online Sejahtera',
                 'company_industry' => 'Retail',

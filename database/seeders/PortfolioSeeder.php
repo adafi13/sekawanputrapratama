@@ -40,7 +40,7 @@ class PortfolioSeeder extends Seeder
                 'technologies' => ['Laravel', 'Vue.js', 'Tailwind CSS', 'MySQL'],
                 'is_featured' => true,
                 'order' => 1,
-                'meta_title' => 'Portfolio Website Company Profile Modern - Sekawan Putra Pratama',
+                'meta_title' => 'Portfolio Website Company Profile Modern - PT Sekawan Putra Pratama',
                 'meta_description' => 'Website company profile modern dengan CMS terintegrasi, responsif, dan SEO-friendly.',
             ],
             [
@@ -64,7 +64,7 @@ class PortfolioSeeder extends Seeder
                 'technologies' => ['Flutter', 'Firebase', 'Laravel API', 'Stripe Payment'],
                 'is_featured' => true,
                 'order' => 2,
-                'meta_title' => 'Portfolio Aplikasi Mobile E-Commerce - Sekawan Putra Pratama',
+                'meta_title' => 'Portfolio Aplikasi Mobile E-Commerce - PT Sekawan Putra Pratama',
                 'meta_description' => 'Aplikasi mobile e-commerce cross-platform dengan fitur lengkap untuk Android dan iOS.',
             ],
             [
@@ -88,7 +88,7 @@ class PortfolioSeeder extends Seeder
                 'technologies' => ['Ubuntu Server', 'Docker', 'Nginx', 'MySQL', 'Redis'],
                 'is_featured' => true,
                 'order' => 3,
-                'meta_title' => 'Portfolio Setup Server & IT Infrastructure - Sekawan Putra Pratama',
+                'meta_title' => 'Portfolio Setup Server & IT Infrastructure - PT Sekawan Putra Pratama',
                 'meta_description' => 'Instalasi dan konfigurasi server kantor profesional dengan sistem backup otomatis dan monitoring 24/7.',
             ],
             [
@@ -112,7 +112,7 @@ class PortfolioSeeder extends Seeder
                 'technologies' => ['Laravel', 'Vue.js', 'PostgreSQL', 'Redis', 'Docker'],
                 'is_featured' => false,
                 'order' => 4,
-                'meta_title' => 'Portfolio Sistem ERP Custom - Sekawan Putra Pratama',
+                'meta_title' => 'Portfolio Sistem ERP Custom - PT Sekawan Putra Pratama',
                 'meta_description' => 'Sistem ERP custom untuk manajemen operasional perusahaan dengan modul lengkap.',
             ],
         ];

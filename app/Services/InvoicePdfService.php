@@ -77,7 +77,7 @@ class InvoicePdfService
      */
     protected static function getCompanyInfo(): array
     {
-        $companyName = Setting::where('key', 'company_name')->value('value') ?? 'PT. Sekawan Putra Pratama';
+        $companyName = Setting::where('key', 'company_name')->value('value') ?? 'PT. PT Sekawan Putra Pratama';
         $companyAddress = Setting::where('key', 'company_address')->value('value') ?? 'Jl. Angga 2 BL A7/10 Griya Selo Permai, 082136033596';
         $companyPhone = Setting::where('key', 'company_phone')->value('value') ?? '021-1234567';
         $companyEmail = Setting::where('key', 'company_email')->value('value') ?? 'info@spp.co.id';
@@ -103,12 +103,12 @@ class InvoicePdfService
             'bca' => [
                 'bank_name' => 'Bank Central Asia (BCA)',
                 'account_number' => '1234567890',
-                'account_name' => 'PT. Sekawan Putra Pratama',
+                'account_name' => 'PT. PT Sekawan Putra Pratama',
             ],
             'mandiri' => [
                 'bank_name' => 'Bank Mandiri',
                 'account_number' => '0987654321',
-                'account_name' => 'PT. Sekawan Putra Pratama',
+                'account_name' => 'PT. PT Sekawan Putra Pratama',
             ],
         ];
     }

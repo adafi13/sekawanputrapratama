@@ -1,7 +1,7 @@
 @extends('frontend.layouts.app')
 
-@section('title', 'Tentang Kami - Sekawan Putra Pratama')
-@section('meta_description', 'Mengenal tim profesional Sekawan Putra Pratama — mitra IT terpercaya sejak 2015 untuk solusi web, mobile, dan infrastruktur teknologi.')
+@section('title', 'Tentang Kami - PT Sekawan Putra Pratama')
+@section('meta_description', 'Mengenal tim profesional PT Sekawan Putra Pratama — mitra IT terpercaya sejak 2015 untuk solusi web, mobile, dan infrastruktur teknologi.')
 
 @section('content')
 
@@ -23,7 +23,7 @@
     <div class="abt-who-grid">
       <div class="abt-who-img-col">
         <div class="abt-img-frame">
-          <img src="{{ asset('assets/media/images/about-cover.png') }}" alt="Tentang Sekawan Putra Pratama" class="abt-img">
+          <img src="{{ asset('assets/media/images/about-cover.png') }}" alt="Tentang PT Sekawan Putra Pratama" class="abt-img">
           <div class="abt-img-badge">
             <i class="fas fa-check-circle"></i>
             <span>Terpercaya Sejak 2015</span>
@@ -33,7 +33,7 @@
       <div class="abt-who-text">
         <span class="abt-label">Siapa Kami?</span>
         <h2 class="abt-section-title">Mitra Teknologi <span class="abt-grad">Terpercaya</span> Anda</h2>
-        <p class="abt-body"><strong>Sekawan Putra Pratama</strong> adalah tim konsultan IT dan pengembang perangkat lunak yang berfokus pada solusi digital terintegrasi untuk bisnis dari berbagai industri.</p>
+        <p class="abt-body"><strong>PT Sekawan Putra Pratama</strong> adalah tim konsultan IT dan pengembang perangkat lunak yang berfokus pada solusi digital terintegrasi untuk bisnis dari berbagai industri.</p>
         <p class="abt-body">Kami tidak hanya membuat kode, kami membangun solusi. Mulai dari perancangan sistem backend yang kompleks, instalasi server kantor yang aman, hingga antarmuka aplikasi yang memanjakan pengguna.</p>
         <div class="abt-stats-row">
           <div class="abt-stat">

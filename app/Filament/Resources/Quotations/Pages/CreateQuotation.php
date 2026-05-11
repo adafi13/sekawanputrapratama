@@ -47,7 +47,7 @@ class CreateQuotation extends CreateRecord
                 if (empty($data['opening_content'])) {
                     $data['opening_content'] = "<p>Kepada Yth. <strong>{$lead->company_name}</strong>,</p>" .
                         "<p>Dengan hormat,</p>" .
-                        "<p>Kami dari <strong>PT. Sekawan Putra Pratama</strong> mengajukan penawaran harga " .
+                        "<p>Kami dari <strong>PT. PT Sekawan Putra Pratama</strong> mengajukan penawaran harga " .
                         "untuk project yang Bapak/Ibu rencanakan dengan detail sebagai berikut:</p>";
                 }
             }

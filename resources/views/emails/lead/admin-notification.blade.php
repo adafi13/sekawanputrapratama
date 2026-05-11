@@ -168,7 +168,7 @@
 
         <div class="footer">
             <p>
-                <strong>Sekawan Putra Pratama</strong><br>
+                <strong>PT Sekawan Putra Pratama</strong><br>
                 Software House & IT Consultant<br>
                 <a href="https://sekawanputrapratama.com" style="color: #3B82F6; text-decoration: none;">
                     sekawanputrapratama.com

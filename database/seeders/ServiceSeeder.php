@@ -46,7 +46,7 @@ class ServiceSeeder extends Seeder
                 'delivery_time' => '2-8 minggu',
                 'order' => 1,
                 'is_active' => true,
-                'meta_title' => 'Jasa Web Development Profesional - Sekawan Putra Pratama',
+                'meta_title' => 'Jasa Web Development Profesional - PT Sekawan Putra Pratama',
                 'meta_description' => 'Jasa pembuatan website profesional, responsif, dan SEO-friendly. Company Profile, E-Commerce, Web Application dengan teknologi terbaru.',
             ],
             [
@@ -82,7 +82,7 @@ class ServiceSeeder extends Seeder
                 'delivery_time' => '8-16 minggu',
                 'order' => 2,
                 'is_active' => true,
-                'meta_title' => 'Jasa App Development Mobile & Desktop - Sekawan Putra Pratama',
+                'meta_title' => 'Jasa App Development Mobile & Desktop - PT Sekawan Putra Pratama',
                 'meta_description' => 'Jasa pengembangan aplikasi mobile (Android/iOS) dan desktop profesional dengan teknologi Flutter dan React Native.',
             ],
             [
@@ -120,7 +120,7 @@ class ServiceSeeder extends Seeder
                 'delivery_time' => '1-4 minggu',
                 'order' => 3,
                 'is_active' => true,
-                'meta_title' => 'Jasa Office Server & IT Infrastructure - Sekawan Putra Pratama',
+                'meta_title' => 'Jasa Office Server & IT Infrastructure - PT Sekawan Putra Pratama',
                 'meta_description' => 'Jasa instalasi, konfigurasi, dan maintenance server kantor profesional dengan dukungan teknisi onsite.',
             ],
         ];

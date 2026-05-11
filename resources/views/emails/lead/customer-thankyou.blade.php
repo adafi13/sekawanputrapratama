@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terima Kasih - Sekawan Putra Pratama</title>
+    <title>Terima Kasih - PT Sekawan Putra Pratama</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -185,7 +185,7 @@
 <body>
     <div class="container">
         <div class="logo">
-            <img src="{{ url('assets/media/logo.png') }}" alt="Sekawan Putra Pratama">
+            <img src="{{ url('assets/media/logo.png') }}" alt="PT Sekawan Putra Pratama">
         </div>
 
         <div class="checkmark-container">
@@ -207,7 +207,7 @@
             <p>Halo <strong>{{ $lead->contact_person }}</strong>,</p>
 
             <p>
-                Terima kasih telah menghubungi <strong>Sekawan Putra Pratama</strong>.
+                Terima kasih telah menghubungi <strong>PT Sekawan Putra Pratama</strong>.
                 Kami sangat menghargai kepercayaan Anda dan antusias untuk membantu mewujudkan kebutuhan IT bisnis Anda.
             </p>
 
@@ -289,7 +289,7 @@
             <img src="{{ url('assets/media/logo.png') }}" alt="SPP" class="footer-logo">
 
             <div class="footer-text">
-                <strong>Sekawan Putra Pratama</strong><br>
+                <strong>PT Sekawan Putra Pratama</strong><br>
                 Software House & IT Consultant<br>
                 Perumahan Mega Regency, Blk. L5, No 23, Bekasi<br>
                 <br>

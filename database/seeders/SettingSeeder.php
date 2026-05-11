@@ -16,7 +16,7 @@ class SettingSeeder extends Seeder
             // Site Info
             [
                 'key' => 'site.company_name',
-                'value' => 'Sekawan Putra Pratama',
+                'value' => 'PT Sekawan Putra Pratama',
                 'type' => 'text',
                 'group' => 'site',
                 'description' => 'Nama perusahaan',
@@ -152,7 +152,7 @@ class SettingSeeder extends Seeder
             // Footer
             [
                 'key' => 'footer.description',
-                'value' => 'Sekawan Putra Pratama adalah tim konsultan IT dan pengembang perangkat lunak yang berfokus pada solusi digital terintegrasi untuk bisnis dan enterprise. Kami menyediakan layanan Web Development, App Development, Server Setup, dan dukungan teknisi onsite.',
+                'value' => 'PT Sekawan Putra Pratama adalah tim konsultan IT dan pengembang perangkat lunak yang berfokus pada solusi digital terintegrasi untuk bisnis dan enterprise. Kami menyediakan layanan Web Development, App Development, Server Setup, dan dukungan teknisi onsite.',
                 'type' => 'textarea',
                 'group' => 'footer',
                 'description' => 'Deskripsi footer',

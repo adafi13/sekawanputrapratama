@@ -154,7 +154,7 @@ class Contract extends Model
         
         return <<<EOT
 PERJANJIAN KERJA SAMA
-Antara PT Sekawan Putra Pratama dan {$companyName}
+Antara PT PT Sekawan Putra Pratama dan {$companyName}
 
 PASAL 1: RUANG LINGKUP PEKERJAAN
 Pihak Kedua setuju untuk menyediakan layanan sesuai dengan spesifikasi yang telah disepakati dalam penawaran.

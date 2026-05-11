@@ -130,7 +130,7 @@ class QuotationForm
                     \Filament\Forms\Components\RichEditor::make('opening_content')
                         ->label('Opening Message')
                         ->toolbarButtons(['bold', 'italic', 'underline', 'bulletList', 'orderedList', 'h2', 'h3'])
-                        ->default('<p>Kepada Yth. <strong>[Nama Client]</strong>,</p><p>Dengan hormat,</p><p>Kami dari <strong>PT. Sekawan Putra Pratama</strong> mengajukan penawaran harga untuk project yang Bapak/Ibu rencanakan dengan detail sebagai berikut:</p>')
+                        ->default('<p>Kepada Yth. <strong>[Nama Client]</strong>,</p><p>Dengan hormat,</p><p>Kami dari <strong>PT. PT Sekawan Putra Pratama</strong> mengajukan penawaran harga untuk project yang Bapak/Ibu rencanakan dengan detail sebagai berikut:</p>')
                         ->helperText('Professional opening greeting - edit to match client name')
                         ->columnSpanFull(),
 

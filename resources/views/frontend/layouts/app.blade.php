@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     {{-- SEO & Meta Tags --}}
-    <title>@yield('title', 'Sekawan Putra Pratama - Jasa IT Terpercaya | Software House & IT Consultant')</title>
+    <title>@yield('title', 'PT Sekawan Putra Pratama - Jasa IT Terpercaya | Software House & IT Consultant')</title>
     <meta name="description" content="@yield('meta_description', 'Jasa pembuatan website profesional, aplikasi mobile Android/iOS, instalasi server & jaringan kantor. Software house terpercaya sejak 2015. Konsultasi GRATIS!')">
     <meta name="keywords" content="@yield('meta_keywords', 'jasa pembuatan website, software house, jasa IT, pembuatan aplikasi android, pembuatan aplikasi iOS, instalasi server, instalasi jaringan kantor, IT consultant, jasa IT terpercaya, web developer Indonesia')">
-    <meta name="author" content="Sekawan Putra Pratama">
+    <meta name="author" content="PT Sekawan Putra Pratama">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="google-site-verification" content="QA19JgfEL-FvNWKVq9ZEq3fxNp8iNpedmgrrMpUGuGM">
     <link rel="canonical" href="{{ url()->current() }}">
@@ -17,29 +17,29 @@
     {{-- Open Graph / Facebook --}}
     <meta property="og:type" content="@yield('og_type', 'website')">
     <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:title" content="@yield('og_title', 'Sekawan Putra Pratama - Solusi IT Terintegrasi & Terpercaya')">
+    <meta property="og:title" content="@yield('og_title', 'PT Sekawan Putra Pratama - Solusi IT Terintegrasi & Terpercaya')">
     <meta property="og:description" content="@yield('og_description', 'Software house & IT consultant terpercaya. Jasa pembuatan website, aplikasi mobile, instalasi server & jaringan kantor. Konsultasi GRATIS!')">
     <meta property="og:image" content="@yield('og_image', asset('assets/media/logo.png'))">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Sekawan Putra Pratama - Software House & IT Consultant">
-    <meta property="og:site_name" content="Sekawan Putra Pratama">
+    <meta property="og:image:alt" content="PT Sekawan Putra Pratama - Software House & IT Consultant">
+    <meta property="og:site_name" content="PT Sekawan Putra Pratama">
     <meta property="og:locale" content="id_ID">
 
     {{-- Twitter Card --}}
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="{{ url()->current() }}">
-    <meta name="twitter:title" content="@yield('twitter_title', 'Sekawan Putra Pratama - Software House & IT Consultant')">
+    <meta name="twitter:title" content="@yield('twitter_title', 'PT Sekawan Putra Pratama - Software House & IT Consultant')">
     <meta name="twitter:description" content="@yield('twitter_description', 'Jasa IT terpercaya: Website, Aplikasi Mobile, Server & Jaringan. Konsultasi GRATIS!')">
     <meta name="twitter:image" content="@yield('twitter_image', asset('assets/media/logo.png'))">
-    <meta name="twitter:image:alt" content="Sekawan Putra Pratama Logo">
+    <meta name="twitter:image:alt" content="PT Sekawan Putra Pratama Logo">
 
     <script type="application/ld+json">
     @php
     echo json_encode([
         '@context' => 'https://schema.org',
         '@type' => 'LocalBusiness',
-        'name' => 'Sekawan Putra Pratama',
+        'name' => 'PT Sekawan Putra Pratama',
         'image' => asset('assets/media/logo.png'),
         '@id' => route('home'),
         'url' => route('home'),
@@ -271,7 +271,7 @@
 
                         <div class="main-menu__logo">
                             <a href="{{ route('home') }}">
-                                <img src="{{ asset('assets/media/logo.png') }}" alt="Sekawan Putra Pratama" class="header-logo">
+                                <img src="{{ asset('assets/media/logo.png') }}" alt="PT Sekawan Putra Pratama" class="header-logo">
                             </a>
                         </div>
 
@@ -314,7 +314,7 @@
                             <img src="{{ asset('assets/media/logo.png') }}" alt="Logo Footer" style="max-width: 200px; width: 100%;">
                         </a>
                         <p class="mb-4">
-                            Sekawan Putra Pratama adalah mitra teknologi terpercaya Anda. Kami mengubah ide kompleks menjadi solusi digital yang sederhana.
+                            PT Sekawan Putra Pratama adalah mitra teknologi terpercaya Anda. Kami mengubah ide kompleks menjadi solusi digital yang sederhana.
                         </p>
                         <div class="d-flex gap-3">
                             <a href="https://www.instagram.com/sekawanputrapratama?igsh=MTUxbjJiaXRsMHh6"
@@ -377,7 +377,7 @@
                 </div>
 
                 <div class="footer-bottom text-center">
-                    <p class="mb-0 small">&copy; {{ date('Y') }} <strong>Sekawan Putra Pratama</strong>. All rights reserved.</p>
+                    <p class="mb-0 small">&copy; {{ date('Y') }} <strong>PT Sekawan Putra Pratama</strong>. All rights reserved.</p>
                 </div>
             </div>
         </footer>
@@ -437,7 +437,7 @@
             </div>
 
             <div class="mobile-nav__footer">
-                <p class="mb-0">&copy; {{ date('Y') }} Sekawan Putra Pratama</p>
+                <p class="mb-0">&copy; {{ date('Y') }} PT Sekawan Putra Pratama</p>
             </div>
         </div>
     </div>

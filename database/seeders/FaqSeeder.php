@@ -14,7 +14,7 @@ class FaqSeeder extends Seeder
     {
         $faqs = [
             [
-                'question' => 'Apa saja layanan yang ditawarkan Sekawan Putra Pratama?',
+                'question' => 'Apa saja layanan yang ditawarkan PT Sekawan Putra Pratama?',
                 'answer' => '<p>Kami menyediakan layanan lengkap untuk kebutuhan IT bisnis Anda:</p>
                 <ul>
                     <li><strong>Web Development:</strong> Company Profile, E-Commerce, Web Application</li>
@@ -66,7 +66,7 @@ class FaqSeeder extends Seeder
                 'is_active' => true,
             ],
             [
-                'question' => 'Bagaimana proses kerja sama dengan Sekawan Putra Pratama?',
+                'question' => 'Bagaimana proses kerja sama dengan PT Sekawan Putra Pratama?',
                 'answer' => '<p>Proses kerja sama kami terstruktur dan transparan:</p>
                 <ol>
                     <li><strong>Konsultasi Gratis:</strong> Diskusi kebutuhan dan solusi yang tepat</li>

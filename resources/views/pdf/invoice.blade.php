@@ -514,7 +514,7 @@
                         <div class="bank-name">Bank Central Asia (BCA)</div>
                         <div class="bank-detail">
                             Account Number: <strong>1234567890</strong><br>
-                            Account Name: <strong>PT. Sekawan Putra Pratama</strong>
+                            Account Name: <strong>PT. PT Sekawan Putra Pratama</strong>
                         </div>
                     </div>
                 </td>
@@ -523,7 +523,7 @@
                         <div class="bank-name">Bank Mandiri</div>
                         <div class="bank-detail">
                             Account Number: <strong>0987654321</strong><br>
-                            Account Name: <strong>PT. Sekawan Putra Pratama</strong>
+                            Account Name: <strong>PT. PT Sekawan Putra Pratama</strong>
                         </div>
                     </div>
                 </td>

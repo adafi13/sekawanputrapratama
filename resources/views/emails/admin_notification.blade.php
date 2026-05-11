@@ -15,6 +15,7 @@
                     
                     <tr>
                         <td style="background-color: #dc2626; padding: 20px; text-align: center;">
+                            <img src="{{ $message->embed(public_path('assets/media/logo.png')) }}" alt="Logo" width="120" style="margin-bottom: 10px;"><br>
                             <h2 style="color: #ffffff; margin: 0; font-size: 20px;">🔔 LEAD / PROSPEK BARU</h2>
                         </td>
                     </tr>
@@ -73,7 +74,7 @@
                     </tr>
                     <tr>
                         <td style="background-color: #f3f4f6; padding: 15px; text-align: center; font-size: 12px; color: #6b7280;">
-                            Dikirim otomatis oleh Sistem Website Sekawan Putra Pratama
+                            Dikirim otomatis oleh Sistem Website PT Sekawan Putra Pratama
                         </td>
                     </tr>
                 </table>
