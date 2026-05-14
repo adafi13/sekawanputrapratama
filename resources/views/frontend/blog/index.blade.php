@@ -2,461 +2,383 @@
 
 @section('title', 'Blog & Artikel IT Terkini | Tips & Tutorial - PT Sekawan Putra Pratama')
 @section('meta_description', 'Baca artikel terbaru seputar teknologi, tutorial programming, tips IT, dan tren digital. Update mingguan dari expert IT berpengalaman.')
-@section('meta_keywords', 'blog IT, artikel teknologi, tutorial programming, tips website, tutorial aplikasi mobile, berita IT terkini')
-
-@push('styles')
-<style>
-    /* ===== HERO ===== */
-    .blog-hero {
-        background-color: #0F172A;
-        padding: 120px 0 80px;
-        position: relative;
-        overflow: hidden;
-    }
-    .blog-hero::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background-image: radial-gradient(rgba(37, 99, 235, 0.08) 1px, transparent 1px);
-        background-size: 32px 32px;
-    }
-    .blog-hero::after {
-        content: '';
-        position: absolute;
-        top: -30%; right: -10%;
-        width: 500px; height: 500px;
-        background: radial-gradient(circle, rgba(37, 99, 235, 0.12) 0%, transparent 70%);
-        filter: blur(80px);
-    }
-
-    /* ===== FILTER ===== */
-    .filter-bar {
-        margin-top: -28px;
-        position: relative;
-        z-index: 10;
-    }
-    .filter-pills {
-        background: #fff;
-        border: 1px solid #E2E8F0;
-        padding: 6px;
-        border-radius: 100px;
-        box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-        display: inline-flex;
-        gap: 4px;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-    .btn-filter {
-        border: none;
-        background: transparent;
-        padding: 9px 22px;
-        border-radius: 50px;
-        font-weight: 600;
-        font-size: 13px;
-        color: #64748B;
-        cursor: pointer;
-        transition: all 0.25s ease;
-    }
-    .btn-filter:hover { color: #2563EB; background: rgba(37,99,235,0.06); }
-    .btn-filter.active {
-        background: #2563EB;
-        color: #fff;
-        box-shadow: 0 4px 14px rgba(37,99,235,0.3);
-    }
-
-    /* ===== FEATURED CARD ===== */
-    .featured-card {
-        border: 1px solid #E2E8F0;
-        border-radius: 20px;
-        overflow: hidden;
-        background: #fff;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .featured-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 20px 50px rgba(0,0,0,0.08);
-    }
-    .featured-card .featured-img {
-        height: 100%;
-        min-height: 340px;
-        object-fit: cover;
-    }
-    .featured-badge {
-        position: absolute;
-        top: 16px;
-        left: 16px;
-        background: linear-gradient(135deg, #2563EB, #1D4ED8);
-        color: #fff;
-        padding: 6px 16px;
-        border-radius: 50px;
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-        box-shadow: 0 4px 12px rgba(37,99,235,0.35);
-    }
-
-    /* ===== BLOG GRID CARDS ===== */
-    .blog-grid-card {
-        border: 1px solid #E2E8F0;
-        border-radius: 16px;
-        overflow: hidden;
-        background: #fff;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .blog-grid-card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 16px 40px rgba(0,0,0,0.08);
-    }
-    .blog-grid-card .card-img-top-wrapper {
-        position: relative;
-        height: 220px;
-        overflow: hidden;
-    }
-    .blog-grid-card .card-img-top-wrapper img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.5s ease;
-    }
-    .blog-grid-card:hover .card-img-top-wrapper img {
-        transform: scale(1.06);
-    }
-    .category-overlay {
-        position: absolute;
-        top: 14px;
-        left: 14px;
-        padding: 5px 14px;
-        border-radius: 50px;
-        font-size: 11px;
-        font-weight: 700;
-        color: #fff;
-        background: linear-gradient(135deg, #2563EB, #3B82F6);
-        box-shadow: 0 2px 8px rgba(37,99,235,0.3);
-        text-transform: uppercase;
-        letter-spacing: 0.3px;
-    }
-    .blog-grid-card .card-body {
-        padding: 24px;
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
-    }
-    .blog-meta {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        margin-bottom: 12px;
-        font-size: 12px;
-        color: #94A3B8;
-        font-weight: 500;
-    }
-    .blog-meta i { margin-right: 4px; }
-    .blog-grid-card .card-title {
-        font-size: 1.1rem;
-        font-weight: 700;
-        color: #0F172A;
-        line-height: 1.4;
-        margin-bottom: 10px;
-    }
-    .blog-grid-card .card-title a {
-        color: inherit;
-        text-decoration: none;
-        transition: color 0.2s ease;
-    }
-    .blog-grid-card .card-title a:hover { color: #2563EB; }
-    .blog-grid-card .card-text {
-        font-size: 14px;
-        color: #64748B;
-        line-height: 1.7;
-        margin-bottom: 20px;
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
-    .card-footer-custom {
-        margin-top: auto;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding-top: 16px;
-        border-top: 1px solid #F1F5F9;
-    }
-    .author-info {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-    .author-avatar {
-        width: 32px; height: 32px;
-        border-radius: 50%;
-        background: rgba(37,99,235,0.1);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #2563EB;
-        font-size: 13px;
-    }
-    .author-name {
-        font-size: 13px;
-        font-weight: 600;
-        color: #334155;
-    }
-    .read-more-link {
-        font-size: 13px;
-        font-weight: 600;
-        color: #2563EB;
-        text-decoration: none;
-        transition: all 0.2s ease;
-    }
-    .read-more-link:hover {
-        color: #1D4ED8;
-        gap: 8px;
-    }
-    .read-more-link i { transition: transform 0.2s ease; }
-    .read-more-link:hover i { transform: translateX(3px); }
-
-    /* ===== PLACEHOLDER ===== */
-    .img-placeholder {
-        width: 100%; height: 100%;
-        background: linear-gradient(135deg, #E2E8F0 0%, #CBD5E1 100%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 768px) {
-        .blog-hero { padding: 100px 0 70px; }
-        .blog-hero h1 { font-size: 2rem; }
-        .filter-pills { width: 100%; overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start; padding: 5px; }
-        .btn-filter { white-space: nowrap; padding: 8px 16px; }
-        .featured-card .featured-img { min-height: 220px; }
-    }
-</style>
-@endpush
 
 @section('content')
 
-{{-- Hero --}}
-<section class="blog-hero text-center">
-    <div class="container position-relative" style="z-index: 2;">
-        <span class="d-inline-flex align-items-center px-3 py-2 rounded-pill mb-3" style="background: rgba(37,99,235,0.1); border: 1px solid rgba(37,99,235,0.15);">
-            <i class="fas fa-pen-nib me-2" style="color: #60A5FA;"></i>
-            <span class="small fw-bold text-uppercase" style="color: #60A5FA; letter-spacing: 1.5px;">Insight & Tech Trends</span>
-        </span>
-        <h1 class="display-4 fw-bold text-white mb-3">Wawasan & <span class="gradient-text">Inovasi Teknologi</span></h1>
-        <p class="lead mx-auto mb-0" style="max-width: 620px; color: #94A3B8; font-weight: 400;">
-            Temukan tips, tutorial, dan berita terbaru seputar transformasi digital untuk membantu pertumbuhan bisnis Anda.
+{{-- CSS & DESIGN SYSTEM (UI-UX-PRO-MAX) --}}
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --font-lexend: 'Lexend', sans-serif;
+  --color-primary: #0891B2; 
+  --color-secondary: #22D3EE; 
+  --color-accent: #22C55E; 
+  --color-navy: #050b14; 
+  --color-text-main: #0f172a;
+  --color-text-muted: #64748b;
+  --bg-light: #f8fafc;
+}
+
+body { font-family: 'Inter', sans-serif; color: var(--color-text-main); }
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
+
+.blog-grad {
+  background: linear-gradient(135deg, #60A5FA, #22D3EE, #34D399);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+/* ---- HERO SECTION ---- */
+.blog-hero {
+  position: relative;
+  min-height: 50vh;
+  background-color: var(--color-navy);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 120px 0 60px;
+}
+.blog-hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+}
+.blog-hero-content { position: relative; z-index: 10; text-align: center; width: 100%; }
+.blog-hero-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(8, 145, 178, 0.1);
+  border: 1px solid rgba(8, 145, 178, 0.3);
+  padding: 8px 20px;
+  border-radius: 50px;
+  color: #22D3EE;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 24px;
+}
+.blog-hero-title {
+  font-size: clamp(2.5rem, 5.5vw, 4rem);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 24px;
+  letter-spacing: -2px;
+}
+
+/* ---- FILTERS ---- */
+.blog-filters { padding: 30px 0; background: #fff; border-bottom: 1px solid #f1f5f9; position: sticky; top: 70px; z-index: 100; backdrop-filter: blur(10px); background: rgba(255,255,255,0.8); }
+.filter-pills { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+.filter-btn {
+  padding: 10px 24px;
+  border-radius: 50px;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  color: var(--color-text-muted);
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.filter-btn:hover { border-color: var(--color-primary); color: var(--color-primary); }
+.filter-btn.active { background: var(--color-primary); border-color: var(--color-primary); color: #fff; box-shadow: 0 10px 20px rgba(8, 145, 178, 0.2); }
+
+/* ---- FEATURED POST ---- */
+.featured-section { padding: 80px 0 40px; background: var(--bg-light); }
+.featured-card {
+  background: #fff;
+  border-radius: 32px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  border: 1px solid #e2e8f0;
+  transition: all 0.4s ease;
+}
+.featured-card:hover { transform: translateY(-8px); box-shadow: 0 40px 80px -20px rgba(0,0,0,0.1); }
+.featured-img-wrap { position: relative; width: 100%; height: 100%; min-height: 400px; overflow: hidden; }
+.featured-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+.featured-content { padding: 60px; display: flex; flex-direction: column; justify-content: center; }
+.featured-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--color-primary);
+  color: #fff;
+  padding: 6px 16px;
+  border-radius: 50px;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  width: fit-content;
+}
+
+/* ---- BLOG CARDS ---- */
+.blog-body { padding: 40px 0 100px; background: var(--bg-light); }
+.blog-card {
+  background: #fff;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  transition: all 0.4s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.blog-card:hover { transform: translateY(-10px); box-shadow: 0 30px 60px -15px rgba(0,0,0,0.08); border-color: var(--color-secondary); }
+.blog-img-wrap { position: relative; width: 100%; aspect-ratio: 16/10; overflow: hidden; }
+.blog-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+.blog-card:hover .blog-img-wrap img { transform: scale(1.1); }
+
+.blog-content { padding: 30px; flex-grow: 1; display: flex; flex-direction: column; }
+.blog-cat { color: var(--color-primary); font-weight: 800; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; display: block; }
+.blog-title { font-size: 1.35rem; font-weight: 700; color: var(--color-text-main); margin-bottom: 12px; line-height: 1.4; }
+.blog-title a { color: inherit; text-decoration: none; transition: color 0.3s ease; }
+.blog-title a:hover { color: var(--color-primary); }
+.blog-excerpt { font-size: 0.95rem; color: var(--color-text-muted); line-height: 1.6; margin-bottom: 24px; }
+
+.blog-footer { margin-top: auto; padding-top: 20px; border-top: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; }
+.blog-author { display: flex; align-items: center; gap: 10px; }
+.author-avatar { width: 32px; height: 32px; background: var(--bg-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; color: var(--color-primary); }
+.author-name { font-size: 13px; font-weight: 600; color: var(--color-text-main); }
+.blog-date { font-size: 12px; color: var(--color-text-muted); font-weight: 500; }
+
+/* ---- NEWSLETTER ---- */
+.newsletter-section { padding: 100px 0; background: #fff; }
+.newsletter-box {
+  background: var(--color-navy);
+  border-radius: 40px;
+  padding: 80px 60px;
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.newsletter-box .glow { position: absolute; top: -50%; right: -50%; width: 100%; height: 200%; background: radial-gradient(circle at center, rgba(34, 211, 238, 0.08) 0%, transparent 60%); }
+.newsletter-box h2 { font-size: 2.5rem; font-weight: 800; color: #fff; margin-bottom: 16px; position: relative; z-index: 2; }
+.newsletter-box p { color: #94a3b8; font-size: 1.1rem; line-height: 1.6; margin: 0; position: relative; z-index: 2; }
+
+.news-form { position: relative; z-index: 2; }
+.news-input-group { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 8px; display: flex; gap: 10px; }
+.news-input-group input { background: transparent; border: none; color: #fff; padding: 12px 20px; flex-grow: 1; outline: none; }
+.news-input-group input::placeholder { color: rgba(255,255,255,0.3); }
+.news-btn { background: var(--color-primary); color: #fff; border: none; padding: 12px 30px; border-radius: 14px; font-weight: 700; transition: all 0.3s ease; }
+.news-btn:hover { background: var(--color-secondary); transform: scale(1.05); }
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 1200px) {
+  .featured-card { grid-template-columns: 1fr; }
+  .featured-content { padding: 40px; }
+  .featured-img-wrap { min-height: 300px; }
+  .newsletter-box { grid-template-columns: 1fr; gap: 40px; text-align: center; padding: 60px 40px; }
+}
+@media (max-width: 991px) {
+  .blog-hero { min-height: auto; padding: 120px 0 60px; }
+  .blog-body { padding: 60px 0; }
+}
+@media (max-width: 768px) {
+  .blog-hero-title { font-size: 2.8rem; }
+  .blog-filters { top: 60px; padding: 20px 0; }
+  .filter-pills { justify-content: flex-start; overflow-x: auto; padding-bottom: 10px; }
+  .filter-btn { white-space: nowrap; }
+  .newsletter-box h2 { font-size: 2rem; }
+  .news-input-group { flex-direction: column; background: transparent; border: none; padding: 0; }
+  .news-input-group input { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; margin-bottom: 10px; }
+  .news-btn { width: 100%; border-radius: 16px; padding: 16px; }
+}
+</style>
+
+{{-- HERO --}}
+<section class="blog-hero">
+  <div class="blog-hero-grid"></div>
+  <div class="container">
+    <div class="blog-hero-content">
+      <div class="blog-hero-pill reveal">
+        <i class="fas fa-pen-nib me-2"></i> INSIGHT & TECH TRENDS
+      </div>
+      <h1 class="blog-hero-title reveal delay-100">
+        Wawasan & <br>
+        <span class="blog-grad">Inovasi Teknologi</span>
+      </h1>
+      <p class="svc-hero-sub reveal delay-200 mx-auto" style="color: #94a3b8; max-width: 620px;">
+        Temukan tips, tutorial, dan berita terbaru seputar transformasi digital untuk membantu pertumbuhan bisnis Anda.
+      </p>
+    </div>
+  </div>
+</section>
+
+{{-- FILTERS --}}
+<section class="blog-filters">
+  <div class="container text-center">
+    <div class="filter-pills reveal">
+      <button class="filter-btn {{ !request('category') ? 'active' : '' }}" data-filter="">Semua Artikel</button>
+      @foreach($categories as $cat)
+        <button class="filter-btn {{ request('category') == $cat->slug ? 'active' : '' }}" data-filter="{{ $cat->slug }}">{{ $cat->name }}</button>
+      @endforeach
+    </div>
+  </div>
+</section>
+
+{{-- FEATURED POST --}}
+@if($featuredPost && !request()->has('search') && !request()->has('category'))
+<section class="featured-section">
+  <div class="container">
+    <div class="featured-card reveal">
+      <div class="featured-img-wrap">
+        @if($featuredPost->featured_image)
+          <img src="{{ Storage::url($featuredPost->featured_image) }}" alt="{{ $featuredPost->title }}">
+        @else
+          <div class="w-100 h-100 bg-secondary d-flex align-items-center justify-content-center">
+            <i class="fas fa-newspaper fa-4x text-white-50"></i>
+          </div>
+        @endif
+        <div class="featured-tag" style="position: absolute; top: 20px; left: 20px; background: var(--color-primary);"><i class="fas fa-fire me-1"></i> Featured</div>
+      </div>
+      <div class="featured-content">
+        @if($featuredPost->category)
+          <span class="blog-cat">{{ $featuredPost->category->name }}</span>
+        @endif
+        <h2 class="blog-title" style="font-size: 2rem;">
+          <a href="{{ route('blog.show', $featuredPost->slug) }}">{{ $featuredPost->title }}</a>
+        </h2>
+        <p class="blog-excerpt">{{ Str::limit($featuredPost->excerpt, 180) }}</p>
+        <div class="blog-footer">
+          <div class="blog-author">
+            <div class="author-avatar"><i class="fas fa-user"></i></div>
+            <div class="author-name">{{ $featuredPost->author->name ?? 'Admin' }}</div>
+          </div>
+          <div class="blog-date">{{ $featuredPost->published_at->format('d M Y') }}</div>
+        </div>
+        <a href="{{ route('blog.show', $featuredPost->slug) }}" class="btn btn-primary rounded-pill mt-4 px-4 py-2 fw-bold d-inline-block" style="width: fit-content; background: var(--color-primary); border: none;">
+          Baca Selengkapnya <i class="fas fa-arrow-right ms-2 small"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+@endif
+
+{{-- BLOG GRID --}}
+<section class="blog-body">
+  <div class="container">
+    <div class="row g-4" id="blog-grid">
+      @forelse($blogs as $blog)
+        <div class="col-lg-4 col-md-6 blog-item reveal" data-category="{{ $blog->category ? $blog->category->slug : '' }}">
+          <div class="blog-card">
+            <div class="blog-img-wrap">
+              @if($blog->featured_image)
+                <img src="{{ Storage::url($blog->featured_image) }}" alt="{{ $blog->title }}">
+              @else
+                <div class="w-100 h-100 bg-secondary d-flex align-items-center justify-content-center">
+                  <i class="fas fa-newspaper fa-3x text-white-50"></i>
+                </div>
+              @endif
+            </div>
+            <div class="blog-content">
+              @if($blog->category)
+                <span class="blog-cat">{{ $blog->category->name }}</span>
+              @endif
+              <h3 class="blog-title">
+                <a href="{{ route('blog.show', $blog->slug) }}">{{ $blog->title }}</a>
+              </h3>
+              <p class="blog-excerpt">{{ Str::limit($blog->excerpt, 100) }}</p>
+              <div class="blog-footer">
+                <div class="blog-author">
+                  <div class="author-avatar"><i class="fas fa-user"></i></div>
+                  <span class="author-name">{{ $blog->author->name ?? 'Admin' }}</span>
+                </div>
+                <div class="blog-date">{{ $blog->published_at->format('d M Y') }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      @empty
+        <div class="col-12 text-center py-5">
+          <i class="fas fa-inbox fa-4x text-muted mb-3"></i>
+          <h4 class="text-muted">Belum ada artikel tersedia</h4>
+        </div>
+      @endforelse
+    </div>
+
+    @if($blogs->hasPages())
+    <div class="d-flex justify-content-center mt-5">
+        {{ $blogs->links('pagination::bootstrap-5') }}
+    </div>
+    @endif
+  </div>
+</section>
+
+{{-- NEWSLETTER --}}
+<section class="newsletter-section container mb-5">
+  <div class="newsletter-box reveal">
+    <div class="glow"></div>
+    <div class="news-text">
+      <h2>Tetap Update dengan Tren Teknologi</h2>
+      <p>Dapatkan kurasi berita teknologi dan update project terbaru dari PT Sekawan Putra Pratama langsung di inbox Anda.</p>
+    </div>
+    <div class="news-form">
+        @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show mb-3 py-2 rounded-3" role="alert">
+                <i class="fas fa-check-circle me-2"></i> {{ session('success') }}
+                <button type="button" class="btn-close py-2" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        <form action="{{ route('newsletter.store') }}" method="POST">
+            @csrf
+            <div class="news-input-group">
+                <input type="email" name="email" placeholder="Masukkan email Anda..." required>
+                <button type="submit" class="news-btn">Subscribe</button>
+            </div>
+        </form>
+        <p class="small mt-3 text-white-50">
+            <i class="fas fa-lock me-1 opacity-50"></i> Kami menghargai privasi Anda sepenuhnya.
         </p>
     </div>
+  </div>
 </section>
 
-{{-- Filter --}}
-<div class="filter-bar">
-    <div class="container text-center">
-        <div class="filter-pills">
-            <button class="btn-filter {{ !request('category') ? 'active' : '' }}" data-filter="">Semua Artikel</button>
-            @foreach($categories as $cat)
-                <button class="btn-filter {{ request('category') == $cat->slug ? 'active' : '' }}" data-filter="{{ $cat->slug }}">{{ $cat->name }}</button>
-            @endforeach
-        </div>
-    </div>
-</div>
-
-{{-- Content --}}
-<section class="py-5" style="background: #F8FAFC;">
-    <div class="container py-lg-3">
-
-        {{-- Featured Post --}}
-        @if($featuredPost && !request()->has('search') && !request()->has('category'))
-        <div class="mb-5 blog-item" data-category="{{ $featuredPost->category ? $featuredPost->category->slug : '' }}" style="opacity: 1; transition: opacity 0.3s ease;">
-            <div class="featured-card">
-                <div class="row g-0">
-                    <div class="col-lg-6 position-relative">
-                        @if($featuredPost->featured_image)
-                            <img src="{{ Storage::url($featuredPost->featured_image) }}" class="featured-img w-100" alt="{{ $featuredPost->title }}">
-                        @else
-                            <div class="featured-img w-100 img-placeholder" style="min-height: 340px;">
-                                <i class="fas fa-newspaper fa-4x" style="color: #CBD5E1;"></i>
-                            </div>
-                        @endif
-                        <span class="featured-badge"><i class="fas fa-fire me-1"></i> Featured</span>
-                    </div>
-                    <div class="col-lg-6 d-flex flex-column justify-content-center p-4 p-lg-5">
-                        @if($featuredPost->category)
-                            <span class="d-inline-block mb-2" style="color: #2563EB; font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 1px;">{{ $featuredPost->category->name }}</span>
-                        @endif
-                        <h2 class="fw-bold mb-3" style="color: #0F172A; font-size: 1.6rem; line-height: 1.35;">
-                            <a href="{{ route('blog.show', $featuredPost->slug) }}" class="text-decoration-none text-dark">{{ $featuredPost->title }}</a>
-                        </h2>
-                        <p style="color: #64748B; line-height: 1.7; margin-bottom: 24px;">{{ Str::limit($featuredPost->excerpt, 180) }}</p>
-                        <div class="d-flex align-items-center justify-content-between mt-auto">
-                            <div class="d-flex align-items-center gap-3">
-                                <div class="author-avatar"><i class="fas fa-user"></i></div>
-                                <div>
-                                    <div class="author-name">{{ $featuredPost->author->name ?? 'Admin' }}</div>
-                                    <small style="color: #94A3B8; font-size: 12px;">
-                                        <i class="far fa-calendar me-1"></i>{{ $featuredPost->published_at->format('d M Y') }}
-                                        <span class="mx-1">·</span>
-                                        <i class="far fa-eye me-1"></i>{{ $featuredPost->views }} views
-                                    </small>
-                                </div>
-                            </div>
-                            <a href="{{ route('blog.show', $featuredPost->slug) }}" class="btn btn-primary rounded-pill px-4 py-2 fw-bold d-none d-md-inline-block" style="font-size: 14px;">
-                                Baca Artikel <i class="fas fa-arrow-right ms-2 small"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @endif
-
-        {{-- Blog Grid --}}
-        <div class="row g-4">
-            @forelse($blogs as $blog)
-                <div class="col-md-6 col-lg-4 blog-item" data-category="{{ $blog->category ? $blog->category->slug : '' }}" style="opacity: 1; transition: opacity 0.3s ease;">
-                    <div class="blog-grid-card">
-                        <div class="card-img-top-wrapper">
-                            @if($blog->featured_image)
-                                <img src="{{ Storage::url($blog->featured_image) }}" alt="{{ $blog->title }}">
-                            @else
-                                <div class="img-placeholder">
-                                    <i class="fas fa-newspaper fa-3x" style="color: #CBD5E1;"></i>
-                                </div>
-                            @endif
-                            @if($blog->category)
-                                <span class="category-overlay">{{ $blog->category->name }}</span>
-                            @endif
-                        </div>
-                        <div class="card-body">
-                            <div class="blog-meta">
-                                <span><i class="far fa-calendar-alt"></i> {{ $blog->published_at->format('d M Y') }}</span>
-                                <span><i class="far fa-eye"></i> {{ $blog->views ?? 0 }}</span>
-                            </div>
-                            <h5 class="card-title">
-                                <a href="{{ route('blog.show', $blog->slug) }}">{{ $blog->title }}</a>
-                            </h5>
-                            <p class="card-text">{{ Str::limit($blog->excerpt, 120) }}</p>
-                            <div class="card-footer-custom">
-                                <div class="author-info">
-                                    <div class="author-avatar"><i class="fas fa-user"></i></div>
-                                    <span class="author-name">{{ $blog->author->name ?? 'Admin' }}</span>
-                                </div>
-                                <a href="{{ route('blog.show', $blog->slug) }}" class="read-more-link">
-                                    Selengkapnya <i class="fas fa-arrow-right ms-1 small"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @empty
-                <div class="col-12">
-                    <div class="text-center py-5">
-                        <i class="fas fa-inbox fa-4x mb-3" style="color: #CBD5E1;"></i>
-                        <h4 style="color: #64748B;">Belum ada artikel tersedia</h4>
-                        <p style="color: #94A3B8;">Artikel akan muncul di sini setelah dipublikasikan</p>
-                    </div>
-                </div>
-            @endforelse
-        </div>
-
-        {{-- Pagination --}}
-        @if($blogs->hasPages())
-        <nav class="mt-5 pt-3 d-flex justify-content-center">
-            {{ $blogs->links('pagination::bootstrap-5') }}
-        </nav>
-        @endif
-    </div>
-</section>
-
-{{-- Newsletter --}}
-<section class="py-5 bg-white">
-    <div class="container">
-        <div class="position-relative overflow-hidden rounded-4 p-4 p-lg-5" style="background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);">
-            <div class="position-absolute w-100 h-100 top-0 start-0" style="background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 24px 24px;"></div>
-            <div class="row align-items-center position-relative" style="z-index: 2;">
-                <div class="col-lg-6 mb-4 mb-lg-0 text-center text-lg-start">
-                    <span class="d-inline-flex align-items-center px-3 py-1 rounded-pill mb-3" style="background: rgba(37,99,235,0.15); border: 1px solid rgba(37,99,235,0.2);">
-                        <i class="fas fa-paper-plane me-2" style="color: #60A5FA;"></i>
-                        <span class="small fw-bold text-uppercase" style="color: #60A5FA; letter-spacing: 1px;">Newsletter</span>
-                    </span>
-                    <h2 class="fw-bold text-white mb-3" style="font-size: 1.75rem;">Tetap Update dengan Tren Teknologi</h2>
-                    <p class="mb-0" style="color: #94A3B8; line-height: 1.7;">
-                        Dapatkan kurasi berita teknologi dan update project terbaru dari <span class="text-white fw-semibold">PT Sekawan Putra Pratama</span> langsung di inbox Anda.
-                    </p>
-                </div>
-                <div class="col-lg-6">
-                    <div class="p-3 rounded-4" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);">
-                        @if(session('success'))
-                            <div class="alert alert-success alert-dismissible fade show mb-3 py-2 fs-6 rounded-3" role="alert">
-                                <i class="fas fa-check-circle me-2"></i> {{ session('success') }}
-                                <button type="button" class="btn-close py-2" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                        @endif
-                        <form class="d-flex gap-2 flex-column flex-md-row" action="{{ route('newsletter.store') }}" method="POST">
-                            @csrf
-                            <div class="flex-grow-1">
-                                <input type="email"
-                                       name="email"
-                                       class="form-control border-0 rounded-3 py-3 px-4 @error('email') is-invalid @enderror"
-                                       placeholder="Masukkan email Anda..."
-                                       value="{{ old('email') }}"
-                                       pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
-                                       title="Email harus menyertakan simbol '@' dan tanda titik '.'"
-                                       required
-                                       style="background: rgba(255,255,255,0.08); color: #fff;">
-                                @error('email')
-                                    <div class="invalid-feedback ps-2">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <button type="submit" class="btn btn-primary rounded-3 px-4 py-3 fw-bold text-nowrap" style="min-width: 140px;">
-                                Subscribe
-                            </button>
-                        </form>
-                    </div>
-                    <p class="small mt-3 text-center text-lg-start mb-0" style="color: #64748B;">
-                        <i class="fas fa-lock me-1 opacity-50"></i> Kami menghargai privasi Anda sepenuhnya.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-@endsection
-
-@push('scripts')
+{{-- JS FILTER LOGIC --}}
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const filters = document.querySelectorAll('.btn-filter');
-        const items = document.querySelectorAll('.blog-item');
+document.addEventListener('DOMContentLoaded', function() {
+    const filters = document.querySelectorAll('.filter-btn');
+    const items = document.querySelectorAll('.blog-item');
 
-        filters.forEach(filter => {
-            filter.addEventListener('click', function(e) {
-                e.preventDefault();
-                filters.forEach(f => f.classList.remove('active'));
-                this.classList.add('active');
+    filters.forEach(filter => {
+        filter.addEventListener('click', function() {
+            filters.forEach(f => f.classList.remove('active'));
+            this.classList.add('active');
 
-                const category = this.getAttribute('data-filter');
+            const category = this.getAttribute('data-filter');
 
-                items.forEach(item => {
-                    const itemCategory = item.getAttribute('data-category');
-                    if (category === '' || itemCategory === category) {
-                        item.style.display = 'block';
-                        setTimeout(() => item.style.opacity = '1', 10);
-                    } else {
-                        item.style.opacity = '0';
-                        setTimeout(() => item.style.display = 'none', 300);
-                    }
-                });
+            items.forEach(item => {
+                const itemCategory = item.getAttribute('data-category');
+                if (category === '' || itemCategory === category) {
+                    item.style.display = 'block';
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                        item.style.transform = 'scale(1)';
+                    }, 10);
+                } else {
+                    item.style.opacity = '0';
+                    item.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        item.style.display = 'none';
+                    }, 300);
+                }
             });
         });
     });
+});
 </script>
-@endpush
+
+@endsection

@@ -103,25 +103,30 @@
            SPP ENTERPRISE DESIGN SYSTEM — v2.0
         ============================================================ */
         :root {
-            --midnight-blue:    #0D1B3E;
-            --navy-dark:        #0A1628;
-            --electric-blue:    #2563EB;
-            --electric-hover:   #1D4ED8;
-            --cool-blue-light:  #3B82F6;
-            --off-white:        #F1F5F9;
-            --slate-100:        #F1F5F9;
-            --slate-200:        #E2E8F0;
-            --slate-400:        #94A3B8;
-            --slate-600:        #475569;
-            --glass-bg:         rgba(255,255,255,0.06);
-            --glass-border:     rgba(255,255,255,0.12);
+            /* Palette - Midnight Premium */
+            --midnight-blue:    #030712; /* Deep Slate 950 */
+            --navy-dark:        #0F172A; /* Slate 900 */
+            --electric-blue:    #3B82F6; /* Blue 500 */
+            --electric-hover:   #2563EB; /* Blue 600 */
+            --accent-cyan:      #22D3EE; /* Cyan 400 */
+            --glass-bg:         rgba(255, 255, 255, 0.03);
+            --glass-border:     rgba(255, 255, 255, 0.08);
+            --glass-blur:       blur(16px);
+            
+            /* Typography */
             --font-heading:     'Poppins', sans-serif;
             --font-body:        'Inter', sans-serif;
+            
+            /* Spacing & Radii */
             --radius-lg:        16px;
             --radius-xl:        24px;
-            --transition:       all 0.3s cubic-bezier(0.4,0,0.2,1);
-            --shadow-card:      0 20px 60px rgba(0,0,0,0.12);
-            --shadow-glow:      0 0 40px rgba(37,99,235,0.3);
+            --radius-full:      9999px;
+            --container-max:    1280px;
+            
+            /* Animations */
+            --transition:       all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --shadow-card:      0 20px 40px rgba(0, 0, 0, 0.4);
+            --shadow-glow:      0 0 50px rgba(59, 130, 246, 0.2);
         }
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -137,37 +142,90 @@
 
         h1,h2,h3,h4,h5,h6 { font-family: var(--font-heading); }
 
-        /* ---- NAVBAR ---- */
+        /* ---- NAVBAR CLEAN ENTERPRISE ---- */
         #main-header {
             position: fixed !important;
             top: 0; left: 0; right: 0;
             z-index: 9000;
             height: 80px !important;
-            background: transparent;
-            border-bottom: 1px solid transparent;
-            transition: var(--transition);
-        }
-        #main-header.scrolled {
-            background: rgba(13,27,62,0.95) !important;
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-bottom-color: rgba(255,255,255,0.08) !important;
-            box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
         }
-        .main-menu__list > li > a {
-            color: rgba(255,255,255,0.85) !important;
-            font-family: var(--font-body);
-            font-weight: 500;
-            font-size: 14px;
-            letter-spacing: 0.3px;
-            transition: color 0.2s ease;
-            padding: 6px 16px !important;
-            text-decoration: none;
+        #main-header .container-fluid {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
         }
-        .main-menu__list > li > a:hover {
+        #main-header.scrolled {
+            height: 70px !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Transparent Header on Homepage */
+        #main-header.header-transparent {
+            background: transparent;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        #main-header.header-transparent .main-menu__list > li > a {
             color: #ffffff !important;
         }
-        .header-logo { height: 52px; width: auto; }
+        #main-header.header-transparent .header-logo {
+            /* Logo dibiarkan aslinya karena sudah cocok untuk background gelap */
+        }
+        #main-header.header-transparent .mobile-nav__toggler {
+            color: #ffffff !important;
+        }
+
+        /* Scrolled state for transparent header (Dark Mode) */
+        #main-header.header-transparent.scrolled {
+            background: rgba(5, 11, 20, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        #main-header.header-transparent.scrolled .main-menu__list > li > a {
+            color: #ffffff !important;
+        }
+        #main-header.header-transparent.scrolled .mobile-nav__toggler {
+            color: #ffffff !important;
+        }
+        
+        /* Logo Switching Logic */
+        .header-logo.logo-light { display: none; }
+        .header-logo.logo-dark { display: block; }
+        
+        #main-header.header-transparent .header-logo.logo-dark { display: none; }
+        #main-header.header-transparent .header-logo.logo-light { display: block; }
+        .main-menu__list { display: flex; align-items: center; margin: 0; padding: 0; gap: 24px; }
+        .main-menu__list > li > a {
+            color: #475569 !important; /* Slate 600 */
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 0.2px;
+            transition: color 0.2s ease;
+            padding: 10px 0 !important;
+            text-decoration: none;
+            position: relative;
+        }
+        /* Override border/lines from legacy css */
+        .main-menu__list > li > a::before, .main-menu__list > li > a::after { display: none !important; }
+        .main-menu__list > li.current > a,
+        .main-menu__list > li > a:hover {
+            color: var(--electric-blue) !important;
+        }
+        .header-logo { height: 45px; width: auto; }
 
         /* ---- NAV CTA BUTTON ---- */
         .header-btn {
@@ -203,35 +261,45 @@
 
         /* ---- FOOTER ---- */
         .footer-modern {
-            background: var(--navy-dark) !important;
+            background: #020617 !important;
             color: rgba(255,255,255,0.7);
-            padding: 80px 0 0;
+            padding: 100px 0 0;
             font-family: var(--font-body);
+            position: relative;
+            overflow: hidden;
         }
-        .footer-modern p { color: rgba(255,255,255,0.6); font-size: 14px; line-height: 1.8; }
+        .footer-modern::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 80%; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+        }
+        .footer-modern p { color: rgba(255,255,255,0.5); font-size: 14px; line-height: 1.8; }
         .footer-widget h5 {
             color: #fff;
             font-family: var(--font-heading);
-            font-weight: 600;
-            font-size: 15px;
-            margin-bottom: 20px;
-            letter-spacing: 0.5px;
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 24px;
         }
-        .footer-links li { margin-bottom: 10px; }
+        .footer-links li { margin-bottom: 12px; }
         .footer-links li a {
-            color: rgba(255,255,255,0.55);
+            color: rgba(255,255,255,0.5);
             font-size: 14px;
             text-decoration: none;
-            transition: color 0.2s ease;
+            transition: var(--transition);
         }
-        .footer-links li a:hover { color: var(--cool-blue-light); }
-        .footer-links li i { color: var(--electric-blue); }
+        .footer-links li a:hover { color: var(--electric-blue); transform: translateX(5px); display: inline-block; }
         .footer-bottom {
-            margin-top: 60px;
-            padding: 24px 0;
-            border-top: 1px solid rgba(255,255,255,0.08);
-            color: rgba(255,255,255,0.4);
-            font-size: 13px;
+            margin-top: 80px;
+            padding: 30px 0;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: rgba(255,255,255,0.3);
+            font-size: 12px;
         }
 
         /* ---- GALLERY ---- */
@@ -264,39 +332,33 @@
     <div id="scroll-container">
 
         {{-- Header Navigation --}}
-        <header id="main-header" style="display: flex; align-items: center;">
-            <nav class="main-menu w-100">
-                <div class="container-fluid px-lg-5 px-3">
-                    <div class="main-menu__block d-flex align-items-center justify-content-between">
+        <header id="main-header" class="{{ request()->routeIs('home') ? 'header-transparent' : '' }}">
+            <div class="container-fluid">
+                <div class="main-menu__logo">
+                    <a href="{{ route('home') }}">
+                        <img src="{{ asset('assets/media/logo.png') }}" alt="PT Sekawan Putra Pratama" class="header-logo logo-dark">
+                        <img src="{{ asset('assets/media/logo1.png') }}" alt="PT Sekawan Putra Pratama" class="header-logo logo-light">
+                    </a>
+                </div>
 
-                        <div class="main-menu__logo">
-                            <a href="{{ route('home') }}">
-                                <img src="{{ asset('assets/media/logo.png') }}" alt="PT Sekawan Putra Pratama" class="header-logo">
-                            </a>
-                        </div>
+                <div class="menu-button-right d-flex align-items-center">
+                    {{-- Menu Desktop --}}
+                    <div class="main-menu__nav d-none d-lg-block me-4">
+                        <ul class="main-menu__list list-unstyled mb-0 d-flex">
+                            @include('frontend.layouts.menu-links')
+                        </ul>
+                    </div>
 
-                        <div class="menu-button-right d-flex align-items-center">
-                            {{-- Menu Desktop --}}
-                            <div class="main-menu__nav d-none d-lg-block me-4">
-                                <ul class="main-menu__list list-unstyled mb-0 d-flex gap-1">
-                                    @include('frontend.layouts.menu-links')
-                                </ul>
-                            </div>
-
-                            <div class="main-menu__right d-flex align-items-center gap-3">
-                                <a class="header-btn" href="{{ route('contact') }}">
-                                    <span>Request a Consultation</span>
-                                    <i class="fas fa-arrow-right small d-none d-sm-inline"></i>
-                                </a>
-                                <a href="#" class="main-menu__toggler mobile-nav__toggler d-lg-none" style="color:#fff; font-size:22px;">
-                                    <i class="fas fa-bars"></i>
-                                </a>
-                            </div>
-                        </div>
-
+                    <div class="main-menu__right d-flex align-items-center gap-3">
+                        <a class="header-btn d-none d-sm-inline-flex" href="{{ route('contact') }}">
+                            <span>Hubungi Kami</span>
+                        </a>
+                        <a href="#" class="main-menu__toggler mobile-nav__toggler d-lg-none" style="color:#0f172a; font-size:24px;">
+                            <i class="fas fa-bars"></i>
+                        </a>
                     </div>
                 </div>
-            </nav>
+            </div>
         </header>
 
         <main>
@@ -506,7 +568,8 @@
             align-items: center;
             justify-content: space-between;
             padding: 15px;
-            background: #0F172A;
+            background: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
             flex-shrink: 0;
         }
 
@@ -516,16 +579,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
+            background: #f1f5f9;
             border-radius: 6px;
-            color: white;
+            color: #475569;
             cursor: pointer;
             transition: background 0.2s ease;
             flex-shrink: 0;
         }
 
         .mobile-nav__close:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: #e2e8f0;
+            color: #0f172a;
         }
 
         /* Body */
@@ -775,6 +839,17 @@
     <script src="{{ asset('assets/js/vendor/video.js') }}"></script>
     <script src="{{ asset('assets/js/vendor/jquery.nice-select.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
+
+    <script>
+        // Ensure navbar gets 'scrolled' class
+        $(window).on('scroll', function() {
+            if ($(window).scrollTop() > 50) {
+                $('#main-header').addClass('scrolled');
+            } else {
+                $('#main-header').removeClass('scrolled');
+            }
+        });
+    </script>
     <script src="{{ asset('assets/js/app.js') }}"></script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
     <script>
@@ -792,6 +867,37 @@
         })();
     </script>
 
+    <script>
+        /* Reveal on Scroll */
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+    <style>
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .reveal-left { opacity: 0; transform: translateX(-30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal-left.active { opacity: 1; transform: translateX(0); }
+        .reveal-right { opacity: 0; transform: translateX(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal-right.active { opacity: 1; transform: translateX(0); }
+        .delay-100 { transition-delay: 0.1s; }
+        .delay-200 { transition-delay: 0.2s; }
+        .delay-300 { transition-delay: 0.3s; }
+        .delay-400 { transition-delay: 0.4s; }
+    </style>
     @stack('scripts')
 
     {{-- Google Analytics - Uncomment dan ganti G-XXXXXXXXXX dengan ID Anda --}}
