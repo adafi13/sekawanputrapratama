@@ -6,8 +6,8 @@
     --adm-secondary: #6366F1;
 }
 
-/* Fix for Filament 3 Background */
-.fi-body {
+/* Dark premium background — login page only, not the rest of the admin panel */
+.fi-body.fi-page-login {
     background-color: var(--adm-bg) !important;
 }
 
@@ -137,7 +137,7 @@
 }
 
 /* Logo */
-.fi-logo {
+.fi-page-login .fi-logo {
     margin-bottom: 24px !important;
     filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.3)) !important;
 }

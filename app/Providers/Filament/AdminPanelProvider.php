@@ -36,6 +36,7 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => '#2563EB',
             ])
+            ->darkMode(false)
             ->renderHook(
                 'panels::head.end',
                 fn (): HtmlString => new HtmlString('<link rel="stylesheet" href="' . asset('css/admin-custom.css') . '">'),
