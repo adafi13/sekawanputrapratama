@@ -39,6 +39,13 @@ class FrontendController extends Controller
         return back()->with('success', 'Terima kasih telah berlangganan newsletter kami!');
     }
 
+    public function newsletterUnsubscribe(NewsletterSubscriber $subscriber)
+    {
+        $subscriber->update(['is_active' => false]);
+
+        return redirect()->route('blog.index')->with('success', 'Anda telah berhasil berhenti berlangganan newsletter.');
+    }
+
     
     public function home()
     {

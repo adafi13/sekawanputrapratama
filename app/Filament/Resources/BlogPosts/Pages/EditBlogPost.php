@@ -22,4 +22,9 @@ class EditBlogPost extends EditRecord
             RestoreAction::make(),
         ];
     }
+
+    protected function afterSave(): void
+    {
+        $this->record->notifySubscribersIfPublished();
+    }
 }

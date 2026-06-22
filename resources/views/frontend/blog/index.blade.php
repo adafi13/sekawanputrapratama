@@ -333,10 +333,16 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
                 <button type="button" class="btn-close py-2" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
+        @error('email')
+            <div class="alert alert-danger alert-dismissible fade show mb-3 py-2 rounded-3" role="alert">
+                <i class="fas fa-exclamation-circle me-2"></i> {{ $message }}
+                <button type="button" class="btn-close py-2" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @enderror
         <form action="{{ route('newsletter.store') }}" method="POST">
             @csrf
             <div class="news-input-group">
-                <input type="email" name="email" placeholder="Masukkan email Anda..." required>
+                <input type="email" name="email" placeholder="Masukkan email Anda..." value="{{ old('email') }}" required>
                 <button type="submit" class="news-btn">Subscribe</button>
             </div>
         </form>
