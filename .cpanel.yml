@@ -9,9 +9,8 @@ deployment:
     - cd $DEPLOYPATH
     - /usr/local/bin/ea-php82 /opt/cpanel/composer/bin/composer install --optimize-autoloader --no-dev --no-interaction
 
-    # Build frontend/admin assets (Filament theme, etc.)
-    - npm install
-    - npm run build
+    # Frontend/admin assets (public/build) are built locally and committed
+    # to git, since this server has no Node.js/npm.
 
     # Run database migrations
     - /usr/local/bin/ea-php82 artisan migrate --force

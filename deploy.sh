@@ -16,10 +16,8 @@ git pull origin main
 echo "📦 Installing Composer dependencies..."
 composer install --optimize-autoloader --no-dev --no-interaction
 
-# Build frontend/admin assets (Filament theme, etc.)
-echo "🎨 Building frontend assets..."
-npm install
-npm run build
+# Frontend/admin assets (public/build) are built locally and committed
+# to git, since this server has no Node.js/npm — nothing to do here.
 
 # Run database migrations
 echo "🗄️ Running database migrations..."
