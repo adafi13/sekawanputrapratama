@@ -4,6 +4,10 @@
 @section('meta_description', 'Software house terpercaya sejak 2024. Jasa pembuatan website profesional, aplikasi mobile Android/iOS, instalasi server & jaringan kantor. Konsultasi GRATIS!')
 @section('meta_keywords', 'jasa IT terpercaya, software house Indonesia, jasa pembuatan website, aplikasi mobile, instalasi server, IT consultant Jakarta, web developer profesional')
 
+@push('styles')
+<link rel="stylesheet" href="{{ asset('assets/css/vendor/swiper-bundle.min.css') }}">
+@endpush
+
 @section('content')
 
 {{-- CSS MODERN BENTO - LIGHT THEME --}}
@@ -262,9 +266,6 @@ body {
     position: relative;
     width: 100%;
     height: 600px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
   
   .ring {
@@ -691,6 +692,85 @@ body {
 /* REVEAL ANIMATIONS */
 .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
 .reveal.active { opacity: 1; transform: translateY(0); }
+
+/* ============================================================
+   3D DEPTH: HERO ORBITAL TILT
+   ============================================================ */
+.orbital-wrapper { perspective: 1400px; }
+.orbital-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+  transition: transform 0.2s ease-out;
+}
+.center-logo { transform: translateZ(50px); }
+
+/* ============================================================
+   3D TILT CARDS (services / why-us / portfolio)
+   ============================================================ */
+.tilt-card { transform-style: preserve-3d; will-change: transform; }
+.tilt-card .tilt-glare {
+  position: absolute; inset: 0; z-index: 4; opacity: 0; pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(circle at var(--gx, 50%) var(--gy, 50%), rgba(59,130,246,0.18), transparent 60%);
+  transition: opacity 0.3s ease;
+}
+.tilt-card:hover .tilt-glare { opacity: 1; }
+.tilt-card .bcard-icon-bg,
+.tilt-card .why-icon,
+.tilt-card .bcard-visual i {
+  transition: transform 0.3s ease;
+}
+.tilt-card:hover .bcard-icon-bg { transform: translateZ(50px) rotate(-15deg); }
+.tilt-card:hover .why-icon { transform: translateZ(40px) scale(1.08); }
+.tilt-card:hover .bcard-visual i { transform: translateZ(40px) scale(1.1); }
+.pf-card.tilt-card:hover .pf-overlay h4,
+.pf-card.tilt-card:hover .pf-overlay p,
+.pf-card.tilt-card:hover .pf-overlay .pf-tag { transform: translateZ(30px); }
+.pf-overlay h4, .pf-overlay p, .pf-overlay .pf-tag { transition: transform 0.3s ease; }
+
+/* ============================================================
+   MAGNETIC BUTTONS
+   ============================================================ */
+.magnetic-btn { position: relative; overflow: hidden; }
+.magnetic-btn::before {
+  content: '';
+  position: absolute;
+  width: 140px; height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.35), transparent 70%);
+  top: var(--my, 50%); left: var(--mx, 50%);
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.magnetic-btn:hover::before { opacity: 1; }
+.btn-outline-glass.magnetic-btn::before,
+.btn-cta-outline.magnetic-btn::before { background: radial-gradient(circle, rgba(59,130,246,0.25), transparent 70%); }
+.btn-cta-white.magnetic-btn::before { background: radial-gradient(circle, rgba(59,130,246,0.15), transparent 70%); }
+
+/* ============================================================
+   PORTFOLIO 3D COVERFLOW (Swiper)
+   ============================================================ */
+.portfolio-swiper { padding: 10px 0 60px; overflow: visible; }
+.portfolio-swiper .swiper-slide { width: 320px; max-width: 85vw; }
+.portfolio-swiper .pf-card { aspect-ratio: 4/3; height: 100%; }
+.portfolio-swiper .swiper-pagination-bullet { background: var(--border-card); opacity: 1; width: 8px; height: 8px; }
+.portfolio-swiper .swiper-pagination-bullet-active { background: var(--primary-blue); width: 24px; border-radius: 4px; }
+.pf-nav-btn {
+  width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--border-card);
+  background: #ffffff; color: var(--primary-blue); display: flex; align-items: center;
+  justify-content: center; transition: all 0.3s ease; cursor: pointer;
+}
+.pf-nav-btn:hover { background: var(--primary-blue); color: #fff; transform: translateY(-3px); box-shadow: var(--shadow-md); }
+
+/* Marquee pause on hover */
+.tech-marquee:hover .marquee-content { animation-play-state: paused; }
 </style>
 
 {{-- ==========================================
@@ -720,27 +800,27 @@ body {
         </p>
         
         <div class="d-flex gap-3 flex-wrap justify-content-center justify-content-lg-start reveal delay-300">
-          <a href="{{ route('contact') }}" class="btn-primary-glow">
+          <a href="{{ route('contact') }}" class="btn-primary-glow magnetic-btn">
             <i class="fas fa-rocket"></i> Konsultasi Gratis
           </a>
-          <a href="{{ route('portfolio.index') }}" class="btn-outline-glass">
+          <a href="{{ route('portfolio.index') }}" class="btn-outline-glass magnetic-btn">
             Lihat Portofolio <i class="fas fa-arrow-right ms-1"></i>
           </a>
         </div>
 
         <div class="hero-stats reveal delay-400">
           <div class="stat-item">
-            <div class="stat-num">50<span>+</span></div>
+            <div class="stat-num"><span class="count-up" data-target="50">0</span><span>+</span></div>
             <div class="stat-label">Proyek Selesai</div>
           </div>
           <div class="stat-divider"></div>
           <div class="stat-item">
-            <div class="stat-num">20<span>+</span></div>
+            <div class="stat-num"><span class="count-up" data-target="20">0</span><span>+</span></div>
             <div class="stat-label">Klien Aktif</div>
           </div>
           <div class="stat-divider"></div>
           <div class="stat-item">
-            <div class="stat-num">99.9<span>%</span></div>
+            <div class="stat-num"><span class="count-up" data-target="99.9" data-decimals="1">0</span><span>%</span></div>
             <div class="stat-label">Uptime SLA</div>
           </div>
         </div>
@@ -749,29 +829,31 @@ body {
       {{-- RIGHT COLUMN: Orbital Graphic --}}
       <div class="col-lg-6 d-none d-lg-block">
         <div class="orbital-wrapper reveal delay-300">
-          {{-- Concentric Rings --}}
-          <div class="ring ring-1"></div>
-          <div class="ring ring-2">
-            <div class="ring-dot rd-1"></div>
-          </div>
-          <div class="ring ring-3">
-            <div class="ring-dot rd-2"></div>
-          </div>
+          <div class="orbital-inner" id="orbitalInner">
+            {{-- Concentric Rings --}}
+            <div class="ring ring-1"></div>
+            <div class="ring ring-2">
+              <div class="ring-dot rd-1"></div>
+            </div>
+            <div class="ring ring-3">
+              <div class="ring-dot rd-2"></div>
+            </div>
 
-          {{-- Center Logo --}}
-          <div class="center-logo">
-            <img src="{{ asset('assets/media/logo1.png') }}" alt="Icon">
-          </div>
+            {{-- Center Logo --}}
+            <div class="center-logo">
+              <img src="{{ asset('assets/media/logo1.png') }}" alt="Icon">
+            </div>
 
-          {{-- Floating Pills --}}
-          <div class="float-pill fp-1">
-            <i class="fas fa-shield-alt"></i> Keamanan Enterprise
-          </div>
-          <div class="float-pill fp-2">
-            <i class="fas fa-code"></i> Clean Code
-          </div>
-          <div class="float-pill fp-3">
-            <i class="fas fa-tachometer-alt"></i> Performa Tinggi
+            {{-- Floating Pills --}}
+            <div class="float-pill fp-1">
+              <i class="fas fa-shield-alt"></i> Keamanan Enterprise
+            </div>
+            <div class="float-pill fp-2">
+              <i class="fas fa-code"></i> Clean Code
+            </div>
+            <div class="float-pill fp-3">
+              <i class="fas fa-tachometer-alt"></i> Performa Tinggi
+            </div>
           </div>
         </div>
       </div>
@@ -823,7 +905,8 @@ body {
 
     <div class="bento-grid mt-5">
       {{-- Card 1: Large --}}
-      <div class="bcard bcard-large reveal">
+      <div class="bcard bcard-large reveal tilt-card">
+        <div class="tilt-glare"></div>
         <div class="bcard-content">
           <span class="bcard-tag">Enterprise System</span>
           <h3>Pengembangan Aplikasi Mobile & Desktop</h3>
@@ -836,7 +919,8 @@ body {
       </div>
 
       {{-- Card 2 --}}
-      <div class="bcard reveal delay-100">
+      <div class="bcard reveal delay-100 tilt-card">
+        <div class="tilt-glare"></div>
         <span class="bcard-tag">Digital Presence</span>
         <h3>Pembuatan Website Profesional</h3>
         <p>Website company profile, e-commerce, hingga sistem informasi web-based yang cepat, SEO-friendly, dan responsif.</p>
@@ -845,7 +929,8 @@ body {
       </div>
 
       {{-- Card 3 --}}
-      <div class="bcard reveal delay-200">
+      <div class="bcard reveal delay-200 tilt-card">
+        <div class="tilt-glare"></div>
         <span class="bcard-tag">IT Infrastructure</span>
         <h3>Instalasi Server & Jaringan</h3>
         <p>Perancangan jaringan Mikrotik, setup server Linux/Windows, keamanan siber, dan managed IT services untuk kantor.</p>
@@ -869,28 +954,38 @@ body {
       <a href="{{ route('portfolio.index') }}" class="btn-outline-modern mt-4 mt-md-0">Lihat Semua Proyek <i class="fas fa-arrow-right ms-2"></i></a>
     </div>
 
-    <div class="row g-4 mt-2">
-      @forelse($portfolios->take(4) as $index => $portfolio)
-      <div class="col-md-6 reveal" style="transition-delay: {{ $index * 150 }}ms;">
-        <div class="pf-card">
-          @php
-            $portImg = $portfolio->getFirstMediaUrl('featured_image') ?: ($portfolio->featured_image ? Storage::url($portfolio->featured_image) : asset('assets/media/images/portfolio-placeholder.png'));
-          @endphp
-          <img src="{{ $portImg }}" alt="{{ $portfolio->title }}" class="pf-img">
-          <div class="pf-overlay">
-            <span class="pf-tag mb-2">{{ $portfolio->category->name ?? 'Proyek IT' }}</span>
-            <h4>{{ $portfolio->title }}</h4>
-            <p>{{ Str::limit($portfolio->short_description ?? strip_tags($portfolio->description), 90) }}</p>
-            <a href="{{ route('portfolio.show', $portfolio->slug) }}" class="text-white fw-bold text-decoration-none small mt-2">Selengkapnya <i class="fas fa-chevron-right ms-1"></i></a>
+    @if($portfolios->isNotEmpty())
+    <div class="swiper portfolio-swiper reveal">
+      <div class="swiper-wrapper">
+        @foreach($portfolios as $portfolio)
+        <div class="swiper-slide">
+          <div class="pf-card tilt-card">
+            <div class="tilt-glare"></div>
+            @php
+              $portImg = $portfolio->getFirstMediaUrl('featured_image') ?: ($portfolio->featured_image ? Storage::url($portfolio->featured_image) : asset('assets/media/images/portfolio-placeholder.png'));
+            @endphp
+            <img src="{{ $portImg }}" alt="{{ $portfolio->title }}" class="pf-img">
+            <div class="pf-overlay">
+              <span class="pf-tag mb-2">{{ $portfolio->category->name ?? 'Proyek IT' }}</span>
+              <h4>{{ $portfolio->title }}</h4>
+              <p>{{ Str::limit($portfolio->short_description ?? strip_tags($portfolio->description), 90) }}</p>
+              <a href="{{ route('portfolio.show', $portfolio->slug) }}" class="text-white fw-bold text-decoration-none small mt-2">Selengkapnya <i class="fas fa-chevron-right ms-1"></i></a>
+            </div>
           </div>
         </div>
+        @endforeach
       </div>
-      @empty
-      <div class="col-12 text-center py-5">
-        <p class="text-muted">Belum ada portofolio yang ditampilkan.</p>
-      </div>
-      @endforelse
+      <div class="swiper-pagination"></div>
     </div>
+    <div class="d-flex justify-content-center gap-3 mt-2">
+      <button class="pf-nav-btn portfolio-prev" aria-label="Sebelumnya"><i class="fas fa-arrow-left"></i></button>
+      <button class="pf-nav-btn portfolio-next" aria-label="Selanjutnya"><i class="fas fa-arrow-right"></i></button>
+    </div>
+    @else
+    <div class="text-center py-5">
+      <p class="text-muted">Belum ada portofolio yang ditampilkan.</p>
+    </div>
+    @endif
   </div>
 </section>
 
@@ -907,28 +1002,32 @@ body {
 
     <div class="row g-4 mt-4">
       <div class="col-lg-3 col-md-6 reveal">
-        <div class="why-card">
+        <div class="why-card tilt-card">
+          <div class="tilt-glare"></div>
           <div class="why-icon"><i class="fas fa-stopwatch"></i></div>
           <h4>Tepat Waktu</h4>
           <p>Proyek diselesaikan sesuai timeline yang disepakati dengan manajemen proyek yang transparan.</p>
         </div>
       </div>
       <div class="col-lg-3 col-md-6 reveal delay-100">
-        <div class="why-card">
+        <div class="why-card tilt-card">
+          <div class="tilt-glare"></div>
           <div class="why-icon"><i class="fas fa-headset"></i></div>
           <h4>Support 24/7</h4>
           <p>Tim support kami selalu siap membantu Anda untuk memastikan sistem berjalan tanpa henti.</p>
         </div>
       </div>
       <div class="col-lg-3 col-md-6 reveal delay-200">
-        <div class="why-card">
+        <div class="why-card tilt-card">
+          <div class="tilt-glare"></div>
           <div class="why-icon"><i class="fas fa-shield-check"></i></div>
           <h4>Keamanan Terjamin</h4>
           <p>Menerapkan standar keamanan terbaik untuk melindungi data dan privasi bisnis Anda.</p>
         </div>
       </div>
       <div class="col-lg-3 col-md-6 reveal delay-300">
-        <div class="why-card">
+        <div class="why-card tilt-card">
+          <div class="tilt-glare"></div>
           <div class="why-icon"><i class="fas fa-handshake"></i></div>
           <h4>Harga Kompetitif</h4>
           <p>Penawaran yang jujur dan masuk akal sesuai dengan kompleksitas dan kualitas solusi.</p>
@@ -1078,8 +1177,8 @@ body {
       Jangan biarkan kendala teknologi menghambat laju bisnis Anda. Mari diskusikan solusinya bersama ahli IT kami.
     </p>
     <div class="d-flex flex-wrap gap-3 justify-content-center">
-      <a href="{{ route('contact') }}" class="btn-cta-white">Hubungi Kami Sekarang</a>
-      <a href="https://wa.me/6285156412702" target="_blank" class="btn-cta-outline"><i class="fab fa-whatsapp me-2"></i> Chat WhatsApp</a>
+      <a href="{{ route('contact') }}" class="btn-cta-white magnetic-btn">Hubungi Kami Sekarang</a>
+      <a href="https://wa.me/6285156412702" target="_blank" class="btn-cta-outline magnetic-btn"><i class="fab fa-whatsapp me-2"></i> Chat WhatsApp</a>
     </div>
   </div>
 </section>
@@ -1107,5 +1206,139 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 </script>
+
+@push('scripts')
+<script src="{{ asset('assets/js/vendor/gsap.min.js') }}"></script>
+<script src="{{ asset('assets/js/vendor/ScrollTrigger.min.js') }}"></script>
+<script src="{{ asset('assets/js/vendor/swiper-bundle.min.js') }}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+  /* ---------------------------------------------------------
+     1. HERO SCROLL PARALLAX (GSAP ScrollTrigger)
+     --------------------------------------------------------- */
+  if (window.gsap && window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: '.hero-section',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true
+      }
+    })
+    .to('.hero-grid', { yPercent: -20, ease: 'none' }, 0)
+    .to('.ring-1', { yPercent: -35, ease: 'none' }, 0)
+    .to('.ring-2', { yPercent: -55, ease: 'none' }, 0)
+    .to('.ring-3', { yPercent: -80, ease: 'none' }, 0)
+    .to('.fp-1', { yPercent: -90, ease: 'none' }, 0)
+    .to('.fp-2', { yPercent: -120, ease: 'none' }, 0)
+    .to('.fp-3', { yPercent: -60, ease: 'none' }, 0)
+    .to('.hero-content-wrapper', { yPercent: -15, opacity: 0.4, ease: 'none' }, 0);
+  }
+
+  /* ---------------------------------------------------------
+     2. HERO ORBITAL — MOUSE-REACTIVE 3D TILT
+     --------------------------------------------------------- */
+  const orbitalInner = document.getElementById('orbitalInner');
+  const heroSection = document.querySelector('.hero-section');
+  if (orbitalInner && heroSection && window.matchMedia('(min-width: 992px)').matches) {
+    heroSection.addEventListener('mousemove', function (e) {
+      const r = heroSection.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width - 0.5;
+      const py = (e.clientY - r.top) / r.height - 0.5;
+      orbitalInner.style.transform = `rotateX(${py * -14}deg) rotateY(${px * 18}deg)`;
+    });
+    heroSection.addEventListener('mouseleave', function () {
+      orbitalInner.style.transform = '';
+    });
+  }
+
+  /* ---------------------------------------------------------
+     3. 3D TILT-ON-HOVER FOR CARDS (services / why-us / portfolio)
+     --------------------------------------------------------- */
+  document.querySelectorAll('.tilt-card').forEach(function (card) {
+    card.style.transition = 'transform 0.15s ease-out';
+    card.addEventListener('mousemove', function (e) {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width;
+      const y = (e.clientY - r.top) / r.height;
+      const rx = (0.5 - y) * 10;
+      const ry = (x - 0.5) * 10;
+      card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`;
+      card.style.setProperty('--gx', (x * 100) + '%');
+      card.style.setProperty('--gy', (y * 100) + '%');
+    });
+    card.addEventListener('mouseleave', function () {
+      card.style.transform = '';
+    });
+  });
+
+  /* ---------------------------------------------------------
+     4. ANIMATED COUNT-UP (hero stats)
+     --------------------------------------------------------- */
+  function animateCount(el) {
+    const target = parseFloat(el.dataset.target);
+    const decimals = parseInt(el.dataset.decimals || '0', 10);
+    const duration = 1600;
+    const start = performance.now();
+    function tick(now) {
+      const p = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      const val = target * eased;
+      el.textContent = decimals ? val.toFixed(decimals) : Math.floor(val);
+      if (p < 1) requestAnimationFrame(tick);
+      else el.textContent = decimals ? target.toFixed(decimals) : target;
+    }
+    requestAnimationFrame(tick);
+  }
+  const countObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        animateCount(entry.target);
+        countObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.count-up').forEach(function (el) { countObserver.observe(el); });
+
+  /* ---------------------------------------------------------
+     5. PORTFOLIO 3D COVERFLOW (Swiper)
+     --------------------------------------------------------- */
+  const portfolioSwiperEl = document.querySelector('.portfolio-swiper');
+  if (portfolioSwiperEl && window.Swiper) {
+    const slideCount = portfolioSwiperEl.querySelectorAll('.swiper-slide').length;
+    new Swiper(portfolioSwiperEl, {
+      effect: 'coverflow',
+      grabCursor: true,
+      centeredSlides: true,
+      slidesPerView: 'auto',
+      loop: slideCount >= 3,
+      coverflowEffect: { rotate: 15, stretch: 0, depth: 200, modifier: 1, slideShadows: false },
+      autoplay: { delay: 3500, disableOnInteraction: false },
+      pagination: { el: '.portfolio-swiper .swiper-pagination', clickable: true },
+      navigation: { nextEl: '.portfolio-next', prevEl: '.portfolio-prev' },
+      breakpoints: {
+        0: { coverflowEffect: { depth: 80, rotate: 8 } },
+        768: { coverflowEffect: { depth: 200, rotate: 15 } }
+      }
+    });
+  }
+
+  /* ---------------------------------------------------------
+     6. MAGNETIC GLOW BUTTONS
+     --------------------------------------------------------- */
+  document.querySelectorAll('.magnetic-btn').forEach(function (btn) {
+    btn.addEventListener('mousemove', function (e) {
+      const r = btn.getBoundingClientRect();
+      btn.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      btn.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    });
+  });
+
+});
+</script>
+@endpush
 
 @endsection
