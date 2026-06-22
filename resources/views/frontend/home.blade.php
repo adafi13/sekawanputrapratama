@@ -428,6 +428,29 @@ body {
 }
 
 /* ============================================================
+   TRUSTED BY (BRAND LOGOS MARQUEE)
+   ============================================================ */
+.brands-section { padding: 50px 0 20px; background: #ffffff; }
+.brands-label {
+  text-align: center; color: var(--text-muted); font-size: 12px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 30px;
+}
+.brands-marquee { overflow: hidden; position: relative; padding-bottom: 30px; }
+.brands-marquee::before, .brands-marquee::after {
+  content: ""; position: absolute; top: 0; bottom: 0; width: 100px; z-index: 2;
+}
+.brands-marquee::before { left: 0; background: linear-gradient(to right, #ffffff, transparent); }
+.brands-marquee::after { right: 0; background: linear-gradient(to left, #ffffff, transparent); }
+.brands-marquee-content { display: flex; width: max-content; animation: scroll-left 25s linear infinite; align-items: center; }
+.brands-marquee:hover .brands-marquee-content { animation-play-state: paused; }
+.brand-item { display: flex; align-items: center; justify-content: center; margin: 0 35px; height: 50px; }
+.brand-item img {
+  max-height: 40px; max-width: 130px; object-fit: contain; filter: grayscale(1) opacity(0.5);
+  transition: filter 0.3s ease;
+}
+.brand-item img:hover { filter: grayscale(0) opacity(1); }
+
+/* ============================================================
    SERVICES BENTO (LIGHT)
    ============================================================ */
 .services-section {
@@ -548,6 +571,32 @@ body {
   padding: 6px 14px; border-radius: 50px; font-size: 11px;
   font-weight: 700; text-transform: uppercase; width: max-content;
 }
+
+/* ============================================================
+   TESTIMONIALS
+   ============================================================ */
+.testimonials-section { padding: 100px 0; background-color: #ffffff; }
+.testimonial-swiper { padding: 10px 0 55px; }
+.testimonial-card {
+  background: var(--bg-alt); border: 1px solid var(--border-card); border-radius: 24px;
+  padding: 40px; max-width: 700px; margin: 0 auto; text-align: center;
+  box-shadow: var(--shadow-sm); position: relative; overflow: hidden;
+}
+.testimonial-rating { color: #fbbf24; font-size: 1rem; margin-bottom: 20px; }
+.testimonial-text {
+  font-size: 1.15rem; line-height: 1.7; color: var(--text-main); font-style: italic;
+  margin-bottom: 28px;
+}
+.testimonial-author { display: flex; align-items: center; justify-content: center; gap: 14px; }
+.testimonial-avatar {
+  width: 52px; height: 52px; border-radius: 50%; object-fit: cover; background: var(--primary-blue);
+  display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700;
+  flex-shrink: 0;
+}
+.testimonial-author h5 { font-size: 1rem; font-weight: 800; margin: 0; color: var(--text-main); }
+.testimonial-author span { font-size: 0.85rem; color: var(--text-muted); }
+.testimonial-swiper .swiper-pagination-bullet { background: var(--border-card); opacity: 1; width: 8px; height: 8px; }
+.testimonial-swiper .swiper-pagination-bullet-active { background: var(--primary-blue); width: 24px; border-radius: 4px; }
 
 /* ============================================================
    WHY CHOOSE US (LIGHT)
@@ -893,6 +942,29 @@ body {
 </section>
 
 {{-- ==========================================
+     TRUSTED BY (BRAND LOGOS)
+     ========================================== --}}
+@if($brands->isNotEmpty())
+<section class="brands-section">
+  <p class="brands-label reveal">Dipercaya oleh berbagai perusahaan</p>
+  <div class="brands-marquee">
+    <div class="brands-marquee-content">
+      @foreach($brands as $brand)
+      <div class="brand-item">
+        <img src="{{ $brand->getFirstMediaUrl('logo') }}" alt="{{ $brand->name }}" loading="lazy">
+      </div>
+      @endforeach
+      @foreach($brands as $brand)
+      <div class="brand-item">
+        <img src="{{ $brand->getFirstMediaUrl('logo') }}" alt="{{ $brand->name }}" loading="lazy">
+      </div>
+      @endforeach
+    </div>
+  </div>
+</section>
+@endif
+
+{{-- ==========================================
      SERVICES BENTO
      ========================================== --}}
 <section class="services-section">
@@ -964,7 +1036,7 @@ body {
             @php
               $portImg = $portfolio->getFirstMediaUrl('featured_image') ?: ($portfolio->featured_image ? Storage::url($portfolio->featured_image) : asset('assets/media/images/portfolio-placeholder.png'));
             @endphp
-            <img src="{{ $portImg }}" alt="{{ $portfolio->title }}" class="pf-img">
+            <img src="{{ $portImg }}" alt="{{ $portfolio->title }}" class="pf-img" loading="lazy">
             <div class="pf-overlay">
               <span class="pf-tag mb-2">{{ $portfolio->category->name ?? 'Proyek IT' }}</span>
               <h4>{{ $portfolio->title }}</h4>
@@ -988,6 +1060,52 @@ body {
     @endif
   </div>
 </section>
+
+{{-- ==========================================
+     TESTIMONIALS
+     ========================================== --}}
+@if($testimonials->isNotEmpty())
+<section class="testimonials-section">
+  <div class="container">
+    <div class="text-center reveal">
+      <span class="section-pill">Testimoni</span>
+      <h2 class="section-title mt-3">Apa Kata <span class="text-gradient">Klien Kami</span></h2>
+      <p class="section-sub">Kepuasan klien adalah bukti nyata kualitas kerja kami.</p>
+    </div>
+
+    <div class="swiper testimonial-swiper reveal">
+      <div class="swiper-wrapper">
+        @foreach($testimonials as $testimonial)
+        <div class="swiper-slide">
+          <div class="testimonial-card tilt-card">
+            <div class="tilt-glare"></div>
+            <div class="testimonial-rating">
+              @for($i = 1; $i <= 5; $i++)
+                <i class="fa{{ $i <= $testimonial->rating ? 's' : 'r' }} fa-star"></i>
+              @endfor
+            </div>
+            <p class="testimonial-text">"{{ $testimonial->testimonial }}"</p>
+            <div class="testimonial-author">
+              @php($photoUrl = $testimonial->getFirstMediaUrl('client_photo'))
+              @if($photoUrl)
+                <img src="{{ $photoUrl }}" alt="{{ $testimonial->client_name }}" class="testimonial-avatar" loading="lazy">
+              @else
+                <div class="testimonial-avatar">{{ Str::substr($testimonial->client_name, 0, 1) }}</div>
+              @endif
+              <div class="text-start">
+                <h5>{{ $testimonial->client_name }}</h5>
+                <span>{{ $testimonial->client_position }}{{ $testimonial->client_company ? ', ' . $testimonial->client_company : '' }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        @endforeach
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+</section>
+@endif
 
 {{-- ==========================================
      WHY CHOOSE US
@@ -1090,7 +1208,7 @@ body {
       <div class="col-lg-4 col-md-6 reveal" style="transition-delay: {{ $index * 100 }}ms">
         <div class="blog-card">
           <div class="bc-img-wrap">
-            <img src="{{ $blog->featured_image ? Storage::url($blog->featured_image) : asset('assets/media/images/blog-image-1.png') }}" alt="{{ $blog->title }}" class="bc-img">
+            <img src="{{ $blog->featured_image ? Storage::url($blog->featured_image) : asset('assets/media/images/blog-image-1.png') }}" alt="{{ $blog->title }}" class="bc-img" loading="lazy">
             <span class="bc-cat">{{ $blog->category->name ?? 'Update' }}</span>
           </div>
           <div class="bc-content">
@@ -1323,6 +1441,21 @@ document.addEventListener('DOMContentLoaded', function () {
         0: { coverflowEffect: { depth: 80, rotate: 8 } },
         768: { coverflowEffect: { depth: 200, rotate: 15 } }
       }
+    });
+  }
+
+  /* ---------------------------------------------------------
+     5b. TESTIMONIAL SLIDER (Swiper)
+     --------------------------------------------------------- */
+  const testimonialSwiperEl = document.querySelector('.testimonial-swiper');
+  if (testimonialSwiperEl && window.Swiper) {
+    const testimonialCount = testimonialSwiperEl.querySelectorAll('.swiper-slide').length;
+    new Swiper(testimonialSwiperEl, {
+      slidesPerView: 1,
+      centeredSlides: true,
+      loop: testimonialCount >= 2,
+      autoplay: { delay: 5000, disableOnInteraction: false },
+      pagination: { el: '.testimonial-swiper .swiper-pagination', clickable: true },
     });
   }
 

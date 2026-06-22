@@ -277,7 +277,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
           <div class="blog-card">
             <div class="blog-img-wrap">
               @if($blog->featured_image)
-                <img src="{{ Storage::url($blog->featured_image) }}" alt="{{ $blog->title }}">
+                <img src="{{ Storage::url($blog->featured_image) }}" alt="{{ $blog->title }}" loading="lazy">
               @else
                 <div class="w-100 h-100 bg-secondary d-flex align-items-center justify-content-center">
                   <i class="fas fa-newspaper fa-3x text-white-50"></i>

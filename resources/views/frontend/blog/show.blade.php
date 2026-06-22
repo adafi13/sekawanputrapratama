@@ -228,7 +228,7 @@
                     <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden bg-white" style="transition: var(--transition);">
                         <div class="position-relative overflow-hidden" style="height: 200px;">
                             @if($related->featured_image)
-                                <img src="{{ Storage::url($related->featured_image) }}" class="w-100 h-100 object-fit-cover" alt="{{ $related->title }}">
+                                <img src="{{ Storage::url($related->featured_image) }}" class="w-100 h-100 object-fit-cover" alt="{{ $related->title }}" loading="lazy">
                             @else
                                 <div class="w-100 h-100 bg-light d-flex align-items-center justify-content-center text-muted">
                                     <i class="fas fa-newspaper fa-2x opacity-25"></i>

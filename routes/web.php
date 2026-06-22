@@ -22,8 +22,8 @@ Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 Route::get('/portfolio', [PortfolioController::class, 'index'])->name('portfolio.index');
 Route::get('/portfolio/{slug}', [PortfolioController::class, 'show'])->name('portfolio.show');
 
-// Services Route (Static page for now)
-Route::view('/services', 'frontend.services')->name('services.index');
+// Services Route
+Route::get('/services', [FrontendController::class, 'services'])->name('services.index');
 
 // Sitemap Route
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap.index');

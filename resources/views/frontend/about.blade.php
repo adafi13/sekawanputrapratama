@@ -312,7 +312,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
       <div class="col-lg-4 col-md-6 reveal" style="transition-delay: {{ $index * 100 }}ms;">
         <div class="team-card">
           <div class="team-img-wrap">
-            <img src="{{ asset('assets/media/team/' . $member['img']) }}" alt="{{ $member['name'] }}">
+            <img src="{{ asset('assets/media/team/' . $member['img']) }}" alt="{{ $member['name'] }}" loading="lazy">
             <div class="team-social">
               <a href="{{ $member['ig'] }}" class="social-icon" target="_blank"><i class="fab fa-instagram"></i></a>
             </div>

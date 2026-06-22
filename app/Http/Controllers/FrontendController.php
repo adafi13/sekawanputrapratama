@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\NewsletterSubscriber;
 use App\Models\BlogPost;
 use App\Models\BlogCategory;
+use App\Models\Brand;
 use App\Models\Portfolio;
 use App\Models\PortfolioCategory;
 use App\Models\ContactMessage;
 use App\Models\Lead;
+use App\Models\Service;
+use App\Models\Testimonial;
 use App\Mail\AdminLeadNotification; 
 use App\Mail\AutoReplyContact;     
 use Illuminate\Http\Request;
@@ -49,12 +52,30 @@ class FrontendController extends Controller
             ->take(3)
             ->get();
 
-        return view('frontend.home', compact('portfolios', 'portfolioCategories', 'latestBlogs'));
+        $testimonials = Testimonial::where('is_featured', true)
+            ->orderBy('order')
+            ->take(6)
+            ->get();
+
+        $brands = Brand::where('is_active', true)
+            ->orderBy('order')
+            ->get();
+
+        return view('frontend.home', compact('portfolios', 'portfolioCategories', 'latestBlogs', 'testimonials', 'brands'));
     }
 
     public function about()
     {
         return view('frontend.about');
+    }
+
+    public function services()
+    {
+        $services = Service::where('is_active', true)
+            ->orderBy('order')
+            ->get();
+
+        return view('frontend.services', compact('services'));
     }
 
     public function contact()
@@ -65,8 +86,13 @@ class FrontendController extends Controller
 
     public function contactStore(Request $request)
     {
+        // Honeypot: bot-only field, invisible to real users. Pretend success without processing.
+        if ($request->filled('website')) {
+            return back()->with('success', 'Terima kasih! Pesan Anda telah kami terima. Tim kami akan menghubungi Anda segera.');
+        }
+
         $cleanEmail = strtolower(trim($request->input('email')));
-        
+
         // Cek apakah email sudah ada di tabel Leads
         $existingLead = Lead::where('email', $cleanEmail)->exists();
 
@@ -100,7 +126,13 @@ class FrontendController extends Controller
         try {
             // A. Simpan ke tabel ContactMessage (Arsip Pesan)
 
-            ContactMessage::create($validated);
+            ContactMessage::create([
+                'name' => $validated['name'],
+                'email' => $validated['email'],
+                'phone' => $validated['phone'] ?? null,
+                'service_type' => $validated['service'],
+                'message' => $validated['message'],
+            ]);
 
             // B. Simpan ke tabel Leads (Data CRM)
             $leadData = [

@@ -118,6 +118,7 @@
 
           <form action="{{ route('contact.store') }}" method="POST" id="contactForm">
             @csrf
+            <input type="text" name="website" class="ctc-honeypot" tabindex="-1" autocomplete="off" value="">
             <div class="ctc-form-grid">
 
               {{-- Nama Perusahaan --}}
@@ -223,7 +224,7 @@
    ============================================================ */
 
 /* ---- HERO ---- */
-.ctc-hero{background:#0A1628;min-height:360px;display:flex;align-items:center;position:relative;overflow:hidden;padding:120px 0 70px;}
+.ctc-hero{background:#050b14;min-height:360px;display:flex;align-items:center;position:relative;overflow:hidden;padding:120px 0 70px;}
 .ctc-hero-orb{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;}
 .ctc-hero-orb.o1{width:500px;height:500px;top:-20%;left:-10%;background:radial-gradient(circle,rgba(37,99,235,.45),transparent 65%);animation:ctcOrb 14s ease-in-out infinite alternate;}
 .ctc-hero-orb.o2{width:380px;height:380px;bottom:-15%;right:-8%;background:radial-gradient(circle,rgba(99,102,241,.35),transparent 65%);animation:ctcOrb 10s ease-in-out infinite alternate-reverse;}
@@ -243,7 +244,7 @@
 @keyframes ctcBlink{0%,100%{opacity:1;}50%{opacity:0;}}
 
 /* ---- MAIN LAYOUT ---- */
-.ctc-main{background:#F1F5F9;padding:60px 0 100px;}
+.ctc-main{background:#f8fafc;padding:60px 0 100px;}
 .ctc-grid{display:grid;grid-template-columns:400px 1fr;gap:36px;margin-top:-40px;position:relative;z-index:3;}
 
 /* ---- SIDEBAR ---- */
@@ -298,6 +299,9 @@ a.ctc-info-card:hover .ctc-info-arrow{opacity:1;transform:translateX(2px);}
 .ctc-alert span{flex:1;}
 .ctc-alert-close{background:none;border:none;cursor:pointer;font-size:18px;color:inherit;opacity:.6;margin-left:auto;padding:0;line-height:1;}
 .ctc-alert-close:hover{opacity:1;}
+
+/* Honeypot - hidden from real users, catches bots */
+.ctc-honeypot{position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;}
 
 /* Form Grid */
 .ctc-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}

@@ -248,7 +248,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
                   $portImg = $portfolio->getFirstMediaUrl('featured_image') ?: ($portfolio->featured_image ? Storage::url($portfolio->featured_image) : null);
               @endphp
               @if($portImg)
-                  <img src="{{ $portImg }}" alt="{{ $portfolio->title }}">
+                  <img src="{{ $portImg }}" alt="{{ $portfolio->title }}" loading="lazy">
               @else
                   <div class="w-100 h-100 bg-secondary d-flex align-items-center justify-content-center">
                       <i class="fas fa-image fa-3x text-white-50"></i>

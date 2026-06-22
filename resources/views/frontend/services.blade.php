@@ -220,72 +220,51 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
 {{-- SERVICES BODY --}}
 <section class="svc-body">
   <div class="container">
-    
-    {{-- Web Development --}}
-    <div class="svc-card reveal">
+
+    @php
+      $badgeColors = ['#0891B2', '#6366F1', '#0EA5E9', '#22C55E', '#F59E0B'];
+      $fallbackImages = ['web-development.png', 'app-development.png', 'office-server.png'];
+    @endphp
+
+    @forelse($services as $service)
+    <div class="svc-card reveal {{ $loop->iteration % 2 === 0 ? 'svc-card-rev' : '' }}">
       <div class="svc-info">
-        <span class="label">PENGEMBANGAN</span>
-        <h2>Web Development</h2>
-        <p>Kami menciptakan ekosistem web yang tidak hanya indah dipandang, tetapi juga berperforma tinggi, aman, dan dioptimalkan untuk konversi bisnis Anda.</p>
+        <span class="label">
+          @if($service->pricing_starting_from)
+            MULAI Rp{{ number_format($service->pricing_starting_from, 0, ',', '.') }}
+          @endif
+          @if($service->delivery_time)
+            &bull; {{ $service->delivery_time }}
+          @endif
+        </span>
+        <h2>{{ $service->title }}</h2>
+        <p>{{ $service->description }}</p>
+        @if(!empty($service->features))
         <div class="feat-list">
-          <div class="feat-item"><i class="fas fa-check-circle"></i> <span>Company Profile</span></div>
-          <div class="feat-item"><i class="fas fa-check-circle"></i> <span>E-Commerce System</span></div>
-          <div class="feat-item"><i class="fas fa-check-circle"></i> <span>Sistem ERP/CRM</span></div>
-          <div class="feat-item"><i class="fas fa-check-circle"></i> <span>SEO Optimization</span></div>
+          @foreach($service->features as $feature)
+          <div class="feat-item"><i class="fas fa-check-circle"></i> <span>{{ $feature }}</span></div>
+          @endforeach
         </div>
+        @endif
         <a href="{{ route('contact') }}" class="svc-btn-outline">
           Konsultasi Sekarang <i class="fas fa-arrow-right"></i>
         </a>
       </div>
       <div class="svc-visual">
-        <img src="{{ asset('assets/media/images/web-development.png') }}" alt="Web Development" class="svc-img-main">
-        <div class="svc-float-badge"><i class="fas fa-globe"></i></div>
-      </div>
-    </div>
-
-    {{-- App Development --}}
-    <div class="svc-card svc-card-rev reveal">
-      <div class="svc-info">
-        <span class="label">MOBILITAS</span>
-        <h2>App Development</h2>
-        <p>Hadirkan solusi bisnis Anda langsung ke genggaman pelanggan dengan aplikasi mobile Android dan iOS yang intuitif dan responsif.</p>
-        <div class="feat-list">
-          <div class="feat-item"><i class="fas fa-check-circle"></i> <span>Android & iOS Apps</span></div>
-          <div class="feat-item"><i class="fas fa-check-circle"></i> <span>Flutter Development</span></div>
-          <div class="feat-item"><i class="fas fa-check-circle"></i> <span>UI/UX Modern</span></div>
-          <div class="feat-item"><i class="fas fa-check-circle"></i> <span>API Integration</span></div>
+        @php
+          $svcImg = $service->getFirstMediaUrl('images') ?: asset('assets/media/images/' . ($fallbackImages[$loop->index] ?? 'portfolio-placeholder.png'));
+        @endphp
+        <img src="{{ $svcImg }}" alt="{{ $service->title }}" class="svc-img-main" loading="lazy">
+        <div class="svc-float-badge" style="background: {{ $badgeColors[$loop->index % count($badgeColors)] }};">
+          <i class="{{ $service->icon ?: 'fas fa-cogs' }}"></i>
         </div>
-        <a href="{{ route('contact') }}" class="svc-btn-outline">
-          Bangun Aplikasi <i class="fas fa-arrow-right"></i>
-        </a>
-      </div>
-      <div class="svc-visual">
-        <img src="{{ asset('assets/media/images/app-development.png') }}" alt="App Development" class="svc-img-main">
-        <div class="svc-float-badge" style="background: #6366F1;"><i class="fas fa-mobile-alt"></i></div>
       </div>
     </div>
-
-    {{-- Infrastructure --}}
-    <div class="svc-card reveal">
-      <div class="svc-info">
-        <span class="label">INFRASTRUKTUR</span>
-        <h2>Server & Networking</h2>
-        <p>Bangun pondasi IT yang kokoh untuk menjamin keamanan data, stabilitas jaringan, dan kelancaran kolaborasi tim Anda setiap hari.</p>
-        <div class="feat-list">
-          <div class="feat-item"><i class="fas fa-check-circle"></i> <span>Server Installation</span></div>
-          <div class="feat-item"><i class="fas fa-check-circle"></i> <span>Mikrotik Setup</span></div>
-          <div class="feat-item"><i class="fas fa-check-circle"></i> <span>Fiber Optic FTTH</span></div>
-          <div class="feat-item"><i class="fas fa-check-circle"></i> <span>CCTV & Security</span></div>
-        </div>
-        <a href="{{ route('contact') }}" class="svc-btn-outline">
-          Hubungi Spesialis <i class="fas fa-arrow-right"></i>
-        </a>
-      </div>
-      <div class="svc-visual">
-        <img src="{{ asset('assets/media/images/office-server.png') }}" alt="IT Infrastructure" class="svc-img-main">
-        <div class="svc-float-badge" style="background: #0EA5E9;"><i class="fas fa-server"></i></div>
-      </div>
+    @empty
+    <div class="text-center py-5">
+      <p class="text-muted">Belum ada layanan yang ditampilkan.</p>
     </div>
+    @endforelse
 
   </div>
 </section>
