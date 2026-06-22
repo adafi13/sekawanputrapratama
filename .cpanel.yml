@@ -8,7 +8,11 @@ deployment:
     # Install Composer dependencies
     - cd $DEPLOYPATH
     - /usr/local/bin/ea-php82 /opt/cpanel/composer/bin/composer install --optimize-autoloader --no-dev --no-interaction
-    
+
+    # Build frontend/admin assets (Filament theme, etc.)
+    - npm install
+    - npm run build
+
     # Run database migrations
     - /usr/local/bin/ea-php82 artisan migrate --force
     

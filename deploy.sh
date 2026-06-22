@@ -16,6 +16,11 @@ git pull origin main
 echo "📦 Installing Composer dependencies..."
 composer install --optimize-autoloader --no-dev --no-interaction
 
+# Build frontend/admin assets (Filament theme, etc.)
+echo "🎨 Building frontend assets..."
+npm install
+npm run build
+
 # Run database migrations
 echo "🗄️ Running database migrations..."
 php artisan migrate --force

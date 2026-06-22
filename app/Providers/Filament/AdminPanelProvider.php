@@ -36,6 +36,7 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => '#2563EB',
             ])
+            ->viteTheme('resources/css/filament/admin/theme.css')
             ->darkMode(false)
             ->renderHook(
                 'panels::head.end',
