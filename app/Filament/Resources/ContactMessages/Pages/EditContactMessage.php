@@ -18,4 +18,9 @@ class EditContactMessage extends EditRecord
             DeleteAction::make(),
         ];
     }
+
+    protected function afterSave(): void
+    {
+        $this->dispatch('refresh-sidebar');
+    }
 }

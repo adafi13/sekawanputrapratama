@@ -58,13 +58,15 @@ class ContactMessagesTable
                     ->label(fn ($record) => $record->is_read ? 'Tandai Belum Dibaca' : 'Tandai Sudah Dibaca')
                     ->icon(fn ($record) => $record->is_read ? 'heroicon-o-envelope' : 'heroicon-o-envelope-open')
                     ->color('gray')
-                    ->action(function ($record) {
+                    ->action(function ($record, $livewire) {
                         $newState = ! $record->is_read;
                         $record->update([
                             'is_read' => $newState,
                             'read_at' => $newState ? now() : null,
                             'read_by' => $newState ? auth()->id() : null,
                         ]);
+
+                        $livewire->dispatch('refresh-sidebar');
                     }),
             ])
             ->toolbarActions([
