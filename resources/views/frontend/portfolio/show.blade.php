@@ -73,7 +73,10 @@
 .pfs-csr-card.challenge h6 { color: #f59e0b; }
 .pfs-csr-card.solution h6 { color: var(--primary-blue); }
 .pfs-csr-card.results h6 { color: #22c55e; }
-.pfs-csr-card p { color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; margin: 0; }
+.pfs-csr-card p {
+  color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; margin: 0;
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 7; overflow: hidden;
+}
 
 .pfs-content { color: var(--text-muted); font-size: 1.05rem; line-height: 1.85; margin: 50px 0; }
 .pfs-content h2, .pfs-content h3 { color: var(--text-main); font-weight: 800; margin-top: 32px; }
