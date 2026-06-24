@@ -17,6 +17,7 @@ class Quotation extends Model
     const STATUS_REVISED = 'revised';
     const STATUS_ACCEPTED = 'accepted';
     const STATUS_REJECTED = 'rejected';
+    const STATUS_EXPIRED = 'expired';
 
     protected $fillable = [
         'quotation_number',
@@ -157,6 +158,7 @@ class Quotation extends Model
             self::STATUS_REVISED => 'Revised',
             self::STATUS_ACCEPTED => 'Accepted',
             self::STATUS_REJECTED => 'Rejected',
+            self::STATUS_EXPIRED => 'Expired',
         ];
     }
 
@@ -171,6 +173,7 @@ class Quotation extends Model
             self::STATUS_REVISED => 'yellow',
             self::STATUS_ACCEPTED => 'success',
             self::STATUS_REJECTED => 'danger',
+            self::STATUS_EXPIRED => 'danger',
             default => 'gray',
         };
     }

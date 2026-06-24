@@ -56,18 +56,59 @@ class RoleSeeder extends Seeder
             // Settings
             'view settings',
             'edit settings',
+            // CRM: Leads
+            'view leads',
+            'create leads',
+            'edit leads',
+            'delete leads',
+            // CRM: Customers
+            'view customers',
+            'create customers',
+            'edit customers',
+            'delete customers',
+            // CRM: Quotations
+            'view quotations',
+            'create quotations',
+            'edit quotations',
+            'delete quotations',
+            // CRM: Contracts
+            'view contracts',
+            'create contracts',
+            'edit contracts',
+            'delete contracts',
+            // CRM: Projects
+            'view projects',
+            'create projects',
+            'edit projects',
+            'delete projects',
+            // CRM: Invoices
+            'view invoices',
+            'create invoices',
+            'edit invoices',
+            'delete invoices',
+            // Users
+            'manage users',
         ];
 
         foreach ($permissions as $permission) {
             Permission::firstOrCreate(['name' => $permission]);
         }
 
-        // Create roles and assign permissions
-        $superAdmin = Role::create(['name' => 'Super Admin']);
-        $superAdmin->givePermissionTo(Permission::all());
+        $crmFullAccess = [
+            'view leads', 'create leads', 'edit leads', 'delete leads',
+            'view customers', 'create customers', 'edit customers', 'delete customers',
+            'view quotations', 'create quotations', 'edit quotations', 'delete quotations',
+            'view contracts', 'create contracts', 'edit contracts', 'delete contracts',
+            'view projects', 'create projects', 'edit projects', 'delete projects',
+            'view invoices', 'create invoices', 'edit invoices', 'delete invoices',
+        ];
 
-        $admin = Role::create(['name' => 'Admin']);
-        $admin->givePermissionTo([
+        // Create roles and assign permissions (firstOrCreate + syncPermissions so this seeder is safe to re-run)
+        $superAdmin = Role::firstOrCreate(['name' => 'Super Admin']);
+        $superAdmin->syncPermissions(Permission::all());
+
+        $admin = Role::firstOrCreate(['name' => 'Admin']);
+        $admin->syncPermissions(array_merge([
             'view pages', 'create pages', 'edit pages', 'delete pages',
             'view blog', 'create blog', 'edit blog', 'delete blog', 'publish blog',
             'view portfolio', 'create portfolio', 'edit portfolio', 'delete portfolio',
@@ -76,10 +117,10 @@ class RoleSeeder extends Seeder
             'view testimonials', 'create testimonials', 'edit testimonials', 'delete testimonials',
             'view contacts', 'reply contacts', 'delete contacts',
             'view settings', 'edit settings',
-        ]);
+        ], $crmFullAccess));
 
-        $editor = Role::create(['name' => 'Editor']);
-        $editor->givePermissionTo([
+        $editor = Role::firstOrCreate(['name' => 'Editor']);
+        $editor->syncPermissions([
             'view pages', 'create pages', 'edit pages',
             'view blog', 'create blog', 'edit blog', 'publish blog',
             'view portfolio', 'create portfolio', 'edit portfolio',
@@ -89,10 +130,36 @@ class RoleSeeder extends Seeder
             'view contacts', 'reply contacts',
         ]);
 
-        $author = Role::create(['name' => 'Author']);
-        $author->givePermissionTo([
+        $author = Role::firstOrCreate(['name' => 'Author']);
+        $author->syncPermissions([
             'view blog', 'create blog', 'edit blog',
             'view portfolio', 'create portfolio', 'edit portfolio',
+        ]);
+
+        // CRM roles
+        $sales = Role::firstOrCreate(['name' => 'Sales']);
+        $sales->syncPermissions([
+            'view leads', 'create leads', 'edit leads', 'delete leads',
+            'view customers', 'create customers', 'edit customers',
+            'view quotations', 'create quotations', 'edit quotations', 'delete quotations',
+            'view contracts', 'create contracts', 'edit contracts',
+            'view projects',
+        ]);
+
+        $projectManager = Role::firstOrCreate(['name' => 'Project Manager']);
+        $projectManager->syncPermissions([
+            'view projects', 'create projects', 'edit projects', 'delete projects',
+            'view contracts',
+            'view customers',
+            'view leads',
+        ]);
+
+        $finance = Role::firstOrCreate(['name' => 'Finance']);
+        $finance->syncPermissions([
+            'view invoices', 'create invoices', 'edit invoices', 'delete invoices',
+            'view contracts',
+            'view customers',
+            'view projects',
         ]);
     }
 }

@@ -37,6 +37,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->darkMode(false)
+            ->databaseNotifications()
             ->renderHook(
                 'panels::head.end',
                 fn (): HtmlString => new HtmlString('<link rel="stylesheet" href="' . asset('css/admin-custom.css') . '">'),
