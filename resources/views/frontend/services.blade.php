@@ -3,6 +3,11 @@
 @section('title', 'Layanan Kami - PT Sekawan Putra Pratama')
 @section('meta_description', 'Layanan IT profesional: Web Development, App Development, dan Infrastruktur Server & Jaringan untuk bisnis Anda.')
 
+@include('frontend.partials.breadcrumb-schema', ['crumbs' => [
+    ['name' => 'Home', 'url' => route('home')],
+    ['name' => 'Layanan', 'url' => route('services.index')],
+]])
+
 @section('content')
 
 {{-- CSS & DESIGN SYSTEM (UI-UX-PRO-MAX) --}}
@@ -223,7 +228,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
 
     @php
       $badgeColors = ['#0891B2', '#6366F1', '#0EA5E9', '#22C55E', '#F59E0B'];
-      $fallbackImages = ['web-development.png', 'app-development.png', 'office-server.png'];
+      $fallbackImages = ['web-development.webp', 'app-development.webp', 'office-server.webp'];
     @endphp
 
     @forelse($services as $service)
@@ -252,7 +257,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
       </div>
       <div class="svc-visual">
         @php
-          $svcImg = $service->getFirstMediaUrl('images') ?: asset('assets/media/images/' . ($fallbackImages[$loop->index] ?? 'portfolio-placeholder.png'));
+          $svcImg = $service->getFirstMediaUrl('images') ?: asset('assets/media/images/' . ($fallbackImages[$loop->index] ?? 'portfolio-placeholder.webp'));
         @endphp
         <img src="{{ $svcImg }}" alt="{{ $service->title }}" class="svc-img-main" loading="lazy">
         <div class="svc-float-badge" style="background: {{ $badgeColors[$loop->index % count($badgeColors)] }};">

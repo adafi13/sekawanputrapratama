@@ -3,6 +3,11 @@
 @section('title', 'Blog & Artikel IT Terkini | Tips & Tutorial - PT Sekawan Putra Pratama')
 @section('meta_description', 'Baca artikel terbaru seputar teknologi, tutorial programming, tips IT, dan tren digital. Update mingguan dari expert IT berpengalaman.')
 
+@include('frontend.partials.breadcrumb-schema', ['crumbs' => [
+    ['name' => 'Home', 'url' => route('home')],
+    ['name' => 'Blog', 'url' => route('blog.index')],
+]])
+
 @section('content')
 
 {{-- CSS & DESIGN SYSTEM (UI-UX-PRO-MAX) --}}
@@ -236,7 +241,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
     <div class="featured-card reveal">
       <div class="featured-img-wrap">
         @if($featuredPost->featured_image)
-          <img src="{{ Storage::url($featuredPost->featured_image) }}" alt="{{ $featuredPost->title }}">
+          <img src="{{ Storage::url($featuredPost->featured_image) }}" alt="{{ $featuredPost->title }}" loading="lazy">
         @else
           <div class="w-100 h-100 bg-secondary d-flex align-items-center justify-content-center">
             <i class="fas fa-newspaper fa-4x text-white-50"></i>

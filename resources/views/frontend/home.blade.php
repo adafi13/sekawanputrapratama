@@ -4,6 +4,43 @@
 @section('meta_description', 'Software house terpercaya sejak 2024. Jasa pembuatan website profesional, aplikasi mobile Android/iOS, instalasi server & jaringan kantor. Konsultasi GRATIS!')
 @section('meta_keywords', 'jasa IT terpercaya, software house Indonesia, jasa pembuatan website, aplikasi mobile, instalasi server, IT consultant Jakarta, web developer profesional')
 
+@push('schema')
+<script type="application/ld+json">
+@php
+echo json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'FAQPage',
+    'mainEntity' => [
+        [
+            '@type' => 'Question',
+            'name' => 'Berapa estimasi biaya pembuatan aplikasi atau website?',
+            'acceptedAnswer' => [
+                '@type' => 'Answer',
+                'text' => 'Biaya sangat bergantung pada kompleksitas fitur, skala sistem, dan platform yang dituju. Kami merekomendasikan Anda untuk menghubungi kami guna melakukan konsultasi awal secara gratis, setelah itu kami dapat memberikan penawaran yang akurat.',
+            ],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'Apakah ada layanan maintenance setelah aplikasi selesai?',
+            'acceptedAnswer' => [
+                '@type' => 'Answer',
+                'text' => 'Tentu saja. Kami menyertakan garansi perbaikan bug secara gratis untuk periode tertentu. Selain itu, kami menawarkan paket SLA (Service Level Agreement) untuk pemeliharaan rutin, backup, dan dukungan teknis jangka panjang.',
+            ],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'Apakah melayani pengerjaan proyek dari luar kota Bekasi/Jakarta?',
+            'acceptedAnswer' => [
+                '@type' => 'Answer',
+                'text' => 'Ya, kami melayani klien dari seluruh Indonesia. Proses komunikasi, pelaporan progres, dan meeting dapat dilakukan secara online melalui Zoom/Google Meet dengan sangat efektif.',
+            ],
+        ],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+@endphp
+</script>
+@endpush
+
 @push('styles')
 <link rel="stylesheet" href="{{ asset('assets/css/vendor/swiper-bundle.min.css') }}">
 @endpush
@@ -1034,7 +1071,7 @@ body {
           <div class="pf-card tilt-card">
             <div class="tilt-glare"></div>
             @php
-              $portImg = $portfolio->getFirstMediaUrl('featured_image') ?: ($portfolio->featured_image ? Storage::url($portfolio->featured_image) : asset('assets/media/images/portfolio-placeholder.png'));
+              $portImg = $portfolio->getFirstMediaUrl('featured_image') ?: ($portfolio->featured_image ? Storage::url($portfolio->featured_image) : asset('assets/media/images/portfolio-placeholder.webp'));
             @endphp
             <img src="{{ $portImg }}" alt="{{ $portfolio->title }}" class="pf-img" loading="lazy">
             <div class="pf-overlay">

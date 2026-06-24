@@ -3,6 +3,11 @@
 @section('title', 'Portfolio Proyek IT | Website & Aplikasi - PT Sekawan Putra Pratama')
 @section('meta_description', 'Lihat portfolio proyek IT kami: website perusahaan, aplikasi mobile, sistem ERP, dan instalasi server. Pengalaman 50+ proyek sukses. Konsultasi GRATIS!')
 
+@include('frontend.partials.breadcrumb-schema', ['crumbs' => [
+    ['name' => 'Home', 'url' => route('home')],
+    ['name' => 'Portfolio', 'url' => route('portfolio.index')],
+]])
+
 @section('content')
 
 {{-- CSS & DESIGN SYSTEM (UI-UX-PRO-MAX) --}}
@@ -210,7 +215,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
                     $featImg = $featured->getFirstMediaUrl('featured_image') ?: ($featured->featured_image ? Storage::url($featured->featured_image) : null);
                 @endphp
                 @if($featImg)
-                    <img src="{{ $featImg }}" alt="{{ $featured->title }}">
+                    <img src="{{ $featImg }}" alt="{{ $featured->title }}" loading="lazy">
                 @else
                     <div class="w-100 h-100 bg-secondary d-flex align-items-center justify-content-center">
                         <i class="fas fa-image fa-3x text-white-50"></i>

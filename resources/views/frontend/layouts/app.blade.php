@@ -72,6 +72,8 @@
     @endphp
     </script>
 
+    @stack('schema')
+
     {{-- Icons & Favicons --}}
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/media/favicon.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/media/favicon.png') }}">

@@ -4,6 +4,12 @@
 @section('meta_description', $portfolio->meta_description ?? Str::limit($portfolio->short_description, 160))
 @section('meta_keywords', $portfolio->meta_keywords)
 
+@include('frontend.partials.breadcrumb-schema', ['crumbs' => [
+    ['name' => 'Home', 'url' => route('home')],
+    ['name' => 'Portfolio', 'url' => route('portfolio.index')],
+    ['name' => $portfolio->title, 'url' => route('portfolio.show', $portfolio->slug)],
+]])
+
 @section('content')
 
 <style>

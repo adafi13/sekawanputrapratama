@@ -238,7 +238,7 @@ body:not(.is-mobile).tt-smooth-scroll #scroll-container {
   height: 100vh;
 }
 .wrap.bg-noise {
-  background: url(../media/vector/bg-noise.png);
+  background: url(../media/vector/bg-noise.webp);
   background-size: auto;
   background-repeat: repeat;
   height: 100%;

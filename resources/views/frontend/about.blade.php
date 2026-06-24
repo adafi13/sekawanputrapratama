@@ -3,6 +3,11 @@
 @section('title', 'Tentang Kami - PT Sekawan Putra Pratama')
 @section('meta_description', 'Mengenal tim profesional PT Sekawan Putra Pratama — mitra IT terpercaya sejak 2024 untuk solusi web, mobile, dan infrastruktur teknologi.')
 
+@include('frontend.partials.breadcrumb-schema', ['crumbs' => [
+    ['name' => 'Home', 'url' => route('home')],
+    ['name' => 'Tentang Kami', 'url' => route('about')],
+]])
+
 @section('content')
 
 {{-- CSS & DESIGN SYSTEM (UI-UX-PRO-MAX) --}}
@@ -268,7 +273,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
               [
                 'name' => 'Abdul Malik Ibrahim', 
                 'role' => 'App Developer', 
-                'img' => 'abdul-malik.png', 
+                'img' => 'abdul-malik.webp',
                 'ig' => 'https://www.instagram.com/malikibrahim915/',
                 'exp' => '7+ Tahun',
                 'desc' => 'Berpengalaman membangun aplikasi mobile dan desktop modern, responsif, dan berperforma tinggi.'
@@ -276,7 +281,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
               [
                 'name' => 'Aries Adityanto', 
                 'role' => 'Project Manager', 
-                'img' => 'aries-adityanto.png', 
+                'img' => 'aries-adityanto.webp',
                 'ig' => 'https://www.instagram.com/arisadit_ya/',
                 'exp' => '5+ Tahun',
                 'desc' => 'Memastikan setiap proyek berjalan presisi, tepat waktu, dan sesuai kebutuhan klien.'
@@ -284,7 +289,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
               [
                 'name' => 'M. Aditya Novaldy', 
                 'role' => 'Server & Networking', 
-                'img' => 'aditya-novaldy.png', 
+                'img' => 'aditya-novaldy.webp',
                 'ig' => 'https://www.instagram.com/aditya13nvl/',
                 'exp' => '6+ Tahun',
                 'desc' => 'Ahli infrastruktur server dan jaringan, memastikan koneksi stabil dan sistem berjalan lancar.'
@@ -292,7 +297,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
               [
                 'name' => 'M. Naufal Fathuroni', 
                 'role' => 'UI/UX Designer', 
-                'img' => 'muhammad-naufal-fauthuroni.png', 
+                'img' => 'muhammad-naufal-fauthuroni.webp',
                 'ig' => 'https://www.instagram.com/nnovalf/',
                 'exp' => '2+ Tahun',
                 'desc' => 'Merancang antarmuka intuitif yang fokus pada pengalaman pengguna dan estetika visual.'
@@ -300,7 +305,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
               [
                 'name' => 'Alfario Dafa Mustofa', 
                 'role' => 'Office Server', 
-                'img' => 'alfario-daffa-mustofa.png', 
+                'img' => 'alfario-daffa-mustofa.webp',
                 'ig' => 'https://www.instagram.com/dafmstfa_/',
                 'exp' => '5+ Tahun',
                 'desc' => 'Spesialis setup server kantor, konfigurasi jaringan internal, dan keamanan data perusahaan.'

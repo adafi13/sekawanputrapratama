@@ -3,6 +3,12 @@
 @section('title', ($blog->meta_title ?? $blog->title) . ' - PT Sekawan Putra Pratama')
 @section('meta_description', $blog->meta_description ?? Str::limit($blog->excerpt, 160))
 
+@include('frontend.partials.breadcrumb-schema', ['crumbs' => [
+    ['name' => 'Home', 'url' => route('home')],
+    ['name' => 'Blog', 'url' => route('blog.index')],
+    ['name' => $blog->title, 'url' => route('blog.show', $blog->slug)],
+]])
+
 @push('styles')
 <style>
     .blog-detail-hero {

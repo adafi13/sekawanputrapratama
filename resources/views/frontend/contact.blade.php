@@ -3,6 +3,11 @@
 @section('title', 'Hubungi Kami - Sekawan Putra Pratama')
 @section('meta_description', 'Konsultasikan kebutuhan IT Anda secara gratis. Tim Sekawan Putra Pratama siap membantu dalam 24 jam.')
 
+@include('frontend.partials.breadcrumb-schema', ['crumbs' => [
+    ['name' => 'Home', 'url' => route('home')],
+    ['name' => 'Kontak', 'url' => route('contact')],
+]])
+
 @section('content')
 
 {{-- ===== HERO ===== --}}
@@ -11,9 +16,9 @@
   <div class="ctc-hero-orb o2"></div>
   <div class="ctc-hero-mesh"></div>
   <div class="container text-center position-relative z-2">
-    <span class="ctc-pill"><span class="ctc-dot"></span>Open for Projects</span>
-    <h1 class="ctc-hero-title">Mari Bangun Sesuatu yang<br><span class="ctc-grad">Luar Biasa</span> Bersama Kami</h1>
-    <div class="ctc-typewriter-wrap">
+    <span class="ctc-pill reveal"><span class="ctc-dot"></span>Open for Projects</span>
+    <h1 class="ctc-hero-title reveal delay-100">Mari Bangun Sesuatu yang<br><span class="ctc-grad">Luar Biasa</span> Bersama Kami</h1>
+    <div class="ctc-typewriter-wrap reveal delay-200">
       <span id="typewriter-text"></span><span class="ctc-cursor">|</span>
     </div>
   </div>
@@ -25,7 +30,7 @@
     <div class="ctc-grid">
 
       {{-- ===== LEFT: Info Sidebar ===== --}}
-      <div class="ctc-sidebar">
+      <div class="ctc-sidebar reveal-left">
 
         <div class="ctc-sidebar-header">
           <h3 class="ctc-sidebar-title">Informasi Kontak</h3>
@@ -33,7 +38,7 @@
         </div>
 
         <div class="ctc-info-cards">
-          <a href="mailto:sekawanputrapratama@gmail.com" class="ctc-info-card">
+          <a href="mailto:sekawanputrapratama@gmail.com" class="ctc-info-card reveal-left delay-100">
             <div class="ctc-info-icon ctc-blue">
               <i class="fas fa-envelope"></i>
             </div>
@@ -44,7 +49,7 @@
             <i class="fas fa-arrow-right ctc-info-arrow"></i>
           </a>
 
-          <a href="https://wa.me/6285156412702" target="_blank" class="ctc-info-card">
+          <a href="https://wa.me/6285156412702" target="_blank" class="ctc-info-card reveal-left delay-200">
             <div class="ctc-info-icon ctc-green">
               <i class="fab fa-whatsapp"></i>
             </div>
@@ -55,7 +60,7 @@
             <i class="fas fa-arrow-right ctc-info-arrow"></i>
           </a>
 
-          <div class="ctc-info-card ctc-info-card-addr">
+          <div class="ctc-info-card ctc-info-card-addr reveal-left delay-300">
             <div class="ctc-info-icon ctc-red">
               <i class="fas fa-map-marker-alt"></i>
             </div>
@@ -70,7 +75,7 @@
         </div>
 
         {{-- Map --}}
-        <div class="ctc-map-wrap">
+        <div class="ctc-map-wrap reveal-left delay-400">
           <iframe
             src="https://www.google.com/maps?q=-6.3776515,107.1246921&z=18&output=embed"
             width="100%" height="220" style="border:0;" allowfullscreen="" loading="lazy">
@@ -78,7 +83,7 @@
         </div>
 
         {{-- Social / Response Badge --}}
-        <div class="ctc-response-badge">
+        <div class="ctc-response-badge reveal-left delay-400">
           <div class="ctc-response-icon"><i class="fas fa-clock"></i></div>
           <div>
             <span class="ctc-response-title">Waktu Respons</span>
@@ -89,7 +94,7 @@
       </div>
 
       {{-- ===== RIGHT: Form ===== --}}
-      <div class="ctc-form-wrap">
+      <div class="ctc-form-wrap reveal-right">
         <div class="ctc-form-card">
 
           <div class="ctc-form-header">
