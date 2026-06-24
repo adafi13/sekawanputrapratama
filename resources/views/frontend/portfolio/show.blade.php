@@ -69,6 +69,25 @@
 }
 .pfs-featured-img img { width: 100%; max-height: 560px; object-fit: cover; display: block; }
 
+.pfs-browser-frame {
+  border-radius: 24px; overflow: hidden; box-shadow: var(--shadow-lg); margin-top: -90px;
+  position: relative; z-index: 5; border: 1px solid var(--border-card); background: #1e293b;
+}
+.pfs-browser-bar { display: flex; align-items: center; gap: 16px; padding: 14px 20px; background: #1e293b; }
+.pfs-browser-dots { display: flex; gap: 7px; flex-shrink: 0; }
+.pfs-dot { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+.pfs-dot.red { background: #ef4444; }
+.pfs-dot.yellow { background: #f59e0b; }
+.pfs-dot.green { background: #22c55e; }
+.pfs-browser-url {
+  flex: 1; max-width: 320px; margin: 0 auto; background: rgba(255,255,255,0.08); border-radius: 8px;
+  padding: 6px 14px; color: #94a3b8; font-size: 12px; font-weight: 500; text-align: center;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.pfs-browser-url i { margin-right: 6px; color: #64748b; font-size: 10px; }
+.pfs-browser-screen { background: #fff; overflow: hidden; }
+.pfs-browser-screen img { width: 100%; max-height: 560px; object-fit: cover; display: block; }
+
 .pfs-csr-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 50px 0; }
 .pfs-csr-card {
   background: var(--bg-alt); border: 1px solid var(--border-card); border-radius: 18px; padding: 28px;
@@ -129,10 +148,19 @@
 
 .pfs-related-section { background: var(--bg-alt); padding: 80px 0; border-top: 1px solid var(--border-card); }
 
+.pfs-gallery-item { position: relative; }
+.pfs-gallery-zoom-overlay {
+  position: absolute; inset: 0; background: rgba(15,23,42,0.45); display: flex; align-items: center;
+  justify-content: center; opacity: 0; transition: opacity 0.3s ease; color: #fff; font-size: 22px; pointer-events: none;
+}
+.pfs-gallery-item:hover .pfs-gallery-zoom-overlay { opacity: 1; }
+
+.pfs-metric-value { display: inline-block; }
+
 @media (max-width: 768px) {
   .pfs-csr-grid { grid-template-columns: 1fr; }
   .pfs-gallery { grid-template-columns: repeat(2, 1fr); }
-  .pfs-featured-img { margin-top: -50px; }
+  .pfs-featured-img, .pfs-browser-frame { margin-top: -50px; }
 }
 </style>
 
@@ -173,29 +201,47 @@
 
         @php
             $showImg = $portfolio->getFirstMediaUrl('featured_image') ?: ($portfolio->featured_image ? Storage::url($portfolio->featured_image) : null);
+            $isWebsite = $portfolio->category && str_contains(strtolower($portfolio->category->slug), 'web');
+            $browserUrl = $portfolio->project_url
+                ? (parse_url($portfolio->project_url, PHP_URL_HOST) ?: $portfolio->project_url)
+                : Str::slug($portfolio->title) . '.com';
         @endphp
         @if($showImg)
-        <div class="pfs-featured-img">
-          <img src="{{ $showImg }}" alt="{{ $portfolio->title }}" loading="lazy">
-        </div>
+            @if($isWebsite)
+            <div class="pfs-browser-frame reveal">
+              <div class="pfs-browser-bar">
+                <div class="pfs-browser-dots">
+                  <span class="pfs-dot red"></span><span class="pfs-dot yellow"></span><span class="pfs-dot green"></span>
+                </div>
+                <div class="pfs-browser-url"><i class="fas fa-lock"></i> {{ $browserUrl }}</div>
+              </div>
+              <div class="pfs-browser-screen">
+                <img src="{{ $showImg }}" alt="{{ $portfolio->title }}" loading="lazy">
+              </div>
+            </div>
+            @else
+            <div class="pfs-featured-img reveal">
+              <img src="{{ $showImg }}" alt="{{ $portfolio->title }}" loading="lazy">
+            </div>
+            @endif
         @endif
 
         @if($portfolio->challenge || $portfolio->solution || $portfolio->results)
         <div class="pfs-csr-grid">
           @if($portfolio->challenge)
-          <div class="pfs-csr-card challenge">
+          <div class="pfs-csr-card challenge reveal">
             <h6>Challenge</h6>
             <p>{{ $portfolio->challenge }}</p>
           </div>
           @endif
           @if($portfolio->solution)
-          <div class="pfs-csr-card solution">
+          <div class="pfs-csr-card solution reveal delay-100">
             <h6>Solution</h6>
             <p>{{ $portfolio->solution }}</p>
           </div>
           @endif
           @if($portfolio->results)
-          <div class="pfs-csr-card results">
+          <div class="pfs-csr-card results reveal delay-200">
             <h6>Results</h6>
             <p>{{ $portfolio->results }}</p>
           </div>
@@ -211,12 +257,12 @@
 
         @if($portfolio->metrics && is_array($portfolio->metrics) && count($portfolio->metrics) > 0)
         <div>
-          <h5 class="pfs-section-title">Key Metrics</h5>
+          <h5 class="pfs-section-title reveal">Key Metrics</h5>
           <div class="pfs-metrics">
             @foreach($portfolio->metrics as $metric)
                 @if(isset($metric['label']) && isset($metric['value']))
-                <div class="pfs-metric-card">
-                  <h3>{{ $metric['value'] }}</h3>
+                <div class="pfs-metric-card reveal delay-{{ ($loop->index % 4 + 1) * 100 }}">
+                  <h3 class="pfs-metric-value">{{ $metric['value'] }}</h3>
                   <p>{{ $metric['label'] }}</p>
                 </div>
                 @endif
@@ -227,11 +273,12 @@
 
         @if($portfolio->images && is_array($portfolio->images) && count($portfolio->images) > 0)
         <div>
-          <h5 class="pfs-section-title">Gallery</h5>
+          <h5 class="pfs-section-title reveal">Gallery</h5>
           <div class="pfs-gallery">
             @foreach($portfolio->images as $image)
-                <a href="{{ Storage::url($image) }}" data-lightbox="gallery" data-title="{{ $portfolio->title }}" class="pfs-gallery-item">
+                <a href="{{ Storage::url($image) }}" data-lightbox="gallery" data-title="{{ $portfolio->title }}" class="pfs-gallery-item reveal delay-{{ ($loop->index % 3 + 1) * 100 }}">
                   <img src="{{ Storage::url($image) }}" alt="{{ $portfolio->title }}" loading="lazy">
+                  <span class="pfs-gallery-zoom-overlay"><i class="fas fa-search-plus"></i></span>
                 </a>
             @endforeach
           </div>
@@ -239,7 +286,7 @@
         @endif
 
         @if($portfolio->technologies)
-        <div class="mb-5">
+        <div class="mb-5 reveal">
           <h5 class="pfs-section-title">Technologies</h5>
           <div class="d-flex flex-wrap gap-2">
             @foreach(is_array($portfolio->technologies) ? $portfolio->technologies : explode(',', $portfolio->technologies) as $tech)
@@ -250,7 +297,7 @@
         @endif
 
         @if($portfolio->client_name || $portfolio->project_url)
-        <div class="pfs-cta-box">
+        <div class="pfs-cta-box reveal">
             @if($portfolio->client_name)
             <div>
               <p class="client-label mb-0">Client</p>
@@ -331,5 +378,56 @@
 .pfs-related-body p { color: var(--text-muted); font-size: 0.85rem; margin: 0; }
 </style>
 @endif
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const counters = document.querySelectorAll('.pfs-metric-value');
+  if (!counters.length) return;
+
+  function animate(el) {
+    const raw = el.dataset.value;
+    const match = raw.match(/[\d.,]+/);
+    if (!match) return;
+    const numStr = match[0].replace(/,/g, '');
+    const target = parseFloat(numStr);
+    if (isNaN(target)) return;
+    const prefix = raw.slice(0, match.index);
+    const suffix = raw.slice(match.index + match[0].length);
+    const decimals = numStr.includes('.') ? numStr.split('.')[1].length : 0;
+    const duration = 1200;
+    const start = performance.now();
+
+    function step(now) {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = prefix + (target * eased).toFixed(decimals) + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+      else el.textContent = raw;
+    }
+    requestAnimationFrame(step);
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        animate(entry.target);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+
+  counters.forEach((el) => {
+    const raw = el.textContent.trim();
+    el.dataset.value = raw;
+    const match = raw.match(/[\d.,]+/);
+    if (match) {
+      const numStr = match[0].replace(/,/g, '');
+      const decimals = numStr.includes('.') ? numStr.split('.')[1].length : 0;
+      el.textContent = raw.slice(0, match.index) + (0).toFixed(decimals) + raw.slice(match.index + match[0].length);
+    }
+    observer.observe(el);
+  });
+});
+</script>
 
 @endsection
