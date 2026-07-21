@@ -960,7 +960,7 @@ body {
                 <span style="width: 10px; height: 10px; background: #ef4444; border-radius: 50%;"></span>
                 <span style="width: 10px; height: 10px; background: #f59e0b; border-radius: 50%;"></span>
                 <span style="width: 10px; height: 10px; background: #10b981; border-radius: 50%;"></span>
-                <span class="text-white-50 font-monospace ms-2" style="font-size: 11px;">sekawan-enterprise-v12.prt</span>
+                <span class="text-white-50 font-monospace ms-2" style="font-size: 11px;">sekawanputrapratama.com</span>
               </div>
               <div class="latency-pill-badge" id="serverLatencyBadge">
                 <span class="latency-dot"></span>
