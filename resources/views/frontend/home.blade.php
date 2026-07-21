@@ -2277,6 +2277,11 @@ document.addEventListener('DOMContentLoaded', function () {
       cleanPillarsTable = '<p style="font-size:10px; color:#475569; margin:0;">Modul terintegrasi microservices & offline-first sync.</p>';
     }
 
+    const companyAddress = @json(\App\Models\Setting::get('contact.address', 'Perumahan Mega Regency, Blk. L5 No. 23, Sukaragam, Bekasi, Jawa Barat 17330'));
+    const companyPhone = @json(\App\Models\Setting::get('contact.phone', '+62 851-5641-2702'));
+    const companyEmail = @json(\App\Models\Setting::get('contact.email', 'admin@sekawanputrapratama.com'));
+    const companyName = @json(strtoupper(\App\Models\Setting::get('site.company_name', 'PT SEKAWAN PUTRA PRATAMA')));
+
     const today = new Date().toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' });
     const docNo = 'SPP-PROP/' + new Date().getFullYear() + '/07/' + Math.floor(1000 + Math.random() * 9000);
 
@@ -2288,14 +2293,14 @@ document.addEventListener('DOMContentLoaded', function () {
           <tr>
             <td style="width: 65%; vertical-align: top;">
               <div style="font-size: 20px; font-weight: 900; color: #0f172a; letter-spacing: 0.5px; margin-bottom: 2px;">
-                PT SEKAWAN PUTRA PRATAMA
+                ${companyName}
               </div>
               <div style="font-size: 10px; font-weight: bold; color: #0284c7; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">
                 Enterprise IT Solution & Digital Transformation Consultant
               </div>
               <div style="font-size: 9px; color: #64748b; line-height: 1.3;">
-                Perumahan Mega Regency, Blk. L5 No. 23, Sukaragam, Bekasi, Jawa Barat 17330<br>
-                Email: admin@sekawanputrapratama.com | WA: +62 851-5641-2702 | Web: sekawanputrapratama.com
+                ${companyAddress}<br>
+                Email: ${companyEmail} | WA: ${companyPhone} | Web: sekawanputrapratama.com
               </div>
             </td>
             <td style="width: 35%; text-align: right; vertical-align: top;">
@@ -2376,7 +2381,7 @@ document.addEventListener('DOMContentLoaded', function () {
               * Estimasi bersifat referensi resmi untuk pembahasan rapat anggaran internal direksi.
             </td>
             <td style="width: 45%; text-align: center; vertical-align: top;">
-              <div style="font-size: 8.5px; color: #64748b; margin-bottom: 2px;">Hormat Kami,<br><strong style="color:#0f172a;">PT SEKAWAN PUTRA PRATAMA</strong></div>
+              <div style="font-size: 8.5px; color: #64748b; margin-bottom: 2px;">Hormat Kami,<br><strong style="color:#0f172a;">${companyName}</strong></div>
               
               <!-- Digital Signature & Official Stamp Graphic -->
               <div style="position: relative; width: 140px; height: 38px; margin: 0 auto;">
