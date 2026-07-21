@@ -6,6 +6,7 @@ use App\Filament\Resources\Customers\CustomerResource;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ViewAction;
 use Filament\Resources\Pages\EditRecord;
+use Illuminate\Support\Facades\Schema;
 
 class EditCustomer extends EditRecord
 {
@@ -17,5 +18,18 @@ class EditCustomer extends EditRecord
             ViewAction::make(),
             DeleteAction::make(),
         ];
+    }
+
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        if (!Schema::hasColumn('customers', 'password') || empty($data['password'])) {
+            unset($data['password']);
+        }
+
+        if (!Schema::hasColumn('customers', 'is_portal_active')) {
+            unset($data['is_portal_active']);
+        }
+
+        return $data;
     }
 }

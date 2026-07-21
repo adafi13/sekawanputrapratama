@@ -42,6 +42,7 @@ class CustomerForm
                 TextInput::make('password')
                     ->label('Portal Password')
                     ->password()
+                    ->dehydrated(fn ($state) => filled($state))
                     ->helperText('Kosongkan jika tidak ingin mengubah password saat ini.'),
             ];
 
