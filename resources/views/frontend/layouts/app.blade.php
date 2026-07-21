@@ -858,6 +858,82 @@
         </div>
     </div>
 
+    {{-- Sticky Mobile Bottom Action Bar --}}
+    <div class="mobile-sticky-bar d-lg-none">
+        <div class="mobile-sticky-inner">
+            <a href="https://wa.me/6285156412702?text=Halo%20Tim%20Sekawan%20Putra%20Pratama%2C%20saya%20tertarik%20untuk%20berkonsultasi%20mengenai%20layanan%20IT%20%2F%20Software." target="_blank" rel="noopener noreferrer" class="sticky-btn sticky-btn-wa">
+                <i class="fab fa-whatsapp fa-lg"></i>
+                <span>Chat WhatsApp</span>
+            </a>
+            <a href="{{ route('contact') }}" class="sticky-btn sticky-btn-quote">
+                <i class="fas fa-paper-plane"></i>
+                <span>Minta Penawaran</span>
+            </a>
+        </div>
+    </div>
+
+    <style>
+        /* Mobile Sticky Action Bar */
+        @media (max-width: 991px) {
+            body {
+                padding-bottom: 70px !important;
+            }
+            .mobile-sticky-bar {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                z-index: 9980;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(16px);
+                -webkit-backdrop-filter: blur(16px);
+                border-top: 1px solid rgba(0, 0, 0, 0.08);
+                padding: 10px 16px;
+                box-shadow: 0 -10px 25px rgba(0, 0, 0, 0.08);
+            }
+            .mobile-sticky-inner {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+            .sticky-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                padding: 12px 14px;
+                border-radius: 14px;
+                font-weight: 700;
+                font-size: 13px;
+                text-decoration: none;
+                transition: all 0.3s ease;
+            }
+            .sticky-btn-wa {
+                background: #25D366;
+                color: #ffffff !important;
+                box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+            }
+            .sticky-btn-wa:hover {
+                background: #20ba5a;
+                color: #ffffff !important;
+            }
+            .sticky-btn-quote {
+                background: var(--electric-blue, #3B82F6);
+                color: #ffffff !important;
+                box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+            }
+            .sticky-btn-quote:hover {
+                background: #2563eb;
+                color: #ffffff !important;
+            }
+            .wa-float-menu {
+                bottom: 80px !important;
+            }
+        }
+    </style>
+
     <script>
         function toggleWAMenu() {
             var menu = document.getElementById('wa-float-menu');
