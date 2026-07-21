@@ -100,15 +100,6 @@ class FrontendController extends Controller
 
         $cleanEmail = strtolower(trim($request->input('email')));
 
-        // Cek apakah email sudah ada di tabel Leads
-        $existingLead = Lead::where('email', $cleanEmail)->exists();
-
-        if ($existingLead) {
-            return back()
-                ->withInput()
-                ->with('error', 'Mohon maaf, email ini SUDAH TERDAFTAR. Tim kami sedang memproses pesan Anda sebelumnya.');
-        }
-
         // VALIDASI
         $validated = $request->validate([
             'company_name' => 'required|string|max:255',
@@ -132,7 +123,6 @@ class FrontendController extends Controller
 
         try {
             // A. Simpan ke tabel ContactMessage (Arsip Pesan)
-
             ContactMessage::create([
                 'name' => $validated['name'],
                 'email' => $validated['email'],
@@ -141,23 +131,48 @@ class FrontendController extends Controller
                 'message' => $validated['message'],
             ]);
 
-            // B. Simpan ke tabel Leads (Data CRM)
+            // B. Simpan / Perbarui tabel Leads (Data CRM)
+            $existingLead = Lead::where('email', $cleanEmail)->first();
+
             $leadData = [
                 'company_name' => $validated['company_name'],
-                'contact_person' => $validated['name'], // Mapping: name -> contact_person
-                'name' => $validated['name'],           // Mapping: jaga-jaga jika view email butuh 'name'
+                'contact_person' => $validated['name'],
+                'name' => $validated['name'],
                 'email' => $validated['email'],
                 'phone' => $validated['phone'] ?? null,
-                'service' => $validated['service'],     // Simpan service agar bisa dipanggil email
-                'message' => $validated['message'],     // Simpan message agar bisa dipanggil email
-                'status' => 'new',
-                'source' => 'website',
-                
-                'notes' => "Layanan: " . ($validated['service'] ?? '-') . "\n\nPesan:\n" . $validated['message'],
+                'service' => $validated['service'],
+                'message' => $validated['message'],
             ];
-            
-            // Simpan Lead
-            $lead = Lead::create($leadData); 
+
+            if ($existingLead) {
+                // Update Lead yang sudah ada
+                $newNote = "\n\n--- Pesan Baru (" . now()->format('d M Y H:i') . ") ---\nLayanan: " . $validated['service'] . "\nPesan:\n" . $validated['message'];
+                $existingLead->notes = ($existingLead->notes ?? '') . $newNote;
+                $existingLead->company_name = $validated['company_name'];
+                $existingLead->contact_person = $validated['name'];
+                if (!empty($validated['phone'])) {
+                    $existingLead->phone = $validated['phone'];
+                }
+                
+                // Jika status sebelumnya lost, hidupkan kembali sebagai new lead
+                if ($existingLead->status === 'lost') {
+                    $existingLead->status = 'new';
+                }
+                
+                $existingLead->touch();
+                $existingLead->save();
+            } else {
+                // Buat Lead Baru
+                Lead::create([
+                    'company_name' => $validated['company_name'],
+                    'contact_person' => $validated['name'],
+                    'email' => $validated['email'],
+                    'phone' => $validated['phone'] ?? null,
+                    'status' => 'new',
+                    'source' => 'website',
+                    'notes' => "Layanan: " . ($validated['service'] ?? '-') . "\n\nPesan:\n" . $validated['message'],
+                ]);
+            }
             
             // 1. Ke Admin
             Mail::to('sekawanputrapratama@gmail.com')->send(new AdminLeadNotification($leadData));

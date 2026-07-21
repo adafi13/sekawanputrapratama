@@ -41,14 +41,6 @@ class SitemapController extends Controller
             ->setPriority(0.8)
             ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY));
 
-        // Services
-        Service::where('is_active', true)
-            ->each(function (Service $service) use ($sitemap) {
-                $sitemap->add(Url::create(route('services.show', $service->slug))
-                    ->setPriority(0.7)
-                    ->setLastModificationDate($service->updated_at)
-                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY));
-            });
 
         // Portfolios
         Portfolio::whereNull('deleted_at')

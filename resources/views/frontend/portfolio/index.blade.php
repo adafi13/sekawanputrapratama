@@ -107,6 +107,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
   height: 100%;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 .project-card:hover { transform: translateY(-12px); box-shadow: 0 40px 80px -20px rgba(0,0,0,0.12); border-color: var(--color-secondary); }
 
@@ -126,7 +127,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
   transition: all 0.4s ease;
 }
 .project-card:hover .project-overlay { opacity: 1; }
-.view-btn { background: #fff; color: var(--color-navy); padding: 12px 28px; border-radius: 50px; font-weight: 700; text-decoration: none; transform: translateY(20px); transition: all 0.4s ease; }
+.view-btn { background: #fff; color: var(--color-navy); padding: 12px 28px; border-radius: 50px; font-weight: 700; text-decoration: none; transform: translateY(20px); transition: all 0.4s ease; position: relative; z-index: 2; }
 .project-card:hover .view-btn { transform: translateY(0); }
 
 .project-content { padding: 30px; flex-grow: 1; display: flex; flex-direction: column; }
@@ -229,7 +230,9 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
                 @if($featured->category)
                   <span class="project-cat">{{ $featured->category->name }}</span>
                 @endif
-                <h3 class="project-title">{{ Str::limit($featured->title, 45) }}</h3>
+                <h3 class="project-title">
+                  <a href="{{ route('portfolio.show', $featured->slug) }}" class="stretched-link" style="color: inherit; text-decoration: none;">{{ Str::limit($featured->title, 45) }}</a>
+                </h3>
                 <p class="project-desc">{{ Str::limit($featured->short_description, 100) }}</p>
                 <div class="project-meta">
                   <div class="meta-client">
@@ -267,7 +270,9 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
               @if($portfolio->category)
                 <span class="project-cat">{{ $portfolio->category->name }}</span>
               @endif
-              <h3 class="project-title">{{ Str::limit($portfolio->title, 50) }}</h3>
+              <h3 class="project-title">
+                <a href="{{ route('portfolio.show', $portfolio->slug) }}" class="stretched-link" style="color: inherit; text-decoration: none;">{{ Str::limit($portfolio->title, 50) }}</a>
+              </h3>
               <p class="project-desc">{{ Str::limit($portfolio->short_description, 100) }}</p>
               <div class="project-meta">
                 <div class="meta-client">
