@@ -1391,6 +1391,115 @@ body {
 </section>
 
 {{-- ==========================================
+     BUSINESS ROI & COST EFFICIENCY CALCULATOR
+     ========================================== --}}
+<section class="py-5 text-white position-relative overflow-hidden" style="background: linear-gradient(135deg, #090e1a 0%, #0d1527 100%); border-top: 1px solid rgba(56, 189, 248, 0.2); border-bottom: 1px solid rgba(56, 189, 248, 0.2);">
+  <div class="container py-4">
+    
+    {{-- Section Header --}}
+    <div class="text-center max-w-700 mx-auto mb-5 reveal">
+      <span class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-primary bg-opacity-20 text-info border border-info border-opacity-30 small font-monospace fw-bold mb-3">
+        <i class="fas fa-chart-line me-1"></i> KALKULATOR EFISIENSI BISNIS & ROI
+      </span>
+      <h2 class="fw-bold text-white display-6 mb-3">
+        Hitung Potensi <span class="text-gradient-cyan">Penghematan Biaya</span> Perusahaan Anda.
+      </h2>
+      <p class="text-white-50">
+        Estimasi otomatis efisiensi waktu kerja & penghematan biaya operasional tahunan setelah beralih ke software custom terintegrasi PT Sekawan Putra Pratama.
+      </p>
+    </div>
+
+    {{-- Calculator Card Container --}}
+    <div class="row g-4 align-items-center">
+      
+      {{-- Left Side: Sliders Input --}}
+      <div class="col-lg-6 reveal">
+        <div class="p-4 p-md-5 rounded-4 bg-dark bg-opacity-60 border border-secondary border-opacity-30 backdrop-blur shadow-lg">
+          <h5 class="fw-bold text-white mb-4 d-flex align-items-center gap-2">
+            <i class="fas fa-sliders-h text-info"></i> Parameter Operasional Karyawan
+          </h5>
+
+          {{-- Slider 1: Team Size --}}
+          <div class="mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <label class="text-white-50 small fw-bold">Jumlah Karyawan Operasional:</label>
+              <span class="badge bg-info bg-opacity-20 text-info font-monospace fs-6 px-3" id="teamSizeVal">15 Orang</span>
+            </div>
+            <input type="range" class="form-range" id="teamSizeRange" min="3" max="150" step="1" value="15" oninput="calculateBusinessROI()">
+            <div class="d-flex justify-content-between text-white-50 font-monospace" style="font-size: 10px;">
+              <span>3 Orang</span>
+              <span>150+ Karyawan</span>
+            </div>
+          </div>
+
+          {{-- Slider 2: Salary --}}
+          <div class="mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <label class="text-white-50 small fw-bold">Rata-rata Gaji/Bulan per Karyawan:</label>
+              <span class="badge bg-info bg-opacity-20 text-info font-monospace fs-6 px-3" id="salaryVal">Rp 6.000.000</span>
+            </div>
+            <input type="range" class="form-range" id="salaryRange" min="3000000" max="25000000" step="500000" value="6000000" oninput="calculateBusinessROI()">
+            <div class="d-flex justify-content-between text-white-50 font-monospace" style="font-size: 10px;">
+              <span>Rp 3 Jt</span>
+              <span>Rp 25 Jt+</span>
+            </div>
+          </div>
+
+          {{-- Slider 3: Hours Spent --}}
+          <div class="mb-3">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <label class="text-white-50 small fw-bold">Waktu Manual Dihabiskan per Hari:</label>
+              <span class="badge bg-info bg-opacity-20 text-info font-monospace fs-6 px-3" id="hoursVal">3 Jam / Hari</span>
+            </div>
+            <input type="range" class="form-range" id="hoursRange" min="1" max="6" step="0.5" value="3" oninput="calculateBusinessROI()">
+            <div class="d-flex justify-content-between text-white-50 font-monospace" style="font-size: 10px;">
+              <span>1 Jam (Tugas Rutin)</span>
+              <span>6 Jam (Proses Manual Berat)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {{-- Right Side: Result Highlight Card --}}
+      <div class="col-lg-6 reveal delay-200">
+        <div class="p-4 p-md-5 rounded-4 border border-info border-opacity-40 position-relative overflow-hidden" style="background: rgba(14, 165, 233, 0.08); backdrop-filter: blur(12px);">
+          
+          <div class="mb-4">
+            <span class="text-white-50 text-uppercase font-monospace small" style="letter-spacing: 1px;">ESTIMASI PENGHEMATAN BIAYA TAHUNAN</span>
+            <div class="display-5 fw-extrabold text-info my-2 font-monospace" id="savingsResult">
+              Rp 378.000.000 <span class="fs-6 text-white-50 fw-normal">/ Tahun</span>
+            </div>
+            <p class="text-white-50 small mb-0">
+              *Berdasarkan 220 hari kerja efektif dengan efisiensi waktu hingga 65% setelah digitalisasi.
+            </p>
+          </div>
+
+          <div class="row g-3 py-3 border-top border-bottom border-secondary border-opacity-30 mb-4">
+            <div class="col-6">
+              <span class="text-white-50 small d-block mb-1">Total Jam Dihemat:</span>
+              <span class="h5 fw-bold text-white font-monospace mb-0" id="hoursSavedResult">9.900 Jam</span>
+            </div>
+            <div class="col-6">
+              <span class="text-white-50 small d-block mb-1">Estimasi Balik Modal (ROI):</span>
+              <span class="h5 fw-bold text-success font-monospace mb-0" id="paybackResult">3 - 5 Bulan</span>
+            </div>
+          </div>
+
+          <div class="d-flex flex-column flex-sm-row gap-3">
+            <a href="https://wa.me/6281234567890?text=Halo%20Sekawan%20Putra%20Pratama,%20saya%20tertarik%20konsultasi%20software%20custom" id="btnClaimROI" target="_blank" class="btn-primary-glow w-100 justify-content-center text-decoration-none">
+              <i class="fab fa-whatsapp me-2 fs-5"></i> Konsultasi Analisis ROI Ini
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+{{-- ==========================================
      BLOG PREVIEW
      ========================================== --}}
 <section class="blog-section">
@@ -1731,6 +1840,60 @@ document.addEventListener('DOMContentLoaded', function () {
 
   fetchSystemHealthData();
   setInterval(fetchSystemHealthData, 10000);
+
+  /* ---------------------------------------------------------
+     9. BUSINESS ROI CALCULATOR ENGINE
+     --------------------------------------------------------- */
+  function calculateBusinessROI() {
+    const teamEl = document.getElementById('teamSizeRange');
+    const salaryEl = document.getElementById('salaryRange');
+    const hoursEl = document.getElementById('hoursRange');
+
+    if (!teamEl || !salaryEl || !hoursEl) return;
+
+    const team = parseFloat(teamEl.value) || 15;
+    const salary = parseFloat(salaryEl.value) || 6000000;
+    const hours = parseFloat(hoursEl.value) || 3;
+
+    // Display input values
+    const teamValEl = document.getElementById('teamSizeVal');
+    const salaryValEl = document.getElementById('salaryVal');
+    const hoursValEl = document.getElementById('hoursVal');
+
+    if (teamValEl) teamValEl.textContent = team + ' Orang';
+    if (salaryValEl) salaryValEl.textContent = 'Rp ' + salary.toLocaleString('id-ID');
+    if (hoursValEl) hoursValEl.textContent = hours + ' Jam / Hari';
+
+    // Calculation:
+    const hourlyRate = salary / 176;
+    const efficiencyFactor = 0.65;
+    const workingDays = 220;
+
+    const totalHoursSaved = Math.round(team * hours * workingDays * efficiencyFactor);
+    const totalCostSaved = Math.round(totalHoursSaved * hourlyRate);
+
+    let payback = '3 - 5 Bulan';
+    if (totalCostSaved > 500000000) payback = '2 - 4 Bulan';
+    else if (totalCostSaved < 150000000) payback = '4 - 6 Bulan';
+
+    // Format output
+    const savingsEl = document.getElementById('savingsResult');
+    const hoursElRes = document.getElementById('hoursSavedResult');
+    const paybackEl = document.getElementById('paybackResult');
+
+    if (savingsEl) savingsEl.innerHTML = 'Rp ' + totalCostSaved.toLocaleString('id-ID') + ' <span class="fs-6 text-white-50 fw-normal">/ Tahun</span>';
+    if (hoursElRes) hoursElRes.textContent = totalHoursSaved.toLocaleString('id-ID') + ' Jam';
+    if (paybackEl) paybackEl.textContent = payback;
+
+    const waBtn = document.getElementById('btnClaimROI');
+    if (waBtn) {
+      const msg = encodeURIComponent('Halo PT Sekawan Putra Pratama, saya tertarik konsultasi software custom untuk ' + team + ' karyawan dengan potensi penghematan biaya Rp ' + totalCostSaved.toLocaleString('id-ID') + '/tahun.');
+      waBtn.href = 'https://wa.me/6281234567890?text=' + msg;
+    }
+  }
+
+  window.calculateBusinessROI = calculateBusinessROI;
+  calculateBusinessROI();
 
 });
 </script>
