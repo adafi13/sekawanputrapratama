@@ -1,16 +1,14 @@
 <?php
 
-namespace Database\Seeders;
-
+use Illuminate\Database\Migrations\Migration;
 use App\Models\Testimonial;
-use Illuminate\Database\Seeder;
 
-class TestimonialSeeder extends Seeder
+return new class extends Migration
 {
     /**
-     * Run the database seeds.
+     * Run the migrations.
      */
-    public function run(): void
+    public function up(): void
     {
         $testimonials = [
             [
@@ -66,6 +64,17 @@ class TestimonialSeeder extends Seeder
             );
         }
     }
-}
 
-
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Testimonial::whereIn('client_company', [
+            'PT Banyu Ayu Kosmetika',
+            'PT Gema Solution Teknik',
+            'PT Sarana Mitra Luas, Tbk.',
+            'Hyperlink ISP',
+        ])->delete();
+    }
+};
