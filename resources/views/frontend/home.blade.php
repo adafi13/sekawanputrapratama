@@ -1121,7 +1121,7 @@ body {
 
         {{-- Card 4: HTTPS & SSL Security --}}
         <div class="col-md-6 col-lg-3">
-          <div class="p-4 rounded-4 bg-white border h-100 shadow-sm cursor-pointer position-relative hover-lift" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#securityComplianceModal" title="Klik untuk melihat Dokumen Transparansi Keamanan & ISO 27001">
+          <div class="p-4 rounded-4 bg-white border h-100 shadow-sm cursor-pointer position-relative hover-lift" style="cursor: pointer;" onclick="openSecurityModal()" data-bs-toggle="modal" data-bs-target="#securityComplianceModal" title="Klik untuk melihat Dokumen Transparansi Keamanan & ISO 27001">
             <div class="d-flex align-items-center justify-content-between mb-3">
               <span class="text-success fs-4"><i class="fas fa-shield-alt"></i></span>
               <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-20 rounded-pill font-monospace" style="font-size: 10px;" id="securityBadge">
@@ -2396,6 +2396,30 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   window.downloadProposalPdf = downloadProposalPdf;
+
+  /* ---------------------------------------------------------
+     12. OPEN ISO 27001 SECURITY COMPLIANCE MODAL
+     --------------------------------------------------------- */
+  function openSecurityModal() {
+    const modalEl = document.getElementById('securityComplianceModal');
+    if (!modalEl) return;
+    try {
+      if (window.bootstrap && window.bootstrap.Modal) {
+        let m = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+        m.show();
+      } else if (typeof $ !== 'undefined' && $.fn && $.fn.modal) {
+        $('#securityComplianceModal').modal('show');
+      } else {
+        modalEl.classList.add('show');
+        modalEl.style.display = 'block';
+      }
+    } catch(e) {
+      modalEl.classList.add('show');
+      modalEl.style.display = 'block';
+    }
+  }
+
+  window.openSecurityModal = openSecurityModal;
 
 });
 </script>
