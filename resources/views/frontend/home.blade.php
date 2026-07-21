@@ -2302,7 +2302,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 Enterprise IT Solution & Digital Transformation Consultant
               </div>
               <div style="font-size: 9px; color: #64748b; line-height: 1.3;">
-                Jl. Boulevard Kota Harapan Indah, Bekasi, Jawa Barat<br>
+                Perumahan Mega Regency, Blk. L5 No. 23, Sukaragam, Bekasi, Jawa Barat 17330<br>
                 Email: admin@sekawanputrapratama.com | WA: +62 851-5641-2702 | Web: sekawanputrapratama.com
               </div>
             </td>
@@ -2377,16 +2377,36 @@ document.addEventListener('DOMContentLoaded', function () {
         </div>
 
         <!-- Sign-Off Footer -->
-        <table style="width: 100%; margin-top: 20px; padding-top: 10px; border-top: 1px solid #e2e8f0;">
+        <table style="width: 100%; margin-top: 15px; padding-top: 8px; border-top: 1px solid #e2e8f0;">
           <tr>
-            <td style="width: 60%; font-size: 9px; color: #64748b; vertical-align: bottom;">
+            <td style="width: 55%; font-size: 8.5px; color: #64748b; vertical-align: bottom;">
               * Dokumen ini diterbitkan resmi oleh sistem konsultasi PT Sekawan Putra Pratama.<br>
               * Estimasi bersifat referensi resmi untuk pembahasan rapat anggaran internal direksi.
             </td>
-            <td style="width: 40%; text-align: center; vertical-align: top;">
-              <div style="font-size: 9px; color: #64748b; margin-bottom: 35px;">Hormat Kami,<br><strong style="color:#0f172a;">PT SEKAWAN PUTRA PRATAMA</strong></div>
-              <strong style="display: block; font-size: 10px; color: #0f172a; text-decoration: underline;">Chief Solution Architect</strong>
-              <span style="font-size: 9px; color: #64748b;">Enterprise System Division</span>
+            <td style="width: 45%; text-align: center; vertical-align: top;">
+              <div style="font-size: 8.5px; color: #64748b; margin-bottom: 2px;">Hormat Kami,<br><strong style="color:#0f172a;">PT SEKAWAN PUTRA PRATAMA</strong></div>
+              
+              <!-- Digital Signature & Official Stamp Graphic -->
+              <div style="position: relative; width: 140px; height: 38px; margin: 0 auto;">
+                <!-- SVG Stamp -->
+                <svg width="50" height="50" viewBox="0 0 100 100" style="position: absolute; left: 8px; top: -6px; opacity: 0.85; transform: rotate(-10deg);">
+                  <circle cx="50" cy="50" r="46" fill="none" stroke="#0284c7" stroke-width="2.5" stroke-dasharray="5 2"/>
+                  <circle cx="50" cy="50" r="40" fill="none" stroke="#0284c7" stroke-width="1.5"/>
+                  <text x="50" y="38" font-size="6.5" font-weight="bold" fill="#0f172a" text-anchor="middle">PT SEKAWAN</text>
+                  <text x="50" y="48" font-size="5.5" font-weight="bold" fill="#0284c7" text-anchor="middle">PUTRA PRATAMA</text>
+                  <text x="50" y="58" font-size="5" font-weight="bold" fill="#16a34a" text-anchor="middle">★ VERIFIED ARCHITECT ★</text>
+                  <text x="50" y="66" font-size="4.5" font-weight="bold" fill="#0369a1" text-anchor="middle">BEKASI - INDONESIA</text>
+                </svg>
+                
+                <!-- SVG Digital Signature -->
+                <svg width="100" height="32" viewBox="0 0 200 80" style="position: absolute; right: 5px; top: 2px;">
+                  <path d="M 10 45 Q 30 10 50 40 T 90 20 T 130 50 T 170 30 L 190 40" fill="none" stroke="#0f172a" stroke-width="3" stroke-linecap="round"/>
+                  <path d="M 30 55 C 60 65 110 65 160 50" fill="none" stroke="#0284c7" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+
+              <strong style="display: block; font-size: 9.5px; color: #0f172a; text-decoration: underline; margin-top: 2px;">Chief Solution Architect</strong>
+              <span style="font-size: 8.5px; color: #64748b;">Enterprise System Division</span>
             </td>
           </tr>
         </table>
