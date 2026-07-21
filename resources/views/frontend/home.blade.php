@@ -1121,7 +1121,7 @@ body {
 
         {{-- Card 4: HTTPS & SSL Security --}}
         <div class="col-md-6 col-lg-3">
-          <div class="p-4 rounded-4 bg-white border h-100 shadow-sm cursor-pointer position-relative hover-lift" style="cursor: pointer;" onclick="openSecurityModal()" data-bs-toggle="modal" data-bs-target="#securityComplianceModal" title="Klik untuk melihat Dokumen Transparansi Keamanan & ISO 27001">
+          <div class="p-4 rounded-4 bg-white border h-100 shadow-sm cursor-pointer position-relative hover-lift" style="cursor: pointer;" onclick="openSecurityModal()" title="Klik untuk melihat Dokumen Transparansi Keamanan & ISO 27001">
             <div class="d-flex align-items-center justify-content-between mb-3">
               <span class="text-success fs-4"><i class="fas fa-shield-alt"></i></span>
               <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-20 rounded-pill font-monospace" style="font-size: 10px;" id="securityBadge">
@@ -1150,159 +1150,153 @@ body {
 </section>
 
 {{-- ==========================================
-     ISO 27001 & SECURITY COMPLIANCE MODAL
+     ISO 27001 CUSTOM OVERLAY MODAL
      ========================================== --}}
-<div class="modal fade" id="securityComplianceModal" tabindex="-1" aria-labelledby="securityComplianceModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+<div id="securityComplianceOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(5px); z-index: 999999; overflow-y: auto; padding: 20px 10px;" onclick="closeSecurityModal(event)">
+  <div style="max-width: 800px; margin: 30px auto; background: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.3);" onclick="event.stopPropagation()">
+    
+    {{-- Modal Header --}}
+    <div class="bg-slate-900 text-white p-4 d-flex align-items-center justify-content-between">
+      <div class="d-flex align-items-center gap-3">
+        <div class="p-3 bg-success bg-opacity-20 text-success rounded-3 border border-success border-opacity-30">
+          <i class="fas fa-user-shield fs-3"></i>
+        </div>
+        <div>
+          <span class="badge bg-success text-white font-monospace mb-1" style="font-size: 10px;">PROTOKOL DOKUMEN RESMI</span>
+          <h5 class="fw-bold text-white mb-0">Transparansi Keamanan & Standar ISO 27001</h5>
+          <small class="text-white-50">PT Sekawan Putra Pratama — Enterprise Infrastructure Compliance</small>
+        </div>
+      </div>
+      <button type="button" class="btn-close btn-close-white" onclick="closeSecurityModal()"></button>
+    </div>
+
+    {{-- Modal Body --}}
+    <div class="p-4 p-md-5 bg-white">
       
-      {{-- Modal Header --}}
-      <div class="modal-header bg-slate-900 text-white p-4 border-0">
-        <div class="d-flex align-items-center gap-3">
-          <div class="p-3 bg-success bg-opacity-20 text-success rounded-3 border border-success border-opacity-30">
-            <i class="fas fa-user-shield fs-3"></i>
-          </div>
-          <div>
-            <span class="badge bg-success text-white font-monospace mb-1" style="font-size: 10px;">PROTOKOL DOKUMEN RESMI</span>
-            <h5 class="modal-title fw-bold text-white mb-0" id="securityComplianceModalLabel">
-              Transparansi Keamanan & Standar ISO 27001
-            </h5>
-            <small class="text-white-50">PT Sekawan Putra Pratama — Enterprise Infrastructure Compliance</small>
+      {{-- Quick Audit Badges --}}
+      <div class="row g-2 mb-4">
+        <div class="col-6 col-md-3">
+          <div class="p-3 bg-light rounded-3 border text-center">
+            <i class="fas fa-lock text-primary mb-1 d-block fs-5"></i>
+            <strong class="d-block text-slate-900 small">Enkripsi TLS 1.3</strong>
+            <span class="text-muted font-monospace" style="font-size: 10px;">Data in Transit</span>
           </div>
         </div>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="col-6 col-md-3">
+          <div class="p-3 bg-light rounded-3 border text-center">
+            <i class="fas fa-key text-success mb-1 d-block fs-5"></i>
+            <strong class="d-block text-slate-900 small">AES-256 Bit</strong>
+            <span class="text-muted font-monospace" style="font-size: 10px;">Data at Rest</span>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="p-3 bg-light rounded-3 border text-center">
+            <i class="fas fa-shield-virus text-info mb-1 d-block fs-5"></i>
+            <strong class="d-block text-slate-900 small">WAF & OWASP 10</strong>
+            <span class="text-muted font-monospace" style="font-size: 10px;">Realtime Firewall</span>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="p-3 bg-light rounded-3 border text-center">
+            <i class="fas fa-history text-warning mb-1 d-block fs-5"></i>
+            <strong class="d-block text-slate-900 small">Backup 24/7</strong>
+            <span class="text-muted font-monospace" style="font-size: 10px;">Disaster Recovery</span>
+          </div>
+        </div>
       </div>
 
-      {{-- Modal Body --}}
-      <div class="modal-body p-4 p-md-5 bg-white">
-        
-        {{-- Quick Audit Badges --}}
-        <div class="row g-2 mb-4">
-          <div class="col-6 col-md-3">
-            <div class="p-3 bg-light rounded-3 border text-center">
-              <i class="fas fa-lock text-primary mb-1 d-block fs-5"></i>
-              <strong class="d-block text-slate-900 small">Enkripsi TLS 1.3</strong>
-              <span class="text-muted font-monospace" style="font-size: 10px;">Data in Transit</span>
-            </div>
-          </div>
-          <div class="col-6 col-md-3">
-            <div class="p-3 bg-light rounded-3 border text-center">
-              <i class="fas fa-key text-success mb-1 d-block fs-5"></i>
-              <strong class="d-block text-slate-900 small">AES-256 Bit</strong>
-              <span class="text-muted font-monospace" style="font-size: 10px;">Data at Rest</span>
-            </div>
-          </div>
-          <div class="col-6 col-md-3">
-            <div class="p-3 bg-light rounded-3 border text-center">
-              <i class="fas fa-shield-virus text-info mb-1 d-block fs-5"></i>
-              <strong class="d-block text-slate-900 small">WAF & OWASP 10</strong>
-              <span class="text-muted font-monospace" style="font-size: 10px;">Realtime Firewall</span>
-            </div>
-          </div>
-          <div class="col-6 col-md-3">
-            <div class="p-3 bg-light rounded-3 border text-center">
-              <i class="fas fa-history text-warning mb-1 d-block fs-5"></i>
-              <strong class="d-block text-slate-900 small">Backup 24/7</strong>
-              <span class="text-muted font-monospace" style="font-size: 10px;">Disaster Recovery</span>
-            </div>
+      <h6 class="fw-bold text-slate-900 mb-3 font-monospace text-uppercase text-primary" style="font-size: 12px; letter-spacing: 0.5px;">
+        <i class="fas fa-check-double me-1"></i> Standar Perlindungan Keamanan Sistem:
+      </h6>
+
+      {{-- 4 Pillars Grid --}}
+      <div class="row g-3 mb-4">
+        <div class="col-md-6">
+          <div class="p-3 bg-light rounded-3 border h-100">
+            <h6 class="fw-bold text-slate-900 mb-1" style="font-size: 14px;">
+              <i class="fas fa-user-lock text-success me-1"></i> Enkripsi Data Berstandar Militer
+            </h6>
+            <p class="text-muted small mb-0">
+              Seluruh lalu lintas data dienkripsi dengan protokol <strong>HTTPS TLS 1.3</strong>. Penyimpanan database dan kredensial sensitif dilindungi enkripsi <strong>AES-256 bit</strong> & hashing argon2/bcrypt.
+            </p>
           </div>
         </div>
 
-        <h6 class="fw-bold text-slate-900 mb-3 font-monospace text-uppercase text-primary" style="font-size: 12px; letter-spacing: 0.5px;">
-          <i class="fas fa-check-double me-1"></i> Standar Perlindungan Keamanan Sistem:
-        </h6>
-
-        {{-- 4 Pillars Grid --}}
-        <div class="row g-3 mb-4">
-          <div class="col-md-6">
-            <div class="p-3 bg-light rounded-3 border h-100">
-              <h6 class="fw-bold text-slate-900 mb-1" style="font-size: 14px;">
-                <i class="fas fa-user-lock text-success me-1"></i> Enkripsi Data Berstandar Militer
-              </h6>
-              <p class="text-muted small mb-0">
-                Seluruh lalu lintas data dienkripsi dengan protokol <strong>HTTPS TLS 1.3</strong>. Penyimpanan database dan kredensial sensitif dilindungi enkripsi <strong>AES-256 bit</strong> & hashing argon2/bcrypt.
-              </p>
-            </div>
-          </div>
-
-          <div class="col-md-6">
-            <div class="p-3 bg-light rounded-3 border h-100">
-              <h6 class="fw-bold text-slate-900 mb-1" style="font-size: 14px;">
-                <i class="fas fa-bug-slash text-primary me-1"></i> OWASP Top 10 & Anti-DDoS WAF
-              </h6>
-              <p class="text-muted small mb-0">
-                Sistem dilengkapi Web Application Firewall (WAF) terintegrasi untuk mencegah serangan SQL Injection, Cross-Site Scripting (XSS), CSRF, Rate Limiting, serta pencegahan DDoS otomatis.
-              </p>
-            </div>
-          </div>
-
-          <div class="col-md-6">
-            <div class="p-3 bg-light rounded-3 border h-100">
-              <h6 class="fw-bold text-slate-900 mb-1" style="font-size: 14px;">
-                <i class="fas fa-cloud-upload-alt text-info me-1"></i> Automatic Backup & Multi-Region SLA
-              </h6>
-              <p class="text-muted small mb-0">
-                Snapshot backup database dan aset dikirim secara terenkripsi ke storage terisolasi setiap 24 jam dengan replikasi server multi-region untuk toleransi bencana (disaster recovery).
-              </p>
-            </div>
-          </div>
-
-          <div class="col-md-6">
-            <div class="p-3 bg-light rounded-3 border h-100">
-              <h6 class="fw-bold text-slate-900 mb-1" style="font-size: 14px;">
-                <i class="fas fa-clipboard-check text-warning me-1"></i> ISO 27001 Security Audit Trail
-              </h6>
-              <p class="text-muted small mb-0">
-                Pencatatan riwayat (audit log) lengkap untuk setiap perubahan data, Role-Based Access Control (RBAC) ketat, dan otentikasi multi-faktor (MFA) untuk hak akses administrator.
-              </p>
-            </div>
+        <div class="col-md-6">
+          <div class="p-3 bg-light rounded-3 border h-100">
+            <h6 class="fw-bold text-slate-900 mb-1" style="font-size: 14px;">
+              <i class="fas fa-bug-slash text-primary me-1"></i> OWASP Top 10 & Anti-DDoS WAF
+            </h6>
+            <p class="text-muted small mb-0">
+              Sistem dilengkapi Web Application Firewall (WAF) terintegrasi untuk mencegah serangan SQL Injection, Cross-Site Scripting (XSS), CSRF, Rate Limiting, serta pencegahan DDoS otomatis.
+            </p>
           </div>
         </div>
 
-        {{-- SLA Recovery Matrix Table --}}
-        <div class="p-3 rounded-3 bg-slate-900 text-white mb-3">
-          <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom border-secondary">
-            <span class="fw-bold small font-monospace text-warning"><i class="fas fa-tachometer-alt me-1"></i> MATRIKS SLA RECOVERY & PENJAMINAN INFRASTRUKTUR</span>
-            <span class="badge bg-success font-monospace" style="font-size: 10px;">100% OPERATIONAL</span>
-          </div>
-          <div class="row text-center g-2 font-monospace" style="font-size: 12px;">
-            <div class="col-3">
-              <span class="text-white-50 d-block small">RPO (Recovery Point)</span>
-              <strong class="text-success">&lt; 15 Menit</strong>
-            </div>
-            <div class="col-3">
-              <span class="text-white-50 d-block small">RTO (Recovery Time)</span>
-              <strong class="text-success">&lt; 1 Jam</strong>
-            </div>
-            <div class="col-3">
-              <span class="text-white-50 d-block small">Uptime SLA</span>
-              <strong class="text-success">99.99%</strong>
-            </div>
-            <div class="col-3">
-              <span class="text-white-50 d-block small">Incident Response</span>
-              <strong class="text-success">&lt; 30 Menit</strong>
-            </div>
+        <div class="col-md-6">
+          <div class="p-3 bg-light rounded-3 border h-100">
+            <h6 class="fw-bold text-slate-900 mb-1" style="font-size: 14px;">
+              <i class="fas fa-cloud-upload-alt text-info me-1"></i> Automatic Backup & Multi-Region SLA
+            </h6>
+            <p class="text-muted small mb-0">
+              Snapshot backup database dan aset dikirim secara terenkripsi ke storage terisolasi setiap 24 jam dengan replikasi server multi-region untuk toleransi bencana (disaster recovery).
+            </p>
           </div>
         </div>
 
+        <div class="col-md-6">
+          <div class="p-3 bg-light rounded-3 border h-100">
+            <h6 class="fw-bold text-slate-900 mb-1" style="font-size: 14px;">
+              <i class="fas fa-clipboard-check text-warning me-1"></i> ISO 27001 Security Audit Trail
+            </h6>
+            <p class="text-muted small mb-0">
+              Pencatatan riwayat (audit log) lengkap untuk setiap perubahan data, Role-Based Access Control (RBAC) ketat, dan otentikasi multi-faktor (MFA) untuk hak akses administrator.
+            </p>
+          </div>
+        </div>
       </div>
 
-      {{-- Modal Footer --}}
-      <div class="modal-footer bg-light p-3 border-top d-flex justify-content-between align-items-center">
-        <span class="text-muted small"><i class="fas fa-shield-alt text-success me-1"></i> Tim Engineer kami siap menandatangani NDA & Compliance Audit.</span>
-        <a href="https://wa.me/6285156412702?text=Halo%20Tim%20Security%20PT%20Sekawan%20Putra%20Pratama,%20saya%20ingin%20konsultasi%20mengenai%20standar%20keamanan%20ISO%2027001%20dan%20compliance%20project%20enterprise%20kami." target="_blank" class="btn btn-success font-monospace fw-bold px-4">
-          <i class="fab fa-whatsapp me-1"></i> Diskusi Compliance dengan Tim Security
-        </a>
+      {{-- SLA Matrix --}}
+      <div class="p-3 rounded-3 bg-slate-900 text-white mb-3">
+        <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom border-secondary">
+          <span class="fw-bold small font-monospace text-warning"><i class="fas fa-tachometer-alt me-1"></i> MATRIKS SLA RECOVERY & PENJAMINAN INFRASTRUKTUR</span>
+          <span class="badge bg-success font-monospace" style="font-size: 10px;">100% OPERATIONAL</span>
+        </div>
+        <div class="row text-center g-2 font-monospace" style="font-size: 12px;">
+          <div class="col-3">
+            <span class="text-white-50 d-block small">RPO (Recovery Point)</span>
+            <strong class="text-success">&lt; 15 Menit</strong>
+          </div>
+          <div class="col-3">
+            <span class="text-white-50 d-block small">RTO (Recovery Time)</span>
+            <strong class="text-success">&lt; 1 Jam</strong>
+          </div>
+          <div class="col-3">
+            <span class="text-white-50 d-block small">Uptime SLA</span>
+            <strong class="text-success">99.99%</strong>
+          </div>
+          <div class="col-3">
+            <span class="text-white-50 d-block small">Incident Response</span>
+            <strong class="text-success">&lt; 30 Menit</strong>
+          </div>
+        </div>
       </div>
 
     </div>
+
+    {{-- Modal Footer --}}
+    <div class="bg-light p-3 border-top d-flex flex-wrap justify-content-between align-items-center gap-2">
+      <span class="text-muted small"><i class="fas fa-shield-alt text-success me-1"></i> Tim Engineer kami siap menandatangani NDA & Compliance Audit.</span>
+      <a href="https://wa.me/6285156412702?text=Halo%20Tim%20Security%20PT%20Sekawan%20Putra%20Pratama,%20saya%20ingin%20konsultasi%20mengenai%20standar%20keamanan%20ISO%2027001%20dan%20compliance%20project%20enterprise%20kami." target="_blank" class="btn btn-success font-monospace fw-bold px-4">
+        <i class="fab fa-whatsapp me-1"></i> Diskusi Compliance dengan Tim Security
+      </a>
+    </div>
+
   </div>
 </div>
 
 {{-- ==========================================
      TRUSTED BY (BRAND LOGOS)
-     ========================================== --}}
-@if($brands->isNotEmpty())
 <section class="brands-section">
   <p class="brands-label reveal">Dipercaya oleh berbagai perusahaan</p>
   <div class="brands-marquee">
@@ -2424,28 +2418,22 @@ document.addEventListener('DOMContentLoaded', function () {
   window.downloadProposalPdf = downloadProposalPdf;
 
   /* ---------------------------------------------------------
-     12. OPEN ISO 27001 SECURITY COMPLIANCE MODAL
+     12. OPEN & CLOSE ISO 27001 SECURITY COMPLIANCE MODAL
      --------------------------------------------------------- */
   function openSecurityModal() {
-    const modalEl = document.getElementById('securityComplianceModal');
-    if (!modalEl) return;
-    try {
-      if (window.bootstrap && window.bootstrap.Modal) {
-        let m = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
-        m.show();
-      } else if (typeof $ !== 'undefined' && $.fn && $.fn.modal) {
-        $('#securityComplianceModal').modal('show');
-      } else {
-        modalEl.classList.add('show');
-        modalEl.style.display = 'block';
-      }
-    } catch(e) {
-      modalEl.classList.add('show');
-      modalEl.style.display = 'block';
+    const el = document.getElementById('securityComplianceOverlay');
+    if (el) el.style.display = 'block';
+  }
+
+  function closeSecurityModal(e) {
+    if (!e || e.target.id === 'securityComplianceOverlay' || e.target.classList.contains('btn-close')) {
+      const el = document.getElementById('securityComplianceOverlay');
+      if (el) el.style.display = 'none';
     }
   }
 
   window.openSecurityModal = openSecurityModal;
+  window.closeSecurityModal = closeSecurityModal;
 
 });
 </script>
