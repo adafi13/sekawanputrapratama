@@ -2048,9 +2048,18 @@ document.addEventListener('DOMContentLoaded', function () {
       const stackEl = document.getElementById('aiTechStack');
       const whyEl = document.getElementById('aiWhyText');
 
+      let formattedStack = d.stack;
+      if (Array.isArray(d.stack)) {
+        formattedStack = d.stack.join(' • ');
+      }
+      let formattedSla = d.estimated_sla;
+      if (typeof d.estimated_sla === 'object' && d.estimated_sla !== null) {
+        formattedSla = d.estimated_sla.availability ? (d.estimated_sla.availability + ' SLA') : '99.99% SLA';
+      }
+
       if (titleEl) titleEl.textContent = d.architecture_title || 'Arsitektur Enterprise IT';
-      if (slaEl) slaEl.textContent = d.estimated_sla || '99.9% SLA';
-      if (stackEl) stackEl.textContent = d.stack || 'Laravel 12 REST API + Flutter Mobile App';
+      if (slaEl) slaEl.textContent = formattedSla || '99.9% SLA';
+      if (stackEl) stackEl.textContent = formattedStack || 'Laravel 12 REST API + Flutter Mobile App';
       if (whyEl) whyEl.textContent = d.why_this_architecture || '';
 
       const sourceBadge = document.getElementById('aiSourceBadge');
