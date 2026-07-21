@@ -18,7 +18,7 @@ class JobApplicationResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
-    protected static ?string $navigationGroup = 'Recruitment / Karir';
+    protected static string|\UnitEnum|null $navigationGroup = 'Recruitment / Karir';
 
     protected static ?string $navigationLabel = 'Berkas Pelamar CV';
 

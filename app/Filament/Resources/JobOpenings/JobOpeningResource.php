@@ -18,7 +18,7 @@ class JobOpeningResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-briefcase';
 
-    protected static ?string $navigationGroup = 'Recruitment / Karir';
+    protected static string|\UnitEnum|null $navigationGroup = 'Recruitment / Karir';
 
     protected static ?string $navigationLabel = 'Lowongan Kerja';
 
