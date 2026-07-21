@@ -2,6 +2,9 @@
 
 namespace App\Filament\Resources\Contracts\Schemas;
 
+use App\Models\Customer;
+use App\Models\Project;
+use App\Models\Quotation;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
@@ -22,18 +25,21 @@ class ContractForm
                     ->required(),
                 Select::make('project_id')
                     ->label('Proyek Terkait')
-                    ->relationship('project', 'name')
+                    ->options(Project::pluck('name', 'id'))
                     ->searchable()
+                    ->preload()
                     ->required(),
                 Select::make('customer_id')
                     ->label('Customer / Klien')
-                    ->relationship('customer', 'company_name')
+                    ->options(Customer::pluck('company_name', 'id'))
                     ->searchable()
+                    ->preload()
                     ->required(),
                 Select::make('quotation_id')
                     ->label('Quotation (Opsional)')
-                    ->relationship('quotation', 'quotation_number')
+                    ->options(Quotation::pluck('quotation_number', 'id'))
                     ->searchable()
+                    ->preload()
                     ->nullable(),
                 TextInput::make('contract_value')
                     ->label('Nilai Kontrak (Rp)')
