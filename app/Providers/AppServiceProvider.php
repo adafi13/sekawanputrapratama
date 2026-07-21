@@ -43,5 +43,11 @@ class AppServiceProvider extends ServiceProvider
         Quotation::observe(QuotationObserver::class);
         QuotationItem::observe(QuotationItemObserver::class);
         Project::observe(ProjectObserver::class);
+
+        // Share active services with navigation menu
+        \Illuminate\Support\Facades\View::composer(['frontend.layouts.menu-links', 'frontend.layouts.app'], function ($view) {
+            $navServices = Service::where('is_active', true)->orderBy('order')->get();
+            $view->with('navServices', $navServices);
+        });
     }
 }

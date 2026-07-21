@@ -224,10 +224,52 @@
         /* Override border/lines from legacy css */
         .main-menu__list > li > a::before, .main-menu__list > li > a::after { display: none !important; }
         .main-menu__list > li.current > a,
-        .main-menu__list > li > a:hover {
-            color: var(--electric-blue) !important;
-        }
         .header-logo { height: 45px; width: auto; }
+
+        /* Dropdown Navigation Menu */
+        .nav-item-dropdown { position: relative; }
+        .nav-dropdown-icon { font-size: 10px; transition: transform 0.3s ease; }
+        .nav-item-dropdown:hover .nav-dropdown-icon { transform: rotate(180deg); }
+        .nav-dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 250px;
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 12px 16px;
+            margin: 0;
+            list-style: none;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+            border: 1px solid rgba(0,0,0,0.06);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(15px);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 999;
+        }
+        .nav-item-dropdown:hover .nav-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .nav-dropdown-menu li { margin: 4px 0; }
+        .nav-dropdown-menu li a {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            color: #334155 !important;
+            font-size: 13px;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+        .nav-dropdown-menu li a:hover {
+            background: #f1f5f9;
+            color: var(--electric-blue) !important;
+            transform: translateX(4px);
+        }
 
         /* ---- NAV CTA BUTTON ---- */
         .header-btn {

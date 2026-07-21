@@ -251,9 +251,14 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
           @endforeach
         </div>
         @endif
-        <a href="{{ route('contact') }}" class="svc-btn-outline">
-          Konsultasi Sekarang <i class="fas fa-arrow-right"></i>
-        </a>
+        <div class="d-flex flex-wrap gap-3">
+          <a href="{{ route('services.show', $service->slug) }}" class="svc-btn-outline" style="background: var(--color-primary); color: #fff;">
+            Detail Layanan <i class="fas fa-arrow-right"></i>
+          </a>
+          <a href="{{ route('contact') }}" class="svc-btn-outline">
+            Konsultasi <i class="fas fa-comments"></i>
+          </a>
+        </div>
       </div>
       <div class="svc-visual">
         @php

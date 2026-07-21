@@ -85,6 +85,26 @@ class FrontendController extends Controller
         return view('frontend.services', compact('services'));
     }
 
+    public function serviceShow($slug)
+    {
+        $service = Service::where('slug', $slug)
+            ->where('is_active', true)
+            ->firstOrFail();
+
+        $relatedServices = Service::where('is_active', true)
+            ->where('id', '!=', $service->id)
+            ->orderBy('order')
+            ->take(3)
+            ->get();
+
+        $portfolios = Portfolio::where('service_id', $service->id)
+            ->orderBy('created_at', 'desc')
+            ->take(3)
+            ->get();
+
+        return view('frontend.services.show', compact('service', 'relatedServices', 'portfolios'));
+    }
+
     public function contact()
     {
         return view('frontend.contact');
