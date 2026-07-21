@@ -44,22 +44,41 @@
             </div>
 
             {{-- BANK TRANSFER DETAILS --}}
+            @php
+                $bcaName = \App\Models\Setting::get('bank.bca_name') ?: 'Bank Central Asia (BCA)';
+                $bcaAccount = \App\Models\Setting::get('bank.bca_account');
+                $bcaHolder = \App\Models\Setting::get('bank.bca_holder') ?: 'PT Sekawan Putra Pratama';
+                
+                // Fallback default if Bank 1 account number not saved yet
+                if (!$bcaAccount) {
+                    $bcaAccount = '8415-6412-702';
+                }
+
+                $mandiriName = \App\Models\Setting::get('bank.mandiri_name');
+                $mandiriAccount = \App\Models\Setting::get('bank.mandiri_account');
+                $mandiriHolder = \App\Models\Setting::get('bank.mandiri_holder');
+                
+                $hasBank2 = !empty($mandiriAccount);
+            @endphp
+
             <h5 class="fw-bold text-dark mb-3"><i class="fas fa-university text-primary me-2"></i> Rekening Pembayaran Resmi</h5>
             <div class="row g-3 mb-4">
-                <div class="col-md-6">
-                    <div class="p-3 bg-white border rounded-3 h-100">
-                        <div class="fw-bold text-dark"><i class="fas fa-credit-card text-primary me-1"></i> {{ \App\Models\Setting::get('bank.bca_name', 'Bank Central Asia (BCA)') }}</div>
-                        <div class="fs-5 fw-bold text-primary my-1">{{ \App\Models\Setting::get('bank.bca_account', '8415-6412-702') }}</div>
-                        <div class="small text-muted">a.n. {{ \App\Models\Setting::get('bank.bca_holder', 'PT Sekawan Putra Pratama') }}</div>
+                <div class="{{ $hasBank2 ? 'col-md-6' : 'col-md-12' }}">
+                    <div class="p-3 bg-white border rounded-3 h-100 shadow-sm">
+                        <div class="fw-bold text-dark"><i class="fas fa-credit-card text-primary me-1"></i> {{ $bcaName }}</div>
+                        <div class="fs-4 fw-bold text-primary my-2">{{ $bcaAccount }}</div>
+                        <div class="small text-muted">a.n. {{ $bcaHolder }}</div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="p-3 bg-white border rounded-3 h-100">
-                        <div class="fw-bold text-dark"><i class="fas fa-credit-card text-primary me-1"></i> {{ \App\Models\Setting::get('bank.mandiri_name', 'Bank Mandiri') }}</div>
-                        <div class="fs-5 fw-bold text-primary my-1">{{ \App\Models\Setting::get('bank.mandiri_account', '156-00-1845-6412') }}</div>
-                        <div class="small text-muted">a.n. {{ \App\Models\Setting::get('bank.mandiri_holder', 'PT Sekawan Putra Pratama') }}</div>
+                @if($hasBank2)
+                    <div class="col-md-6">
+                        <div class="p-3 bg-white border rounded-3 h-100 shadow-sm">
+                            <div class="fw-bold text-dark"><i class="fas fa-credit-card text-primary me-1"></i> {{ $mandiriName ?: 'Bank Mandiri' }}</div>
+                            <div class="fs-4 fw-bold text-primary my-2">{{ $mandiriAccount }}</div>
+                            <div class="small text-muted">a.n. {{ $mandiriHolder ?: 'PT Sekawan Putra Pratama' }}</div>
+                        </div>
                     </div>
-                </div>
+                @endif
             </div>
         </div>
     </div>

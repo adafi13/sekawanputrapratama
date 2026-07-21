@@ -107,13 +107,13 @@ class ManageSettings extends Page
                             ]),
                         Tab::make('Rekening Pembayaran')
                             ->schema([
-                                TextInput::make('bank.bca_name')->label('Nama Bank 1')->default('Bank Central Asia (BCA)'),
-                                TextInput::make('bank.bca_account')->label('Nomor Rekening Bank 1')->placeholder('8415-6412-702'),
-                                TextInput::make('bank.bca_holder')->label('Atas Nama (A.N.) Bank 1')->placeholder('PT Sekawan Putra Pratama'),
-                                TextInput::make('bank.mandiri_name')->label('Nama Bank 2')->default('Bank Mandiri'),
-                                TextInput::make('bank.mandiri_account')->label('Nomor Rekening Bank 2')->placeholder('156-00-1845-6412'),
-                                TextInput::make('bank.mandiri_holder')->label('Atas Nama (A.N.) Bank 2')->placeholder('PT Sekawan Putra Pratama'),
-                            ])->columns(2),
+                                TextInput::make('bank.bca_name')->label('Nama Bank 1 (Utama)')->default('Bank Central Asia (BCA)'),
+                                TextInput::make('bank.bca_account')->label('Nomor Rekening Bank 1'),
+                                TextInput::make('bank.bca_holder')->label('Atas Nama (A.N.) Bank 1')->default('PT Sekawan Putra Pratama'),
+                                TextInput::make('bank.mandiri_name')->label('Nama Bank 2 (Opsional)'),
+                                TextInput::make('bank.mandiri_account')->label('Nomor Rekening Bank 2 (Opsional)'),
+                                TextInput::make('bank.mandiri_holder')->label('Atas Nama (A.N.) Bank 2 (Opsional)'),
+                            ]),
                     ]),
             ])
             ->statePath('data');
