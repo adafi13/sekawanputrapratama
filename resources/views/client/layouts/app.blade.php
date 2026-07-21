@@ -151,7 +151,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('client.projects.*') || request()->routeIs('client.projects*') ? 'active' : '' }}" href="{{ route('client.projects.index') }}">
+                <a href="{{ route('client.projects.index') }}" class="{{ request()->routeIs('client.projects*') ? 'active' : '' }}">
                     <i class="fas fa-project-diagram w-20"></i> Proyek Saya
                 </a>
             </li>
