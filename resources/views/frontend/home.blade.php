@@ -1,5 +1,12 @@
 @extends('frontend.layouts.app')
 
+@php
+    $pdfCompanyAddress = \App\Models\Setting::get('contact.address', 'Perumahan Mega Regency, Blk. L5 No. 23, Sukaragam, Bekasi, Jawa Barat 17330');
+    $pdfCompanyPhone = \App\Models\Setting::get('contact.phone', '+62 851-5641-2702');
+    $pdfCompanyEmail = \App\Models\Setting::get('contact.email', 'admin@sekawanputrapratama.com');
+    $pdfCompanyName = strtoupper(\App\Models\Setting::get('site.company_name', 'PT SEKAWAN PUTRA PRATAMA'));
+@endphp
+
 @section('title', 'Jasa IT Terpercaya | Software House & IT Consultant - PT Sekawan Putra Pratama')
 @section('meta_description', 'Software house terpercaya sejak 2024. Jasa pembuatan website profesional, aplikasi mobile Android/iOS, instalasi server & jaringan kantor. Konsultasi GRATIS!')
 @section('meta_keywords', 'jasa IT terpercaya, software house Indonesia, jasa pembuatan website, aplikasi mobile, instalasi server, IT consultant Jakarta, web developer profesional')
@@ -2275,10 +2282,10 @@ document.addEventListener('DOMContentLoaded', function () {
       cleanPillarsTable = '<p style="font-size:10px; color:#475569; margin:0;">Modul terintegrasi microservices & offline-first sync.</p>';
     }
 
-    const companyAddress = @json(\App\Models\Setting::get('contact.address', 'Perumahan Mega Regency, Blk. L5 No. 23, Sukaragam, Bekasi, Jawa Barat 17330'));
-    const companyPhone = @json(\App\Models\Setting::get('contact.phone', '+62 851-5641-2702'));
-    const companyEmail = @json(\App\Models\Setting::get('contact.email', 'admin@sekawanputrapratama.com'));
-    const companyName = @json(strtoupper(\App\Models\Setting::get('site.company_name', 'PT SEKAWAN PUTRA PRATAMA')));
+    const companyAddress = {!! json_encode($pdfCompanyAddress) !!};
+    const companyPhone = {!! json_encode($pdfCompanyPhone) !!};
+    const companyEmail = {!! json_encode($pdfCompanyEmail) !!};
+    const companyName = {!! json_encode($pdfCompanyName) !!};
 
     const today = new Date().toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' });
     const docNo = 'SPP-PROP/' + new Date().getFullYear() + '/07/' + Math.floor(1000 + Math.random() * 9000);
