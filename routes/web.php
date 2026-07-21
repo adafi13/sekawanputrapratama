@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 // Public Frontend Routes
 Route::get('/', [FrontendController::class, 'home'])->name('home');
+Route::get('/api/system-health', [FrontendController::class, 'systemHealth'])->name('system-health');
 Route::get('/about', [FrontendController::class, 'about'])->name('about');
 Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
 Route::post('/contact', [FrontendController::class, 'contactStore'])->name('contact.store');
