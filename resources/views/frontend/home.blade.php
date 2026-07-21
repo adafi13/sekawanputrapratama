@@ -298,78 +298,137 @@ body {
     background: rgba(255, 255, 255, 0.1);
   }
 
-  /* Right Column (Orbital Graphic) */
-  .orbital-wrapper {
+  /* Enterprise 3D Hero Section Styles */
+  .hero-section {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background-color: #030712; /* Deep Obsidian Slate */
+    background-image: 
+      radial-gradient(circle at 75% 30%, rgba(37, 99, 235, 0.25) 0%, transparent 55%),
+      radial-gradient(circle at 25% 85%, rgba(14, 165, 233, 0.18) 0%, transparent 45%);
+    overflow: hidden;
+    padding-top: 140px; /* offset for navbar */
+    padding-bottom: 60px;
+  }
+
+  .text-gradient-enterprise {
+    background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* 3D Perspective Stage Container */
+  .hero-3d-stage {
+    perspective: 1200px;
+    transform-style: preserve-3d;
     position: relative;
     width: 100%;
-    height: 600px;
-  }
-  
-  .ring {
-    position: absolute;
-    border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.04);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-  .ring-1 { width: 300px; height: 300px; }
-  .ring-2 { width: 450px; height: 450px; }
-  .ring-3 { width: 600px; height: 600px; border: 1px dashed rgba(255, 255, 255, 0.05); }
-
-  .center-logo {
-    position: absolute;
-    width: 100px; height: 100px;
-    background: linear-gradient(135deg, #1e3a8a, #3b82f6);
-    border-radius: 20px;
+    height: 560px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0 50px rgba(59, 130, 246, 0.5), inset 0 0 20px rgba(255,255,255,0.2);
-    z-index: 10;
   }
-  .center-logo img { width: 60px; }
 
-  /* Floating Pills */
-  .float-pill {
+  .hero-3d-card-deck {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.15s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  /* 3D Glassmorphic Enterprise Core Platform */
+  .enterprise-core-platform {
     position: absolute;
-    background: rgba(15, 23, 42, 0.8);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 320px;
+    height: 320px;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    background: radial-gradient(circle at 30% 30%, rgba(30, 58, 138, 0.75) 0%, rgba(15, 23, 42, 0.95) 100%);
+    border: 1.5px solid rgba(56, 189, 248, 0.4);
+    border-radius: 36px;
+    box-shadow: 0 25px 60px -15px rgba(37, 99, 235, 0.5), inset 0 0 30px rgba(56, 189, 248, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(20px);
+    z-index: 10;
+    transform-style: preserve-3d;
+  }
+
+  /* 3D Orbit Rings */
+  .orbit-ring-3d {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotateX(60deg) rotateY(-15deg);
+    border-radius: 50%;
+    border: 1.5px solid rgba(56, 189, 248, 0.2);
+    pointer-events: none;
+  }
+  .orbit-ring-1 { width: 440px; height: 440px; }
+  .orbit-ring-2 { width: 580px; height: 580px; border-style: dashed; border-color: rgba(129, 140, 248, 0.25); }
+
+  /* Floating 3D Cards */
+  .float-3d-card {
+    position: absolute;
+    background: rgba(15, 23, 42, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(16px);
+    border-radius: 20px;
+    padding: 16px 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    transform-style: preserve-3d;
+    transition: all 0.3s ease;
+    z-index: 25;
+  }
+  .float-3d-card:hover {
+    border-color: #38bdf8;
+    box-shadow: 0 25px 50px rgba(56, 189, 248, 0.35);
+  }
+
+  .card-top-right {
+    top: 5%;
+    right: -2%;
+    transform: translate3d(0, 0, 60px);
+  }
+
+  .card-middle-left {
+    top: 40%;
+    left: -6%;
+    transform: translate3d(0, -50%, 80px);
+  }
+
+  .card-bottom-right {
+    bottom: 6%;
+    right: 2%;
+    transform: translate3d(0, 0, 50px);
+  }
+
+  /* Floating Tech Pill Badges */
+  .tech-3d-badge {
+    position: absolute;
+    background: rgba(30, 41, 59, 0.92);
+    border: 1px solid rgba(56, 189, 248, 0.3);
     color: #e2e8f0;
     padding: 8px 16px;
     border-radius: 50px;
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 700;
     display: flex;
     align-items: center;
     gap: 8px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-    z-index: 20;
-    white-space: nowrap;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    z-index: 30;
+    transform-style: preserve-3d;
   }
-  .float-pill i { color: #60a5fa; }
-  
-  /* Positions matching screenshot */
-  .fp-1 { top: 20%; right: 5%; animation: floatY 6s infinite ease-in-out; }
-  .fp-2 { top: 50%; right: -5%; transform: translateY(-50%); animation: floatY 5s infinite ease-in-out 1s; }
-  .fp-3 { bottom: 25%; left: 15%; animation: floatY 7s infinite ease-in-out 2s; }
-
-  /* Tiny dots on rings */
-  .ring-dot {
-    position: absolute;
-    width: 8px; height: 8px;
-    background: #3b82f6;
-    border-radius: 50%;
-    box-shadow: 0 0 10px #3b82f6;
-  }
-  .rd-1 { top: 30%; left: 0; transform: translate(-50%, -50%); }
-  .rd-2 { bottom: 20%; right: 10%; transform: translate(50%, 50%); }
-
-  @keyframes floatY {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
-  }
+  .tb-1 { top: 12%; left: 8%; transform: translate3d(0, 0, 100px); }
+  .tb-2 { bottom: 15%; left: 2%; transform: translate3d(0, 0, 90px); }
+  .tb-3 { top: 78%; right: 38%; transform: translate3d(0, 0, 110px); }
 
   /* Scroll Mouse Indicator */
   .mouse-scroll {
@@ -912,33 +971,64 @@ body {
         </div>
       </div>
 
-      {{-- RIGHT COLUMN: Orbital Graphic --}}
+      {{-- RIGHT COLUMN: Enterprise 3D Interactive Matrix Stage --}}
       <div class="col-lg-6 d-none d-lg-block">
-        <div class="orbital-wrapper reveal delay-300">
-          <div class="orbital-inner" id="orbitalInner">
-            {{-- Concentric Rings --}}
-            <div class="ring ring-1"></div>
-            <div class="ring ring-2">
-              <div class="ring-dot rd-1"></div>
-            </div>
-            <div class="ring ring-3">
-              <div class="ring-dot rd-2"></div>
+        <div class="hero-3d-stage reveal delay-300">
+          <div class="hero-3d-card-deck" id="hero3dDeck">
+            {{-- 3D Orbit Rings --}}
+            <div class="orbit-ring-3d orbit-ring-1"></div>
+            <div class="orbit-ring-3d orbit-ring-2"></div>
+
+            {{-- Center Enterprise Platform Core Node --}}
+            <div class="enterprise-core-platform">
+              <div class="badge bg-primary bg-opacity-20 text-info border border-info border-opacity-30 rounded-pill px-3 py-1 mb-3 small font-monospace">
+                <i class="fas fa-signal me-1"></i> SYSTEM OPERATIONAL
+              </div>
+              <img src="{{ asset('assets/media/logo1.png') }}" alt="Sekawan Logo" style="width: 75px; filter: drop-shadow(0 10px 20px rgba(56, 189, 248, 0.4));">
+              <h6 class="fw-bold text-white mt-3 mb-1 fs-6">PT SEKAWAN PUTRA PRATAMA</h6>
+              <span class="text-white-50" style="font-size: 11px;">Enterprise IT Infrastructure & Software</span>
             </div>
 
-            {{-- Center Logo --}}
-            <div class="center-logo">
-              <img src="{{ asset('assets/media/logo1.png') }}" alt="Icon">
+            {{-- Floating 3D Enterprise Feature Cards --}}
+            <div class="float-3d-card card-top-right">
+              <div class="d-flex align-items-center gap-3">
+                <div class="badge bg-info bg-opacity-20 text-info p-2 rounded-3 fs-5"><i class="fas fa-shield-check"></i></div>
+                <div>
+                  <h6 class="fw-bold text-white small mb-0">Keamanan & Infrastructure SLA</h6>
+                  <span class="text-white-50" style="font-size: 11px;"><i class="fas fa-lock text-success me-1"></i>ISO 27001 Ready • Uptime 99.9%</span>
+                </div>
+              </div>
             </div>
 
-            {{-- Floating Pills --}}
-            <div class="float-pill fp-1">
-              <i class="fas fa-shield-alt"></i> Keamanan Enterprise
+            <div class="float-3d-card card-middle-left">
+              <div class="d-flex align-items-center gap-3">
+                <div class="badge bg-primary bg-opacity-20 text-primary p-2 rounded-3 fs-5"><i class="fas fa-code-branch"></i></div>
+                <div>
+                  <h6 class="fw-bold text-white small mb-0">Clean Code & Architecture</h6>
+                  <span class="text-white-50" style="font-size: 11px;"><i class="fas fa-terminal text-info me-1"></i>Laravel 12 & Flutter Native Core</span>
+                </div>
+              </div>
             </div>
-            <div class="float-pill fp-2">
-              <i class="fas fa-code"></i> Clean Code
+
+            <div class="float-3d-card card-bottom-right">
+              <div class="d-flex align-items-center gap-3">
+                <div class="badge bg-warning bg-opacity-20 text-warning p-2 rounded-3 fs-5"><i class="fas fa-bolt"></i></div>
+                <div>
+                  <h6 class="fw-bold text-white small mb-0">High-Performance Query</h6>
+                  <span class="text-white-50" style="font-size: 11px;"><i class="fas fa-tachometer-alt text-warning me-1"></i>sub-100ms Ultra Fast API</span>
+                </div>
+              </div>
             </div>
-            <div class="float-pill fp-3">
-              <i class="fas fa-tachometer-alt"></i> Performa Tinggi
+
+            {{-- Floating Tech Badges --}}
+            <div class="tech-3d-badge tb-1">
+              <i class="fab fa-laravel text-danger fs-5"></i> Laravel 12
+            </div>
+            <div class="tech-3d-badge tb-2">
+              <i class="fab fa-google text-info fs-5"></i> Flutter Apps
+            </div>
+            <div class="tech-3d-badge tb-3">
+              <i class="fab fa-aws text-warning fs-5"></i> Cloud AWS & Docker
             </div>
           </div>
         </div>
@@ -1497,7 +1587,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ---------------------------------------------------------
-     6. MAGNETIC GLOW BUTTONS
+     6. MAGNETIC GLOW BUTTONS & 3D HERO TILT ENGINE
      --------------------------------------------------------- */
   document.querySelectorAll('.magnetic-btn').forEach(function (btn) {
     btn.addEventListener('mousemove', function (e) {
@@ -1506,6 +1596,38 @@ document.addEventListener('DOMContentLoaded', function () {
       btn.style.setProperty('--my', (e.clientY - r.top) + 'px');
     });
   });
+
+  // 3D Parallax Tilt Physics for Enterprise Deck
+  const heroSec = document.querySelector('.hero-section');
+  const hero3dDeck = document.getElementById('hero3dDeck');
+  
+  if (heroSec && hero3dDeck) {
+    let currX = 0, currY = 0;
+    let targetX = 0, targetY = 0;
+
+    heroSec.addEventListener('mousemove', (e) => {
+      const rect = heroSec.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+
+      targetX = (y / (rect.height / 2)) * -14; // Tilt X (-14 to +14 deg)
+      targetY = (x / (rect.width / 2)) * 16;   // Tilt Y (-16 to +16 deg)
+    });
+
+    heroSec.addEventListener('mouseleave', () => {
+      targetX = 0;
+      targetY = 0;
+    });
+
+    function animateHero3DTilt() {
+      currX += (targetX - currX) * 0.08;
+      currY += (targetY - currY) * 0.08;
+
+      hero3dDeck.style.transform = `rotateX(${currX.toFixed(2)}deg) rotateY(${currY.toFixed(2)}deg)`;
+      requestAnimationFrame(animateHero3DTilt);
+    }
+    animateHero3DTilt();
+  }
 
 });
 </script>
