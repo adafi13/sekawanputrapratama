@@ -147,6 +147,14 @@ class InvoiceResource extends Resource
                     ->options(Invoice::getStatuses()),
             ])
             ->recordActions([
+                Action::make('view_proof')
+                    ->label('Lihat Bukti Transfer')
+                    ->icon('heroicon-o-eye')
+                    ->color('info')
+                    ->visible(fn (Invoice $record) => !empty($record->payment_proof_path))
+                    ->url(fn (Invoice $record) => \Illuminate\Support\Facades\Storage::url($record->payment_proof_path))
+                    ->openUrlInNewTab(),
+                EditAction::make(),
                 Action::make('verify_payment')
                     ->label('Verifikasi Pembayaran')
                     ->icon('heroicon-o-check-badge')
