@@ -450,8 +450,11 @@ body {
 
   /* Responsive Adjustments */
   @media (max-width: 991px) {
-    .hero-stats { justify-content: center; flex-wrap: wrap; }
-    .hero-section { padding-top: 120px; text-align: center; }
+    .hero-section { padding-top: 130px; text-align: center; }
+    .hero-top-tag { justify-content: center !important; }
+    .hero-title { text-align: center; }
+    .hero-desc { text-align: center; margin-left: auto; margin-right: auto; }
+    .hero-stats { justify-content: center; flex-wrap: wrap; text-align: center; }
     .orbital-wrapper { height: 400px; transform: scale(0.8); margin-top: 40px; }
   }
 
@@ -908,7 +911,7 @@ body {
       
       {{-- LEFT COLUMN: Enterprise Content --}}
       <div class="col-lg-6">
-        <div class="d-flex align-items-center gap-2 mb-3 text-uppercase font-monospace reveal" style="letter-spacing: 1.5px; font-size: 11px; font-weight: 700; color: #38bdf8;">
+        <div class="d-flex align-items-center justify-content-center justify-content-lg-start gap-2 mb-3 text-uppercase font-monospace reveal hero-top-tag" style="letter-spacing: 1.5px; font-size: 11px; font-weight: 700; color: #38bdf8;">
           <span style="display: inline-block; width: 24px; height: 2px; background: #38bdf8; border-radius: 2px;"></span>
           PT SEKAWAN PUTRA PRATAMA
         </div>
