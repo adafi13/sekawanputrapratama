@@ -910,7 +910,7 @@ body {
       <div class="col-lg-6">
         <div class="d-flex align-items-center gap-2 mb-3 text-uppercase font-monospace reveal" style="letter-spacing: 1.5px; font-size: 11px; font-weight: 700; color: #38bdf8;">
           <span style="display: inline-block; width: 24px; height: 2px; background: #38bdf8; border-radius: 2px;"></span>
-          PT SEKAWAN PUTRA PRATAMA — ENTERPRISE IT CONSULTING
+          PT SEKAWAN PUTRA PRATAMA
         </div>
         
         <h1 class="hero-title reveal delay-100">
