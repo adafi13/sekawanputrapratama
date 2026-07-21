@@ -298,16 +298,16 @@ body {
     background: rgba(255, 255, 255, 0.1);
   }
 
-  /* Enterprise 3D Hero Section Styles */
+  /* Enterprise Hero Section Styles */
   .hero-section {
     position: relative;
-    min-height: 100vh;
+    min-height: 90vh;
     display: flex;
     align-items: center;
     background-color: #030712; /* Deep Obsidian Slate */
     background-image: 
-      radial-gradient(circle at 75% 30%, rgba(37, 99, 235, 0.25) 0%, transparent 55%),
-      radial-gradient(circle at 25% 85%, rgba(14, 165, 233, 0.18) 0%, transparent 45%);
+      radial-gradient(circle at 80% 30%, rgba(37, 99, 235, 0.2) 0%, transparent 50%),
+      radial-gradient(circle at 20% 80%, rgba(14, 165, 233, 0.15) 0%, transparent 40%);
     overflow: hidden;
     padding-top: 140px; /* offset for navbar */
     padding-bottom: 60px;
@@ -321,43 +321,35 @@ body {
 
   /* 3D Perspective Stage Container */
   .hero-3d-stage {
-    perspective: 1200px;
-    transform-style: preserve-3d;
+    perspective: 1000px;
     position: relative;
     width: 100%;
-    height: 560px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  .hero-3d-card-deck {
+  /* Enterprise Dashboard Card */
+  .enterprise-dashboard-card {
     width: 100%;
-    height: 100%;
-    position: relative;
+    max-width: 520px;
+    background: rgba(15, 23, 42, 0.92);
+    border: 1.5px solid rgba(56, 189, 248, 0.3);
+    border-radius: 20px;
+    box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 30px rgba(37, 99, 235, 0.2);
+    backdrop-filter: blur(20px);
     transform-style: preserve-3d;
     transition: transform 0.15s cubic-bezier(0.2, 0.8, 0.2, 1);
   }
+  .enterprise-dashboard-card:hover {
+    border-color: rgba(56, 189, 248, 0.5);
+  }
 
-  /* 3D Glassmorphic Enterprise Core Platform */
-  .enterprise-core-platform {
-    position: absolute;
-    width: 320px;
-    height: 320px;
-    top: 50%;
-    left: 50%;
-    transform: translate3d(-50%, -50%, 0);
-    background: radial-gradient(circle at 30% 30%, rgba(30, 58, 138, 0.75) 0%, rgba(15, 23, 42, 0.95) 100%);
-    border: 1.5px solid rgba(56, 189, 248, 0.4);
-    border-radius: 36px;
-    box-shadow: 0 25px 60px -15px rgba(37, 99, 235, 0.5), inset 0 0 30px rgba(56, 189, 248, 0.2);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(20px);
-    z-index: 10;
-    transform-style: preserve-3d;
+  .dashboard-header .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
   }
 
   /* 3D Orbit Rings */
@@ -931,22 +923,22 @@ body {
       <div class="col-lg-6">
         <div class="hero-badge-pill reveal">
           <span class="dot"></span>
-          MITRA IT TERPERCAYA SEJAK 2024
+          REKAYASA PERANGKAT LUNAK & INFRASTRUKTUR IT
         </div>
         
         <h1 class="hero-title reveal delay-100">
-          Solusi Digital <br>
-          <span class="text-gradient-purple">Kelas Dunia,</span><br>
-          Untuk Bisnis Anda
+          Membangun Sistem Digital <br>
+          <span class="text-white border-bottom border-primary border-4 pb-1">Skala Enterprise</span><br>
+          Dengan Performa Tinggi.
         </h1>
         
         <p class="hero-desc reveal delay-200">
-          Kami membangun <strong>Aplikasi</strong>, <strong>Website</strong>, dan <strong>Infrastruktur IT</strong> yang mendorong pertumbuhan bisnis Anda secara nyata dan terukur.
+          Kami merancang dan mengembangkan <strong>Aplikasi Enterprise</strong>, <strong>Website Custom</strong>, dan <strong>Infrastruktur Cloud</strong> yang tangguh untuk mendorong pertumbuhan bisnis Anda secara terukur.
         </p>
         
         <div class="d-flex gap-3 flex-wrap justify-content-center justify-content-lg-start reveal delay-300">
           <a href="{{ route('contact') }}" class="btn-primary-glow magnetic-btn">
-            <i class="fas fa-rocket"></i> Konsultasi Gratis
+            <i class="fas fa-paper-plane"></i> Minta Penawaran Proyek
           </a>
           <a href="{{ route('portfolio.index') }}" class="btn-outline-glass magnetic-btn">
             Lihat Portofolio <i class="fas fa-arrow-right ms-1"></i>
@@ -961,7 +953,7 @@ body {
           <div class="stat-divider"></div>
           <div class="stat-item">
             <div class="stat-num"><span class="count-up" data-target="20">0</span><span>+</span></div>
-            <div class="stat-label">Klien Aktif</div>
+            <div class="stat-label">Klien Enterprise</div>
           </div>
           <div class="stat-divider"></div>
           <div class="stat-item">
@@ -971,64 +963,59 @@ body {
         </div>
       </div>
 
-      {{-- RIGHT COLUMN: Enterprise 3D Interactive Matrix Stage --}}
+      {{-- RIGHT COLUMN: Enterprise System Control Deck (Crisp & Professional) --}}
       <div class="col-lg-6 d-none d-lg-block">
         <div class="hero-3d-stage reveal delay-300">
-          <div class="hero-3d-card-deck" id="hero3dDeck">
-            {{-- 3D Orbit Rings --}}
-            <div class="orbit-ring-3d orbit-ring-1"></div>
-            <div class="orbit-ring-3d orbit-ring-2"></div>
-
-            {{-- Center Enterprise Platform Core Node --}}
-            <div class="enterprise-core-platform">
-              <div class="badge bg-primary bg-opacity-20 text-info border border-info border-opacity-30 rounded-pill px-3 py-1 mb-3 small font-monospace">
-                <i class="fas fa-signal me-1"></i> SYSTEM OPERATIONAL
+          <div class="enterprise-dashboard-card" id="hero3dDeck">
+            {{-- Window Control Bar --}}
+            <div class="dashboard-header d-flex align-items-center justify-content-between px-4 py-3 border-bottom border-secondary border-opacity-25">
+              <div class="d-flex align-items-center gap-2">
+                <span class="dot bg-danger"></span>
+                <span class="dot bg-warning"></span>
+                <span class="dot bg-success"></span>
+                <span class="text-white-50 font-monospace ms-2" style="font-size: 11px;">sekawan-enterprise-v12.prt</span>
               </div>
-              <img src="{{ asset('assets/media/logo1.png') }}" alt="Sekawan Logo" style="width: 75px; filter: drop-shadow(0 10px 20px rgba(56, 189, 248, 0.4));">
-              <h6 class="fw-bold text-white mt-3 mb-1 fs-6">PT SEKAWAN PUTRA PRATAMA</h6>
-              <span class="text-white-50" style="font-size: 11px;">Enterprise IT Infrastructure & Software</span>
+              <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-30 rounded-pill px-3 py-1" style="font-size: 11px;">
+                <i class="fas fa-circle me-1" style="font-size: 6px;"></i> Active SLA 99.9%
+              </span>
             </div>
 
-            {{-- Floating 3D Enterprise Feature Cards --}}
-            <div class="float-3d-card card-top-right">
-              <div class="d-flex align-items-center gap-3">
-                <div class="badge bg-info bg-opacity-20 text-info p-2 rounded-3 fs-5"><i class="fas fa-shield-check"></i></div>
-                <div>
-                  <h6 class="fw-bold text-white small mb-0">Keamanan & Infrastructure SLA</h6>
-                  <span class="text-white-50" style="font-size: 11px;"><i class="fas fa-lock text-success me-1"></i>ISO 27001 Ready • Uptime 99.9%</span>
+            {{-- Dashboard Content --}}
+            <div class="p-4">
+              {{-- Top Stats Row --}}
+              <div class="row g-3 mb-4">
+                <div class="col-6">
+                  <div class="p-3 rounded-3 bg-dark bg-opacity-60 border border-secondary border-opacity-25">
+                    <span class="text-white-50 small d-block mb-1">API Latency (Speed)</span>
+                    <h5 class="fw-bold text-info mb-0 font-monospace">38 ms <span class="text-success fs-6"><i class="fas fa-arrow-down"></i> -15%</span></h5>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="p-3 rounded-3 bg-dark bg-opacity-60 border border-secondary border-opacity-25">
+                    <span class="text-white-50 small d-block mb-1">Security Standards</span>
+                    <h5 class="fw-bold text-success mb-0 font-monospace"><i class="fas fa-shield-alt me-1"></i> ISO 27001</h5>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="float-3d-card card-middle-left">
-              <div class="d-flex align-items-center gap-3">
-                <div class="badge bg-primary bg-opacity-20 text-primary p-2 rounded-3 fs-5"><i class="fas fa-code-branch"></i></div>
-                <div>
-                  <h6 class="fw-bold text-white small mb-0">Clean Code & Architecture</h6>
-                  <span class="text-white-50" style="font-size: 11px;"><i class="fas fa-terminal text-info me-1"></i>Laravel 12 & Flutter Native Core</span>
-                </div>
+              {{-- Architecture Code Snippet --}}
+              <div class="p-3 rounded-3 bg-black border border-secondary border-opacity-30 font-monospace text-light mb-3" style="font-size: 12px; line-height: 1.65;">
+                <div class="text-white-50">// Sekawan Enterprise Software Core</div>
+                <div><span class="text-primary">use</span> App\Services\EnterpriseSystem;</div>
+                <div><span class="text-info">$system</span> = <span class="text-warning">EnterpriseSystem</span>::<span class="text-primary">deploy</span>([</div>
+                <div class="ps-3"><span class="text-success">'framework'</span> => <span class="text-info">'Laravel 12 & Flutter'</span>,</div>
+                <div class="ps-3"><span class="text-success">'cloud'</span> => <span class="text-info">'AWS & Docker Infrastructure'</span>,</div>
+                <div class="ps-3"><span class="text-success">'security'</span> => <span class="text-info">'Encrypted & SLA 99.9%'</span>,</div>
+                <div>]);</div>
               </div>
-            </div>
 
-            <div class="float-3d-card card-bottom-right">
-              <div class="d-flex align-items-center gap-3">
-                <div class="badge bg-warning bg-opacity-20 text-warning p-2 rounded-3 fs-5"><i class="fas fa-bolt"></i></div>
-                <div>
-                  <h6 class="fw-bold text-white small mb-0">High-Performance Query</h6>
-                  <span class="text-white-50" style="font-size: 11px;"><i class="fas fa-tachometer-alt text-warning me-1"></i>sub-100ms Ultra Fast API</span>
-                </div>
+              {{-- Tech Stack Pills --}}
+              <div class="d-flex align-items-center justify-content-between pt-3 border-top border-secondary border-opacity-25 text-white-50 small">
+                <span><i class="fab fa-laravel text-danger me-1"></i> Laravel 12</span>
+                <span><i class="fab fa-google text-info me-1"></i> Flutter Apps</span>
+                <span><i class="fab fa-aws text-warning me-1"></i> Cloud AWS</span>
+                <span><i class="fas fa-database text-primary me-1"></i> PostgreSQL</span>
               </div>
-            </div>
-
-            {{-- Floating Tech Badges --}}
-            <div class="tech-3d-badge tb-1">
-              <i class="fab fa-laravel text-danger fs-5"></i> Laravel 12
-            </div>
-            <div class="tech-3d-badge tb-2">
-              <i class="fab fa-google text-info fs-5"></i> Flutter Apps
-            </div>
-            <div class="tech-3d-badge tb-3">
-              <i class="fab fa-aws text-warning fs-5"></i> Cloud AWS & Docker
             </div>
           </div>
         </div>
