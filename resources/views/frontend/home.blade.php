@@ -1587,7 +1587,7 @@ body {
               </div>
             </div>
 
-            <a href="https://wa.me/6281234567890?text=Halo%20Sekawan%20Putra%20Pratama,%20saya%20tertarik%20konsultasi%20software%20custom" id="btnClaimROI" target="_blank" class="btn btn-primary btn-lg w-100 fw-bold py-3 text-decoration-none shadow-sm mt-3">
+            <a href="https://wa.me/6285156412702?text=Halo%20Sekawan%20Putra%20Pratama,%20saya%20tertarik%20konsultasi%20software%20custom" id="btnClaimROI" target="_blank" class="btn btn-primary btn-lg w-100 fw-bold py-3 text-decoration-none shadow-sm mt-3">
               <i class="fab fa-whatsapp me-2 fs-5"></i> Konsultasi Analisis ROI Ini
             </a>
 
@@ -2001,7 +2001,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const waBtn = document.getElementById('btnClaimROI');
     if (waBtn) {
       const msg = encodeURIComponent('Halo PT Sekawan Putra Pratama, saya tertarik konsultasi software custom untuk ' + team + ' karyawan dengan potensi penghematan biaya Rp ' + totalCostSaved.toLocaleString('id-ID') + '/tahun.');
-      waBtn.href = 'https://wa.me/6281234567890?text=' + msg;
+      waBtn.href = 'https://wa.me/6285156412702?text=' + msg;
     }
   }
 
@@ -2077,7 +2077,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const waBtn = document.getElementById('btnAiWa');
       if (waBtn) {
         const msg = encodeURIComponent('Halo PT Sekawan Putra Pratama, saya tertarik diskusi arsitektur IT: "' + (d.architecture_title || '') + '" dengan rekomendasi stack: ' + (d.stack || ''));
-        waBtn.href = 'https://wa.me/6281234567890?text=' + msg;
+        waBtn.href = 'https://wa.me/6285156412702?text=' + msg;
       }
 
       if (wrapper) wrapper.style.display = 'block';
