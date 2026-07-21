@@ -48,16 +48,16 @@
             <div class="row g-3 mb-4">
                 <div class="col-md-6">
                     <div class="p-3 bg-white border rounded-3 h-100">
-                        <div class="fw-bold text-dark"><i class="fas fa-credit-card text-primary me-1"></i> Bank BCA</div>
-                        <div class="fs-5 fw-bold text-primary my-1">8415-6412-702</div>
-                        <div class="small text-muted">a.n. PT Sekawan Putra Pratama</div>
+                        <div class="fw-bold text-dark"><i class="fas fa-credit-card text-primary me-1"></i> {{ \App\Models\Setting::get('bank.bca_name', 'Bank Central Asia (BCA)') }}</div>
+                        <div class="fs-5 fw-bold text-primary my-1">{{ \App\Models\Setting::get('bank.bca_account', '8415-6412-702') }}</div>
+                        <div class="small text-muted">a.n. {{ \App\Models\Setting::get('bank.bca_holder', 'PT Sekawan Putra Pratama') }}</div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="p-3 bg-white border rounded-3 h-100">
-                        <div class="fw-bold text-dark"><i class="fas fa-credit-card text-primary me-1"></i> Bank Mandiri</div>
-                        <div class="fs-5 fw-bold text-primary my-1">156-00-1845-6412</div>
-                        <div class="small text-muted">a.n. PT Sekawan Putra Pratama</div>
+                        <div class="fw-bold text-dark"><i class="fas fa-credit-card text-primary me-1"></i> {{ \App\Models\Setting::get('bank.mandiri_name', 'Bank Mandiri') }}</div>
+                        <div class="fs-5 fw-bold text-primary my-1">{{ \App\Models\Setting::get('bank.mandiri_account', '156-00-1845-6412') }}</div>
+                        <div class="small text-muted">a.n. {{ \App\Models\Setting::get('bank.mandiri_holder', 'PT Sekawan Putra Pratama') }}</div>
                     </div>
                 </div>
             </div>
