@@ -118,11 +118,69 @@ class ClientPortalController extends Controller
             ->where('id', $id)
             ->firstOrFail();
 
+        if ($contract->file_path && Storage::disk('public')->exists($contract->file_path)) {
+            return Storage::disk('public')->download($contract->file_path, 'Contract-' . $contract->contract_number . '.pdf');
+        }
+
         if ($contract->file_path && Storage::exists($contract->file_path)) {
             return Storage::download($contract->file_path, 'Contract-' . $contract->contract_number . '.pdf');
         }
 
-        return back()->with('error', 'File PDF Kontrak belum diunggah oleh admin.');
+        // Auto-generate PDF on the fly if custom PDF scan wasn't uploaded
+        $company = [
+            'name' => 'PT. SEKAWAN PUTRA PRATAMA',
+            'address' => 'Grand Galaxy City, Jl. Boulevard Raya, Bekasi',
+            'phone' => '+62 21 8888 9999',
+            'email' => 'info@sekawanputrapratama.com',
+        ];
+
+        $paymentTerms = $contract->payment_terms ?? [
+            [
+                'description' => 'Termin 1 (DP - Down Payment)',
+                'percentage' => 30,
+                'amount' => $contract->contract_value * 0.30
+            ],
+            [
+                'description' => 'Termin 2 (Progress Development)',
+                'percentage' => 40,
+                'amount' => $contract->contract_value * 0.40
+            ],
+            [
+                'description' => 'Termin 3 (Serah Terima / UAT)',
+                'percentage' => 30,
+                'amount' => $contract->contract_value * 0.30
+            ],
+        ];
+
+        $calculations = [
+            'grand_total' => $contract->contract_value,
+            'payment_terms' => $paymentTerms,
+        ];
+
+        $threshold = 15000000;
+        if ($contract->project_type === 'managed_service') {
+            $viewFile = 'pdf.contract_managed_service';
+            $fileName = 'Contract-ManagedService-' . $contract->contract_number;
+        } elseif ($contract->contract_value >= $threshold) {
+            $viewFile = 'pdf.contract_enterprise';
+            $fileName = 'Contract-Enterprise-' . $contract->contract_number;
+        } else {
+            $viewFile = 'pdf.contract_simple';
+            $fileName = 'SPK-' . $contract->contract_number;
+        }
+
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView($viewFile, [
+            'contract' => $contract,
+            'quotation' => $contract->quotation,
+            'company' => $company,
+            'calculations' => $calculations,
+        ]);
+
+        $pdf->setPaper('a4', 'portrait');
+
+        return response()->streamDownload(function () use ($pdf) {
+            echo $pdf->output();
+        }, $fileName . '.pdf');
     }
 
     /**
