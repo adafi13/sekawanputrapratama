@@ -1414,7 +1414,10 @@ body {
               <span id="aiWhyText">Kombinasi Laravel 12 & Flutter memberikan kecepatan akses ultra tinggi dan toleransi kegagalan offline untuk operasional toko cabang.</span>
             </div>
 
-            <div class="d-flex justify-content-end">
+            <div class="d-flex flex-wrap align-items-center justify-content-end gap-2">
+              <button type="button" class="btn btn-outline-danger btn-lg px-4 fw-bold font-monospace shadow-sm" onclick="downloadProposalPdf()">
+                <i class="fas fa-file-pdf me-2"></i> Download Proposal (PDF)
+              </button>
               <a href="#" id="btnAiWa" target="_blank" class="btn btn-success btn-lg px-4 fw-bold font-monospace text-decoration-none shadow-sm">
                 <i class="fab fa-whatsapp me-2 fs-5"></i> Konsultasi Arsitektur Ini
               </a>
@@ -2256,8 +2259,147 @@ document.addEventListener('DOMContentLoaded', function () {
   window.setAiPrompt = setAiPrompt;
   window.generateAiArchitecture = generateAiArchitecture;
 
+  /* ---------------------------------------------------------
+     11. INSTANT PDF PROPOSAL GENERATOR
+     --------------------------------------------------------- */
+  function downloadProposalPdf() {
+    const title = document.getElementById('aiArchTitle')?.textContent || 'Arsitektur Enterprise IT';
+    const sla = document.getElementById('aiSlaBadge')?.textContent || '99.9% Uptime SLA';
+    const budget = document.getElementById('aiBudgetBadge')?.textContent || 'Rp 25.000.000 - Rp 50.000.000';
+    const stack = document.getElementById('aiTechStack')?.textContent || '';
+    const why = document.getElementById('aiWhyText')?.textContent || '';
+    const promptInput = document.getElementById('aiPromptInput')?.value || 'Sistem POS Kasir 50 Cabang Realtime';
+    const pillarsHtml = document.getElementById('aiKeyComponents')?.innerHTML || '';
+
+    const today = new Date().toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' });
+    const docNo = 'SPP-PROP/' + new Date().getFullYear() + '/07/' + Math.floor(1000 + Math.random() * 9000);
+
+    const pdfHtml = `
+      <div style="font-family: Arial, sans-serif; color: #1e293b; padding: 35px; background: #ffffff; width: 780px; margin: 0 auto;">
+        
+        <!-- Kop Surat Header -->
+        <table style="width: 100%; border-bottom: 3px double #0284c7; padding-bottom: 15px; margin-bottom: 25px;">
+          <tr>
+            <td style="width: 70%;">
+              <h2 style="margin: 0; color: #0f172a; font-weight: 800; font-size: 22px;">PT SEKAWAN PUTRA PRATAMA</h2>
+              <span style="color: #0284c7; font-weight: bold; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;">Enterprise IT Solution & Digital Transformation Consultant</span>
+              <p style="margin: 5px 0 0 0; font-size: 11px; color: #64748b; line-height: 1.4;">
+                Jl. Boulevard Kota Harapan Indah, Bekasi, Jawa Barat<br>
+                Email: admin@sekawanputrapratama.com | Telp/WA: +62 851-5641-2702 | Web: sekawanputrapratama.com
+              </p>
+            </td>
+            <td style="width: 30%; text-align: right; vertical-align: top;">
+              <span style="display: inline-block; background: #f0f9ff; border: 1px solid #bae6fd; color: #0284c7; font-weight: bold; padding: 4px 8px; border-radius: 4px; font-size: 10px; font-family: monospace;">OFFICIAL PROPOSAL</span>
+              <p style="margin: 5px 0 0 0; font-size: 10px; color: #64748b; font-family: monospace;">
+                <strong>No:</strong> ${docNo}<br>
+                <strong>Tgl:</strong> ${today}
+              </p>
+            </td>
+          </tr>
+        </table>
+
+        <!-- Document Title -->
+        <div style="text-align: center; margin-bottom: 25px;">
+          <h3 style="margin: 0 0 5px 0; color: #0f172a; font-size: 16px; text-transform: uppercase; font-weight: 800;">DOKUMEN SPESIFIKASI ARSITEKTUR SISTEM & FEASIBILITY STUDY</h3>
+          <span style="font-size: 11px; color: #64748b;">Rekomendasi Rekayasa Perangkat Lunak untuk Kebutuhan Bisnis Enterprise</span>
+        </div>
+
+        <!-- Section 1: Ringkasan Proyek -->
+        <div style="margin-bottom: 20px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px;">
+          <table style="width: 100%; font-size: 12px;">
+            <tr>
+              <td style="width: 30%; font-weight: bold; color: #475569; padding: 4px 0;">Kebutuhan Bisnis Klien:</td>
+              <td style="color: #0f172a; font-weight: bold; padding: 4px 0;">${promptInput}</td>
+            </tr>
+            <tr>
+              <td style="font-weight: bold; color: #475569; padding: 4px 0;">Judul Arsitektur Sistem:</td>
+              <td style="color: #0284c7; font-weight: bold; padding: 4px 0;">${title}</td>
+            </tr>
+            <tr>
+              <td style="font-weight: bold; color: #475569; padding: 4px 0;">Penjaminan Uptime SLA:</td>
+              <td style="color: #16a34a; font-weight: bold; padding: 4px 0;">${sla}</td>
+            </tr>
+            <tr>
+              <td style="font-weight: bold; color: #475569; padding: 4px 0;">Estimasi Budget / Investasi:</td>
+              <td style="color: #16a34a; font-weight: bold; padding: 4px 0;">${budget}</td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- Section 2: Rekomendasi Stack Teknologi -->
+        <div style="margin-bottom: 20px;">
+          <h4 style="margin: 0 0 10px 0; color: #0f172a; font-size: 13px; text-transform: uppercase; font-family: monospace; border-bottom: 2px solid #e2e8f0; padding-bottom: 5px;">
+            1. REKOMENDASI STACK TEKNOLOGI & INFRASTRUKTUR
+          </h4>
+          <div style="background: #f0f9ff; border: 1px solid #bae6fd; color: #0369a1; padding: 12px 15px; border-radius: 6px; font-family: monospace; font-weight: bold; font-size: 12px; line-height: 1.5;">
+            ${stack}
+          </div>
+        </div>
+
+        <!-- Section 3: Pilar Modul Utama -->
+        <div style="margin-bottom: 20px;">
+          <h4 style="margin: 0 0 10px 0; color: #0f172a; font-size: 13px; text-transform: uppercase; font-family: monospace; border-bottom: 2px solid #e2e8f0; padding-bottom: 5px;">
+            2. PILAR MODUL & KOMPONEN TEKNIS UTAMA
+          </h4>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            ${pillarsHtml}
+          </div>
+        </div>
+
+        <!-- Section 4: Feasibility & Rationale -->
+        <div style="margin-bottom: 25px;">
+          <h4 style="margin: 0 0 10px 0; color: #0f172a; font-size: 13px; text-transform: uppercase; font-family: monospace; border-bottom: 2px solid #e2e8f0; padding-bottom: 5px;">
+            3. FEASIBILITY STUDY & JUSTIFIKASI TEKNIS
+          </h4>
+          <div style="background: #ecfdf5; border: 1px solid #a7f3d0; color: #065f46; padding: 12px 15px; border-radius: 6px; font-size: 11px; line-height: 1.5;">
+            <strong>Rationale Arsitektur:</strong> ${why}
+          </div>
+        </div>
+
+        <!-- Sign-Off Footer -->
+        <table style="width: 100%; margin-top: 30px; padding-top: 15px; border-top: 1px solid #e2e8f0;">
+          <tr>
+            <td style="width: 60%; font-size: 10px; color: #64748b; vertical-align: bottom;">
+              * Dokumen ini diterbitkan resmi oleh sistem konsultasi PT Sekawan Putra Pratama.<br>
+              * Estimasi bersifat referensi resmi untuk pembahasan rapat anggaran internal direksi.
+            </td>
+            <td style="width: 40%; text-align: center;">
+              <span style="font-size: 10px; color: #64748b; display: block; margin-bottom: 40px;">Hormat Kami,<br><strong>PT SEKAWAN PUTRA PRATAMA</strong></span>
+              <strong style="display: block; font-size: 11px; color: #0f172a; text-decoration: underline;">Chief Solution Architect</strong>
+              <span style="font-size: 10px; color: #64748b;">Enterprise System Division</span>
+            </td>
+          </tr>
+        </table>
+
+      </div>
+    `;
+
+    const opt = {
+      margin:       0.2,
+      filename:     `Proposal_Arsitektur_PT_Sekawan_${new Date().toISOString().slice(0,10)}.pdf`,
+      image:        { type: 'jpeg', quality: 0.98 },
+      html2canvas:  { scale: 2, useCORS: true },
+      jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+
+    if (window.html2pdf) {
+      const element = document.createElement('div');
+      element.innerHTML = pdfHtml;
+      html2pdf().set(opt).from(element).save();
+    } else {
+      const printWin = window.open('', '', 'width=900,height=800');
+      printWin.document.write('<html><head><title>Proposal PT Sekawan Putra Pratama</title></head><body>' + pdfHtml + '</body></html>');
+      printWin.document.close();
+      printWin.focus();
+      setTimeout(function() { printWin.print(); }, 500);
+    }
+  }
+
+  window.downloadProposalPdf = downloadProposalPdf;
+
 });
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 @endpush
 
 @endsection
