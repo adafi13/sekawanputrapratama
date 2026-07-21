@@ -14,7 +14,7 @@
             @foreach($navServices as $navSvc)
                 <li>
                     <a href="{{ route('services.show', $navSvc->slug) }}">
-                        <i class="{{ $navSvc->icon ?: 'fas fa-chevron-right' }} me-2 text-primary"></i> {{ $navSvc->title }}
+                        <i class="{{ $navSvc->icon_class }} me-2 text-primary"></i> {{ $navSvc->title }}
                     </a>
                 </li>
             @endforeach

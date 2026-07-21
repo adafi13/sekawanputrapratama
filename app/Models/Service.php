@@ -43,6 +43,42 @@ class Service extends Model implements HasMedia
         return $this->hasMany(Portfolio::class, 'service_id');
     }
 
+    public function getIconClassAttribute(): string
+    {
+        if (!empty($this->icon) && !in_array($this->icon, ['fas fa-cogs', 'fa-cogs', 'fas fa-cog', 'fa-cog'])) {
+            return $this->icon;
+        }
+
+        $title = strtolower($this->title);
+        $slug = strtolower($this->slug);
+
+        if (str_contains($title, 'app') || str_contains($slug, 'app') || str_contains($title, 'mobile') || str_contains($title, 'android') || str_contains($title, 'ios')) {
+            return 'fas fa-mobile-alt';
+        }
+
+        if (str_contains($title, 'web') || str_contains($slug, 'web') || str_contains($title, 'situs') || str_contains($title, 'toko online')) {
+            return 'fas fa-globe';
+        }
+
+        if (str_contains($title, 'server') || str_contains($slug, 'server') || str_contains($title, 'infrastruktur') || str_contains($title, 'jaringan') || str_contains($title, 'network') || str_contains($title, 'office')) {
+            return 'fas fa-server';
+        }
+
+        if (str_contains($title, 'marketing') || str_contains($slug, 'marketing') || str_contains($title, 'seo') || str_contains($title, 'digital')) {
+            return 'fas fa-chart-line';
+        }
+
+        if (str_contains($title, 'design') || str_contains($title, 'ui') || str_contains($title, 'ux')) {
+            return 'fas fa-paint-brush';
+        }
+
+        if (str_contains($title, 'consult') || str_contains($slug, 'consult') || str_contains($title, 'konsultan')) {
+            return 'fas fa-user-tie';
+        }
+
+        return 'fas fa-laptop-code';
+    }
+
     public function sluggable(): array
     {
         return [

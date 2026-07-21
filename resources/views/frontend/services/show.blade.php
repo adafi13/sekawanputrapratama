@@ -179,7 +179,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
     <div class="row align-items-center">
       <div class="col-lg-8">
         <div class="svc-badge-pill">
-          <i class="{{ $service->icon ?: 'fas fa-cogs' }} me-1"></i> Layanan Profesional
+          <i class="{{ $service->icon_class }} me-1"></i> Layanan Profesional
         </div>
         <h1 class="text-white fw-bold display-4 mb-3">
           {{ $service->title }} <br>
@@ -335,7 +335,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
             <div class="col-md-4">
               <div class="bg-white p-4 rounded-4 border h-100 d-flex flex-column transition-all hover-shadow">
                 <div class="text-primary mb-3" style="font-size: 28px;">
-                  <i class="{{ $relSvc->icon ?: 'fas fa-cube' }}"></i>
+                  <i class="{{ $relSvc->icon_class }}"></i>
                 </div>
                 <h5 class="fw-bold text-dark mb-2">{{ $relSvc->title }}</h5>
                 <p class="text-muted small mb-4 flex-grow-1">{{ Str::limit($relSvc->description, 100) }}</p>

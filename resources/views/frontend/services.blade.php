@@ -266,7 +266,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
         @endphp
         <img src="{{ $svcImg }}" alt="{{ $service->title }}" class="svc-img-main" loading="lazy">
         <div class="svc-float-badge" style="background: {{ $badgeColors[$loop->index % count($badgeColors)] }};">
-          <i class="{{ $service->icon ?: 'fas fa-cogs' }}"></i>
+          <i class="{{ $service->icon_class }}"></i>
         </div>
       </div>
     </div>
