@@ -106,6 +106,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
   grid-template-columns: 1.2fr 1fr;
   border: 1px solid #e2e8f0;
   transition: all 0.4s ease;
+  position: relative;
 }
 .featured-card:hover { transform: translateY(-8px); box-shadow: 0 40px 80px -20px rgba(0,0,0,0.1); }
 .featured-img-wrap { position: relative; width: 100%; height: 100%; min-height: 400px; overflow: hidden; }
@@ -137,6 +138,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
   height: 100%;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 .blog-card:hover { transform: translateY(-10px); box-shadow: 0 30px 60px -15px rgba(0,0,0,0.08); border-color: var(--color-secondary); }
 .blog-img-wrap { position: relative; width: 100%; aspect-ratio: 16/10; overflow: hidden; }
@@ -254,7 +256,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
           <span class="blog-cat">{{ $featuredPost->category->name }}</span>
         @endif
         <h2 class="blog-title" style="font-size: 2rem;">
-          <a href="{{ route('blog.show', $featuredPost->slug) }}">{{ $featuredPost->title }}</a>
+          <a href="{{ route('blog.show', $featuredPost->slug) }}" class="stretched-link">{{ $featuredPost->title }}</a>
         </h2>
         <p class="blog-excerpt">{{ Str::limit($featuredPost->excerpt, 180) }}</p>
         <div class="blog-footer">
@@ -264,7 +266,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
           </div>
           <div class="blog-date">{{ $featuredPost->published_at->format('d M Y') }}</div>
         </div>
-        <a href="{{ route('blog.show', $featuredPost->slug) }}" class="btn btn-primary rounded-pill mt-4 px-4 py-2 fw-bold d-inline-block" style="width: fit-content; background: var(--color-primary); border: none;">
+        <a href="{{ route('blog.show', $featuredPost->slug) }}" class="btn btn-primary rounded-pill mt-4 px-4 py-2 fw-bold d-inline-block" style="width: fit-content; background: var(--color-primary); border: none; position: relative; z-index: 2;">
           Baca Selengkapnya <i class="fas fa-arrow-right ms-2 small"></i>
         </a>
       </div>
@@ -294,7 +296,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
                 <span class="blog-cat">{{ $blog->category->name }}</span>
               @endif
               <h3 class="blog-title">
-                <a href="{{ route('blog.show', $blog->slug) }}">{{ $blog->title }}</a>
+                <a href="{{ route('blog.show', $blog->slug) }}" class="stretched-link">{{ $blog->title }}</a>
               </h3>
               <p class="blog-excerpt">{{ Str::limit($blog->excerpt, 100) }}</p>
               <div class="blog-footer">
