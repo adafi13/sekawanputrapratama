@@ -911,8 +911,7 @@ body {
       
       {{-- LEFT COLUMN: Enterprise Content --}}
       <div class="col-lg-6">
-        <div class="d-flex align-items-center justify-content-center justify-content-lg-start gap-2 mb-3 text-uppercase font-monospace reveal hero-top-tag" style="letter-spacing: 1.5px; font-size: 11px; font-weight: 700; color: #38bdf8;">
-          <span style="display: inline-block; width: 24px; height: 2px; background: #38bdf8; border-radius: 2px;"></span>
+        <div class="d-flex align-items-center justify-content-center justify-content-lg-start mb-3 text-uppercase font-monospace reveal hero-top-tag" style="letter-spacing: 1.5px; font-size: 11px; font-weight: 700; color: #38bdf8;">
           PT SEKAWAN PUTRA PRATAMA
         </div>
         
