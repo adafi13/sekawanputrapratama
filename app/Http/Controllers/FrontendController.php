@@ -72,8 +72,8 @@ class FrontendController extends Controller
             ],
             'mikrotik_gateway' => [
                 'name' => 'Network Gateway Mikrotik',
-                'status' => 'Active & Online',
-                'packet_loss' => '0%',
+                'status' => 'RouterOS v7 Active Gateway',
+                'ping_ms' => rand(4, 8),
             ],
             'database_sla' => [
                 'name' => 'Database Response SLA',

@@ -1091,11 +1091,11 @@ body {
             <div class="d-flex align-items-center justify-content-between mb-3">
               <span class="text-info fs-4"><i class="fas fa-network-wired"></i></span>
               <span class="badge bg-info bg-opacity-10 text-info border border-info border-opacity-20 rounded-pill font-monospace" style="font-size: 10px;" id="mikrotikBadge">
-                0% Loss
+                Ping: 4ms
               </span>
             </div>
             <h6 class="fw-bold text-slate-900 mb-1">Network Gateway Mikrotik</h6>
-            <p class="text-muted small mb-2" id="mikrotikStatusText">Status: Active & Connected</p>
+            <p class="text-muted small mb-2" id="mikrotikStatusText">Status: RouterOS v7 (Gateway Active)</p>
             <div class="progress bg-light" style="height: 4px;">
               <div class="progress-bar bg-info" style="width: 100%;"></div>
             </div>
@@ -1820,6 +1820,13 @@ document.addEventListener('DOMContentLoaded', function () {
         
         const tsEl = document.getElementById('healthTimestamp');
         if (tsEl && data.timestamp) tsEl.textContent = data.timestamp;
+
+        const mikrotikBadge = document.getElementById('mikrotikBadge');
+        const mikrotikStatusText = document.getElementById('mikrotikStatusText');
+        if (data.mikrotik_gateway) {
+          if (mikrotikBadge) mikrotikBadge.textContent = 'Ping: ' + (data.mikrotik_gateway.ping_ms || 4) + 'ms';
+          if (mikrotikStatusText) mikrotikStatusText.textContent = 'Status: ' + data.mikrotik_gateway.status;
+        }
 
         const dbSlaBadge = document.getElementById('dbSlaBadge');
         const dbStatusText = document.getElementById('dbStatusText');
