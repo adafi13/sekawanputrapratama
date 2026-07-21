@@ -289,12 +289,12 @@
             <img src="https://sekawanputrapratama.com/assets/media/logo.png" alt="SPP" class="footer-logo">
 
             <div class="footer-text">
-                <strong>PT Sekawan Putra Pratama</strong><br>
+                <strong>{{ \App\Models\Setting::get('site.company_name', 'PT Sekawan Putra Pratama') }}</strong><br>
                 Software House & IT Consultant<br>
-                Perumahan Mega Regency, Blk. L5, No 23, Bekasi<br>
+                {{ \App\Models\Setting::get('contact.address', 'Perumahan Mega Regency, Blk. L5, No 23, Sukaragam, Bekasi 17330') }}<br>
                 <br>
-                <strong>Email:</strong> sekawanputrapratama@gmail.com<br>
-                <strong>WhatsApp:</strong> +62 851-5641-2702
+                <strong>Email:</strong> {{ \App\Models\Setting::get('contact.email', 'admin@sekawanputrapratama.com') }}<br>
+                <strong>WhatsApp:</strong> {{ \App\Models\Setting::get('contact.phone', '+62 851-5641-2702') }}
             </div>
 
             <div class="social-links">

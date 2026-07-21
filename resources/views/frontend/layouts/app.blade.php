@@ -470,15 +470,15 @@
                             <ul class="list-unstyled footer-links">
                                 <li class="d-flex align-items-start gap-2 mb-2">
                                     <i class="fas fa-map-marker-alt mt-1 text-primary"></i>
-                                    <span>Perumahan Mega Regency, Blk. L5, No 23, Sukaragam, Bekasi</span>
+                                    <span>{{ \App\Models\Setting::get('contact.address', 'Perumahan Mega Regency, Blk. L5 No. 23, Sukaragam, Bekasi') }}</span>
                                 </li>
                                 <li class="d-flex align-items-center gap-2 mb-2">
                                     <i class="fas fa-envelope text-primary"></i>
-                                    <a href="mailto:support@sekawanputrapratama.com">support@sekawanputrapratama.com</a>
+                                    <a href="mailto:{{ \App\Models\Setting::get('contact.email', 'admin@sekawanputrapratama.com') }}">{{ \App\Models\Setting::get('contact.email', 'admin@sekawanputrapratama.com') }}</a>
                                 </li>
                                 <li class="d-flex align-items-center gap-2">
                                     <i class="fab fa-whatsapp text-primary"></i>
-                                    <a href="https://wa.me/6285156412702">+62 851-5641-2702</a>
+                                    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', \App\Models\Setting::get('contact.phone', '6285156412702')) }}">{{ \App\Models\Setting::get('contact.phone', '+62 851-5641-2702') }}</a>
                                 </li>
                             </ul>
                         </div>

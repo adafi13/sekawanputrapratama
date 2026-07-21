@@ -66,7 +66,7 @@
             </div>
             <div class="ctc-info-body">
               <span class="ctc-info-label">Lokasi Kantor</span>
-              <span class="ctc-info-value">Perumahan Mega Regency, Blk. L5 No. 23, Sukaragam, Kec. Serang Baru, Bekasi 17330</span>
+              <span class="ctc-info-value">{{ \App\Models\Setting::get('contact.address', 'Perumahan Mega Regency, Blk. L5 No. 23, Sukaragam, Kec. Serang Baru, Bekasi 17330') }}</span>
               <a href="https://maps.app.goo.gl/CWZgdJDPenuBYPXi9" target="_blank" class="ctc-maps-link">
                 Buka Google Maps <i class="fas fa-external-link-alt"></i>
               </a>

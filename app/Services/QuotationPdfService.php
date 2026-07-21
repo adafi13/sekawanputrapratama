@@ -129,11 +129,11 @@ class QuotationPdfService
         }
         
         return [
-            'name' => $setting->company_name ?? 'SEKAWAN PUTRA PRATAMA',
-            'address' => $setting->company_address ?? 'Serang Baru, Bekasi - Indonesia',
-            'phone' => $setting->company_phone ?? '082136033596',
-            'email' => $setting->company_email ?? 'sekawanputrapratama@gmail.com',
-            'website' => $setting->company_website ?? 'www.sekawanputrapratama.com',
+            'name' => Setting::get('site.company_name', 'PT SEKAWAN PUTRA PRATAMA'),
+            'address' => Setting::get('contact.address', 'Perumahan Mega Regency, Blk. L5 No. 23, Sukaragam, Bekasi, Jawa Barat 17330'),
+            'phone' => Setting::get('contact.phone', '+62 851-5641-2702'),
+            'email' => Setting::get('contact.email', 'admin@sekawanputrapratama.com'),
+            'website' => 'sekawanputrapratama.com',
             'logo' => $logoPath,
         ];
     }

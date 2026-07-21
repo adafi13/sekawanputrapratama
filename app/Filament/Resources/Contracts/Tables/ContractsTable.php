@@ -68,10 +68,10 @@ class ContractsTable
                     ->action(function (Contract $record) {
                         // 1. Setup company data
                         $company = [
-                            'name' => \App\Models\Setting::get('site.company_name', 'PT. SEKAWAN PUTRA PRATAMA'),
-                            'address' => \App\Models\Setting::get('contact.address', 'Grand Galaxy City, Jl. Boulevard Raya, Bekasi'),
-                            'phone' => \App\Models\Setting::get('contact.phone', '+62 21 8888 9999'),
-                            'email' => \App\Models\Setting::get('contact.email', 'info@sekawanputrapratama.com'),
+                            'name' => \App\Models\Setting::get('site.company_name', 'PT SEKAWAN PUTRA PRATAMA'),
+                            'address' => \App\Models\Setting::get('contact.address', 'Perumahan Mega Regency, Blk. L5 No. 23, Sukaragam, Bekasi, Jawa Barat 17330'),
+                            'phone' => \App\Models\Setting::get('contact.phone', '+62 851-5641-2702'),
+                            'email' => \App\Models\Setting::get('contact.email', 'admin@sekawanputrapratama.com'),
                         ];
 
                         // 2. Get payment terms from contract (from quotation or custom)

@@ -77,11 +77,11 @@ class InvoicePdfService
      */
     protected static function getCompanyInfo(): array
     {
-        $companyName = Setting::where('key', 'company_name')->value('value') ?? 'PT. PT Sekawan Putra Pratama';
-        $companyAddress = Setting::where('key', 'company_address')->value('value') ?? 'Jl. Angga 2 BL A7/10 Griya Selo Permai, 082136033596';
-        $companyPhone = Setting::where('key', 'company_phone')->value('value') ?? '021-1234567';
-        $companyEmail = Setting::where('key', 'company_email')->value('value') ?? 'info@spp.co.id';
-        $companyWebsite = Setting::where('key', 'company_website')->value('value') ?? 'www.spp.co.id';
+        $companyName = Setting::get('site.company_name', 'PT Sekawan Putra Pratama');
+        $companyAddress = Setting::get('contact.address', 'Perumahan Mega Regency, Blk. L5 No. 23, Sukaragam, Bekasi, Jawa Barat 17330');
+        $companyPhone = Setting::get('contact.phone', '+62 851-5641-2702');
+        $companyEmail = Setting::get('contact.email', 'admin@sekawanputrapratama.com');
+        $companyWebsite = 'sekawanputrapratama.com';
         $companyLogo = Setting::where('key', 'company_logo')->value('value');
 
         return [

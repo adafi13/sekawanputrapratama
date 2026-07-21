@@ -101,12 +101,11 @@
 
                     <tr>
                         <td align="center" style="background-color: #f8fafc; padding: 30px; border-top: 1px solid #e2e8f0;">
-                            <p style="margin: 0 0 5px; font-size: 14px; font-weight: bold; color: #475569;">PT Sekawan Putra Pratama</p>
+                            <p style="margin: 0 0 5px; font-size: 14px; font-weight: bold; color: #475569;">{{ \App\Models\Setting::get('site.company_name', 'PT Sekawan Putra Pratama') }}</p>
                             <p style="margin: 0 0 20px; font-size: 12px; color: #64748b; line-height: 1.5;">
-                                Perumahan Mega Regency, Blk. L5, No 23, Sukaragam,<br>
-                                Kec. Serang Baru, Kabupaten Bekasi, Jawa Barat 17330
+                                {{ \App\Models\Setting::get('contact.address', 'Perumahan Mega Regency, Blk. L5 No. 23, Sukaragam, Serang Baru, Bekasi, Jawa Barat 17330') }}
                             </p>
-                            <a href="https://wa.me/6285156412702" style="color: #2563eb; text-decoration: none; font-weight: 600; font-size: 13px;">
+                            <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', \App\Models\Setting::get('contact.phone', '6285156412702')) }}" style="color: #2563eb; text-decoration: none; font-weight: 600; font-size: 13px;">
                                 Butuh bantuan? WhatsApp Kami
                             </a>
                             <p style="margin: 20px 0 0; font-size: 11px; color: #94a3b8;">
