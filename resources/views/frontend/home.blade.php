@@ -1223,13 +1223,18 @@ body {
             <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4 pb-3 border-bottom">
               <div>
                 <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-30 rounded-pill px-3 py-1 font-monospace fw-bold mb-2" id="aiSourceBadge">
-                  ● Enterprise Verified Architecture
+                  ● Verified Enterprise Architecture
                 </span>
                 <h4 class="fw-bold text-slate-900 mb-0" id="aiArchTitle">Arsitektur Enterprise POS Multi-Branch</h4>
               </div>
-              <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-20 rounded-pill px-3 py-2 font-monospace fw-bold" id="aiSlaBadge">
-                99.9% Uptime SLA
-              </span>
+              <div class="d-flex flex-wrap align-items-center gap-2">
+                <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-20 rounded-pill px-3 py-2 font-monospace fw-bold" id="aiSlaBadge">
+                  99.9% Uptime SLA
+                </span>
+                <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-30 rounded-pill px-3 py-2 font-monospace fw-bold" id="aiBudgetBadge">
+                  <i class="fas fa-coins me-1"></i> Estimasi Investasi: Rp 45.000.000 - Rp 85.000.000
+                </span>
+              </div>
             </div>
 
             <div class="mb-4">
@@ -2045,6 +2050,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       const titleEl = document.getElementById('aiArchTitle');
       const slaEl = document.getElementById('aiSlaBadge');
+      const budgetEl = document.getElementById('aiBudgetBadge');
       const stackEl = document.getElementById('aiTechStack');
       const whyEl = document.getElementById('aiWhyText');
 
@@ -2056,9 +2062,11 @@ document.addEventListener('DOMContentLoaded', function () {
       if (typeof d.estimated_sla === 'object' && d.estimated_sla !== null) {
         formattedSla = d.estimated_sla.availability ? (d.estimated_sla.availability + ' SLA') : '99.99% SLA';
       }
+      const budgetVal = d.estimated_budget || 'Rp 25.000.000 - Rp 50.000.000';
 
       if (titleEl) titleEl.textContent = d.architecture_title || 'Arsitektur Enterprise IT';
       if (slaEl) slaEl.textContent = formattedSla || '99.9% SLA';
+      if (budgetEl) budgetEl.innerHTML = '<i class="fas fa-coins me-1"></i> Estimasi Investasi: ' + budgetVal;
       if (stackEl) stackEl.textContent = formattedStack || 'Laravel 12 REST API + Flutter Mobile App';
       if (whyEl) whyEl.textContent = d.why_this_architecture || '';
 
@@ -2076,7 +2084,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       const waBtn = document.getElementById('btnAiWa');
       if (waBtn) {
-        const msg = encodeURIComponent('Halo PT Sekawan Putra Pratama, saya tertarik diskusi arsitektur IT: "' + (d.architecture_title || '') + '" dengan rekomendasi stack: ' + (d.stack || ''));
+        const msg = encodeURIComponent('Halo PT Sekawan Putra Pratama, saya tertarik diskusi arsitektur IT: "' + (d.architecture_title || '') + '" dengan estimasi investasi ' + budgetVal + ' dan rekomendasi stack: ' + (formattedStack || ''));
         waBtn.href = 'https://wa.me/6285156412702?text=' + msg;
       }
 

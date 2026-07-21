@@ -129,7 +129,7 @@ class FrontendController extends Controller
                     'messages' => [
                         [
                             'role' => 'system',
-                            'content' => 'You are an Expert Enterprise Solution Architect at PT Sekawan Putra Pratama. Output ONLY valid JSON containing: architecture_title, stack, key_components (array of {title, desc}), estimated_sla, why_this_architecture. Respond in Indonesian language.'
+                            'content' => 'You are an Expert Enterprise Solution Architect at PT Sekawan Putra Pratama. Output ONLY valid JSON containing: architecture_title, stack, key_components (array of {title, desc}), estimated_sla, estimated_budget (string in IDR format e.g. "Rp 35.000.000 - Rp 65.000.000"), why_this_architecture. Respond in Indonesian language.'
                         ],
                         [
                             'role' => 'user',
@@ -170,6 +170,7 @@ class FrontendController extends Controller
                     ['title' => 'Mikrotik Site-to-Site VPN', 'desc' => 'Menghubungkan jaringan antar 50+ cabang secara terenkripsi.']
                 ],
                 'estimated_sla' => '99.9% Uptime SLA',
+                'estimated_budget' => 'Rp 45.000.000 - Rp 85.000.000',
                 'why_this_architecture' => 'Kombinasi Laravel 12 & Flutter memberikan kecepatan akses ultra tinggi dan toleransi kegagalan offline untuk operasional toko cabang.'
             ];
         } elseif (str_contains($lower, 'erp') || str_contains($lower, 'gudang') || str_contains($lower, 'stok')) {
@@ -183,6 +184,7 @@ class FrontendController extends Controller
                     ['title' => 'Security Audit Trail', 'desc' => 'Pencatatan riwayat setiap perubahan data stok secara ketat.']
                 ],
                 'estimated_sla' => '99.99% Availability',
+                'estimated_budget' => 'Rp 65.000.000 - Rp 135.000.000',
                 'why_this_architecture' => 'Menjamin transparansi arus stok antar gudang dan laporan keuangan yang akurat untuk mendukung pengambilan keputusan direksi.'
             ];
         } else {
@@ -196,6 +198,7 @@ class FrontendController extends Controller
                     ['title' => 'ISO 27001 Security Standard', 'desc' => 'Perlindungan enkripsi SSL TLS 1.3 dan firewall bertingkat.']
                 ],
                 'estimated_sla' => '99.9% Uptime Guarantee',
+                'estimated_budget' => 'Rp 25.000.000 - Rp 50.000.000',
                 'why_this_architecture' => 'Arsitektur terintegrasi ini dirancang khusus untuk skala bisnis yang dapat berkembang pesat tanpa hambatan performa.'
             ];
         }
