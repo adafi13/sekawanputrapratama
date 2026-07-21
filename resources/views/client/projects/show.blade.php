@@ -51,18 +51,27 @@
                         'deployment' => '6. Serah Terima & Live Deployment',
                         'completed' => '7. Proyek Selesai',
                     ];
-                    $currentStatusKey = $project->status;
+                    $stageKeys = array_keys($stages);
+                    $currentIndex = array_search($project->status, $stageKeys);
+                    if ($currentIndex === false) {
+                        $currentIndex = 0;
+                    }
                 @endphp
 
                 <ul class="list-group list-group-flush bg-transparent">
                     @foreach($stages as $key => $label)
+                        @php
+                            $stageIndex = array_search($key, $stageKeys);
+                            $isPast = $stageIndex < $currentIndex || $project->status === 'completed';
+                            $isCurrent = $project->status === $key && $project->status !== 'completed';
+                        @endphp
                         <li class="list-group-item bg-transparent d-flex justify-content-between align-items-center py-3">
-                            <span class="fw-semibold {{ $project->status === $key ? 'text-primary fw-bold' : 'text-dark' }}">
+                            <span class="fw-semibold {{ $isCurrent ? 'text-primary fw-bold' : ($isPast ? 'text-dark' : 'text-muted') }}">
                                 {{ $label }}
                             </span>
-                            @if($project->status === $key)
+                            @if($isCurrent)
                                 <span class="badge bg-primary rounded-pill px-3 py-2"><i class="fas fa-spinner fa-spin me-1"></i> Sedang Berjalan</span>
-                            @elseif($project->completion_percentage >= 100 || $key === 'awaiting_dp' && $project->status !== 'awaiting_dp')
+                            @elseif($isPast)
                                 <span class="badge bg-success rounded-pill px-3 py-2"><i class="fas fa-check me-1"></i> Selesai</span>
                             @else
                                 <span class="badge bg-secondary opacity-50 rounded-pill px-3 py-2">Menunggu Stage</span>
