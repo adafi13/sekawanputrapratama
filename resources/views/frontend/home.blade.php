@@ -1842,7 +1842,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const securityStatusText = document.getElementById('securityStatusText');
         if (securityStatusText && data.security_firewall) {
-          securityStatusText.textContent = data.security_firewall.status + ' (' + data.security_firewall.threats_blocked + ' Blocked)';
+          securityStatusText.textContent = data.security_firewall.status;
         }
       })
       .catch(function(err) {
