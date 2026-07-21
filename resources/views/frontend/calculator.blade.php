@@ -44,15 +44,15 @@
         transform: scale(1.1);
     }
     .platform-icon {
-        width: 50px;
-        height: 50px;
-        border-radius: 14px;
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
         background: #f1f5f9;
         color: #2563eb;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.35rem;
+        font-size: 1.25rem;
         transition: all 0.3s ease;
     }
     .feature-card {
@@ -89,6 +89,18 @@
     }
     .feature-list-container {
         animation: fadeIn 0.4s ease-in-out;
+    }
+    .summary-feature-list {
+        max-height: 180px;
+        overflow-y: auto;
+        padding-right: 5px;
+    }
+    .summary-feature-list::-webkit-scrollbar {
+        width: 4px;
+    }
+    .summary-feature-list::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
     }
     @keyframes fadeIn {
         from { opacity: 0; transform: translateY(8px); }
@@ -157,7 +169,7 @@
                     </div>
                 </div>
 
-                {{-- STEP 2: DYNAMIC FEATURES (Disesuaikan Per Platform) --}}
+                {{-- STEP 2: DYNAMIC FEATURES --}}
                 <div class="bg-white p-4 p-md-5 rounded-4 border shadow-sm mb-4">
                     <div class="d-flex align-items-center justify-content-between mb-4">
                         <div class="d-flex align-items-center gap-3">
@@ -217,57 +229,58 @@
                 </div>
             </div>
 
-            {{-- SUMMARY SIDEBAR --}}
+            {{-- SUMMARY SIDEBAR (CLEAN, PROPORTIONAL & LUXURIOUS) --}}
             <div class="col-lg-4">
-                <div class="summary-card text-white p-4 p-md-5 rounded-4 sticky-top" style="top: 100px;">
-                    <div class="d-flex align-items-center justify-content-between mb-4 border-bottom border-secondary pb-3">
+                <div class="summary-card text-white p-4 rounded-4 sticky-top" style="top: 100px;">
+                    <div class="d-flex align-items-center justify-content-between mb-3 border-bottom border-secondary pb-3">
                         <div>
                             <span class="text-white-50 small d-block">Ringkasan Simulasi</span>
                             <h5 class="fw-bold text-white mb-0">Hasil Estimasi</h5>
                         </div>
                         <span class="badge bg-success rounded-pill px-3 py-2 small fw-bold">
-                            <i class="fas fa-check-circle me-1"></i> Instant Live
+                            <i class="fas fa-check-circle me-1"></i> Live
                         </span>
                     </div>
 
                     {{-- PLATFORM SUMMARY --}}
-                    <div class="mb-4">
+                    <div class="mb-3">
                         <span class="text-white-50 small d-block mb-1">Platform Terpilih:</span>
                         <div class="d-flex align-items-center gap-2">
-                            <i class="fas fa-layer-group text-primary fs-5"></i>
-                            <h6 class="fw-bold text-info mb-0 fs-5" id="summary-platform-name">-</h6>
+                            <i class="fas fa-layer-group text-primary"></i>
+                            <h6 class="fw-bold text-info mb-0 text-truncate" id="summary-platform-name">-</h6>
                         </div>
                     </div>
 
                     {{-- DURATION SUMMARY --}}
-                    <div class="mb-4 p-3 rounded-3" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);">
+                    <div class="mb-3 p-3 rounded-3" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);">
                         <span class="text-white-50 small d-block mb-1"><i class="fas fa-calendar-alt text-info me-1"></i> Estimasi Waktu Pengerjaan:</span>
-                        <h4 class="fw-bold text-white mb-0" id="summary-duration">0 Hari Kerja</h4>
+                        <h5 class="fw-bold text-white mb-0" id="summary-duration">0 Hari Kerja</h5>
                     </div>
 
-                    {{-- PRICE SUMMARY --}}
-                    <div class="p-4 rounded-4 mb-4" style="background: linear-gradient(135deg, rgba(37, 99, 235, 0.2) 0%, rgba(14, 165, 233, 0.1) 100%); border: 1.5px solid rgba(59, 130, 246, 0.3);">
+                    {{-- PRICE SUMMARY (CLEAN & NO WRAPPING OVERFLOW) --}}
+                    <div class="p-3 rounded-4 mb-3" style="background: linear-gradient(135deg, rgba(37, 99, 235, 0.25) 0%, rgba(14, 165, 233, 0.15) 100%); border: 1.5px solid rgba(59, 130, 246, 0.35);">
                         <span class="text-white-50 small d-block mb-1"><i class="fas fa-coins text-warning me-1"></i> Perkiraan Range Biaya:</span>
-                        <h3 class="fw-black text-warning mb-1" id="summary-price" style="letter-spacing: -0.5px;">Rp 0</h3>
-                        <p class="text-white-50 mb-0" style="font-size: 11px;">*Harga resmi dapat disesuaikan kembali setelah diskusi kebutuhan detail.</p>
+                        <h4 class="fw-black text-warning mb-1" id="summary-price-short" style="letter-spacing: -0.5px;">Rp 0</h4>
+                        <div class="text-white-50 small font-monospace" id="summary-price-full" style="font-size: 12px;">-</div>
+                        <p class="text-white-50 mt-1 mb-0" style="font-size: 10px;">*Harga final disesuaikan setelah diskusi detail.</p>
                     </div>
 
-                    {{-- SELECTED FEATURES LIST --}}
+                    {{-- SELECTED FEATURES LIST (SLEEK VERTICAL CHECKLIST) --}}
                     <div class="mb-4">
                         <span class="text-white-50 small d-block mb-2">Fitur Tambahan Terpilih:</span>
-                        <div id="summary-features-chips" class="d-flex flex-wrap gap-1">
-                            <span class="badge bg-secondary opacity-50 small">Standard Core Package</span>
+                        <div id="summary-features-chips" class="summary-feature-list">
+                            <span class="badge bg-secondary opacity-50 small">Paket Standar Tanpa Add-on</span>
                         </div>
                     </div>
 
                     {{-- ACTION BUTTONS --}}
                     <div class="d-grid gap-2">
-                        <a href="#" id="wa-btn" target="_blank" class="btn btn-success rounded-3 fw-bold py-3 shadow-lg fs-6">
+                        <a href="#" id="wa-btn" target="_blank" class="btn btn-success rounded-3 fw-bold py-3 shadow fs-6">
                             <i class="fab fa-whatsapp me-2 fa-lg"></i> Konsultasi Estimasi via WA
                         </a>
 
                         <a href="{{ route('contact') }}" class="btn btn-outline-light rounded-3 fw-semibold py-2 small">
-                            <i class="fas fa-file-invoice me-2"></i> Minta Penawaran Resmi (PDF)
+                            <i class="fas fa-file-invoice me-2"></i> Minta Penawaran Resmi
                         </a>
                     </div>
                 </div>
@@ -305,10 +318,8 @@
         const features = platform.features || {};
 
         let html = '<div class="row g-3">';
-        let index = 0;
 
         for (const [fKey, f] of Object.entries(features)) {
-            index++;
             html += `
                 <div class="col-md-6">
                     <div class="feature-card p-3 rounded-4 h-100 d-flex align-items-center justify-content-between"
@@ -398,16 +409,24 @@
         // Update UI Summary
         $('#summary-platform-name').text(platform.name);
         $('#summary-duration').text(`${baseDays} - ${maxDays} Hari Kerja`);
-        $('#summary-price').text(`Rp ${formatRupiah(basePrice)} - Rp ${formatRupiah(maxPrice)}`);
+        
+        // Compact & clean price formatting (e.g., Rp 19,0 Jt - Rp 22,8 Jt)
+        let minJt = (basePrice / 1000000).toFixed(1);
+        let maxJt = (maxPrice / 1000000).toFixed(1);
+        $('#summary-price-short').text(`Rp ${minJt} Jt - Rp ${maxJt} Jt`);
+        $('#summary-price-full').text(`Rp ${formatRupiah(basePrice)} s/d Rp ${formatRupiah(maxPrice)}`);
 
-        // Update Feature Chips
+        // Update Feature List as a clean vertical checklist
         if (selectedFeatureNames.length > 0) {
-            let chipsHtml = selectedFeatureNames.map(name => 
-                `<span class="badge bg-primary bg-opacity-20 text-info border border-info border-opacity-30 rounded-pill px-2 py-1 small me-1 mb-1"><i class="fas fa-check me-1"></i>${name}</span>`
+            let listHtml = selectedFeatureNames.map(name => 
+                `<div class="d-flex align-items-start gap-2 mb-2 text-white-50 small">
+                    <i class="fas fa-check-circle text-info mt-1"></i>
+                    <span>${name}</span>
+                </div>`
             ).join('');
-            $('#summary-features-chips').html(chipsHtml);
+            $('#summary-features-chips').html(listHtml);
         } else {
-            $('#summary-features-chips').html('<span class="badge bg-secondary opacity-50 small">Paket Standar Tanpa Add-on</span>');
+            $('#summary-features-chips').html('<div class="text-white-50 small"><i class="fas fa-info-circle me-1"></i> Paket Standar Tanpa Add-on</div>');
         }
 
         // Generate WA Text
