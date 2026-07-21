@@ -9,6 +9,8 @@
         background: radial-gradient(circle at 50% 0%, #1e293b 0%, #0f172a 60%, #020617 100%);
         position: relative;
         overflow: hidden;
+        padding-top: 140px; /* Offset for fixed navbar header */
+        padding-bottom: 60px;
     }
     .calc-hero::before {
         content: '';
@@ -112,8 +114,8 @@
 @section('content')
 
 {{-- HERO SECTION --}}
-<section class="calc-hero py-5 text-white">
-    <div class="container py-4 text-center position-relative" style="z-index: 2;">
+<section class="calc-hero text-white">
+    <div class="container text-center position-relative" style="z-index: 2;">
         <span class="badge bg-primary bg-opacity-25 text-info border border-info border-opacity-30 rounded-pill px-4 py-2 mb-3 fs-6">
             <i class="fas fa-calculator me-2"></i> Interactive Cost & Duration Estimator
         </span>
