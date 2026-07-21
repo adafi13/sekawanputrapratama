@@ -86,6 +86,7 @@ class InvoiceResource extends Resource
                     ->schema([
                         Components\FileUpload::make('payment_proof_path')
                             ->label('File Bukti Transfer')
+                            ->disk('public')
                             ->openable()
                             ->downloadable(),
                         Components\TextInput::make('payment_method')
@@ -166,7 +167,8 @@ class InvoiceResource extends Resource
                     ->action(function (Invoice $record) {
                         $record->update([
                             'status' => Invoice::STATUS_PAID,
-                            'paid_at' => now(),
+                            'paid_at' => $record->paid_at ?? now(),
+                            'payment_method' => $record->payment_method ?? Invoice::PAYMENT_BANK_TRANSFER_BCA,
                         ]);
 
                         \Filament\Notifications\Notification::make()
