@@ -1068,34 +1068,34 @@ body {
 
       {{-- 4 Grid Cards --}}
       <div class="row g-4">
-        {{-- Card 1: Cloud Server Cluster --}}
+        {{-- Card 1: Server System Health --}}
         <div class="col-md-6 col-lg-3">
           <div class="p-4 rounded-4 bg-white border h-100 shadow-sm">
             <div class="d-flex align-items-center justify-content-between mb-3">
-              <span class="text-primary fs-4"><i class="fas fa-server"></i></span>
+              <span class="text-primary fs-4"><i class="fas fa-microchip"></i></span>
               <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-20 rounded-pill font-monospace" style="font-size: 10px;" id="cloudUptimeBadge">
                 99.99% SLA
               </span>
             </div>
-            <h6 class="fw-bold text-slate-900 mb-1">Cloud Server Cluster</h6>
-            <p class="text-muted small mb-2" id="cloudStatusText">Status: Operational (3/3 Nodes Active)</p>
+            <h6 class="fw-bold text-slate-900 mb-1">Server System Health</h6>
+            <p class="text-muted small mb-2" id="cloudStatusText">RAM: Syncing...</p>
             <div class="progress bg-light" style="height: 4px;">
               <div class="progress-bar bg-primary" style="width: 99.99%;"></div>
             </div>
           </div>
         </div>
 
-        {{-- Card 2: Network Gateway Mikrotik --}}
+        {{-- Card 2: Server Network Gateway --}}
         <div class="col-md-6 col-lg-3">
           <div class="p-4 rounded-4 bg-white border h-100 shadow-sm">
             <div class="d-flex align-items-center justify-content-between mb-3">
               <span class="text-info fs-4"><i class="fas fa-network-wired"></i></span>
               <span class="badge bg-info bg-opacity-10 text-info border border-info border-opacity-20 rounded-pill font-monospace" style="font-size: 10px;" id="mikrotikBadge">
-                Ping: 4ms
+                Ping: 8ms
               </span>
             </div>
-            <h6 class="fw-bold text-slate-900 mb-1">Network Gateway Mikrotik</h6>
-            <p class="text-muted small mb-2" id="mikrotikStatusText">Status: RouterOS v7 (Gateway Active)</p>
+            <h6 class="fw-bold text-slate-900 mb-1">Server Network Gateway</h6>
+            <p class="text-muted small mb-2" id="mikrotikStatusText">Status: Gateway Connected</p>
             <div class="progress bg-light" style="height: 4px;">
               <div class="progress-bar bg-info" style="width: 100%;"></div>
             </div>
@@ -1108,18 +1108,18 @@ body {
             <div class="d-flex align-items-center justify-content-between mb-3">
               <span class="text-warning fs-4"><i class="fas fa-database"></i></span>
               <span class="badge bg-warning bg-opacity-10 text-warning border border-warning border-opacity-20 rounded-pill font-monospace" style="font-size: 10px;" id="dbSlaBadge">
-                Healthy (16ms)
+                Healthy (12ms)
               </span>
             </div>
             <h6 class="fw-bold text-slate-900 mb-1">Database Response SLA</h6>
-            <p class="text-muted small mb-2" id="dbStatusText">Query Benchmark: 16ms</p>
+            <p class="text-muted small mb-2" id="dbStatusText">Query Benchmark: 12ms</p>
             <div class="progress bg-light" style="height: 4px;">
               <div class="progress-bar bg-warning" style="width: 96%;"></div>
             </div>
           </div>
         </div>
 
-        {{-- Card 4: Security & ISO Standards --}}
+        {{-- Card 4: HTTPS & SSL Security --}}
         <div class="col-md-6 col-lg-3">
           <div class="p-4 rounded-4 bg-white border h-100 shadow-sm">
             <div class="d-flex align-items-center justify-content-between mb-3">
@@ -1128,8 +1128,8 @@ body {
                 TLS 1.3 Active
               </span>
             </div>
-            <h6 class="fw-bold text-slate-900 mb-1">Security & ISO 27001</h6>
-            <p class="text-muted small mb-2" id="securityStatusText">Protected (ISO Compliant)</p>
+            <h6 class="fw-bold text-slate-900 mb-1">HTTPS & SSL Security</h6>
+            <p class="text-muted small mb-2" id="securityStatusText">Protected & Enforced</p>
             <div class="progress bg-light" style="height: 4px;">
               <div class="progress-bar bg-success" style="width: 100%;"></div>
             </div>
@@ -1821,11 +1821,16 @@ document.addEventListener('DOMContentLoaded', function () {
         const tsEl = document.getElementById('healthTimestamp');
         if (tsEl && data.timestamp) tsEl.textContent = data.timestamp;
 
+        const cloudStatusText = document.getElementById('cloudStatusText');
+        if (data.cloud_cluster && cloudStatusText) {
+          cloudStatusText.textContent = data.cloud_cluster.status;
+        }
+
         const mikrotikBadge = document.getElementById('mikrotikBadge');
         const mikrotikStatusText = document.getElementById('mikrotikStatusText');
         if (data.mikrotik_gateway) {
-          if (mikrotikBadge) mikrotikBadge.textContent = 'Ping: ' + (data.mikrotik_gateway.ping_ms || 4) + 'ms';
-          if (mikrotikStatusText) mikrotikStatusText.textContent = 'Status: ' + data.mikrotik_gateway.status;
+          if (mikrotikBadge) mikrotikBadge.textContent = 'Ping: ' + (data.mikrotik_gateway.ping_ms || 8) + 'ms';
+          if (mikrotikStatusText) mikrotikStatusText.textContent = data.mikrotik_gateway.status;
         }
 
         const dbSlaBadge = document.getElementById('dbSlaBadge');
