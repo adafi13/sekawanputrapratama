@@ -16,7 +16,7 @@ class JobOpeningResource extends Resource
 {
     protected static ?string $model = JobOpening::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-briefcase';
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-briefcase';
 
     protected static string|\UnitEnum|null $navigationGroup = 'Recruitment / Karir';
 
