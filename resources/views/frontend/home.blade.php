@@ -515,25 +515,59 @@ body {
 /* ============================================================
    TRUSTED BY (BRAND LOGOS MARQUEE)
    ============================================================ */
-.brands-section { padding: 50px 0 20px; background: #ffffff; }
+.brands-section { padding: 45px 0 25px; background: #ffffff; overflow: hidden; }
 .brands-label {
-  text-align: center; color: var(--text-muted); font-size: 12px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 30px;
+  text-align: center; color: #64748b; font-size: 13px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px;
 }
-.brands-marquee { overflow: hidden; position: relative; padding-bottom: 30px; }
+.brands-marquee { overflow: hidden; position: relative; width: 100%; }
 .brands-marquee::before, .brands-marquee::after {
-  content: ""; position: absolute; top: 0; bottom: 0; width: 100px; z-index: 2;
+  content: ""; position: absolute; top: 0; bottom: 0; width: 120px; z-index: 2; pointer-events: none;
 }
 .brands-marquee::before { left: 0; background: linear-gradient(to right, #ffffff, transparent); }
 .brands-marquee::after { right: 0; background: linear-gradient(to left, #ffffff, transparent); }
-.brands-marquee-content { display: flex; width: max-content; animation: scroll-left 25s linear infinite; align-items: center; }
-.brands-marquee:hover .brands-marquee-content { animation-play-state: paused; }
-.brand-item { display: flex; align-items: center; justify-content: center; margin: 0 35px; height: 50px; }
-.brand-item img {
-  max-height: 40px; max-width: 130px; object-fit: contain; filter: grayscale(1) opacity(0.5);
-  transition: filter 0.3s ease;
+.brands-marquee-content {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  width: max-content;
+  animation: brandMarqueeScroll 25s linear infinite;
 }
-.brand-item img:hover { filter: grayscale(0) opacity(1); }
+.brands-marquee:hover .brands-marquee-content { animation-play-state: paused; }
+.brand-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 28px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  min-width: 160px;
+  height: 70px;
+  transition: all 0.3s ease;
+}
+.brand-item:hover {
+  transform: translateY(-3px);
+  border-color: #0284c7;
+  box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.15);
+  background: #ffffff;
+}
+.brand-item img {
+  max-height: 48px;
+  max-width: 140px;
+  object-fit: contain;
+  filter: grayscale(0.1) opacity(0.95);
+  transition: all 0.3s ease;
+}
+.brand-item:hover img {
+  filter: grayscale(0) opacity(1);
+  transform: scale(1.05);
+}
+
+@keyframes brandMarqueeScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
 
 /* ============================================================
    SERVICES BENTO (LIGHT)
@@ -1300,16 +1334,17 @@ body {
   <p class="brands-label reveal">Dipercaya oleh berbagai perusahaan</p>
   <div class="brands-marquee">
     <div class="brands-marquee-content">
-      @foreach($brands as $brand)
-      <div class="brand-item">
-        <img src="{{ $brand->getFirstMediaUrl('logo') }}" alt="{{ $brand->name }}" loading="lazy">
-      </div>
-      @endforeach
-      @foreach($brands as $brand)
-      <div class="brand-item">
-        <img src="{{ $brand->getFirstMediaUrl('logo') }}" alt="{{ $brand->name }}" loading="lazy">
-      </div>
-      @endforeach
+      @for($repeat = 0; $repeat < 8; $repeat++)
+        @foreach($brands as $brand)
+        <div class="brand-item">
+          @if($brand->getFirstMediaUrl('logo'))
+            <img src="{{ $brand->getFirstMediaUrl('logo') }}" alt="{{ $brand->name }}" loading="lazy">
+          @else
+            <span style="color: #0f172a; font-size: 14px; font-weight: 800; font-family: monospace;">{{ $brand->name }}</span>
+          @endif
+        </div>
+        @endforeach
+      @endfor
     </div>
   </div>
 </section>
