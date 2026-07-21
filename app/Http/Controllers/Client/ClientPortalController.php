@@ -128,10 +128,10 @@ class ClientPortalController extends Controller
 
         // Auto-generate PDF on the fly if custom PDF scan wasn't uploaded
         $company = [
-            'name' => 'PT. SEKAWAN PUTRA PRATAMA',
-            'address' => 'Grand Galaxy City, Jl. Boulevard Raya, Bekasi',
-            'phone' => '+62 21 8888 9999',
-            'email' => 'info@sekawanputrapratama.com',
+            'name' => \App\Models\Setting::get('site.company_name', 'PT. SEKAWAN PUTRA PRATAMA'),
+            'address' => \App\Models\Setting::get('contact.address', 'Grand Galaxy City, Jl. Boulevard Raya, Bekasi'),
+            'phone' => \App\Models\Setting::get('contact.phone', '+62 21 8888 9999'),
+            'email' => \App\Models\Setting::get('contact.email', 'info@sekawanputrapratama.com'),
         ];
 
         $paymentTerms = $contract->payment_terms ?? [
