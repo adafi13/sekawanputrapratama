@@ -109,6 +109,102 @@ class FrontendController extends Controller
             ],
         ]);
     }
+
+    public function recommendArchitecture(Request $request)
+    {
+        $prompt = trim($request->input('prompt', ''));
+        if (empty($prompt)) {
+            $prompt = 'Sistem POS Kasir 50 Cabang Realtime';
+        }
+
+        $apiKey = env('GROQ_API_KEY');
+
+        if (!empty($apiKey)) {
+            try {
+                $response = \Illuminate\Support\Facades\Http::withHeaders([
+                    'Authorization' => 'Bearer ' . $apiKey,
+                    'Content-Type' => 'application/json',
+                ])->timeout(12)->post('https://api.groq.com/openai/v1/chat/completions', [
+                    'model' => 'llama-3.3-70b-versatile',
+                    'messages' => [
+                        [
+                            'role' => 'system',
+                            'content' => 'You are an Expert Enterprise Solution Architect at PT Sekawan Putra Pratama. Output ONLY valid JSON containing: architecture_title, stack, key_components (array of {title, desc}), estimated_sla, why_this_architecture. Respond in Indonesian language.'
+                        ],
+                        [
+                            'role' => 'user',
+                            'content' => 'Kebutuhan Bisnis: ' . $prompt
+                        ]
+                    ],
+                    'response_format' => ['type' => 'json_object']
+                ]);
+
+                if ($response->successful()) {
+                    $json = $response->json();
+                    $content = $json['choices'][0]['message']['content'] ?? null;
+                    if ($content) {
+                        $parsed = json_decode($content, true);
+                        if ($parsed && isset($parsed['architecture_title'])) {
+                            return response()->json([
+                                'source' => 'groq_ai',
+                                'data' => $parsed
+                            ]);
+                        }
+                    }
+                }
+            } catch (\Throwable $e) {
+                // Fallback to intelligent rule-engine
+            }
+        }
+
+        // Intelligent Fallback Rule Engine
+        $lower = strtolower($prompt);
+        if (str_contains($lower, 'kasir') || str_contains($lower, 'pos') || str_contains($lower, 'toko')) {
+            $data = [
+                'architecture_title' => 'Arsitektur Enterprise POS Multi-Branch & Realtime Sync',
+                'stack' => 'Laravel 12 REST API + Flutter Mobile App + Cloud PostgreSQL Multi-Region + Redis Caching',
+                'key_components' => [
+                    ['title' => 'Backend API Microservices', 'desc' => 'Terhubung langsung ke database cloud dengan latensi di bawah 20ms.'],
+                    ['title' => 'Flutter Cross-Platform POS', 'desc' => 'Mode offline-first dengan sinkronisasi otomatis saat terhubung internet.'],
+                    ['title' => 'Redis Cache & Queue', 'desc' => 'Memproses hingga 10.000 transaksi stok per menit tanpa delay.'],
+                    ['title' => 'Mikrotik Site-to-Site VPN', 'desc' => 'Menghubungkan jaringan antar 50+ cabang secara terenkripsi.']
+                ],
+                'estimated_sla' => '99.9% Uptime SLA',
+                'why_this_architecture' => 'Kombinasi Laravel 12 & Flutter memberikan kecepatan akses ultra tinggi dan toleransi kegagalan offline untuk operasional toko cabang.'
+            ];
+        } elseif (str_contains($lower, 'erp') || str_contains($lower, 'gudang') || str_contains($lower, 'stok')) {
+            $data = [
+                'architecture_title' => 'Arsitektur Custom ERP & Smart Multi-Warehouse System',
+                'stack' => 'Laravel 12 Engine + Vue.js Dashboard + PostgreSQL + Docker Container + AWS Cloud',
+                'key_components' => [
+                    ['title' => 'Centralized ERP Core', 'desc' => 'Modul Keuangan, Stok, Pembelian, dan HRD terintegrasi real-time.'],
+                    ['title' => 'Barcode & Mobile Scanner', 'desc' => 'Aplikasi scanner stok barang berbasis Android native.'],
+                    ['title' => 'AWS Cloud Infrastructure', 'desc' => 'Auto-scaling server saat puncak pemrosesan laporan bulanan.'],
+                    ['title' => 'Security Audit Trail', 'desc' => 'Pencatatan riwayat setiap perubahan data stok secara ketat.']
+                ],
+                'estimated_sla' => '99.99% Availability',
+                'why_this_architecture' => 'Menjamin transparansi arus stok antar gudang dan laporan keuangan yang akurat untuk mendukung pengambilan keputusan direksi.'
+            ];
+        } else {
+            $data = [
+                'architecture_title' => 'Arsitektur High-Performance Digital Enterprise System',
+                'stack' => 'Laravel 12 API + Next.js / Flutter + MySQL Cluster + AWS Cloud Infra',
+                'key_components' => [
+                    ['title' => 'High-Speed API Layer', 'desc' => 'Restful API teroptimasi dengan keahlian arsitektur clean-code.'],
+                    ['title' => 'Modern Responsive UI', 'desc' => 'Tampilan antarmuka berstandar enterprise yang cepat dan responsif.'],
+                    ['title' => 'Cloud Database Cluster', 'desc' => 'Replikasi database otomatis dengan backup terjadwal 24/7.'],
+                    ['title' => 'ISO 27001 Security Standard', 'desc' => 'Perlindungan enkripsi SSL TLS 1.3 dan firewall bertingkat.']
+                ],
+                'estimated_sla' => '99.9% Uptime Guarantee',
+                'why_this_architecture' => 'Arsitektur terintegrasi ini dirancang khusus untuk skala bisnis yang dapat berkembang pesat tanpa hambatan performa.'
+            ];
+        }
+
+        return response()->json([
+            'source' => 'smart_engine',
+            'data' => $data
+        ]);
+    }
     
     public function home()
     {

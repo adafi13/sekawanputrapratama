@@ -1165,6 +1165,107 @@ body {
 @endif
 
 {{-- ==========================================
+     AI TECH ARCHITECTURE RECOMMENDER WIDGET
+     ========================================== --}}
+<section class="py-5 bg-white border-bottom">
+  <div class="container py-3">
+    <div class="p-4 p-md-5 rounded-4 bg-light border shadow-sm">
+      
+      {{-- Section Header --}}
+      <div class="text-center max-w-700 mx-auto mb-5 reveal">
+        <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-20 rounded-pill px-3 py-1 font-monospace fw-bold mb-3" style="font-size: 11px;">
+          <i class="fas fa-brain me-1"></i> REKOMENDASI ARSITEKTUR SISTEM BERBASIS AI
+        </span>
+        <h2 class="fw-bold text-slate-900 display-6 mb-3">
+          Konsultasi <span class="text-primary">Arsitektur IT AI</span> Secara Instan
+        </h2>
+        <p class="text-muted">
+          Ketikkan masalah atau kebutuhan aplikasi bisnis Anda, dan AI Solution Architect kami akan langsung merumuskan rekomendasi stack & arsitektur teknisnya.
+        </p>
+      </div>
+
+      {{-- Input & Prompt Chips Container --}}
+      <div class="row justify-content-center mb-4">
+        <div class="col-lg-10">
+          
+          {{-- Quick Chips --}}
+          <div class="d-flex flex-wrap justify-content-center gap-2 mb-3">
+            <span class="badge bg-white border text-dark py-2 px-3 rounded-pill cursor-pointer shadow-sm quick-ai-chip" style="cursor: pointer;" onclick="setAiPrompt('Sistem POS Kasir 50 Cabang Realtime')">
+              <i class="fas fa-store text-primary me-1"></i> POS 50 Cabang Realtime
+            </span>
+            <span class="badge bg-white border text-dark py-2 px-3 rounded-pill cursor-pointer shadow-sm quick-ai-chip" style="cursor: pointer;" onclick="setAiPrompt('ERP Manufaktur & Stok Gudang Multi-Warehouse')">
+              <i class="fas fa-boxes text-info me-1"></i> ERP Multi-Warehouse
+            </span>
+            <span class="badge bg-white border text-dark py-2 px-3 rounded-pill cursor-pointer shadow-sm quick-ai-chip" style="cursor: pointer;" onclick="setAiPrompt('Aplikasi Mobile Marketplace & Payment Gateway')">
+              <i class="fas fa-mobile-alt text-warning me-1"></i> Mobile App & Payment
+            </span>
+            <span class="badge bg-white border text-dark py-2 px-3 rounded-pill cursor-pointer shadow-sm quick-ai-chip" style="cursor: pointer;" onclick="setAiPrompt('Sistem VPN Mikrotik Inter-Branch & Core Gateway')">
+              <i class="fas fa-network-wired text-success me-1"></i> VPN Mikrotik Inter-Branch
+            </span>
+          </div>
+
+          {{-- Input Group --}}
+          <div class="input-group input-group-lg shadow-sm rounded-4 overflow-hidden border">
+            <input type="text" id="aiPromptInput" class="form-control border-0 px-4 py-3 text-slate-900" placeholder="Contoh: Saya mau buat sistem kasir & stok untuk 50 cabang toko..." value="Sistem POS Kasir 50 Cabang Realtime">
+            <button class="btn btn-primary px-4 fw-bold font-monospace d-flex align-items-center gap-2" type="button" id="btnGenerateAi" onclick="generateAiArchitecture()">
+              <i class="fas fa-bolt"></i> <span id="btnAiText">Analisis AI</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      {{-- Output Card Container --}}
+      <div class="row justify-content-center" id="aiOutputWrapper" style="display: none;">
+        <div class="col-lg-10">
+          <div class="p-4 p-md-5 rounded-4 bg-white border shadow-sm">
+            
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4 pb-3 border-bottom">
+              <div>
+                <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-30 rounded-pill px-3 py-1 font-monospace fw-bold mb-2" id="aiSourceBadge">
+                  ● Groq Llama-3 AI Verified
+                </span>
+                <h4 class="fw-bold text-slate-900 mb-0" id="aiArchTitle">Arsitektur Enterprise POS Multi-Branch</h4>
+              </div>
+              <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-20 rounded-pill px-3 py-2 font-monospace fw-bold" id="aiSlaBadge">
+                99.9% Uptime SLA
+              </span>
+            </div>
+
+            <div class="mb-4">
+              <label class="text-muted small fw-bold text-uppercase d-block mb-2 font-monospace">REKOMENDASI STACK TEKNOLOGI:</label>
+              <div class="p-3 bg-light rounded-3 border text-primary font-monospace fw-bold" id="aiTechStack">
+                Laravel 12 REST API + Flutter Mobile App + Cloud PostgreSQL Multi-Region + Redis Caching
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <label class="text-muted small fw-bold text-uppercase d-block mb-2 font-monospace">PILAR MODUL UTAMA:</label>
+              <div class="row g-3" id="aiKeyComponents">
+                {{-- Dynamic Pillars Grid --}}
+              </div>
+            </div>
+
+            <div class="p-3 rounded-3 bg-info bg-opacity-10 text-slate-800 border border-info border-opacity-20 mb-4" id="aiWhyBox">
+              <strong><i class="fas fa-lightbulb text-info me-1"></i> Rationale Arsitektur:</strong>
+              <span id="aiWhyText">Kombinasi Laravel 12 & Flutter memberikan kecepatan akses ultra tinggi dan toleransi kegagalan offline untuk operasional toko cabang.</span>
+            </div>
+
+            <div class="d-flex justify-content-end">
+              <a href="#" id="btnAiWa" target="_blank" class="btn btn-success btn-lg px-4 fw-bold font-monospace text-decoration-none shadow-sm">
+                <i class="fab fa-whatsapp me-2 fs-5"></i> Konsultasi Arsitektur AI Ini
+              </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{{-- ==========================================
      SERVICES BENTO
      ========================================== --}}
 <section class="services-section">
@@ -1906,6 +2007,79 @@ document.addEventListener('DOMContentLoaded', function () {
 
   window.calculateBusinessROI = calculateBusinessROI;
   calculateBusinessROI();
+
+  /* ---------------------------------------------------------
+     10. AI TECH ARCHITECTURE RECOMMENDER ENGINE
+     --------------------------------------------------------- */
+  function setAiPrompt(text) {
+    const input = document.getElementById('aiPromptInput');
+    if (input) input.value = text;
+    generateAiArchitecture();
+  }
+
+  function generateAiArchitecture() {
+    const input = document.getElementById('aiPromptInput');
+    const btnText = document.getElementById('btnAiText');
+    const wrapper = document.getElementById('aiOutputWrapper');
+    if (!input) return;
+
+    const promptVal = input.value.trim();
+    if (!promptVal) return;
+
+    if (btnText) btnText.textContent = 'Menganalisis...';
+
+    fetch('/api/recommend-architecture', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+      },
+      body: JSON.stringify({ prompt: promptVal })
+    })
+    .then(function(res) { return res.json(); })
+    .then(function(resData) {
+      if (btnText) btnText.textContent = 'Analisis AI';
+      if (!resData || !resData.data) return;
+
+      const d = resData.data;
+
+      const titleEl = document.getElementById('aiArchTitle');
+      const slaEl = document.getElementById('aiSlaBadge');
+      const stackEl = document.getElementById('aiTechStack');
+      const whyEl = document.getElementById('aiWhyText');
+
+      if (titleEl) titleEl.textContent = d.architecture_title || 'Arsitektur Enterprise IT';
+      if (slaEl) slaEl.textContent = d.estimated_sla || '99.9% SLA';
+      if (stackEl) stackEl.textContent = d.stack || 'Laravel 12 REST API + Flutter Mobile App';
+      if (whyEl) whyEl.textContent = d.why_this_architecture || '';
+
+      const sourceBadge = document.getElementById('aiSourceBadge');
+      if (sourceBadge) {
+        sourceBadge.textContent = (resData.source === 'groq_ai') ? '● Groq Llama-3 AI Verified' : '● Enterprise Architecture Engine';
+      }
+
+      const grid = document.getElementById('aiKeyComponents');
+      if (grid && Array.isArray(d.key_components)) {
+        grid.innerHTML = d.key_components.map(function(comp) {
+          return '<div class="col-md-6"><div class="p-3 bg-light rounded-3 border h-100"><h6 class="fw-bold text-slate-900 mb-1"><i class="fas fa-check-circle text-primary me-1"></i> ' + comp.title + '</h6><span class="text-muted small">' + comp.desc + '</span></div></div>';
+        }).join('');
+      }
+
+      const waBtn = document.getElementById('btnAiWa');
+      if (waBtn) {
+        const msg = encodeURIComponent('Halo PT Sekawan Putra Pratama, saya tertarik diskusi arsitektur IT: "' + (d.architecture_title || '') + '" dengan rekomendasi stack: ' + (d.stack || ''));
+        waBtn.href = 'https://wa.me/6281234567890?text=' + msg;
+      }
+
+      if (wrapper) wrapper.style.display = 'block';
+    })
+    .catch(function(err) {
+      if (btnText) btnText.textContent = 'Analisis AI';
+    });
+  }
+
+  window.setAiPrompt = setAiPrompt;
+  window.generateAiArchitecture = generateAiArchitecture;
 
 });
 </script>
