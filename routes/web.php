@@ -38,3 +38,28 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // Admin Panel handled by Filament at /admin
+
+// Client Portal Routes
+use App\Http\Controllers\Client\ClientAuthController;
+use App\Http\Controllers\Client\ClientPortalController;
+
+Route::prefix('client')->name('client.')->group(function () {
+    // Auth Routes
+    Route::get('/login', [ClientAuthController::class, 'showLogin'])->name('login');
+    Route::post('/login', [ClientAuthController::class, 'login']);
+    Route::post('/logout', [ClientAuthController::class, 'logout'])->name('logout');
+
+    // Authenticated Portal Routes
+    Route::middleware(['auth:customer'])->group(function () {
+        Route::get('/dashboard', [ClientPortalController::class, 'dashboard'])->name('dashboard');
+        Route::get('/projects', [ClientPortalController::class, 'projects'])->name('projects.index');
+        Route::get('/projects/{project}', [ClientPortalController::class, 'projectShow'])->name('projects.show');
+        Route::get('/contracts', [ClientPortalController::class, 'contracts'])->name('contracts.index');
+        Route::get('/contracts/{contract}/download', [ClientPortalController::class, 'contractDownload'])->name('contracts.download');
+        Route::get('/invoices', [ClientPortalController::class, 'invoices'])->name('invoices.index');
+        Route::get('/invoices/{invoice}', [ClientPortalController::class, 'invoiceShow'])->name('invoices.show');
+        Route::post('/invoices/{invoice}/upload-proof', [ClientPortalController::class, 'uploadPaymentProof'])->name('invoices.upload-proof');
+        Route::get('/profile', [ClientPortalController::class, 'profile'])->name('profile');
+        Route::post('/profile', [ClientPortalController::class, 'profileUpdate'])->name('profile.update');
+    });
+});

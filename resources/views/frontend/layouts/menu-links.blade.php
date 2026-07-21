@@ -24,3 +24,4 @@
 <li><a href="{{ route('portfolio.index') }}" class="{{ request()->routeIs('portfolio.*') ? 'active' : '' }}">Portfolio</a></li>
 <li><a href="{{ route('blog.index') }}" class="{{ request()->routeIs('blog.*') ? 'active' : '' }}">Blog</a></li>
 <li><a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'active' : '' }}">Contact</a></li>
+<li><a href="{{ route('client.login') }}" class="{{ request()->routeIs('client.*') ? 'active' : '' }} text-primary fw-bold"><i class="fas fa-user-lock me-1"></i> Portal Klien</a></li>

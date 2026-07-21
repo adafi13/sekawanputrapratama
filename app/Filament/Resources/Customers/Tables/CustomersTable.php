@@ -6,6 +6,7 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -24,12 +25,13 @@ class CustomersTable
                     ->searchable(),
                 TextColumn::make('phone')
                     ->searchable(),
-                TextColumn::make('website')
-                    ->searchable(),
-                TextColumn::make('industry')
-                    ->searchable(),
-                TextColumn::make('tax_id')
-                    ->searchable(),
+                IconColumn::make('is_portal_active')
+                    ->label('Portal Active')
+                    ->boolean(),
+                TextColumn::make('last_login_at')
+                    ->label('Last Portal Login')
+                    ->dateTime()
+                    ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

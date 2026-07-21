@@ -3,17 +3,21 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Customer extends Model
+class Customer extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     protected $fillable = [
         'company_name',
         'contact_person',
         'email',
+        'password',
+        'is_portal_active',
+        'last_login_at',
         'phone',
         'address',
         'website',
@@ -21,6 +25,20 @@ class Customer extends Model
         'tax_id',
         'notes',
     ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'password' => 'hashed',
+            'is_portal_active' => 'boolean',
+            'last_login_at' => 'datetime',
+        ];
+    }
 
     /**
      * Get all leads for this customer.
