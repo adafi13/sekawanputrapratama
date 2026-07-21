@@ -2238,6 +2238,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       const grid = document.getElementById('aiKeyComponents');
       if (grid && Array.isArray(d.key_components)) {
+        window.currentArchComponents = d.key_components;
         grid.innerHTML = d.key_components.map(function(comp) {
           return '<div class="col-md-6"><div class="p-3 bg-light rounded-3 border h-100"><h6 class="fw-bold text-slate-900 mb-1"><i class="fas fa-check-circle text-primary me-1"></i> ' + comp.title + '</h6><span class="text-muted small">' + comp.desc + '</span></div></div>';
         }).join('');
@@ -2269,104 +2270,129 @@ document.addEventListener('DOMContentLoaded', function () {
     const stack = document.getElementById('aiTechStack')?.textContent || '';
     const why = document.getElementById('aiWhyText')?.textContent || '';
     const promptInput = document.getElementById('aiPromptInput')?.value || 'Sistem POS Kasir 50 Cabang Realtime';
-    const pillarsHtml = document.getElementById('aiKeyComponents')?.innerHTML || '';
+
+    let cleanPillarsTable = '';
+    if (Array.isArray(window.currentArchComponents) && window.currentArchComponents.length > 0) {
+      cleanPillarsTable = '<table style="width:100%; border-collapse:collapse; margin-top:5px;">';
+      for (let i = 0; i < window.currentArchComponents.length; i += 2) {
+        let c1 = window.currentArchComponents[i];
+        let c2 = window.currentArchComponents[i+1];
+        cleanPillarsTable += '<tr>';
+        cleanPillarsTable += '<td style="width:50%; vertical-align:top; padding:4px;"><div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; padding:8px 10px;"><strong style="color:#0f172a; font-size:11px; display:block; margin-bottom:2px;">✔ ' + (c1 ? c1.title : '') + '</strong><span style="color:#475569; font-size:10px; line-height:1.3; display:block;">' + (c1 ? c1.desc : '') + '</span></div></td>';
+        if (c2) {
+          cleanPillarsTable += '<td style="width:50%; vertical-align:top; padding:4px;"><div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; padding:8px 10px;"><strong style="color:#0f172a; font-size:11px; display:block; margin-bottom:2px;">✔ ' + c2.title + '</strong><span style="color:#475569; font-size:10px; line-height:1.3; display:block;">' + c2.desc + '</span></div></td>';
+        } else {
+          cleanPillarsTable += '<td style="width:50%;"></td>';
+        }
+        cleanPillarsTable += '</tr>';
+      }
+      cleanPillarsTable += '</table>';
+    } else {
+      cleanPillarsTable = '<p style="font-size:10px; color:#475569; margin:0;">Modul terintegrasi microservices & offline-first sync.</p>';
+    }
 
     const today = new Date().toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' });
     const docNo = 'SPP-PROP/' + new Date().getFullYear() + '/07/' + Math.floor(1000 + Math.random() * 9000);
 
     const pdfHtml = `
-      <div style="font-family: Arial, sans-serif; color: #1e293b; padding: 35px; background: #ffffff; width: 780px; margin: 0 auto;">
+      <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #1e293b; padding: 25px 30px; background: #ffffff; width: 700px; margin: 0 auto; box-sizing: border-box;">
         
-        <!-- Kop Surat Header -->
-        <table style="width: 100%; border-bottom: 3px double #0284c7; padding-bottom: 15px; margin-bottom: 25px;">
+        <!-- Header Kop Surat -->
+        <table style="width: 100%; border-bottom: 2px solid #0284c7; padding-bottom: 10px; margin-bottom: 15px;">
           <tr>
-            <td style="width: 70%;">
-              <h2 style="margin: 0; color: #0f172a; font-weight: 800; font-size: 22px;">PT SEKAWAN PUTRA PRATAMA</h2>
-              <span style="color: #0284c7; font-weight: bold; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;">Enterprise IT Solution & Digital Transformation Consultant</span>
-              <p style="margin: 5px 0 0 0; font-size: 11px; color: #64748b; line-height: 1.4;">
+            <td style="width: 65%; vertical-align: top;">
+              <div style="font-size: 20px; font-weight: 900; color: #0f172a; letter-spacing: 0.5px; margin-bottom: 2px;">
+                PT SEKAWAN PUTRA PRATAMA
+              </div>
+              <div style="font-size: 10px; font-weight: bold; color: #0284c7; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">
+                Enterprise IT Solution & Digital Transformation Consultant
+              </div>
+              <div style="font-size: 9px; color: #64748b; line-height: 1.3;">
                 Jl. Boulevard Kota Harapan Indah, Bekasi, Jawa Barat<br>
-                Email: admin@sekawanputrapratama.com | Telp/WA: +62 851-5641-2702 | Web: sekawanputrapratama.com
-              </p>
+                Email: admin@sekawanputrapratama.com | WA: +62 851-5641-2702 | Web: sekawanputrapratama.com
+              </div>
             </td>
-            <td style="width: 30%; text-align: right; vertical-align: top;">
-              <span style="display: inline-block; background: #f0f9ff; border: 1px solid #bae6fd; color: #0284c7; font-weight: bold; padding: 4px 8px; border-radius: 4px; font-size: 10px; font-family: monospace;">OFFICIAL PROPOSAL</span>
-              <p style="margin: 5px 0 0 0; font-size: 10px; color: #64748b; font-family: monospace;">
+            <td style="width: 35%; text-align: right; vertical-align: top;">
+              <div style="display: inline-block; background: #f0f9ff; border: 1px solid #bae6fd; color: #0369a1; font-weight: bold; padding: 3px 8px; border-radius: 4px; font-size: 9px; font-family: monospace;">
+                OFFICIAL PROPOSAL
+              </div>
+              <div style="font-size: 9px; color: #475569; margin-top: 5px; line-height: 1.4; font-family: monospace;">
                 <strong>No:</strong> ${docNo}<br>
-                <strong>Tgl:</strong> ${today}
-              </p>
+                <strong>Tanggal:</strong> ${today}
+              </div>
             </td>
           </tr>
         </table>
 
         <!-- Document Title -->
-        <div style="text-align: center; margin-bottom: 25px;">
-          <h3 style="margin: 0 0 5px 0; color: #0f172a; font-size: 16px; text-transform: uppercase; font-weight: 800;">DOKUMEN SPESIFIKASI ARSITEKTUR SISTEM & FEASIBILITY STUDY</h3>
-          <span style="font-size: 11px; color: #64748b;">Rekomendasi Rekayasa Perangkat Lunak untuk Kebutuhan Bisnis Enterprise</span>
+        <div style="text-align: center; margin-bottom: 15px;">
+          <h3 style="margin: 0 0 3px 0; color: #0f172a; font-size: 14px; text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px;">
+            DOKUMEN SPESIFIKASI ARSITEKTUR SISTEM & FEASIBILITY STUDY
+          </h3>
+          <span style="font-size: 10px; color: #64748b;">Rekomendasi Rekayasa Perangkat Lunak untuk Kebutuhan Bisnis Enterprise</span>
         </div>
 
         <!-- Section 1: Ringkasan Proyek -->
-        <div style="margin-bottom: 20px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px;">
-          <table style="width: 100%; font-size: 12px;">
+        <div style="margin-bottom: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 10px 12px;">
+          <table style="width: 100%; font-size: 11px; border-collapse: collapse;">
             <tr>
-              <td style="width: 30%; font-weight: bold; color: #475569; padding: 4px 0;">Kebutuhan Bisnis Klien:</td>
-              <td style="color: #0f172a; font-weight: bold; padding: 4px 0;">${promptInput}</td>
+              <td style="width: 28%; font-weight: bold; color: #475569; padding: 3px 0;">Kebutuhan Bisnis Klien:</td>
+              <td style="color: #0f172a; font-weight: bold; padding: 3px 0;">${promptInput}</td>
             </tr>
             <tr>
-              <td style="font-weight: bold; color: #475569; padding: 4px 0;">Judul Arsitektur Sistem:</td>
-              <td style="color: #0284c7; font-weight: bold; padding: 4px 0;">${title}</td>
+              <td style="font-weight: bold; color: #475569; padding: 3px 0;">Judul Arsitektur Sistem:</td>
+              <td style="color: #0284c7; font-weight: bold; padding: 3px 0;">${title}</td>
             </tr>
             <tr>
-              <td style="font-weight: bold; color: #475569; padding: 4px 0;">Penjaminan Uptime SLA:</td>
-              <td style="color: #16a34a; font-weight: bold; padding: 4px 0;">${sla}</td>
+              <td style="font-weight: bold; color: #475569; padding: 3px 0;">Penjaminan Uptime SLA:</td>
+              <td style="color: #16a34a; font-weight: bold; padding: 3px 0;">${sla}</td>
             </tr>
             <tr>
-              <td style="font-weight: bold; color: #475569; padding: 4px 0;">Estimasi Budget / Investasi:</td>
-              <td style="color: #16a34a; font-weight: bold; padding: 4px 0;">${budget}</td>
+              <td style="font-weight: bold; color: #475569; padding: 3px 0;">Estimasi Investasi Project:</td>
+              <td style="color: #16a34a; font-weight: bold; padding: 3px 0;">${budget}</td>
             </tr>
           </table>
         </div>
 
         <!-- Section 2: Rekomendasi Stack Teknologi -->
-        <div style="margin-bottom: 20px;">
-          <h4 style="margin: 0 0 10px 0; color: #0f172a; font-size: 13px; text-transform: uppercase; font-family: monospace; border-bottom: 2px solid #e2e8f0; padding-bottom: 5px;">
+        <div style="margin-bottom: 12px;">
+          <div style="margin: 0 0 6px 0; color: #0f172a; font-size: 11px; text-transform: uppercase; font-weight: bold; font-family: monospace; border-bottom: 1px solid #cbd5e1; padding-bottom: 3px;">
             1. REKOMENDASI STACK TEKNOLOGI & INFRASTRUKTUR
-          </h4>
-          <div style="background: #f0f9ff; border: 1px solid #bae6fd; color: #0369a1; padding: 12px 15px; border-radius: 6px; font-family: monospace; font-weight: bold; font-size: 12px; line-height: 1.5;">
+          </div>
+          <div style="background: #f0f9ff; border: 1px solid #bae6fd; color: #0369a1; padding: 8px 12px; border-radius: 6px; font-family: monospace; font-weight: bold; font-size: 10px; line-height: 1.4;">
             ${stack}
           </div>
         </div>
 
         <!-- Section 3: Pilar Modul Utama -->
-        <div style="margin-bottom: 20px;">
-          <h4 style="margin: 0 0 10px 0; color: #0f172a; font-size: 13px; text-transform: uppercase; font-family: monospace; border-bottom: 2px solid #e2e8f0; padding-bottom: 5px;">
+        <div style="margin-bottom: 12px;">
+          <div style="margin: 0 0 4px 0; color: #0f172a; font-size: 11px; text-transform: uppercase; font-weight: bold; font-family: monospace; border-bottom: 1px solid #cbd5e1; padding-bottom: 3px;">
             2. PILAR MODUL & KOMPONEN TEKNIS UTAMA
-          </h4>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-            ${pillarsHtml}
           </div>
+          ${cleanPillarsTable}
         </div>
 
         <!-- Section 4: Feasibility & Rationale -->
-        <div style="margin-bottom: 25px;">
-          <h4 style="margin: 0 0 10px 0; color: #0f172a; font-size: 13px; text-transform: uppercase; font-family: monospace; border-bottom: 2px solid #e2e8f0; padding-bottom: 5px;">
+        <div style="margin-bottom: 15px;">
+          <div style="margin: 0 0 6px 0; color: #0f172a; font-size: 11px; text-transform: uppercase; font-weight: bold; font-family: monospace; border-bottom: 1px solid #cbd5e1; padding-bottom: 3px;">
             3. FEASIBILITY STUDY & JUSTIFIKASI TEKNIS
-          </h4>
-          <div style="background: #ecfdf5; border: 1px solid #a7f3d0; color: #065f46; padding: 12px 15px; border-radius: 6px; font-size: 11px; line-height: 1.5;">
+          </div>
+          <div style="background: #ecfdf5; border: 1px solid #a7f3d0; color: #065f46; padding: 8px 12px; border-radius: 6px; font-size: 10px; line-height: 1.4;">
             <strong>Rationale Arsitektur:</strong> ${why}
           </div>
         </div>
 
         <!-- Sign-Off Footer -->
-        <table style="width: 100%; margin-top: 30px; padding-top: 15px; border-top: 1px solid #e2e8f0;">
+        <table style="width: 100%; margin-top: 20px; padding-top: 10px; border-top: 1px solid #e2e8f0;">
           <tr>
-            <td style="width: 60%; font-size: 10px; color: #64748b; vertical-align: bottom;">
+            <td style="width: 60%; font-size: 9px; color: #64748b; vertical-align: bottom;">
               * Dokumen ini diterbitkan resmi oleh sistem konsultasi PT Sekawan Putra Pratama.<br>
               * Estimasi bersifat referensi resmi untuk pembahasan rapat anggaran internal direksi.
             </td>
-            <td style="width: 40%; text-align: center;">
-              <span style="font-size: 10px; color: #64748b; display: block; margin-bottom: 40px;">Hormat Kami,<br><strong>PT SEKAWAN PUTRA PRATAMA</strong></span>
-              <strong style="display: block; font-size: 11px; color: #0f172a; text-decoration: underline;">Chief Solution Architect</strong>
-              <span style="font-size: 10px; color: #64748b;">Enterprise System Division</span>
+            <td style="width: 40%; text-align: center; vertical-align: top;">
+              <div style="font-size: 9px; color: #64748b; margin-bottom: 35px;">Hormat Kami,<br><strong style="color:#0f172a;">PT SEKAWAN PUTRA PRATAMA</strong></div>
+              <strong style="display: block; font-size: 10px; color: #0f172a; text-decoration: underline;">Chief Solution Architect</strong>
+              <span style="font-size: 9px; color: #64748b;">Enterprise System Division</span>
             </td>
           </tr>
         </table>
@@ -2375,10 +2401,10 @@ document.addEventListener('DOMContentLoaded', function () {
     `;
 
     const opt = {
-      margin:       0.2,
+      margin:       [0.15, 0.15, 0.15, 0.15],
       filename:     `Proposal_Arsitektur_PT_Sekawan_${new Date().toISOString().slice(0,10)}.pdf`,
       image:        { type: 'jpeg', quality: 0.98 },
-      html2canvas:  { scale: 2, useCORS: true },
+      html2canvas:  { scale: 2, useCORS: true, logging: false },
       jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
     };
 
