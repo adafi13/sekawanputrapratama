@@ -1174,13 +1174,13 @@ body {
       {{-- Section Header --}}
       <div class="text-center max-w-700 mx-auto mb-5 reveal">
         <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-20 rounded-pill px-3 py-1 font-monospace fw-bold mb-3" style="font-size: 11px;">
-          <i class="fas fa-brain me-1"></i> REKOMENDASI ARSITEKTUR SISTEM BERBASIS AI
+          <i class="fas fa-layer-group me-1"></i> REKOMENDASI ARSITEKTUR SISTEM ENTERPRISE
         </span>
         <h2 class="fw-bold text-slate-900 display-6 mb-3">
-          Konsultasi <span class="text-primary">Arsitektur IT AI</span> Secara Instan
+          Konsultasi <span class="text-primary">Arsitektur IT</span> Secara Instan
         </h2>
         <p class="text-muted">
-          Ketikkan masalah atau kebutuhan aplikasi bisnis Anda, dan AI Solution Architect kami akan langsung merumuskan rekomendasi stack & arsitektur teknisnya.
+          Ketikkan masalah atau kebutuhan aplikasi bisnis Anda, dan Solution Architect kami akan langsung merumuskan rekomendasi stack & arsitektur teknisnya.
         </p>
       </div>
 
@@ -1208,7 +1208,7 @@ body {
           <div class="input-group input-group-lg shadow-sm rounded-4 overflow-hidden border">
             <input type="text" id="aiPromptInput" class="form-control border-0 px-4 py-3 text-slate-900" placeholder="Contoh: Saya mau buat sistem kasir & stok untuk 50 cabang toko..." value="Sistem POS Kasir 50 Cabang Realtime">
             <button class="btn btn-primary px-4 fw-bold font-monospace d-flex align-items-center gap-2" type="button" id="btnGenerateAi" onclick="generateAiArchitecture()">
-              <i class="fas fa-bolt"></i> <span id="btnAiText">Analisis AI</span>
+              <i class="fas fa-bolt"></i> <span id="btnAiText">Analisis Arsitektur</span>
             </button>
           </div>
 
@@ -1223,7 +1223,7 @@ body {
             <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4 pb-3 border-bottom">
               <div>
                 <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-30 rounded-pill px-3 py-1 font-monospace fw-bold mb-2" id="aiSourceBadge">
-                  ● Groq Llama-3 AI Verified
+                  ● Enterprise Verified Architecture
                 </span>
                 <h4 class="fw-bold text-slate-900 mb-0" id="aiArchTitle">Arsitektur Enterprise POS Multi-Branch</h4>
               </div>
@@ -1253,7 +1253,7 @@ body {
 
             <div class="d-flex justify-content-end">
               <a href="#" id="btnAiWa" target="_blank" class="btn btn-success btn-lg px-4 fw-bold font-monospace text-decoration-none shadow-sm">
-                <i class="fab fa-whatsapp me-2 fs-5"></i> Konsultasi Arsitektur AI Ini
+                <i class="fab fa-whatsapp me-2 fs-5"></i> Konsultasi Arsitektur Ini
               </a>
             </div>
 
@@ -2038,7 +2038,7 @@ document.addEventListener('DOMContentLoaded', function () {
     })
     .then(function(res) { return res.json(); })
     .then(function(resData) {
-      if (btnText) btnText.textContent = 'Analisis AI';
+      if (btnText) btnText.textContent = 'Analisis Arsitektur';
       if (!resData || !resData.data) return;
 
       const d = resData.data;
@@ -2064,7 +2064,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       const sourceBadge = document.getElementById('aiSourceBadge');
       if (sourceBadge) {
-        sourceBadge.textContent = (resData.source === 'groq_ai') ? '● Groq Llama-3 AI Verified' : '● Enterprise Architecture Engine';
+        sourceBadge.textContent = '● Verified Enterprise Architecture';
       }
 
       const grid = document.getElementById('aiKeyComponents');
@@ -2083,7 +2083,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (wrapper) wrapper.style.display = 'block';
     })
     .catch(function(err) {
-      if (btnText) btnText.textContent = 'Analisis AI';
+      if (btnText) btnText.textContent = 'Analisis Arsitektur';
     });
   }
 
