@@ -121,7 +121,7 @@ class FrontendController extends Controller
 
         if (!empty($apiKey)) {
             try {
-                $response = \Illuminate\Support\Facades\Http::withHeaders([
+                $response = \Illuminate\Support\Facades\Http::withoutVerifying()->withHeaders([
                     'Authorization' => 'Bearer ' . $apiKey,
                     'Content-Type' => 'application/json',
                 ])->timeout(12)->post('https://api.groq.com/openai/v1/chat/completions', [

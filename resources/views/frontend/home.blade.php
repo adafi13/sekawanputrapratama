@@ -2023,16 +2023,16 @@ document.addEventListener('DOMContentLoaded', function () {
     const wrapper = document.getElementById('aiOutputWrapper');
     if (!input) return;
 
-    const promptVal = input.value.trim();
-    if (!promptVal) return;
+    const promptVal = input.value.trim() || 'Sistem POS Kasir 50 Cabang Realtime';
 
     if (btnText) btnText.textContent = 'Menganalisis...';
 
-    fetch('/api/recommend-architecture', {
+    fetch('{{ route("recommend-architecture") }}', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+        'Accept': 'application/json',
+        'X-CSRF-TOKEN': '{{ csrf_token() }}'
       },
       body: JSON.stringify({ prompt: promptVal })
     })

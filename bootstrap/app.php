@@ -11,6 +11,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->validateCsrfTokens(except: [
+            'api/recommend-architecture',
+            'api/*',
+        ]);
         // Admin middleware sekarang dihandle oleh Filament
         $middleware->web(append: [
             \Illuminate\Http\Middleware\SetCacheHeaders::class,
