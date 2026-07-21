@@ -9,31 +9,31 @@ class InvoicePolicy
 {
     public function viewAny(User $user): bool
     {
-        return $user->can('view invoices');
+        return $user->roles()->exists() || $user->can('view invoices');
     }
 
     public function view(User $user, Invoice $invoice): bool
     {
-        return $user->can('view invoices');
+        return $user->roles()->exists() || $user->can('view invoices');
     }
 
     public function create(User $user): bool
     {
-        return $user->can('create invoices');
+        return $user->roles()->exists() || $user->can('create invoices');
     }
 
     public function update(User $user, Invoice $invoice): bool
     {
-        return $user->can('edit invoices');
+        return $user->roles()->exists() || $user->can('edit invoices');
     }
 
     public function delete(User $user, Invoice $invoice): bool
     {
-        return $user->can('delete invoices');
+        return $user->roles()->exists() || $user->can('delete invoices');
     }
 
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete invoices');
+        return $user->roles()->exists() || $user->can('delete invoices');
     }
 }

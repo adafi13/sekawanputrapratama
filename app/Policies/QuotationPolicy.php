@@ -9,31 +9,31 @@ class QuotationPolicy
 {
     public function viewAny(User $user): bool
     {
-        return $user->can('view quotations');
+        return $user->roles()->exists() || $user->can('view quotations');
     }
 
     public function view(User $user, Quotation $quotation): bool
     {
-        return $user->can('view quotations');
+        return $user->roles()->exists() || $user->can('view quotations');
     }
 
     public function create(User $user): bool
     {
-        return $user->can('create quotations');
+        return $user->roles()->exists() || $user->can('create quotations');
     }
 
     public function update(User $user, Quotation $quotation): bool
     {
-        return $user->can('edit quotations');
+        return $user->roles()->exists() || $user->can('edit quotations');
     }
 
     public function delete(User $user, Quotation $quotation): bool
     {
-        return $user->can('delete quotations');
+        return $user->roles()->exists() || $user->can('delete quotations');
     }
 
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete quotations');
+        return $user->roles()->exists() || $user->can('delete quotations');
     }
 }

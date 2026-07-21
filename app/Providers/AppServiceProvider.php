@@ -33,6 +33,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Implicitly grant all permissions to users with roles (Super Admin / Admin)
+        \Illuminate\Support\Facades\Gate::before(function ($user, $ability) {
+            return $user->roles()->exists() ? true : null;
+        });
+
         // Register model observers for cache invalidation
         BlogPost::observe(BlogPostObserver::class);
         Service::observe(ServiceObserver::class);

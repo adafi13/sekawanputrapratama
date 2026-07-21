@@ -9,31 +9,31 @@ class CustomerPolicy
 {
     public function viewAny(User $user): bool
     {
-        return $user->can('view customers');
+        return $user->roles()->exists() || $user->can('view customers');
     }
 
     public function view(User $user, Customer $customer): bool
     {
-        return $user->can('view customers');
+        return $user->roles()->exists() || $user->can('view customers');
     }
 
     public function create(User $user): bool
     {
-        return $user->can('create customers');
+        return $user->roles()->exists() || $user->can('create customers');
     }
 
     public function update(User $user, Customer $customer): bool
     {
-        return $user->can('edit customers');
+        return $user->roles()->exists() || $user->can('edit customers');
     }
 
     public function delete(User $user, Customer $customer): bool
     {
-        return $user->can('delete customers');
+        return $user->roles()->exists() || $user->can('delete customers');
     }
 
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete customers');
+        return $user->roles()->exists() || $user->can('delete customers');
     }
 }

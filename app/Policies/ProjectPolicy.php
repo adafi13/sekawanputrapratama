@@ -9,31 +9,31 @@ class ProjectPolicy
 {
     public function viewAny(User $user): bool
     {
-        return $user->can('view projects');
+        return $user->roles()->exists() || $user->can('view projects');
     }
 
     public function view(User $user, Project $project): bool
     {
-        return $user->can('view projects');
+        return $user->roles()->exists() || $user->can('view projects');
     }
 
     public function create(User $user): bool
     {
-        return $user->can('create projects');
+        return $user->roles()->exists() || $user->can('create projects');
     }
 
     public function update(User $user, Project $project): bool
     {
-        return $user->can('edit projects');
+        return $user->roles()->exists() || $user->can('edit projects');
     }
 
     public function delete(User $user, Project $project): bool
     {
-        return $user->can('delete projects');
+        return $user->roles()->exists() || $user->can('delete projects');
     }
 
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete projects');
+        return $user->roles()->exists() || $user->can('delete projects');
     }
 }
