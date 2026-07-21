@@ -29,6 +29,21 @@ Route::get('/portfolio/{slug}', [PortfolioController::class, 'show'])->name('por
 Route::get('/services', [FrontendController::class, 'services'])->name('services.index');
 Route::get('/services/{slug}', [FrontendController::class, 'serviceShow'])->name('services.show');
 
+use App\Http\Controllers\CalculatorController;
+use App\Http\Controllers\CareerController;
+
+// Calculator Route
+Route::get('/calculator', [CalculatorController::class, 'index'])->name('calculator.index');
+
+// Careers Routes
+Route::get('/careers', [CareerController::class, 'index'])->name('careers.index');
+Route::get('/careers/{slug}', [CareerController::class, 'show'])->name('careers.show');
+Route::post('/careers/{slug}/apply', [CareerController::class, 'apply'])->name('careers.apply');
+
+// Legal Routes
+Route::get('/privacy-policy', [FrontendController::class, 'privacyPolicy'])->name('privacy-policy');
+Route::get('/terms', [FrontendController::class, 'terms'])->name('terms');
+
 // Sitemap Route
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap.index');
 

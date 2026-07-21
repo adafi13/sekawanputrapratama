@@ -39,11 +39,14 @@ class FrontendController extends Controller
         return back()->with('success', 'Terima kasih telah berlangganan newsletter kami!');
     }
 
-    public function newsletterUnsubscribe(NewsletterSubscriber $subscriber)
+    public function privacyPolicy()
     {
-        $subscriber->update(['is_active' => false]);
+        return view('frontend.legal.privacy');
+    }
 
-        return redirect()->route('blog.index')->with('success', 'Anda telah berhasil berhenti berlangganan newsletter.');
+    public function terms()
+    {
+        return view('frontend.legal.terms');
     }
 
     

@@ -452,10 +452,13 @@
                         <div class="footer-widget">
                             <h5>Tautan Cepat</h5>
                             <ul class="list-unstyled footer-links">
+                                <li><a href="{{ route('calculator.index') }}" class="text-info fw-bold"><i class="fas fa-calculator me-1"></i> Cost Estimator</a></li>
+                                <li><a href="{{ route('careers.index') }}">Karir & Rekrutmen</a></li>
                                 <li><a href="{{ route('about') }}">Tentang</a></li>
                                 <li><a href="{{ route('portfolio.index') }}">Portfolio</a></li>
                                 <li><a href="{{ route('blog.index') }}">Artikel</a></li>
-                                <li><a href="{{ route('contact') }}">Kontak</a></li>
+                                <li><a href="{{ route('privacy-policy') }}">Kebijakan Privasi</a></li>
+                                <li><a href="{{ route('terms') }}">Syarat & Ketentuan</a></li>
                             </ul>
                         </div>
                     </div>

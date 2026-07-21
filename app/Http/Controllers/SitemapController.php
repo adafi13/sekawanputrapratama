@@ -41,6 +41,22 @@ class SitemapController extends Controller
             ->setPriority(0.8)
             ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY));
 
+        $sitemap->add(Url::create(route('calculator.index'))
+            ->setPriority(0.9)
+            ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY));
+
+        $sitemap->add(Url::create(route('careers.index'))
+            ->setPriority(0.8)
+            ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY));
+
+        $sitemap->add(Url::create(route('privacy-policy'))
+            ->setPriority(0.5)
+            ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY));
+
+        $sitemap->add(Url::create(route('terms'))
+            ->setPriority(0.5)
+            ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY));
+
         // Service detail pages
         Service::where('is_active', true)
             ->each(function (Service $service) use ($sitemap) {
