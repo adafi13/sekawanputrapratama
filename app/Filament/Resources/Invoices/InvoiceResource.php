@@ -81,6 +81,21 @@ class InvoiceResource extends Resource
                             ->rows(3)
                             ->columnSpanFull(),
                     ])->columns(2),
+
+                Section::make('Bukti Transfer Dari Klien')
+                    ->schema([
+                        Components\FileUpload::make('payment_proof_path')
+                            ->label('File Bukti Transfer')
+                            ->openable()
+                            ->downloadable(),
+                        Components\TextInput::make('payment_method')
+                            ->label('Metode Transfer Klien'),
+                        Components\Textarea::make('payment_notes')
+                            ->label('Catatan Klien')
+                            ->columnSpanFull(),
+                    ])
+                    ->columns(2)
+                    ->visible(fn ($record) => $record && ($record->payment_proof_path || $record->payment_notes)),
             ]);
     }
 
@@ -132,6 +147,26 @@ class InvoiceResource extends Resource
                     ->options(Invoice::getStatuses()),
             ])
             ->recordActions([
+                Action::make('verify_payment')
+                    ->label('Verifikasi Pembayaran')
+                    ->icon('heroicon-o-check-badge')
+                    ->color('success')
+                    ->visible(fn (Invoice $record) => $record->status !== Invoice::STATUS_PAID && ($record->payment_proof_path !== null || $record->status === 'sent'))
+                    ->requiresConfirmation()
+                    ->modalHeading('Verifikasi Pembayaran Klien')
+                    ->modalDescription(fn (Invoice $record) => "Klien telah mengunggah bukti transfer untuk Invoice {$record->invoice_number}. Verifikasi pembayaran dan tandai LUNAS?")
+                    ->action(function (Invoice $record) {
+                        $record->update([
+                            'status' => Invoice::STATUS_PAID,
+                            'paid_at' => now(),
+                        ]);
+
+                        \Filament\Notifications\Notification::make()
+                            ->title('Pembayaran Terverifikasi')
+                            ->success()
+                            ->body("Invoice {$record->invoice_number} berhasil diverifikasi LUNAS!")
+                            ->send();
+                    }),
                 Action::make('mark_as_paid')
                     ->label('Confirm Payment')
                     ->icon('heroicon-o-check-circle')
