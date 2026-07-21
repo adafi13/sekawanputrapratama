@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Contracts\Schemas;
 
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
@@ -16,36 +17,59 @@ class ContractForm
         return $schema
             ->components([
                 TextInput::make('contract_number')
+                    ->label('Nomor Kontrak')
+                    ->default(fn () => 'CTR-' . date('Ym') . '-' . str_pad(mt_rand(1, 9999), 4, '0', STR_PAD_LEFT))
                     ->required(),
                 Select::make('project_id')
+                    ->label('Proyek Terkait')
                     ->relationship('project', 'name')
+                    ->searchable()
                     ->required(),
                 Select::make('customer_id')
-                    ->relationship('customer', 'id')
+                    ->label('Customer / Klien')
+                    ->relationship('customer', 'company_name')
+                    ->searchable()
                     ->required(),
                 Select::make('quotation_id')
-                    ->relationship('quotation', 'id'),
+                    ->label('Quotation (Opsional)')
+                    ->relationship('quotation', 'quotation_number')
+                    ->searchable()
+                    ->nullable(),
                 TextInput::make('contract_value')
+                    ->label('Nilai Kontrak (Rp)')
+                    ->prefix('Rp')
                     ->required()
                     ->numeric(),
                 DatePicker::make('start_date')
+                    ->label('Tanggal Mulai')
                     ->required(),
-                DatePicker::make('end_date'),
+                DatePicker::make('end_date')
+                    ->label('Tanggal Selesai'),
                 Textarea::make('terms')
+                    ->label('Syarat & Ketentuan')
                     ->columnSpanFull(),
-                TextInput::make('file_path'),
+                FileUpload::make('file_path')
+                    ->label('Upload Berkas PDF Kontrak / SPK')
+                    ->disk('public')
+                    ->directory('contracts')
+                    ->acceptedFileTypes(['application/pdf'])
+                    ->openable()
+                    ->downloadable()
+                    ->columnSpanFull(),
                 Select::make('status')
+                    ->label('Status Kontrak')
                     ->options([
-            'draft' => 'Draft',
-            'sent' => 'Sent',
-            'signed' => 'Signed',
-            'active' => 'Active',
-            'completed' => 'Completed',
-            'terminated' => 'Terminated',
-        ])
+                        'draft' => 'Draft',
+                        'sent' => 'Sent',
+                        'signed' => 'Signed',
+                        'active' => 'Active',
+                        'completed' => 'Completed',
+                        'terminated' => 'Terminated',
+                    ])
                     ->default('draft')
                     ->required(),
-                DateTimePicker::make('signed_at'),
+                DateTimePicker::make('signed_at')
+                    ->label('Tanggal Ditandatangani'),
             ]);
     }
 }
