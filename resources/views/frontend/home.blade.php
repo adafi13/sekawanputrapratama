@@ -1294,6 +1294,8 @@ body {
 
 {{-- ==========================================
      TRUSTED BY (BRAND LOGOS)
+     ========================================== --}}
+@if($brands->isNotEmpty())
 <section class="brands-section">
   <p class="brands-label reveal">Dipercaya oleh berbagai perusahaan</p>
   <div class="brands-marquee">
