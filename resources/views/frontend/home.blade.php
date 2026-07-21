@@ -515,41 +515,43 @@ body {
 /* ============================================================
    TRUSTED BY (BRAND LOGOS MARQUEE)
    ============================================================ */
-.brands-section { padding: 40px 0 20px; background: #ffffff; overflow: hidden; }
+.brands-section { padding: 45px 0 30px; background: #ffffff; overflow: hidden; }
 .brands-label {
-  text-align: center; color: #94a3b8; font-size: 11px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px;
+  text-align: center; color: #64748b; font-size: 13px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 2.5px; margin-bottom: 30px;
 }
-.brands-marquee { overflow: hidden; position: relative; width: 100%; }
+.brands-marquee { overflow: hidden; position: relative; width: 100%; display: flex; justify-content: center; }
 .brands-marquee::before, .brands-marquee::after {
-  content: ""; position: absolute; top: 0; bottom: 0; width: 100px; z-index: 2; pointer-events: none;
+  content: ""; position: absolute; top: 0; bottom: 0; width: 120px; z-index: 2; pointer-events: none;
 }
 .brands-marquee::before { left: 0; background: linear-gradient(to right, #ffffff, transparent); }
 .brands-marquee::after { right: 0; background: linear-gradient(to left, #ffffff, transparent); }
 .brands-marquee-content {
   display: flex;
   align-items: center;
-  gap: 50px;
+  justify-content: center;
+  gap: 70px;
   width: max-content;
-  animation: brandMarqueeScroll 20s linear infinite;
+  animation: brandMarqueeScroll 22s linear infinite;
 }
 .brands-marquee:hover .brands-marquee-content { animation-play-state: paused; }
 .brand-item {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 10px;
+  padding: 8px 15px;
 }
 .brand-item img {
-  max-height: 42px;
-  max-width: 160px;
+  height: 75px;
+  max-width: 260px;
+  width: auto;
   object-fit: contain;
-  filter: grayscale(0.2) opacity(0.85);
-  transition: all 0.3s ease;
+  filter: none !important;
+  opacity: 1 !important;
+  transition: transform 0.3s ease;
 }
 .brand-item:hover img {
-  filter: grayscale(0) opacity(1);
-  transform: scale(1.08);
+  transform: scale(1.1);
 }
 
 @keyframes brandMarqueeScroll {
@@ -1322,24 +1324,17 @@ body {
   <p class="brands-label reveal">Dipercaya oleh berbagai perusahaan</p>
   <div class="brands-marquee">
     <div class="brands-marquee-content">
-      @foreach($brands as $brand)
-      <div class="brand-item">
-        @if($brand->getFirstMediaUrl('logo'))
-          <img src="{{ $brand->getFirstMediaUrl('logo') }}" alt="{{ $brand->name }}" loading="lazy">
-        @else
-          <span style="color: #475569; font-size: 15px; font-weight: 700;">{{ $brand->name }}</span>
-        @endif
-      </div>
-      @endforeach
-      @foreach($brands as $brand)
-      <div class="brand-item">
-        @if($brand->getFirstMediaUrl('logo'))
-          <img src="{{ $brand->getFirstMediaUrl('logo') }}" alt="{{ $brand->name }}" loading="lazy">
-        @else
-          <span style="color: #475569; font-size: 15px; font-weight: 700;">{{ $brand->name }}</span>
-        @endif
-      </div>
-      @endforeach
+      @for($repeat = 0; $repeat < 4; $repeat++)
+        @foreach($brands as $brand)
+        <div class="brand-item">
+          @if($brand->getFirstMediaUrl('logo'))
+            <img src="{{ $brand->getFirstMediaUrl('logo') }}" alt="{{ $brand->name }}" loading="lazy">
+          @else
+            <span style="color: #1e293b; font-size: 18px; font-weight: 800; letter-spacing: 1px;">{{ $brand->name }}</span>
+          @endif
+        </div>
+        @endforeach
+      @endfor
     </div>
   </div>
 </section>
