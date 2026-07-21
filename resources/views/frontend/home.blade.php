@@ -140,30 +140,31 @@ body {
      HERO SECTION (ORBITAL DESIGN)
      ========================================== --}}
   /* Local Hero Styles matching screenshot */
+  /* ==========================================
+     HERO SECTION (PRISTINE ENTERPRISE STYLE)
+     ========================================== */
   .hero-section {
     position: relative;
-    min-height: 100vh;
+    min-height: 88vh;
     display: flex;
     align-items: center;
-    background-color: #050b14; /* Deep navy */
-    background-image: 
-      radial-gradient(circle at 80% 50%, rgba(30, 58, 138, 0.3) 0%, transparent 50%),
-      radial-gradient(circle at 20% 80%, rgba(30, 58, 138, 0.15) 0%, transparent 40%);
+    background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
     overflow: hidden;
-    padding-top: 100px; /* offset for navbar */
-    padding-bottom: 50px;
+    padding-top: 140px; /* offset for fixed navbar */
+    padding-bottom: 70px;
+    border-bottom: 1px solid #e2e8f0;
   }
 
-  /* Grid mesh background */
+  /* Subtle background geometric grid */
   .hero-grid {
     position: absolute;
     inset: 0;
     background-image: 
-      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-    background-size: 50px 50px;
-    mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
-    -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+      linear-gradient(rgba(15, 23, 42, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: radial-gradient(circle at 60% 40%, black 50%, transparent 90%);
+    -webkit-mask-image: radial-gradient(circle at 60% 40%, black 50%, transparent 90%);
     pointer-events: none;
     z-index: 0;
   }
@@ -173,254 +174,164 @@ body {
     z-index: 10;
   }
 
-  /* Left Column Styles */
-  .hero-badge-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 6px 16px;
-    border-radius: 50px;
-    font-size: 11px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    font-weight: 600;
-    color: #94a3b8;
-    margin-bottom: 24px;
-  }
-  .hero-badge-pill .dot {
-    width: 6px; height: 6px;
-    background: #3b82f6;
-    border-radius: 50%;
-    box-shadow: 0 0 10px #3b82f6;
-  }
-
-  .hero-title {
-    font-size: clamp(2.5rem, 5vw, 4.2rem);
-    font-weight: 800;
-    line-height: 1.1;
-    color: #ffffff;
-    margin-bottom: 20px;
-    letter-spacing: -1px;
-  }
-  .text-gradient-purple {
-    background: linear-gradient(to right, #60a5fa, #c084fc);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .hero-desc {
-    color: #94a3b8;
-    font-size: 1.1rem;
-    line-height: 1.6;
-    max-width: 90%;
-    margin-bottom: 30px;
-  }
-  .hero-desc strong { color: #e2e8f0; }
+  .text-slate-900 { color: #0f172a !important; }
+  .text-slate-600 { color: #475569 !important; }
 
   /* Buttons */
-  .btn-primary-glow {
+  .btn-enterprise-primary {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     background: #2563eb;
-    color: #fff !important;
+    color: #ffffff !important;
     padding: 14px 28px;
-    border-radius: 50px;
+    border-radius: 12px;
     font-weight: 600;
     font-size: 15px;
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 30px rgba(37, 99, 235, 0.4);
-    border: 1px solid #3b82f6;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+    border: 1px solid #2563eb;
     text-decoration: none;
   }
-  .btn-primary-glow:hover {
+  .btn-enterprise-primary:hover {
     background: #1d4ed8;
     transform: translateY(-2px);
-    box-shadow: 0 15px 35px rgba(37, 99, 235, 0.6);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35);
   }
 
-  .btn-outline-glass {
+  .btn-enterprise-secondary {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: #e2e8f0 !important;
+    gap: 10px;
+    background: #ffffff;
+    border: 1.5px solid #cbd5e1;
+    color: #0f172a !important;
     padding: 14px 28px;
-    border-radius: 50px;
+    border-radius: 12px;
     font-weight: 600;
     font-size: 15px;
-    transition: all 0.3s ease;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
     text-decoration: none;
   }
-  .btn-outline-glass:hover {
-    background: rgba(255, 255, 255, 0.1);
+  .btn-enterprise-secondary:hover {
+    border-color: #2563eb;
+    color: #2563eb !important;
     transform: translateY(-2px);
+    background: #f8fafc;
   }
 
-  /* Stats Section */
-  .hero-stats {
+  /* Stats Bar */
+  .hero-stats-light {
     display: flex;
     align-items: center;
-    gap: 40px;
-    margin-top: 50px;
-    padding-top: 30px;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    gap: 36px;
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid #e2e8f0;
   }
-  .stat-item { display: flex; flex-direction: column; }
-  .stat-num {
-    font-size: 2.2rem;
+  .stat-num-light {
+    font-size: 2rem;
     font-weight: 800;
-    color: #ffffff;
+    color: #0f172a;
     line-height: 1;
     margin-bottom: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
-  .stat-num span {
-    color: #3b82f6;
-    font-size: 1.5rem;
-    margin-left: 2px;
-  }
-  .stat-label {
-    font-size: 0.7rem;
+  .stat-num-light span { color: #2563eb; }
+  .stat-label-light {
+    font-size: 0.75rem;
     color: #64748b;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.8px;
     font-weight: 600;
   }
-  .stat-divider {
-    width: 1px;
-    height: 40px;
-    background: rgba(255, 255, 255, 0.1);
-  }
 
-  /* Enterprise Hero Section Styles */
-  .hero-section {
-    position: relative;
-    min-height: 90vh;
-    display: flex;
-    align-items: center;
-    background-color: #030712; /* Deep Obsidian Slate */
-    background-image: 
-      radial-gradient(circle at 80% 30%, rgba(37, 99, 235, 0.2) 0%, transparent 50%),
-      radial-gradient(circle at 20% 80%, rgba(14, 165, 233, 0.15) 0%, transparent 40%);
-    overflow: hidden;
-    padding-top: 140px; /* offset for navbar */
-    padding-bottom: 60px;
-  }
-
-  .text-gradient-enterprise {
-    background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  /* 3D Perspective Stage Container */
-  .hero-3d-stage {
-    perspective: 1000px;
+  /* 3D Solution Showcase Frame */
+  .solution-3d-stage {
+    perspective: 1200px;
     position: relative;
     width: 100%;
+  }
+
+  .solution-card-frame {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.08), 0 0 1px rgba(15, 23, 42, 0.1);
+    padding: 24px;
+    transform-style: preserve-3d;
+    transition: transform 0.2s ease-out;
+  }
+
+  .solution-card-frame:hover {
+    box-shadow: 0 30px 60px -15px rgba(37, 99, 235, 0.12), 0 0 1px rgba(37, 99, 235, 0.2);
+  }
+  
+  .ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .ring-1 { width: 300px; height: 300px; }
+  .ring-2 { width: 450px; height: 450px; }
+  .ring-3 { width: 600px; height: 600px; border: 1px dashed rgba(255, 255, 255, 0.05); }
+
+  .center-logo {
+    position: absolute;
+    width: 100px; height: 100px;
+    background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 0 50px rgba(59, 130, 246, 0.5), inset 0 0 20px rgba(255,255,255,0.2);
+    z-index: 10;
   }
+  .center-logo img { width: 60px; }
 
-  /* Enterprise Dashboard Card */
-  .enterprise-dashboard-card {
-    width: 100%;
-    max-width: 520px;
-    background: rgba(15, 23, 42, 0.92);
-    border: 1.5px solid rgba(56, 189, 248, 0.3);
-    border-radius: 20px;
-    box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 30px rgba(37, 99, 235, 0.2);
-    backdrop-filter: blur(20px);
-    transform-style: preserve-3d;
-    transition: transform 0.15s cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
-  .enterprise-dashboard-card:hover {
-    border-color: rgba(56, 189, 248, 0.5);
-  }
-
-  .dashboard-header .dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    display: inline-block;
-  }
-
-  /* 3D Orbit Rings */
-  .orbit-ring-3d {
+  /* Floating Pills */
+  .float-pill {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotateX(60deg) rotateY(-15deg);
-    border-radius: 50%;
-    border: 1.5px solid rgba(56, 189, 248, 0.2);
-    pointer-events: none;
-  }
-  .orbit-ring-1 { width: 440px; height: 440px; }
-  .orbit-ring-2 { width: 580px; height: 580px; border-style: dashed; border-color: rgba(129, 140, 248, 0.25); }
-
-  /* Floating 3D Cards */
-  .float-3d-card {
-    position: absolute;
-    background: rgba(15, 23, 42, 0.88);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(16px);
-    border-radius: 20px;
-    padding: 16px 20px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-    transform-style: preserve-3d;
-    transition: all 0.3s ease;
-    z-index: 25;
-  }
-  .float-3d-card:hover {
-    border-color: #38bdf8;
-    box-shadow: 0 25px 50px rgba(56, 189, 248, 0.35);
-  }
-
-  .card-top-right {
-    top: 5%;
-    right: -2%;
-    transform: translate3d(0, 0, 60px);
-  }
-
-  .card-middle-left {
-    top: 40%;
-    left: -6%;
-    transform: translate3d(0, -50%, 80px);
-  }
-
-  .card-bottom-right {
-    bottom: 6%;
-    right: 2%;
-    transform: translate3d(0, 0, 50px);
-  }
-
-  /* Floating Tech Pill Badges */
-  .tech-3d-badge {
-    position: absolute;
-    background: rgba(30, 41, 59, 0.92);
-    border: 1px solid rgba(56, 189, 248, 0.3);
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     color: #e2e8f0;
     padding: 8px 16px;
     border-radius: 50px;
     font-size: 12px;
-    font-weight: 700;
+    font-weight: 600;
     display: flex;
     align-items: center;
     gap: 8px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-    z-index: 30;
-    transform-style: preserve-3d;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    z-index: 20;
+    white-space: nowrap;
   }
-  .tb-1 { top: 12%; left: 8%; transform: translate3d(0, 0, 100px); }
-  .tb-2 { bottom: 15%; left: 2%; transform: translate3d(0, 0, 90px); }
-  .tb-3 { top: 78%; right: 38%; transform: translate3d(0, 0, 110px); }
+  .float-pill i { color: #60a5fa; }
+  
+  /* Positions matching screenshot */
+  .fp-1 { top: 20%; right: 5%; animation: floatY 6s infinite ease-in-out; }
+  .fp-2 { top: 50%; right: -5%; transform: translateY(-50%); animation: floatY 5s infinite ease-in-out 1s; }
+  .fp-3 { bottom: 25%; left: 15%; animation: floatY 7s infinite ease-in-out 2s; }
+
+  /* Tiny dots on rings */
+  .ring-dot {
+    position: absolute;
+    width: 8px; height: 8px;
+    background: #3b82f6;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #3b82f6;
+  }
+  .rd-1 { top: 30%; left: 0; transform: translate(-50%, -50%); }
+  .rd-2 { bottom: 20%; right: 10%; transform: translate(50%, 50%); }
+
+  @keyframes floatY {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+  }
 
   /* Scroll Mouse Indicator */
   .mouse-scroll {
@@ -917,117 +828,116 @@ body {
   <div class="hero-grid"></div>
 
   <div class="container hero-content-wrapper">
-    <div class="row align-items-center">
+    <div class="row align-items-center g-5">
       
-      {{-- LEFT COLUMN: Content --}}
+      {{-- LEFT COLUMN: Enterprise Content --}}
       <div class="col-lg-6">
-        <div class="hero-badge-pill reveal">
-          <span class="dot"></span>
-          REKAYASA PERANGKAT LUNAK & INFRASTRUKTUR IT
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-primary bg-opacity-10 text-primary border border-primary border-opacity-20 small fw-bold mb-4 reveal">
+          <i class="fas fa-shield-alt text-primary"></i> REKAYASA PERANGKAT LUNAK & KONSULTAN IT ENTERPRISE
         </div>
         
-        <h1 class="hero-title reveal delay-100">
-          Membangun Sistem Digital <br>
-          <span class="text-white border-bottom border-primary border-4 pb-1">Skala Enterprise</span><br>
-          Dengan Performa Tinggi.
+        <h1 class="display-5 fw-extrabold text-slate-900 mb-4 reveal delay-100" style="line-height: 1.15; font-size: clamp(2.3rem, 4vw, 3.6rem);">
+          Mendorong Pertumbuhan Bisnis Lewat <br>
+          <span class="text-primary position-relative d-inline-block">
+            Perangkat Lunak Custom
+            <svg class="position-absolute bottom-0 start-0 w-100" style="height: 8px; transform: translateY(4px);" viewBox="0 0 200 8" fill="none"><path d="M1 5.5C50 2 150 2 199 5.5" stroke="#2563eb" stroke-width="4" stroke-linecap="round"/></svg>
+          </span>
+          & Cloud Infrastructure.
         </h1>
         
-        <p class="hero-desc reveal delay-200">
-          Kami merancang dan mengembangkan <strong>Aplikasi Enterprise</strong>, <strong>Website Custom</strong>, dan <strong>Infrastruktur Cloud</strong> yang tangguh untuk mendorong pertumbuhan bisnis Anda secara terukur.
+        <p class="fs-5 text-slate-600 mb-4 reveal delay-200" style="line-height: 1.6;">
+          PT Sekawan Putra Pratama mendampingi perusahaan Anda merancang, mengarsitekturi, dan merilis sistem digital berkinerja tinggi, aman, dan dapat diskalakan.
         </p>
         
         <div class="d-flex gap-3 flex-wrap justify-content-center justify-content-lg-start reveal delay-300">
-          <a href="{{ route('contact') }}" class="btn-primary-glow magnetic-btn">
-            <i class="fas fa-paper-plane"></i> Minta Penawaran Proyek
+          <a href="{{ route('contact') }}" class="btn-enterprise-primary">
+            <i class="fas fa-calendar-alt"></i> Jadwalkan Konsultasi Gratis
           </a>
-          <a href="{{ route('portfolio.index') }}" class="btn-outline-glass magnetic-btn">
+          <a href="{{ route('portfolio.index') }}" class="btn-enterprise-secondary">
             Lihat Portofolio <i class="fas fa-arrow-right ms-1"></i>
           </a>
         </div>
 
-        <div class="hero-stats reveal delay-400">
-          <div class="stat-item">
-            <div class="stat-num"><span class="count-up" data-target="50">0</span><span>+</span></div>
-            <div class="stat-label">Proyek Selesai</div>
+        <div class="hero-stats-light reveal delay-400">
+          <div>
+            <div class="stat-num-light"><span class="count-up" data-target="50">0</span><span>+</span></div>
+            <div class="stat-label-light">Proyek Selesai</div>
           </div>
-          <div class="stat-divider"></div>
-          <div class="stat-item">
-            <div class="stat-num"><span class="count-up" data-target="20">0</span><span>+</span></div>
-            <div class="stat-label">Klien Enterprise</div>
+          <div style="width: 1px; height: 36px; background: #cbd5e1;"></div>
+          <div>
+            <div class="stat-num-light"><span class="count-up" data-target="20">0</span><span>+</span></div>
+            <div class="stat-label-light">Klien Enterprise</div>
           </div>
-          <div class="stat-divider"></div>
-          <div class="stat-item">
-            <div class="stat-num"><span class="count-up" data-target="99.9" data-decimals="1">0</span><span>%</span></div>
-            <div class="stat-label">Uptime SLA</div>
+          <div style="width: 1px; height: 36px; background: #cbd5e1;"></div>
+          <div>
+            <div class="stat-num-light"><span class="count-up" data-target="99.9" data-decimals="1">0</span><span>%</span></div>
+            <div class="stat-label-light">Uptime SLA</div>
           </div>
         </div>
       </div>
 
-      {{-- RIGHT COLUMN: Enterprise System Control Deck (Crisp & Professional) --}}
+      {{-- RIGHT COLUMN: Pristine Solution Showcase Frame --}}
       <div class="col-lg-6 d-none d-lg-block">
-        <div class="hero-3d-stage reveal delay-300">
-          <div class="enterprise-dashboard-card" id="hero3dDeck">
-            {{-- Window Control Bar --}}
-            <div class="dashboard-header d-flex align-items-center justify-content-between px-4 py-3 border-bottom border-secondary border-opacity-25">
-              <div class="d-flex align-items-center gap-2">
-                <span class="dot bg-danger"></span>
-                <span class="dot bg-warning"></span>
-                <span class="dot bg-success"></span>
-                <span class="text-white-50 font-monospace ms-2" style="font-size: 11px;">sekawan-enterprise-v12.prt</span>
+        <div class="solution-3d-stage reveal delay-300">
+          <div class="solution-card-frame" id="heroSolutionFrame">
+            {{-- Header Bar --}}
+            <div class="d-flex align-items-center justify-content-between pb-3 mb-4 border-bottom">
+              <div class="d-flex align-items-center gap-3">
+                <div class="bg-primary bg-opacity-10 text-primary p-2 rounded-3">
+                  <i class="fas fa-laptop-code fs-5"></i>
+                </div>
+                <div>
+                  <h6 class="fw-bold text-slate-900 mb-0">Solusi Teknologi Enterprise</h6>
+                  <span class="text-muted small">Arsitektur & Performa Teruji</span>
+                </div>
               </div>
-              <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-30 rounded-pill px-3 py-1" style="font-size: 11px;">
-                <i class="fas fa-circle me-1" style="font-size: 6px;"></i> Active SLA 99.9%
+              <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-30 rounded-pill px-3 py-1 font-monospace small">
+                <i class="fas fa-check-circle me-1"></i> Verified Partner
               </span>
             </div>
 
-            {{-- Dashboard Content --}}
-            <div class="p-4">
-              {{-- Top Stats Row --}}
-              <div class="row g-3 mb-4">
-                <div class="col-6">
-                  <div class="p-3 rounded-3 bg-dark bg-opacity-60 border border-secondary border-opacity-25">
-                    <span class="text-white-50 small d-block mb-1">API Latency (Speed)</span>
-                    <h5 class="fw-bold text-info mb-0 font-monospace">38 ms <span class="text-success fs-6"><i class="fas fa-arrow-down"></i> -15%</span></h5>
-                  </div>
-                </div>
-                <div class="col-6">
-                  <div class="p-3 rounded-3 bg-dark bg-opacity-60 border border-secondary border-opacity-25">
-                    <span class="text-white-50 small d-block mb-1">Security Standards</span>
-                    <h5 class="fw-bold text-success mb-0 font-monospace"><i class="fas fa-shield-alt me-1"></i> ISO 27001</h5>
-                  </div>
+            {{-- Feature Cards Grid --}}
+            <div class="row g-3">
+              <div class="col-6">
+                <div class="p-3 rounded-3 bg-light border">
+                  <div class="text-primary mb-2 fs-5"><i class="fas fa-layer-group"></i></div>
+                  <h6 class="fw-bold text-slate-900 small mb-1">Custom Software ERP</h6>
+                  <span class="text-muted" style="font-size: 12px;">Sistem manajemen terintegrasi bisnis skala besar.</span>
                 </div>
               </div>
-
-              {{-- Architecture Code Snippet --}}
-              <div class="p-3 rounded-3 bg-black border border-secondary border-opacity-30 font-monospace text-light mb-3" style="font-size: 12px; line-height: 1.65;">
-                <div class="text-white-50">// Sekawan Enterprise Software Core</div>
-                <div><span class="text-primary">use</span> App\Services\EnterpriseSystem;</div>
-                <div><span class="text-info">$system</span> = <span class="text-warning">EnterpriseSystem</span>::<span class="text-primary">deploy</span>([</div>
-                <div class="ps-3"><span class="text-success">'framework'</span> => <span class="text-info">'Laravel 12 & Flutter'</span>,</div>
-                <div class="ps-3"><span class="text-success">'cloud'</span> => <span class="text-info">'AWS & Docker Infrastructure'</span>,</div>
-                <div class="ps-3"><span class="text-success">'security'</span> => <span class="text-info">'Encrypted & SLA 99.9%'</span>,</div>
-                <div>]);</div>
+              <div class="col-6">
+                <div class="p-3 rounded-3 bg-light border">
+                  <div class="text-info mb-2 fs-5"><i class="fas fa-mobile-alt"></i></div>
+                  <h6 class="fw-bold text-slate-900 small mb-1">Aplikasi Mobile iOS/Android</h6>
+                  <span class="text-muted" style="font-size: 12px;">Aplikasi native dengan performa cepat & responsif.</span>
+                </div>
               </div>
-
-              {{-- Tech Stack Pills --}}
-              <div class="d-flex align-items-center justify-content-between pt-3 border-top border-secondary border-opacity-25 text-white-50 small">
-                <span><i class="fab fa-laravel text-danger me-1"></i> Laravel 12</span>
-                <span><i class="fab fa-google text-info me-1"></i> Flutter Apps</span>
-                <span><i class="fab fa-aws text-warning me-1"></i> Cloud AWS</span>
-                <span><i class="fas fa-database text-primary me-1"></i> PostgreSQL</span>
+              <div class="col-6">
+                <div class="p-3 rounded-3 bg-light border">
+                  <div class="text-warning mb-2 fs-5"><i class="fas fa-server"></i></div>
+                  <h6 class="fw-bold text-slate-900 small mb-1">Infrastruktur Network & Cloud</h6>
+                  <span class="text-muted" style="font-size: 12px;">Server, Mikrotik, & AWS cloud dengan SLA 99.9%.</span>
+                </div>
               </div>
+              <div class="col-6">
+                <div class="p-3 rounded-3 bg-light border">
+                  <div class="text-success mb-2 fs-5"><i class="fas fa-lock"></i></div>
+                  <h6 class="fw-bold text-slate-900 small mb-1">Keamanan & Maintenance</h6>
+                  <span class="text-muted" style="font-size: 12px;">Keamanan standar enterprise & monitoring 24/7.</span>
+                </div>
+              </div>
+            </div>
+
+            {{-- Footer Info Bar --}}
+            <div class="mt-4 pt-3 border-top d-flex align-items-center justify-content-between text-muted small">
+              <span><i class="fas fa-code text-primary me-1"></i> Tech: Laravel 12, Flutter, AWS</span>
+              <a href="{{ route('services.index') }}" class="text-primary fw-bold text-decoration-none">Eksplor Layanan <i class="fas fa-arrow-right ms-1"></i></a>
             </div>
           </div>
         </div>
       </div>
 
     </div>
-  </div>
-
-  {{-- Scroll Indicator --}}
-  <div class="mouse-scroll">
-    <div class="mouse"></div>
-    <div class="mouse-text">SCROLL</div>
   </div>
 </section>
 
@@ -1574,46 +1484,22 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ---------------------------------------------------------
-     6. MAGNETIC GLOW BUTTONS & 3D HERO TILT ENGINE
+     6. SUBTLE 3D TILT FOR SOLUTION SHOWCASE FRAME
      --------------------------------------------------------- */
-  document.querySelectorAll('.magnetic-btn').forEach(function (btn) {
-    btn.addEventListener('mousemove', function (e) {
-      const r = btn.getBoundingClientRect();
-      btn.style.setProperty('--mx', (e.clientX - r.left) + 'px');
-      btn.style.setProperty('--my', (e.clientY - r.top) + 'px');
-    });
-  });
-
-  // 3D Parallax Tilt Physics for Enterprise Deck
-  const heroSec = document.querySelector('.hero-section');
-  const hero3dDeck = document.getElementById('hero3dDeck');
-  
-  if (heroSec && hero3dDeck) {
-    let currX = 0, currY = 0;
-    let targetX = 0, targetY = 0;
-
-    heroSec.addEventListener('mousemove', (e) => {
-      const rect = heroSec.getBoundingClientRect();
-      const x = e.clientX - rect.left - rect.width / 2;
-      const y = e.clientY - rect.top - rect.height / 2;
-
-      targetX = (y / (rect.height / 2)) * -14; // Tilt X (-14 to +14 deg)
-      targetY = (x / (rect.width / 2)) * 16;   // Tilt Y (-16 to +16 deg)
+  const solutionFrame = document.getElementById('heroSolutionFrame');
+  if (solutionFrame) {
+    solutionFrame.addEventListener('mousemove', function (e) {
+      const r = solutionFrame.getBoundingClientRect();
+      const x = e.clientX - r.left - r.width / 2;
+      const y = e.clientY - r.top - r.height / 2;
+      const rx = (y / (r.height / 2)) * -6; // Subtle 6 deg tilt
+      const ry = (x / (r.width / 2)) * 6;
+      solutionFrame.style.transform = `rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg)`;
     });
 
-    heroSec.addEventListener('mouseleave', () => {
-      targetX = 0;
-      targetY = 0;
+    solutionFrame.addEventListener('mouseleave', function () {
+      solutionFrame.style.transform = 'rotateX(0deg) rotateY(0deg)';
     });
-
-    function animateHero3DTilt() {
-      currX += (targetX - currX) * 0.08;
-      currY += (targetY - currY) * 0.08;
-
-      hero3dDeck.style.transform = `rotateX(${currX.toFixed(2)}deg) rotateY(${currY.toFixed(2)}deg)`;
-      requestAnimationFrame(animateHero3DTilt);
-    }
-    animateHero3DTilt();
   }
 
 });
