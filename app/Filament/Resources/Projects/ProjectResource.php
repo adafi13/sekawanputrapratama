@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Projects;
 
 use App\Filament\Resources\Projects\ProjectResource\Pages;
 use App\Models\Project;
+use App\Models\Customer;
 use App\Models\Lead;
 use App\Models\User;
 use App\Models\Invoice;
@@ -45,12 +46,18 @@ class ProjectResource extends Resource
             ->components([
                 Section::make('Project Information')
                     ->schema([
+                        Components\Select::make('customer_id')
+                            ->label('Customer / Klien')
+                            ->options(Customer::pluck('company_name', 'id'))
+                            ->searchable()
+                            ->required(),
                         Components\Select::make('lead_id')
-                            ->label('Related Lead')
+                            ->label('Related Lead (Opsional)')
                             ->options(Lead::pluck('company_name', 'id'))
                             ->searchable()
                             ->nullable(),
                         Components\TextInput::make('name')
+                            ->label('Nama Proyek')
                             ->required()
                             ->maxLength(255),
                         Components\Textarea::make('description')
