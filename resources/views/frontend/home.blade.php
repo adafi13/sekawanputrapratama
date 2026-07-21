@@ -908,9 +908,9 @@ body {
       
       {{-- LEFT COLUMN: Enterprise Content --}}
       <div class="col-lg-6">
-        <div class="hero-badge-pill reveal">
-          <span class="dot"></span>
-          REKAYASA SISTEM & KONSULTAN IT ENTERPRISE
+        <div class="d-flex align-items-center gap-2 mb-3 text-uppercase font-monospace reveal" style="letter-spacing: 1.5px; font-size: 11px; font-weight: 700; color: #38bdf8;">
+          <span style="display: inline-block; width: 24px; height: 2px; background: #38bdf8; border-radius: 2px;"></span>
+          PT SEKAWAN PUTRA PRATAMA — ENTERPRISE IT CONSULTING
         </div>
         
         <h1 class="hero-title reveal delay-100">
@@ -962,9 +962,13 @@ body {
                 <span style="width: 10px; height: 10px; background: #10b981; border-radius: 50%;"></span>
                 <span class="text-white-50 font-monospace ms-2" style="font-size: 11px;">sekawanputrapratama.com</span>
               </div>
-              <div class="latency-pill-badge" id="serverLatencyBadge">
-                <span class="latency-dot"></span>
-                <i class="fas fa-bolt text-warning me-1"></i> <span id="latencyValue">Latency: -- ms</span>
+              <div class="d-flex align-items-center gap-3 font-monospace" style="font-size: 11px;">
+                <span class="text-success d-inline-flex align-items-center gap-1">
+                  <span style="display: inline-block; width: 6px; height: 6px; background: #10b981; border-radius: 50%; box-shadow: 0 0 8px #10b981;"></span>
+                  <span id="latencyValue">Ping: 18ms</span>
+                </span>
+                <span class="text-white-50">|</span>
+                <span class="text-info"><i class="fas fa-shield-alt me-1"></i> Secured</span>
               </div>
             </div>
 
@@ -1568,11 +1572,11 @@ document.addEventListener('DOMContentLoaded', function () {
     fetch('/favicon.ico?t=' + Date.now(), { method: 'HEAD', cache: 'no-store' })
       .then(function() {
         const duration = Math.round(performance.now() - startTime);
-        const displayMs = Math.max(14, Math.min(duration, 92));
-        latencyValEl.textContent = 'Latency: ' + displayMs + ' ms';
+        const displayMs = Math.max(12, Math.min(duration, 88));
+        latencyValEl.textContent = 'Ping: ' + displayMs + 'ms';
       })
       .catch(function() {
-        latencyValEl.textContent = 'Latency: 24 ms';
+        latencyValEl.textContent = 'Ping: 18ms';
       });
   }
 
