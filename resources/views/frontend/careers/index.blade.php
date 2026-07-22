@@ -306,30 +306,36 @@
   </div>
 </div>
 
+@push('styles')
+<style>
+  #spontaneousModal {
+    z-index: 100005 !important;
+  }
+  #spontaneousModal .modal-dialog {
+    z-index: 100006 !important;
+    position: relative !important;
+  }
+  .modal-backdrop {
+    z-index: 100000 !important;
+  }
+</style>
+@endpush
+
 @push('scripts')
 <script>
 function openSpontaneousModal() {
   const modalEl = document.getElementById('spontaneousModal');
   if (!modalEl) return;
 
-  if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
-    try {
-      const bsModal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
-      bsModal.show();
-      return;
-    } catch(e) {}
-  }
-  
-  if (typeof $ !== 'undefined' && $.fn && $.fn.modal) {
-    try {
-      $(modalEl).modal('show');
-      return;
-    } catch(e) {}
+  // Move modal to body to prevent stacking context trap
+  if (modalEl.parentElement !== document.body) {
+    document.body.appendChild(modalEl);
   }
 
-  // Fallback Vanilla JS Modal Opener
-  modalEl.classList.add('show');
+  // Force high z-index and display
+  modalEl.style.zIndex = '100005';
   modalEl.style.display = 'block';
+  modalEl.classList.add('show');
   modalEl.removeAttribute('aria-hidden');
   modalEl.setAttribute('aria-modal', 'true');
   document.body.classList.add('modal-open');
@@ -338,7 +344,18 @@ function openSpontaneousModal() {
   if (!backdrop) {
     backdrop = document.createElement('div');
     backdrop.className = 'modal-backdrop fade show';
+    backdrop.style.zIndex = '100000';
     document.body.appendChild(backdrop);
+  }
+
+  // Try Bootstrap 5 & jQuery JS if available
+  if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
+    try {
+      const bsModal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+      bsModal.show();
+    } catch(e) {}
+  } else if (typeof $ !== 'undefined' && $.fn && $.fn.modal) {
+    try { $(modalEl).modal('show'); } catch(e) {}
   }
 }
 
@@ -355,8 +372,8 @@ function closeSpontaneousModal() {
   modalEl.setAttribute('aria-hidden', 'true');
   document.body.classList.remove('modal-open');
 
-  const backdrop = document.querySelector('.modal-backdrop');
-  if (backdrop) backdrop.remove();
+  const backdrop = document.querySelectorAll('.modal-backdrop');
+  backdrop.forEach(b => b.remove());
 }
 </script>
 @endpush
