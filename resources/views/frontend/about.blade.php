@@ -747,20 +747,26 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
   </div>
 </section>
 
-{{-- TEAM SECTION --}}
-<section class="abt-team">
-  <div class="container">
-    <div class="section-header reveal">
-      <span class="abt-hero-pill mb-3" style="background: rgba(8, 145, 178, 0.05); color: var(--color-primary);">TIM KAMI</span>
-      <h2>Profesional Dibalik Layar</h2>
+{{-- TEAM SECTION (Executive Leadership & Senior Engineers) --}}
+<section class="py-5 bg-white border-top">
+  <div class="container py-4">
+    <div class="text-center mb-5 reveal">
+      <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-20 rounded-pill px-4 py-2 mb-3 text-uppercase fw-bold" style="letter-spacing: 1.5px; font-size: 11px;">
+        <i class="fas fa-users me-2"></i> TIM PROFESIONAL KAMI
+      </span>
+      <h2 class="fw-black text-dark display-5 mb-3" style="letter-spacing: -1px;">Profesional Dibalik Layar</h2>
+      <p class="text-muted mx-auto" style="max-width: 680px; font-size: 1.05rem; line-height: 1.6;">
+        Didukung oleh insinyur perangkat lunak, arsitek sistem server, dan perancang UI/UX berpengalaman yang berdedikasi menghadirkan solusi teknologi presisi tinggi.
+      </p>
     </div>
     
-    <div class="row g-4">
+    <div class="row g-4 justify-content-center">
       @php
           $team = [
               [
                 'name' => 'Abdul Malik Ibrahim', 
                 'role' => 'App Developer', 
+                'color' => 'primary',
                 'img' => 'abdul-malik.webp',
                 'ig' => 'https://www.instagram.com/malikibrahim915/',
                 'exp' => '7+ Tahun',
@@ -769,30 +775,34 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
               [
                 'name' => 'Aries Adityanto', 
                 'role' => 'Project Manager', 
+                'color' => 'primary',
                 'img' => 'aries-adityanto.webp',
                 'ig' => 'https://www.instagram.com/arisadit_ya/',
                 'exp' => '5+ Tahun',
-                'desc' => 'Memastikan setiap proyek berjalan presisi, tepat waktu, dan sesuai kebutuhan klien.'
+                'desc' => 'Memastikan setiap proyek berjalan presisi, tepat waktu, dan sesuai kebutuhan bisnis klien.'
               ],
               [
                 'name' => 'M. Aditya Novaldy', 
                 'role' => 'Server & Networking', 
+                'color' => 'info',
                 'img' => 'aditya-novaldy.webp',
                 'ig' => 'https://www.instagram.com/aditya13nvl/',
                 'exp' => '6+ Tahun',
-                'desc' => 'Ahli infrastruktur server dan jaringan, memastikan koneksi stabil dan sistem berjalan lancar.'
+                'desc' => 'Ahli infrastruktur server dan jaringan, memastikan koneksi stabil dan sistem berjalan lancar 24/7.'
               ],
               [
                 'name' => 'M. Naufal Fathuroni', 
                 'role' => 'UI/UX Designer', 
+                'color' => 'warning',
                 'img' => 'muhammad-naufal-fauthuroni.webp',
                 'ig' => 'https://www.instagram.com/nnovalf/',
                 'exp' => '2+ Tahun',
-                'desc' => 'Merancang antarmuka intuitif yang fokus pada pengalaman pengguna dan estetika visual.'
+                'desc' => 'Merancang antarmuka intuitif yang fokus pada pengalaman pengguna dan estetika visual kelas atas.'
               ],
               [
                 'name' => 'Alfario Dafa Mustofa', 
                 'role' => 'Office Server', 
+                'color' => 'success',
                 'img' => 'alfario-daffa-mustofa.webp',
                 'ig' => 'https://www.instagram.com/dafmstfa_/',
                 'exp' => '5+ Tahun',
@@ -803,20 +813,33 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
 
       @foreach($team as $index => $member)
       <div class="col-lg-4 col-md-6 reveal" style="transition-delay: {{ $index * 100 }}ms;">
-        <div class="team-card">
-          <div class="team-img-wrap">
-            <img src="{{ asset('assets/media/team/' . $member['img']) }}" alt="{{ $member['name'] }}" loading="lazy">
-            <div class="team-social">
-              <a href="{{ $member['ig'] }}" class="social-icon" target="_blank"><i class="fab fa-instagram"></i></a>
-            </div>
-            <div class="abt-team-exp" style="position: absolute; bottom: 12px; right: 12px; background: #fff; border-radius: 50px; padding: 5px 12px; font-size: 12px; font-weight: 700; color: #1E293B; display: flex; align-items: center; gap: 5px; box-shadow: 0 4px 16px rgba(0,0,0,0.12); z-index: 5;">
-              <i class="fas fa-star" style="color: #F59E0B; font-size: 11px;"></i> {{ $member['exp'] }}
-            </div>
+        <div class="card border-0 rounded-4 shadow-sm h-100 overflow-hidden transition-all" style="background: #ffffff; border: 1px solid #e2e8f0 !important;">
+          <div class="position-relative overflow-hidden" style="background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);">
+            <img src="{{ asset('assets/media/team/' . $member['img']) }}" alt="{{ $member['name'] }}" loading="lazy" class="w-100" style="height: 290px; object-fit: cover; object-position: top center; transition: transform 0.5s ease;">
+            
+            {{-- Experience Badge --}}
+            <span class="position-absolute top-0 end-0 m-3 badge bg-white text-dark shadow-sm rounded-pill border px-3 py-2 fw-bold" style="font-size: 11px; z-index: 2;">
+              <i class="fas fa-star text-warning me-1"></i> {{ $member['exp'] }}
+            </span>
           </div>
-          <div class="team-info">
-            <h5 class="team-name">{{ $member['name'] }}</h5>
-            <span class="team-role">{{ $member['role'] }}</span>
-            <p class="team-desc" style="font-size: 13px; color: #94A3B8; line-height: 1.6; margin-top: 12px;">{{ $member['desc'] }}</p>
+
+          <div class="card-body p-4 d-flex flex-column justify-content-between">
+            <div>
+              <div class="d-flex align-items-center justify-content-between mb-2">
+                <span class="badge bg-{{ $member['color'] }} bg-opacity-10 text-{{ $member['color'] }} border border-{{ $member['color'] }} border-opacity-20 rounded-pill px-3 py-1 fw-bold text-uppercase" style="font-size: 10px; letter-spacing: 0.5px;">
+                  {{ $member['role'] }}
+                </span>
+              </div>
+              <h4 class="fw-bold text-dark mb-2 fs-5">{{ $member['name'] }}</h4>
+              <p class="text-muted small mb-3" style="line-height: 1.6; font-size: 13px;">{{ $member['desc'] }}</p>
+            </div>
+
+            <div class="pt-3 border-top d-flex align-items-center justify-content-between" style="border-color: #f1f5f9 !important;">
+              <span class="text-muted" style="font-size: 11px;">Tim Engineering &amp; IT</span>
+              <a href="{{ $member['ig'] }}" target="_blank" class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1 font-monospace" style="font-size: 11px;">
+                <i class="fab fa-instagram me-1 text-danger"></i> Profile <i class="fas fa-external-link-alt ms-1" style="font-size: 9px;"></i>
+              </a>
+            </div>
           </div>
         </div>
       </div>
