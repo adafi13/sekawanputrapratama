@@ -66,10 +66,22 @@
             </div>
             <div class="ctc-info-body">
               <span class="ctc-info-label">Lokasi Kantor</span>
-              <span class="ctc-info-value">{{ \App\Models\Setting::get('contact.address', 'Perumahan Mega Regency, Blk. L5 No. 23, Sukaragam, Kec. Serang Baru, Bekasi 17330') }}</span>
+              <span class="ctc-info-value">{{ \App\Models\Setting::get('contact.address', 'Perum Mega Regency Blok G3 No. 38, RT 002 / RW 020, Sukaragam, Kec. Serang Baru, Kab. Bekasi, Jawa Barat 17330') }}</span>
               <a href="https://maps.app.goo.gl/CWZgdJDPenuBYPXi9" target="_blank" class="ctc-maps-link">
                 Buka Google Maps <i class="fas fa-external-link-alt"></i>
               </a>
+            </div>
+          </div>
+
+          {{-- Legal & Operating Hours Card --}}
+          <div class="ctc-info-card reveal-left delay-350" style="background: #f8fafc; border-color: #e2e8f0;">
+            <div class="ctc-info-icon ctc-blue" style="background: rgba(37,99,235,.1); color: #2563EB;">
+              <i class="fas fa-file-contract"></i>
+            </div>
+            <div class="ctc-info-body">
+              <span class="ctc-info-label">Verifikasi Legalitas PT &amp; Jam Operasional</span>
+              <span class="ctc-info-value" style="font-size: 12px; font-family: monospace;">NIB: 0505260088735 | NPWP: 1000 0000 0948 6824</span>
+              <span class="d-block text-muted mt-1" style="font-size: 11.5px; line-height: 1.4;"><i class="fas fa-clock text-info me-1"></i> Senin - Sabtu: 08:00 - 17:00 WIB (On-Call SLA 24/7)</span>
             </div>
           </div>
         </div>
@@ -211,7 +223,7 @@
                     <span class="ctc-spinner"></span> Mengirim...
                   </span>
                 </button>
-                <p class="ctc-privacy"><i class="fas fa-lock"></i> Privasi Anda terjamin aman. Respons dalam <strong>1×24 Jam</strong>.</p>
+                <p class="ctc-privacy"><i class="fas fa-shield-alt text-success me-1"></i> Privasi Anda terjamin 100% aman &amp; dilindungi NDA. Respons dalam <strong>1×24 Jam Kerja</strong>.</p>
               </div>
 
             </div>
