@@ -54,11 +54,11 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('tools.password-generator') }}" class="d-flex align-items-center p-2 rounded mb-1 {{ request()->routeIs('tools.password-generator') ? 'bg-primary bg-opacity-10 text-primary' : '' }}">
-                <i class="fas fa-key me-3 text-warning fs-5"></i> 
+            <a href="{{ route('tools.ssl-checker') }}" class="d-flex align-items-center p-2 rounded mb-1 {{ request()->routeIs('tools.ssl-checker') ? 'bg-primary bg-opacity-10 text-primary' : '' }}">
+                <i class="fas fa-shield-alt me-3 text-warning fs-5"></i> 
                 <div>
-                    <strong class="d-block text-dark" style="font-size: 13px;">Generator Password &amp; Hash</strong>
-                    <span class="text-muted d-block" style="font-size: 11px;">Enkripsi Kata Sandi &amp; Hash Siber</span>
+                    <strong class="d-block text-dark" style="font-size: 13px;">Cek Masa Aktif SSL &amp; Health</strong>
+                    <span class="text-muted d-block" style="font-size: 11px;">Pemeriksa Sertifikat SSL &amp; Status Website</span>
                 </div>
             </a>
         </li>

@@ -38,7 +38,7 @@ use App\Http\Controllers\CareerController;
 // Tools Routes
 Route::get('/speedtest', [FrontendController::class, 'speedtest'])->name('tools.speedtest');
 Route::get('/tools/dns-lookup', [FrontendController::class, 'dnsLookup'])->name('tools.dns-lookup');
-Route::get('/tools/password-generator', [FrontendController::class, 'passwordGenerator'])->name('tools.password-generator');
+Route::get('/tools/ssl-checker', [FrontendController::class, 'sslChecker'])->name('tools.ssl-checker');
 Route::get('/tools/port-checker', [FrontendController::class, 'portChecker'])->name('tools.port-checker');
 
 // Calculator Route

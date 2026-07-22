@@ -395,9 +395,9 @@ class FrontendController extends Controller
         return view('frontend.tools.dns-lookup');
     }
 
-    public function passwordGenerator()
+    public function sslChecker()
     {
-        return view('frontend.tools.password-generator');
+        return view('frontend.tools.ssl-checker');
     }
 
     public function portChecker()
