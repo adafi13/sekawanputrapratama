@@ -486,6 +486,105 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
 </script>
 @endpush
 
+{{-- INTERACTIVE MILESTONE & JOURNEY TIMELINE --}}
+<section class="py-5 bg-white border-bottom position-relative overflow-hidden">
+  <div class="container py-4">
+    <div class="text-center mb-5 reveal">
+      <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-20 rounded-pill px-4 py-2 mb-3 text-uppercase fw-bold" style="letter-spacing: 1.5px; font-size: 11px;">
+        <i class="fas fa-rocket me-2"></i> PETA PERJALANAN PERUSAHAAN
+      </span>
+      <h2 class="fw-black text-dark display-5 mb-3" style="letter-spacing: -1px;">Rekam Jejak & Milestone Tumbuh</h2>
+      <p class="text-muted mx-auto" style="max-width: 680px; font-size: 1.05rem; line-height: 1.6;">
+        Dari awal berdirinya hingga dipercaya oleh perusahaan manufaktur nasional dan entitas Tbk, berikut adalah perjalanan kami dalam menghadirkan solusi teknologi yang tepat guna.
+      </p>
+    </div>
+
+    {{-- Timeline Cards Row --}}
+    <div class="row g-4 position-relative">
+      {{-- Connecting Line (Desktop) --}}
+      <div class="d-none d-lg-block position-absolute top-50 start-0 w-100 translate-middle-y z-0" style="height: 4px; background: linear-gradient(90deg, #e2e8f0 0%, #0284c7 50%, #10b981 100%);"></div>
+
+      {{-- Milestone 1: 2024 --}}
+      <div class="col-lg-4 reveal delay-100 position-relative z-1">
+        <div class="card border-0 rounded-4 shadow-sm h-100 overflow-hidden transition-all" style="background: #f8fafc; border: 1px solid #e2e8f0 !important;">
+          <div class="card-header bg-white border-bottom p-4 d-flex align-items-center justify-content-between">
+            <span class="badge bg-primary px-3 py-2 rounded-pill fw-bold fs-6 shadow-sm">
+              <i class="fas fa-flag me-1"></i> 2024
+            </span>
+            <span class="text-muted small font-monospace fw-semibold">FASE FONDASI</span>
+          </div>
+          <div class="card-body p-4">
+            <h4 class="fw-bold text-dark mb-3">Pendirian & Solusi Perdana</h4>
+            <p class="text-muted small mb-4" style="line-height: 1.7;">
+              Resmi berdirinya <strong>PT Sekawan Putra Pratama</strong> di Bekasi. Berfokus menghadirkan solusi pengembang sistem custom dan perancangan website profesional bagi puluhan klien awal.
+            </p>
+            <div class="bg-white p-3 rounded-3 border" style="border-color: #e2e8f0 !important;">
+              <span class="d-block text-primary fw-bold small mb-1"><i class="fas fa-check-circle me-1"></i> Milestone Utama:</span>
+              <ul class="list-unstyled mb-0 text-muted small" style="font-size: 12px; line-height: 1.6;">
+                <li>• Legalitas Badan Hukum Resmikan PT.</li>
+                <li>• Rilis 20+ Proyek Web & Software Custom.</li>
+                <li>• Pembentukan Tim Eng & Infrastructure.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {{-- Milestone 2: 2025 --}}
+      <div class="col-lg-4 reveal delay-200 position-relative z-1">
+        <div class="card border-0 rounded-4 shadow-sm h-100 overflow-hidden transition-all" style="background: #f8fafc; border: 1px solid #0284c7 !important;">
+          <div class="card-header bg-primary text-white border-bottom p-4 d-flex align-items-center justify-content-between">
+            <span class="badge bg-white text-primary px-3 py-2 rounded-pill fw-bold fs-6 shadow-sm">
+              <i class="fas fa-building me-1"></i> 2025
+            </span>
+            <span class="text-white-50 small font-monospace fw-semibold">FASE EKSPANSI ENTERPRISE</span>
+          </div>
+          <div class="card-body p-4">
+            <h4 class="fw-bold text-dark mb-3">Kemitraan Manufaktur & Tbk</h4>
+            <p class="text-muted small mb-4" style="line-height: 1.7;">
+              Dipercaya oleh raksasa industri seperti <strong>PT Astra Daihatsu Motor</strong> (QC & Production Monitoring) dan <strong>PT Sarana Mitra Luas Tbk</strong> (ERP OPTIMA & Server Network).
+            </p>
+            <div class="bg-white p-3 rounded-3 border" style="border-color: #e2e8f0 !important;">
+              <span class="d-block text-success fw-bold small mb-1"><i class="fas fa-check-circle me-1"></i> Milestone Utama:</span>
+              <ul class="list-unstyled mb-0 text-muted small" style="font-size: 12px; line-height: 1.6;">
+                <li>• Deployment Real-time QC Dashboard ADM.</li>
+                <li>• Peluncuran ERP Multi-Modul (CRM, WMS, Finance).</li>
+                <li>• Instalasi CCTV & Server PT Banyu Ayu Kosmetika.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {{-- Milestone 3: 2026 --}}
+      <div class="col-lg-4 reveal delay-300 position-relative z-1">
+        <div class="card border-0 rounded-4 shadow-sm h-100 overflow-hidden transition-all" style="background: #f8fafc; border: 1px solid #10b981 !important;">
+          <div class="card-header bg-success text-white border-bottom p-4 d-flex align-items-center justify-content-between">
+            <span class="badge bg-white text-success px-3 py-2 rounded-pill fw-bold fs-6 shadow-sm">
+              <i class="fas fa-chart-line me-1"></i> 2026
+            </span>
+            <span class="text-white-50 small font-monospace fw-semibold">FASE ECOSYSTEM & CLOUD</span>
+          </div>
+          <div class="card-body p-4">
+            <h4 class="fw-bold text-dark mb-3">Ekosistem Digital & Portal Klien</h4>
+            <p class="text-muted small mb-4" style="line-height: 1.7;">
+              Integrasi Kalkulator Estimasi Biaya IT, Portal Klien Mandiri, dan perluasan Managed Infrastructure Services bagi kawasan industri Bekasi, Karawang, & Jabodetabek.
+            </p>
+            <div class="bg-white p-3 rounded-3 border" style="border-color: #e2e8f0 !important;">
+              <span class="d-block text-info fw-bold small mb-1"><i class="fas fa-check-circle me-1"></i> Milestone Utama:</span>
+              <ul class="list-unstyled mb-0 text-muted small" style="font-size: 12px; line-height: 1.6;">
+                <li>• Peluncuran Live Kalkulator Biaya Proyek.</li>
+                <li>• Portal Klien (Manajemen Project & Billing).</li>
+                <li>• Jaminan 99.9% Uptime & 1-Year Maintenance.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 {{-- TEAM SECTION --}}
 <section class="abt-team">
   <div class="container">
