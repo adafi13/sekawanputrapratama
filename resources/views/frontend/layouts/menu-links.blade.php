@@ -25,7 +25,7 @@
     <a href="{{ route('tools.speedtest') }}" class="{{ request()->routeIs('tools.*') ? 'active' : '' }}">
         Tools <i class="fas fa-chevron-down ms-1 nav-dropdown-icon"></i>
     </a>
-    <ul class="nav-dropdown-menu" style="min-width: 280px; padding: 12px;">
+    <ul class="nav-dropdown-menu nav-dropdown-tools">
         <li>
             <a href="{{ route('tools.speedtest') }}" class="d-flex align-items-center p-2 rounded mb-1 {{ request()->routeIs('tools.speedtest') ? 'bg-primary bg-opacity-10 text-primary' : '' }}">
                 <i class="fas fa-tachometer-alt me-3 text-primary fs-5"></i> 
