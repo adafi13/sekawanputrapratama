@@ -571,33 +571,20 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
             <span class="badge bg-success bg-opacity-10 text-success fw-bold px-3 py-1 rounded-pill mb-2" style="font-size: 11px;">FASE ECOSYSTEM & SAAS PLATFORMS</span>
             <h4 class="fw-bold text-dark mb-2 fs-5">Ekosistem Digital & Produk SaaS Inovatif</h4>
             <p class="text-muted small mb-3" style="line-height: 1.6;">
-              Peluncuran dua platform SaaS unggulan: <strong>APO Apps</strong> (Ekosistem Manajemen Operasional) &amp; <strong>Smart RT Vision</strong> (Platform Keamanan Lingkungan Cerdas), serta Portal Klien Mandiri.
+              Peluncuran dua platform SaaS unggulan: <strong>APO Apps</strong> (Ekosistem Manajemen Operasional) &amp; <strong>Smart RT Vision</strong> (Platform Keamanan Lingkungan Cerdas).
             </p>
             <div class="bg-light p-3 rounded-3 border text-start" style="border-color: #f1f5f9 !important;">
               <span class="d-block text-success fw-bold small mb-2"><i class="fas fa-rocket me-1"></i> Launching Produk Unggulan:</span>
-              <div class="d-flex flex-column gap-2">
-                <a href="https://apoapps.sekawanputrapratama.com/" target="_blank" class="d-flex align-items-center justify-content-between p-2 rounded bg-white border text-decoration-none shadow-sm-hover" style="border-color: #e2e8f0 !important;">
-                  <div class="d-flex align-items-center gap-2">
-                    <i class="fas fa-cubes text-primary fs-6"></i>
-                    <div>
-                      <strong class="d-block text-dark" style="font-size: 12px;">APO Apps Platform</strong>
-                      <span class="text-muted" style="font-size: 11px;">Enterprise Operational Cloud</span>
-                    </div>
-                  </div>
-                  <span class="badge bg-success bg-opacity-15 text-success rounded-pill" style="font-size: 10px;">Live <i class="fas fa-external-link-alt ms-1" style="font-size: 9px;"></i></span>
-                </a>
-
-                <a href="https://smartrtvision.sekawanputrapratama.com/" target="_blank" class="d-flex align-items-center justify-content-between p-2 rounded bg-white border text-decoration-none shadow-sm-hover" style="border-color: #e2e8f0 !important;">
-                  <div class="d-flex align-items-center gap-2">
-                    <i class="fas fa-eye text-info fs-6"></i>
-                    <div>
-                      <strong class="d-block text-dark" style="font-size: 12px;">Smart RT Vision</strong>
-                      <span class="text-muted" style="font-size: 11px;">Smart Security &amp; Resident Vision</span>
-                    </div>
-                  </div>
-                  <span class="badge bg-success bg-opacity-15 text-success rounded-pill" style="font-size: 10px;">Live <i class="fas fa-external-link-alt ms-1" style="font-size: 9px;"></i></span>
-                </a>
-              </div>
+              <ul class="list-unstyled mb-0 text-muted small" style="font-size: 12px; line-height: 1.8;">
+                <li class="mb-2">
+                  • <a href="https://apoapps.sekawanputrapratama.com/" target="_blank" class="fw-bold text-primary text-decoration-none">APO Apps Platform <i class="fas fa-external-link-alt ms-1" style="font-size: 10px;"></i></a>
+                  <span class="d-block text-muted ps-3" style="font-size: 11px;">(Enterprise Operational Cloud Platform)</span>
+                </li>
+                <li>
+                  • <a href="https://smartrtvision.sekawanputrapratama.com/" target="_blank" class="fw-bold text-info text-decoration-none">Smart RT Vision Platform <i class="fas fa-external-link-alt ms-1" style="font-size: 10px;"></i></a>
+                  <span class="d-block text-muted ps-3" style="font-size: 11px;">(Smart Security &amp; Resident Vision System)</span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
