@@ -30,7 +30,7 @@
             <a href="{{ route('tools.speedtest') }}" class="d-flex align-items-center bg-light p-2 rounded mb-2 border">
                 <i class="fas fa-bolt me-2 text-warning fs-5"></i> 
                 <div>
-                    <strong class="d-block text-primary" style="font-size: 12px;">SpeedTest Internet <span class="badge bg-danger rounded-pill ms-1" style="font-size: 9px;">NEW</span></strong>
+                    <strong class="d-block text-primary" style="font-size: 12px;">SpeedTest Internet</strong>
                     <span class="text-muted" style="font-size: 11px;">Uji Kecepatan &amp; Latensi Real-time</span>
                 </div>
             </a>
