@@ -136,7 +136,7 @@ function performDnsLookup(e) {
           const row = document.createElement('tr');
           row.innerHTML = `
             <td><span class="fw-bold text-dark">${domain}</span></td>
-            <td><span class="badge bg-info bg-opacity-15 text-info font-monospace">${typeName}</span></td>
+            <td><span class="badge bg-primary text-white font-monospace px-3 py-1" style="font-size: 11px;">${typeName}</span></td>
             <td><span class="text-muted">${ttl}</span></td>
             <td><code class="text-primary fw-bold">${dataVal}</code></td>
           `;
