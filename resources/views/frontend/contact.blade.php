@@ -11,15 +11,25 @@
 @section('content')
 
 {{-- ===== HERO ===== --}}
-<section class="ctc-hero">
-  <div class="ctc-hero-orb o1"></div>
-  <div class="ctc-hero-orb o2"></div>
-  <div class="ctc-hero-mesh"></div>
+<section class="ctc-hero" style="background: linear-gradient(135deg, #050b14 0%, #0f172a 50%, #050b14 100%); padding-top: 135px !important; padding-bottom: 75px !important;">
+  <div class="ctc-hero-orb o1" style="background: radial-gradient(circle, rgba(56, 189, 248, 0.25), transparent 70%);"></div>
+  <div class="ctc-hero-orb o2" style="background: radial-gradient(circle, rgba(16, 185, 129, 0.2), transparent 70%);"></div>
+  <div class="ctc-hero-mesh" style="background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px); background-size: 32px 32px;"></div>
+  
   <div class="container text-center position-relative z-2">
-    <span class="ctc-pill reveal"><span class="ctc-dot"></span>Open for Projects</span>
-    <h1 class="ctc-hero-title reveal delay-100">Mari Bangun Sesuatu yang<br><span class="ctc-grad">Luar Biasa</span> Bersama Kami</h1>
-    <div class="ctc-typewriter-wrap reveal delay-200">
-      <span id="typewriter-text"></span><span class="ctc-cursor">|</span>
+    <span class="badge bg-primary bg-opacity-20 text-info border border-info border-opacity-30 rounded-pill px-4 py-2 mb-3 text-uppercase fw-bold" style="letter-spacing: 1.5px; font-size: 11px;">
+      <i class="fas fa-headset me-2"></i> KONSULTASI STRATEGIS TEKNOLOGI
+    </span>
+    
+    <h1 class="ctc-hero-title reveal delay-100 mb-3" style="font-size: clamp(2rem, 4.5vw, 3.2rem); font-weight: 900; letter-spacing: -1.2px;">
+      Mari Bangun Solusi Digital <span class="ctc-grad">Tepat Guna</span> Bersama Kami
+    </h1>
+    
+    <div class="ctc-typewriter-wrap reveal delay-200 mt-3">
+      <div class="d-inline-flex align-items-center gap-2 px-4 py-2 rounded-pill bg-white bg-opacity-10 border shadow-sm font-monospace" style="backdrop-filter: blur(12px); font-size: 0.95rem; border-color: rgba(255, 255, 255, 0.15) !important;">
+        <i class="fas fa-terminal text-primary me-1" style="font-size: 13px;"></i>
+        <span id="typewriter-text" style="color: #60a5fa;"></span><span class="ctc-cursor">|</span>
+      </div>
     </div>
   </div>
 </section>
