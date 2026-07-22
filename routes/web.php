@@ -49,6 +49,7 @@ Route::get('/calculator', [CalculatorController::class, 'index'])->name('calcula
 Route::get('/careers', [CareerController::class, 'index'])->name('careers.index');
 Route::get('/careers/{slug}', [CareerController::class, 'show'])->name('careers.show');
 Route::post('/careers/{slug}/apply', [CareerController::class, 'apply'])->name('careers.apply');
+Route::post('/careers/apply-spontaneous', [CareerController::class, 'applySpontaneous'])->name('careers.apply-spontaneous');
 
 // Legal Routes
 Route::get('/privacy-policy', [FrontendController::class, 'privacyPolicy'])->name('privacy-policy');
