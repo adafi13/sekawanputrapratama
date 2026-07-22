@@ -83,13 +83,13 @@
                   $status = strtolower($app->status);
                 @endphp
                 
-                @if(in_array($status, ['hired', 'diterima (hired)', 'diterima']))
+                @if(in_array($status, ['hired', 'accepted', 'diterima (hired)', 'diterima']))
                   <span class="badge bg-success text-white px-3 py-2 rounded-pill fs-6"><i class="fas fa-check-circle me-1"></i> DITERIMA (HIRED)</span>
                 @elseif(in_array($status, ['rejected', 'ditolak']))
                   <span class="badge bg-danger text-white px-3 py-2 rounded-pill fs-6"><i class="fas fa-times-circle me-1"></i> BELUM SESUAI (DITOLAK)</span>
-                @elseif(in_array($status, ['interviewing', 'wawancara (interview)', 'wawancara']))
+                @elseif(in_array($status, ['interviewed', 'interviewing', 'wawancara (interview)', 'wawancara']))
                   <span class="badge bg-info text-dark px-3 py-2 rounded-pill fs-6"><i class="fas fa-comments me-1"></i> TAHAP 2: WAWANCARA / INTERVIEW</span>
-                @elseif(in_array($status, ['reviewing', 'review hr']))
+                @elseif(in_array($status, ['reviewed', 'reviewing', 'review hr']))
                   <span class="badge bg-primary text-white px-3 py-2 rounded-pill fs-6"><i class="fas fa-search me-1"></i> TAHAP 1: REVIEW HR &amp; BERKAS</span>
                 @else
                   <span class="badge bg-warning text-dark px-3 py-2 rounded-pill fs-6"><i class="fas fa-clock me-1"></i> PENDING (MENUNGGU REVIEW HR)</span>
@@ -100,19 +100,19 @@
               <div class="p-3 bg-white rounded-3 border mt-3" style="border-color: #e2e8f0 !important;">
                 <div class="row text-center text-muted small g-2">
                   <div class="col-3">
-                    <div class="fw-bold {{ !in_array($status, ['rejected']) ? 'text-primary' : 'text-muted' }}"><i class="fas fa-check-circle"></i> 1. Kirim CV</div>
+                    <div class="fw-bold {{ !in_array($status, ['rejected', 'ditolak']) ? 'text-primary' : 'text-muted' }}"><i class="fas fa-check-circle"></i> 1. Kirim CV</div>
                     <span style="font-size: 10px;" class="d-none d-sm-inline">Berkas Diterima</span>
                   </div>
                   <div class="col-3">
-                    <div class="fw-bold {{ in_array($status, ['reviewing', 'review hr', 'interviewing', 'wawancara (interview)', 'hired', 'diterima (hired)', 'diterima']) ? 'text-primary' : 'text-muted' }}"><i class="fas fa-search"></i> 2. Review HR</div>
+                    <div class="fw-bold {{ in_array($status, ['reviewed', 'reviewing', 'review hr', 'interviewed', 'interviewing', 'wawancara (interview)', 'wawancara', 'accepted', 'hired', 'diterima (hired)', 'diterima']) ? 'text-primary' : 'text-muted' }}"><i class="fas fa-search"></i> 2. Review HR</div>
                     <span style="font-size: 10px;" class="d-none d-sm-inline">Penilaian Tim</span>
                   </div>
                   <div class="col-3">
-                    <div class="fw-bold {{ in_array($status, ['interviewing', 'wawancara (interview)', 'hired', 'diterima (hired)', 'diterima']) ? 'text-info' : 'text-muted' }}"><i class="fas fa-comments"></i> 3. Wawancara</div>
+                    <div class="fw-bold {{ in_array($status, ['interviewed', 'interviewing', 'wawancara (interview)', 'wawancara', 'accepted', 'hired', 'diterima (hired)', 'diterima']) ? 'text-info' : 'text-muted' }}"><i class="fas fa-comments"></i> 3. Wawancara</div>
                     <span style="font-size: 10px;" class="d-none d-sm-inline">Interview &amp; Skill</span>
                   </div>
                   <div class="col-3">
-                    <div class="fw-bold {{ in_array($status, ['hired', 'diterima (hired)', 'diterima']) ? 'text-success' : (in_array($status, ['rejected', 'ditolak']) ? 'text-danger' : 'text-muted') }}">
+                    <div class="fw-bold {{ in_array($status, ['accepted', 'hired', 'diterima (hired)', 'diterima']) ? 'text-success' : (in_array($status, ['rejected', 'ditolak']) ? 'text-danger' : 'text-muted') }}">
                       <i class="fas fa-flag-checkered"></i> 4. Hasil
                     </div>
                     <span style="font-size: 10px;" class="d-none d-sm-inline">Offering / Final</span>
