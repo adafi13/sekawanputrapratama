@@ -10,26 +10,25 @@
 
 @section('content')
 
-{{-- ===== HERO ===== --}}
-<section class="ctc-hero" style="background: linear-gradient(135deg, #050b14 0%, #0f172a 50%, #050b14 100%); padding-top: 135px !important; padding-bottom: 75px !important;">
-  <div class="ctc-hero-orb o1" style="background: radial-gradient(circle, rgba(56, 189, 248, 0.25), transparent 70%);"></div>
-  <div class="ctc-hero-orb o2" style="background: radial-gradient(circle, rgba(16, 185, 129, 0.2), transparent 70%);"></div>
-  <div class="ctc-hero-mesh" style="background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px); background-size: 32px 32px;"></div>
-  
+{{-- ===== HERO BANNER (Clean Light Corporate Theme) ===== --}}
+<section class="py-5 bg-white border-bottom position-relative overflow-hidden" style="padding-top: 135px !important; padding-bottom: 65px !important;">
   <div class="container text-center position-relative z-2">
-    <span class="badge bg-primary bg-opacity-20 text-info border border-info border-opacity-30 rounded-pill px-4 py-2 mb-3 text-uppercase fw-bold" style="letter-spacing: 1.5px; font-size: 11px;">
-      <i class="fas fa-headset me-2"></i> KONSULTASI STRATEGIS TEKNOLOGI
+    <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-20 rounded-pill px-4 py-2 mb-3 text-uppercase fw-bold" style="letter-spacing: 1.5px; font-size: 11px;">
+      <i class="fas fa-headset me-2"></i> KONSULTASI PROYEK &amp; SUPPORT IT
     </span>
     
-    <h1 class="ctc-hero-title reveal delay-100 mb-3" style="font-size: clamp(2rem, 4.5vw, 3.2rem); font-weight: 900; letter-spacing: -1.2px;">
-      Mari Bangun Solusi Digital <span class="ctc-grad">Tepat Guna</span> Bersama Kami
+    <h1 class="fw-black text-dark display-5 mb-3" style="letter-spacing: -1.2px; font-weight: 900;">
+      Hubungi Tim Konsultan <span class="text-primary">PT Sekawan Putra Pratama</span>
     </h1>
+
+    <p class="text-muted mx-auto mb-4" style="max-width: 680px; font-size: 1.05rem; line-height: 1.7;">
+      Diskusikan kebutuhan perancangan sistem custom, penginstalan jaringan server kantor/pabrik, atau konsultasi IT Anda bersama tim insinyur berpengalaman kami.
+    </p>
     
-    <div class="ctc-typewriter-wrap reveal delay-200 mt-3">
-      <div class="d-inline-flex align-items-center gap-2 px-4 py-2 rounded-pill bg-white bg-opacity-10 border shadow-sm font-monospace" style="backdrop-filter: blur(12px); font-size: 0.95rem; border-color: rgba(255, 255, 255, 0.15) !important;">
-        <i class="fas fa-terminal text-primary me-1" style="font-size: 13px;"></i>
-        <span id="typewriter-text" style="color: #60a5fa;"></span><span class="ctc-cursor">|</span>
-      </div>
+    {{-- Clean Typewriter Status Bar --}}
+    <div class="d-inline-flex align-items-center gap-2 px-4 py-2 rounded-pill bg-light border shadow-sm" style="border-color: #e2e8f0 !important; font-size: 0.95rem;">
+      <i class="fas fa-bullhorn text-primary me-1" style="font-size: 13px;"></i>
+      <span id="typewriter-text" class="fw-bold text-dark"></span><span class="ctc-cursor" style="color: #2563eb;">|</span>
     </div>
   </div>
 </section>
