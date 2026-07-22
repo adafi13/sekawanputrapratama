@@ -205,40 +205,54 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
   </div>
 </section>
 
-{{-- LEGAL & COMPLIANCE VERIFICATION BADGE --}}
-<section class="py-4 bg-light border-bottom">
+{{-- LEGAL & COMPLIANCE VERIFICATION (Modern Bento Card Style) --}}
+<section class="py-5 bg-light position-relative">
   <div class="container">
-    <div class="row g-3 align-items-center justify-content-center text-center text-md-start">
-      <div class="col-md-4 d-flex align-items-center justify-content-center justify-content-md-start gap-3">
-        <div class="rounded-circle bg-primary bg-opacity-10 text-primary p-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; flex-shrink: 0;">
-          <i class="fas fa-file-contract fs-5"></i>
+    <div class="p-4 p-md-5 rounded-4 bg-white border shadow-sm" style="border-color: #e2e8f0 !important;">
+      <div class="row g-4 align-items-center">
+        
+        <div class="col-lg-5 border-end-lg pe-lg-4">
+          <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-20 rounded-pill px-3 py-1 text-uppercase fw-bold mb-2" style="letter-spacing: 1px; font-size: 10px;">
+            <i class="fas fa-shield-alt me-1 text-primary"></i> LEGALITAS &amp; VERIFIKASI RESMI
+          </span>
+          <h3 class="fw-bold text-dark mb-2" style="letter-spacing: -0.8px; font-size: 1.4rem;">Entitas PT Terdaftar Resmi Pemerintah RI</h3>
+          <p class="text-muted small mb-0" style="line-height: 1.6;">
+            PT Sekawan Putra Pratama beroperasi sah di bawah payung hukum Republik Indonesia dengan perizinan usaha lengkap dari Kemenkumham &amp; Direktorat Jenderal Pajak.
+          </p>
         </div>
-        <div>
-          <span class="d-block text-muted small fw-bold text-uppercase" style="letter-spacing: 0.5px;">Nomor Induk Berusaha (NIB)</span>
-          <strong class="text-dark font-monospace fs-6">0505260088735</strong>
-          <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-20 ms-1" style="font-size: 10px;">OSS BKPM RI</span>
-        </div>
-      </div>
 
-      <div class="col-md-4 d-flex align-items-center justify-content-center justify-content-md-start gap-3">
-        <div class="rounded-circle bg-primary bg-opacity-10 text-primary p-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; flex-shrink: 0;">
-          <i class="fas fa-id-card fs-5"></i>
-        </div>
-        <div>
-          <span class="d-block text-muted small fw-bold text-uppercase" style="letter-spacing: 0.5px;">NPWP Badan Perusahaan</span>
-          <strong class="text-dark font-monospace fs-6">1000 0000 0948 6824</strong>
-          <span class="badge bg-info bg-opacity-10 text-info border border-info border-opacity-20 ms-1" style="font-size: 10px;">DJP Cikarang</span>
-        </div>
-      </div>
+        <div class="col-lg-7">
+          <div class="row g-3">
+            
+            <div class="col-md-6">
+              <div class="p-3.5 p-3 rounded-3 border d-flex align-items-center gap-3" style="border-color: #f1f5f9 !important; background: #f8fafc;">
+                <div class="rounded-circle bg-primary bg-opacity-10 text-primary p-3 d-flex align-items-center justify-content-center" style="width: 46px; height: 46px; flex-shrink: 0;">
+                  <i class="fas fa-file-contract fs-5"></i>
+                </div>
+                <div>
+                  <span class="d-block text-muted small fw-bold text-uppercase" style="font-size: 10px; letter-spacing: 0.5px;">Nomor Induk Berusaha (NIB)</span>
+                  <strong class="text-dark font-monospace d-block" style="font-size: 13px;">0505260088735</strong>
+                  <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-20 mt-1" style="font-size: 9px;">OSS BKPM RI</span>
+                </div>
+              </div>
+            </div>
 
-      <div class="col-md-4 d-flex align-items-center justify-content-center justify-content-md-start gap-3">
-        <div class="rounded-circle bg-success bg-opacity-10 text-success p-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; flex-shrink: 0;">
-          <i class="fas fa-shield-alt fs-5"></i>
+            <div class="col-md-6">
+              <div class="p-3.5 p-3 rounded-3 border d-flex align-items-center gap-3" style="border-color: #f1f5f9 !important; background: #f8fafc;">
+                <div class="rounded-circle bg-info bg-opacity-10 text-info p-3 d-flex align-items-center justify-content-center" style="width: 46px; height: 46px; flex-shrink: 0;">
+                  <i class="fas fa-id-card fs-5"></i>
+                </div>
+                <div>
+                  <span class="d-block text-muted small fw-bold text-uppercase" style="font-size: 10px; letter-spacing: 0.5px;">NPWP Badan Perusahaan</span>
+                  <strong class="text-dark font-monospace d-block" style="font-size: 13px;">1000 0000 0948 6824</strong>
+                  <span class="badge bg-info bg-opacity-10 text-info border border-info border-opacity-20 mt-1" style="font-size: 9px;">DJP Cikarang</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
-        <div>
-          <span class="d-block text-muted small fw-bold text-uppercase" style="letter-spacing: 0.5px;">Status Legalitas PT</span>
-          <strong class="text-dark small">PT Resmi Terdaftar Kemenkumham & DJP</strong>
-        </div>
+
       </div>
     </div>
   </div>
