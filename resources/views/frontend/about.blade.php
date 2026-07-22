@@ -212,9 +212,10 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
       <div class="row g-4 align-items-center">
         
         <div class="col-lg-5 border-end-lg pe-lg-4">
-          <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-20 rounded-pill px-3 py-1 text-uppercase fw-bold mb-2" style="letter-spacing: 1px; font-size: 10px;">
-            <i class="fas fa-shield-alt me-1 text-primary"></i> LEGALITAS &amp; VERIFIKASI RESMI
-          </span>
+          <div class="d-inline-flex align-items-center gap-2 text-primary fw-bold text-uppercase mb-2" style="letter-spacing: 1.5px; font-size: 11px;">
+            <span class="d-inline-block bg-primary rounded-circle" style="width: 6px; height: 6px;"></span>
+            LEGALITAS &amp; VERIFIKASI RESMI
+          </div>
           <h3 class="fw-bold text-dark mb-2" style="letter-spacing: -0.8px; font-size: 1.4rem;">Entitas PT Terdaftar Resmi Pemerintah RI</h3>
           <p class="text-muted small mb-0" style="line-height: 1.6;">
             PT Sekawan Putra Pratama beroperasi sah di bawah payung hukum Republik Indonesia dengan perizinan usaha lengkap dari Kemenkumham &amp; Direktorat Jenderal Pajak.
@@ -264,9 +265,10 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
     {{-- Grid 2 Kolom: Profil Perusahaan & Stats --}}
     <div class="row g-4 align-items-center mb-5">
       <div class="col-lg-7 reveal">
-        <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-20 rounded-pill px-4 py-2 mb-3 text-uppercase fw-bold" style="letter-spacing: 1.5px; font-size: 11px;">
-          <i class="fas fa-building me-2"></i> PROFIL PERUSAHAAN
-        </span>
+        <div class="d-inline-flex align-items-center gap-2 text-primary fw-bold text-uppercase mb-2" style="letter-spacing: 1.5px; font-size: 11px;">
+          <span class="d-inline-block bg-primary rounded-circle" style="width: 6px; height: 6px;"></span>
+          PROFIL PERUSAHAAN
+        </div>
         <h2 class="fw-black text-dark display-6 mb-4" style="letter-spacing: -1px;">
           Mitra Strategis <span class="text-primary">Transformasi Digital</span> Bisnis Anda
         </h2>
@@ -377,7 +379,10 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
 <section class="abt-values">
   <div class="container">
     <div class="section-header reveal">
-      <span class="abt-hero-pill mb-3" style="background: rgba(8, 145, 178, 0.05); color: var(--color-primary);">NILAI KAMI</span>
+      <div class="d-inline-flex align-items-center gap-2 text-primary fw-bold text-uppercase mb-2" style="letter-spacing: 1.5px; font-size: 11px;">
+        <span class="d-inline-block bg-primary rounded-circle" style="width: 6px; height: 6px;"></span>
+        NILAI &amp; PRINSIP UTAMA
+      </div>
       <h2>Prinsip Utama Kami</h2>
     </div>
     <div class="values-grid">
@@ -404,9 +409,10 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
 <section class="py-5 bg-white border-top border-bottom">
   <div class="container py-4">
     <div class="text-center mb-5 reveal">
-      <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-20 rounded-pill px-4 py-2 mb-3 text-uppercase fw-bold" style="letter-spacing: 1.5px; font-size: 11px;">
-        <i class="fas fa-award me-2"></i> JAMINAN & STANDAR OPERASIONAL (SLA)
-      </span>
+      <div class="d-inline-flex align-items-center gap-2 text-primary fw-bold text-uppercase mb-2" style="letter-spacing: 1.5px; font-size: 11px;">
+        <span class="d-inline-block bg-primary rounded-circle" style="width: 6px; height: 6px;"></span>
+        JAMINAN &amp; STANDAR OPERASIONAL (SLA)
+      </div>
       <h2 class="fw-black text-dark display-5 mb-3" style="letter-spacing: -1px;">Komitmen Kualitas Tanpa Kompromi</h2>
       <p class="text-muted mx-auto" style="max-width: 680px; font-size: 1.05rem; line-height: 1.6;">
         Setiap solusi teknologi dan infrastruktur yang dirancang oleh PT Sekawan Putra Pratama dilindungi oleh 3 pilar garansi utama untuk ketenangan dan keamanan investasi bisnis Anda.
@@ -486,9 +492,10 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
 <section class="py-5 bg-light border-bottom" id="tech-stack-arsenal">
   <div class="container py-4">
     <div class="text-center mb-5 reveal">
-      <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-20 rounded-pill px-4 py-2 mb-3 text-uppercase fw-bold" style="letter-spacing: 1.5px; font-size: 11px;">
-        <i class="fas fa-microchip me-2"></i> TECH STACK ARSENAL
-      </span>
+      <div class="d-inline-flex align-items-center gap-2 text-primary fw-bold text-uppercase mb-2" style="letter-spacing: 1.5px; font-size: 11px;">
+        <span class="d-inline-block bg-primary rounded-circle" style="width: 6px; height: 6px;"></span>
+        TECH STACK ARSENAL
+      </div>
       <h2 class="fw-black text-dark display-5 mb-3" style="letter-spacing: -1px;">Teknologi Modern Teruji Industri</h2>
       <p class="text-muted mx-auto" style="max-width: 680px; font-size: 1.05rem; line-height: 1.6;">
         Kami menggunakan kombinasi <em>framework</em>, bahasa pemrograman, dan infrastruktur cloud terbaik untuk menghasilkan aplikasi berkecepatan tinggi, aman, dan siap tumbuh bersama bisnis Anda.
@@ -646,9 +653,10 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
 
   <div class="container py-4">
     <div class="text-center mb-5 reveal">
-      <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-20 rounded-pill px-4 py-2 mb-3 text-uppercase fw-bold" style="letter-spacing: 1.5px; font-size: 11px;">
-        <i class="fas fa-route me-2"></i> PETA PERJALANAN PERUSAHAAN
-      </span>
+      <div class="d-inline-flex align-items-center gap-2 text-primary fw-bold text-uppercase mb-2" style="letter-spacing: 1.5px; font-size: 11px;">
+        <span class="d-inline-block bg-primary rounded-circle" style="width: 6px; height: 6px;"></span>
+        PETA PERJALANAN PERUSAHAAN
+      </div>
       <h2 class="fw-black text-dark display-5 mb-3" style="letter-spacing: -1px;">Rekam Jejak & Milestone Tumbuh</h2>
       <p class="text-muted mx-auto" style="max-width: 680px; font-size: 1.05rem; line-height: 1.6;">
         Dari awal berdirinya hingga dipercaya oleh perusahaan manufaktur nasional dan entitas Tbk, berikut adalah perjalanan kami dalam menghadirkan solusi teknologi yang tepat guna.
