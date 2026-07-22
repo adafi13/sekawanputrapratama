@@ -11,191 +11,152 @@
 
 @section('content')
 
-<style>
-  .dns-page { background: #0a0a0a; min-height: 100vh; padding-top: 100px; color: #fff; }
-
-  /* Search bar */
-  .dns-search { max-width: 680px; margin: 0 auto; }
-  .dns-input-wrap {
-    display: flex; gap: 0; background: #141414; border: 1px solid #222; border-radius: 12px;
-    overflow: hidden; transition: border-color 0.2s;
-  }
-  .dns-input-wrap:focus-within { border-color: #3b82f6; }
-  .dns-input {
-    flex: 1; background: transparent; border: none; color: #fff; padding: 16px 20px;
-    font-family: 'Inter', monospace; font-size: 15px; font-weight: 500; outline: none;
-  }
-  .dns-input::placeholder { color: #444; }
-  .dns-select {
-    background: #1a1a1a; border: none; border-left: 1px solid #222; color: #888;
-    font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; padding: 0 16px;
-    outline: none; cursor: pointer; -webkit-appearance: none; min-width: 100px; text-align: center;
-  }
-  .dns-select option { background: #1a1a1a; color: #ccc; }
-  .dns-go {
-    background: #fff; color: #000; border: none; padding: 0 28px; font-family: 'Inter', sans-serif;
-    font-size: 13px; font-weight: 700; letter-spacing: 0.5px; cursor: pointer; transition: opacity 0.2s;
-    white-space: nowrap;
-  }
-  .dns-go:hover { opacity: 0.8; }
-  .dns-go:disabled { opacity: 0.3; cursor: not-allowed; }
-
-  /* Results */
-  .dns-results { max-width: 680px; margin: 0 auto; }
-  .dns-result-header {
-    display: flex; align-items: baseline; justify-content: space-between;
-    padding-bottom: 16px; border-bottom: 1px solid #1a1a1a; margin-bottom: 0;
-  }
-  .dns-domain { font-family: 'Inter', monospace; font-size: 28px; font-weight: 800; color: #fff; letter-spacing: -1px; }
-  .dns-type-tag {
-    font-family: 'Inter', monospace; font-size: 11px; font-weight: 700; color: #3b82f6;
-    background: rgba(59,130,246,0.1); padding: 4px 12px; border-radius: 4px; letter-spacing: 1px;
-  }
-
-  /* Table */
-  .dns-table { width: 100%; border-collapse: collapse; }
-  .dns-table th {
-    font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600; color: #444;
-    text-transform: uppercase; letter-spacing: 1.5px; padding: 14px 0; border-bottom: 1px solid #1a1a1a;
-    text-align: left;
-  }
-  .dns-table td {
-    font-family: 'Inter', monospace; font-size: 13px; color: #999; padding: 14px 0;
-    border-bottom: 1px solid #111;
-  }
-  .dns-table td:last-child { color: #3b82f6; font-weight: 600; }
-  .dns-table tr:last-child td { border-bottom: none; }
-
-  .dns-empty {
-    text-align: center; padding: 48px 0; color: #333;
-    font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500;
-  }
-
-  @media (max-width: 576px) {
-    .dns-input-wrap { flex-wrap: wrap; }
-    .dns-input { width: 100%; }
-    .dns-select { border-left: none; border-top: 1px solid #222; padding: 12px 16px; flex: 1; }
-    .dns-go { padding: 14px 20px; flex: 1; }
-    .dns-domain { font-size: 20px; }
-    .dns-result-header { flex-direction: column; gap: 8px; }
-  }
-</style>
-
-<div class="dns-page">
-  <div class="container">
-
-    {{-- Top label --}}
-    <div class="text-center mb-5 pt-4">
-      <a href="{{ route('home') }}" class="text-decoration-none" style="font-size: 12px; color: #333; font-weight: 600; letter-spacing: 1px;">
-        SEKAWAN PUTRA PRATAMA
-      </a>
-      <span style="color: #222; margin: 0 8px;">·</span>
-      <span style="font-size: 12px; color: #555; font-weight: 500; letter-spacing: 1px;">DNS LOOKUP</span>
-    </div>
-
-    {{-- Title --}}
-    <div class="text-center mb-5">
-      <h1 style="font-family: 'Inter', sans-serif; font-size: clamp(28px, 5vw, 42px); font-weight: 800; color: #fff; letter-spacing: -1.5px; margin-bottom: 12px;">
-        Cek DNS Record
-      </h1>
-      <p style="font-family: 'Inter', sans-serif; font-size: 14px; color: #444; max-width: 480px; margin: 0 auto; line-height: 1.6;">
-        Periksa A, MX, NS, TXT, CNAME, atau AAAA record dari domain mana pun melalui resolver DNS publik Google.
-      </p>
-    </div>
-
-    {{-- Search --}}
-    <div class="dns-search mb-5">
-      <form id="dnsForm" onsubmit="dnsLookup(event)">
-        <div class="dns-input-wrap">
-          <input type="text" id="domainInput" class="dns-input" placeholder="ketik domain, misal: sekawanputrapratama.com" required>
-          <select id="recordType" class="dns-select">
-            <option value="A">A</option>
-            <option value="MX">MX</option>
-            <option value="NS">NS</option>
-            <option value="TXT">TXT</option>
-            <option value="AAAA">AAAA</option>
-            <option value="CNAME">CNAME</option>
-          </select>
-          <button type="submit" class="dns-go" id="btnLookup">Lookup</button>
-        </div>
-      </form>
-    </div>
-
-    {{-- Results --}}
-    <div class="dns-results mb-5 pb-5 d-none" id="resultsWrap">
-      <div class="dns-result-header mb-3">
-        <span class="dns-domain" id="resDomain">—</span>
-        <span class="dns-type-tag" id="resType">A</span>
-      </div>
-
-      <table class="dns-table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>TTL</th>
-            <th>Value</th>
-          </tr>
-        </thead>
-        <tbody id="dnsBody">
-        </tbody>
-      </table>
-
-      <div class="dns-empty d-none" id="dnsEmpty">
-        Tidak ditemukan record untuk domain ini.
-      </div>
-    </div>
-
+{{-- HERO HEADER --}}
+<section class="py-5 bg-white border-bottom position-relative overflow-hidden" style="padding-top: 135px !important; padding-bottom: 65px !important;">
+  <div class="container text-center position-relative z-2">
+    <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-20 rounded-pill px-4 py-2 mb-3 text-uppercase fw-bold" style="letter-spacing: 1.5px; font-size: 11px;">
+      <i class="fas fa-search-location me-2"></i> DIAGNOSTIK SERVER &amp; NETWORK TOOL
+    </span>
+    
+    <h1 class="fw-black text-dark display-5 mb-3" style="letter-spacing: -1.2px; font-weight: 900;">
+      Analisa <span class="text-primary">Record DNS &amp; IP</span> Domain
+    </h1>
+    
+    <p class="text-muted mx-auto leading-relaxed mb-0" style="max-width: 720px; font-size: 1.05rem;">
+      Periksa A Record, MX Record, Nameserver (NS), TXT, serta lokasi server domain pilihan Anda secara instan menggunakan resolver DNS publik Google &amp; Cloudflare.
+    </p>
   </div>
-</div>
+</section>
+
+{{-- MAIN TOOL SECTION --}}
+<section class="py-5 bg-light position-relative">
+  <div class="container py-4">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        
+        {{-- Search Input Card --}}
+        <div class="p-4 rounded-4 bg-white border shadow-sm mb-4" style="border-color: #e2e8f0 !important;">
+          <form id="dnsForm" onsubmit="performDnsLookup(event)">
+            <div class="row g-3 align-items-center">
+              <div class="col-md-7">
+                <label for="domainInput" class="form-label font-monospace fw-bold small text-muted">NAMA DOMAIN / HOSTNAME *</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-light border-end-0"><i class="fas fa-globe text-primary"></i></span>
+                  <input type="text" id="domainInput" class="form-control bg-light border-start-0 font-monospace" placeholder="Contoh: sekawanputrapratama.com" required>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <label for="recordType" class="form-label font-monospace fw-bold small text-muted">TIPE RECORD *</label>
+                <select id="recordType" class="form-select bg-light">
+                  <option value="A" selected>A (IPv4 Address)</option>
+                  <option value="MX">MX (Mail Server)</option>
+                  <option value="NS">NS (Name Server)</option>
+                  <option value="TXT">TXT (SPF / Verification)</option>
+                  <option value="AAAA">AAAA (IPv6 Address)</option>
+                  <option value="CNAME">CNAME (Alias)</option>
+                </select>
+              </div>
+
+              <div class="col-md-2 pt-md-4">
+                <button type="submit" id="btnLookup" class="btn btn-primary w-100 rounded-pill fw-bold py-2">
+                  <i class="fas fa-search me-1"></i> Periksa
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        {{-- Results Card --}}
+        <div id="resultsCard" class="p-4 p-md-5 rounded-4 bg-white border shadow-sm d-none" style="border-color: #e2e8f0 !important;">
+          <div class="d-flex align-items-center justify-content-between pb-3 mb-4 border-bottom">
+            <div>
+              <span class="text-muted small font-monospace d-block">HASIL DIAGNOSTIK DOMAIN</span>
+              <h4 id="resDomain" class="fw-bold text-dark font-monospace mb-0">sekawanputrapratama.com</h4>
+            </div>
+            <span id="resRecordBadge" class="badge bg-primary text-white font-monospace px-3 py-2">TYPE: A</span>
+          </div>
+
+          {{-- Result Table --}}
+          <div class="table-responsive">
+            <table class="table table-hover align-middle border-top">
+              <thead class="bg-light font-monospace small">
+                <tr>
+                  <th scope="col">HOSTNAME</th>
+                  <th scope="col">TIPE</th>
+                  <th scope="col">TTL</th>
+                  <th scope="col">HASIL DATA / IP ADDRESS</th>
+                </tr>
+              </thead>
+              <tbody id="dnsTableBody" class="font-monospace small">
+                {{-- Dynamic rows inserted via JS --}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
 
 @push('scripts')
 <script>
-function dnsLookup(e) {
+function performDnsLookup(e) {
   e.preventDefault();
   const domain = document.getElementById('domainInput').value.trim().replace(/^https?:\/\//, '').replace(/\/.*$/, '');
   const type = document.getElementById('recordType').value;
   const btn = document.getElementById('btnLookup');
-  const wrap = document.getElementById('resultsWrap');
-  const body = document.getElementById('dnsBody');
-  const empty = document.getElementById('dnsEmpty');
+  const resultsCard = document.getElementById('resultsCard');
+  const tableBody = document.getElementById('dnsTableBody');
 
   if (!domain) return;
 
   btn.disabled = true;
-  btn.textContent = '...';
+  btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Pengecekan...';
 
   fetch(`https://dns.google/resolve?name=${encodeURIComponent(domain)}&type=${type}`)
-    .then(r => r.json())
+    .then(res => res.json())
     .then(data => {
       btn.disabled = false;
-      btn.textContent = 'Lookup';
-
+      btn.innerHTML = '<i class="fas fa-search me-1"></i> Periksa';
+      
       document.getElementById('resDomain').textContent = domain;
-      document.getElementById('resType').textContent = type;
-      wrap.classList.remove('d-none');
-      body.innerHTML = '';
+      document.getElementById('resRecordBadge').textContent = 'TYPE: ' + type;
+      resultsCard.classList.remove('d-none');
+
+      tableBody.innerHTML = '';
 
       if (data.Answer && data.Answer.length > 0) {
-        empty.classList.add('d-none');
         data.Answer.forEach(ans => {
-          const tr = document.createElement('tr');
-          tr.innerHTML = `
-            <td>${ans.name || domain}</td>
-            <td>${type}</td>
-            <td>${ans.TTL}s</td>
-            <td>${ans.data}</td>
+          const typeName = type;
+          const ttl = ans.TTL + 's';
+          const dataVal = ans.data;
+
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td><span class="fw-bold text-dark">${domain}</span></td>
+            <td><span class="badge bg-info bg-opacity-15 text-info font-monospace">${typeName}</span></td>
+            <td><span class="text-muted">${ttl}</span></td>
+            <td><code class="text-primary fw-bold">${dataVal}</code></td>
           `;
-          body.appendChild(tr);
+          tableBody.appendChild(row);
         });
       } else {
-        empty.classList.remove('d-none');
+        tableBody.innerHTML = `
+          <tr>
+            <td colspan="4" class="text-center text-muted py-4">
+              <i class="fas fa-exclamation-circle text-warning fs-4 d-block mb-2"></i>
+              Tidak ditemukan record <strong>${type}</strong> untuk domain <strong>${domain}</strong>.
+            </td>
+          </tr>
+        `;
       }
     })
     .catch(() => {
       btn.disabled = false;
-      btn.textContent = 'Lookup';
-      alert('Gagal mengambil data DNS. Pastikan domain benar.');
+      btn.innerHTML = '<i class="fas fa-search me-1"></i> Periksa';
+      alert('Gagal mengambil data DNS. Pastikan nama domain sudah benar.');
     });
 }
 </script>
