@@ -120,7 +120,7 @@
                 </div>
               </div>
 
-              {{-- ANIMATED MESSAGE BANNERS FOR DITERIMA & DITOLAK --}}
+              {{-- ANIMATED MESSAGE BANNERS FOR EACH STAGE WITH CLEAR APPLICANT GUIDANCE --}}
               @php
                 $hrPhone = \App\Models\Setting::get('contact.hr_phone', \App\Models\Setting::get('contact.phone', '085156412702'));
                 $hrEmail = \App\Models\Setting::get('contact.hr_email', \App\Models\Setting::get('contact.email', 'hr@sekawanputrapratama.com'));
@@ -132,13 +132,22 @@
                     <div class="rounded-circle bg-success text-white p-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 54px; height: 54px;">
                       <i class="fas fa-trophy fs-3 anim-celebrate"></i>
                     </div>
-                    <div>
+                    <div class="w-100">
                       <h5 class="fw-bold text-success mb-1">🎉 Selamat! Anda Lolos Seleksi &amp; Diterima di PT Sekawan Putra Pratama</h5>
                       <p class="text-dark small mb-2" style="line-height: 1.7; font-size: 0.95rem;">
-                        Selamat Bergabung! Tim HRD kami akan segera menghubungi kontak Anda <strong>(WA: {{ $app->phone }} | Email: {{ $app->email }})</strong> dalam waktu 1x24 jam kerja untuk koordinasi jadwal <em>Onboarding</em> &amp; penyerahan <em>Offering Letter</em> resmi.
+                        Selamat Bergabung! Tim HRD kami akan segera menghubungi kontak Anda <strong>(WA: {{ $app->phone }} | Email: {{ $app->email }})</strong> dalam waktu 1x24 jam kerja untuk koordinasi jadwal <em>Onboarding</em> &amp; penyerahan berkas <em>Offering Letter</em> resmi.
                       </p>
+
+                      <div class="mt-3 pt-3 border-top border-success border-opacity-20">
+                        <strong class="d-block text-dark small mb-2"><i class="fas fa-concierge-bell text-success me-1"></i> Langkah Selanjutnya Bagi Pelamar:</strong>
+                        <ul class="list-unstyled text-muted small mb-0 d-flex flex-column gap-1" style="font-size: 12px; line-height: 1.6;">
+                          <li><i class="fas fa-check-circle text-success me-1"></i> <strong>1. Konfirmasi Kontak:</strong> Balas pesan ucapan &amp; konfirmasi dari Tim HRD via WhatsApp/Email.</li>
+                          <li><i class="fas fa-file-signature text-primary me-1"></i> <strong>2. Offering Letter:</strong> Tinjau &amp; tanda tangani berkas penawaran kerja (Offering Letter) resmi yang dikirimkan HRD.</li>
+                          <li><i class="fas fa-id-card text-info me-1"></i> <strong>3. Dokumen Onboarding:</strong> Siapkan scan KTP, NPWP, Ijazah, dan Foto Diri untuk pendaftaran akun internal &amp; BPJS.</li>
+                        </ul>
+                      </div>
                       
-                      <div class="d-flex flex-wrap gap-2 align-items-center mt-2">
+                      <div class="d-flex flex-wrap gap-2 align-items-center mt-3">
                         <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $hrPhone) }}" target="_blank" class="d-inline-flex align-items-center gap-2 text-success fw-bold small bg-white px-3 py-1.5 rounded-pill border border-success border-opacity-20 shadow-sm text-decoration-none" style="font-size: 12px;">
                           <i class="fab fa-whatsapp me-1 fs-6"></i> Hubungi WA HRD: {{ $hrPhone }}
                         </a>
@@ -155,13 +164,18 @@
                     <div class="rounded-circle bg-danger text-white p-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 54px; height: 54px;">
                       <i class="fas fa-heart fs-3 anim-gentle"></i>
                     </div>
-                    <div>
+                    <div class="w-100">
                       <h5 class="fw-bold text-danger mb-1">🤝 Terima Kasih Atas Partisipasi &amp; Kesempatan Luar Biasa Ini</h5>
                       <p class="text-dark small mb-2" style="line-height: 1.7; font-size: 0.95rem;">
                         Mohon maaf, kualifikasi Anda saat ini belum sesuai dengan kebutuhan spesifik posisi <strong>{{ $app->jobOpening ? $app->jobOpening->title : 'yang dibuka' }}</strong>. Terima kasih banyak atas minat dan waktu yang telah Anda luangkan untuk mendaftar di PT Sekawan Putra Pratama.
                       </p>
-                      <div class="d-inline-flex align-items-center gap-2 text-muted small bg-white px-3 py-1.5 rounded-pill border shadow-sm" style="font-size: 12px;">
-                        <i class="fas fa-folder-open me-1 text-primary"></i> Data CV Anda tetap tersimpan aman di database kami untuk prioritas posisi mendatang
+
+                      <div class="mt-3 pt-3 border-top border-danger border-opacity-20">
+                        <strong class="d-block text-dark small mb-2"><i class="fas fa-info-circle text-danger me-1"></i> Catatan &amp; Kesempatan Mendatang:</strong>
+                        <ul class="list-unstyled text-muted small mb-0 d-flex flex-column gap-1" style="font-size: 12px; line-height: 1.6;">
+                          <li><i class="fas fa-database text-primary me-1"></i> <strong>Database Rekrutmen:</strong> Profil &amp; CV Anda tetap tersimpan aman di sistem kami untuk diprioritaskan saat pembukaan posisi berikutnya.</li>
+                          <li><i class="fas fa-redo text-info me-1"></i> <strong>Melamar Kembali:</strong> Anda diperbolehkan mengajukan lamaran kembali jika ada pembukaan posisi baru yang sesuai dengan keahlian Anda.</li>
+                        </ul>
                       </div>
                     </div>
                   </div>
@@ -169,28 +183,68 @@
               @elseif(in_array($status, ['interviewed', 'interviewing', 'wawancara (interview)', 'wawancara']))
                 <div class="p-4 rounded-4 bg-info bg-opacity-10 border border-info border-opacity-30 mt-3 text-start shadow-sm" style="border-left: 5px solid #06b6d4 !important;">
                   <div class="d-flex align-items-start gap-3">
-                    <div class="rounded-circle bg-info text-white p-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 48px; height: 48px;">
+                    <div class="rounded-circle bg-info text-white p-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 52px; height: 52px;">
                       <i class="fas fa-comments fs-4 anim-gentle"></i>
                     </div>
-                    <div>
-                      <h5 class="fw-bold text-info mb-1">💬 Tahap 2: Undangan Wawancara / Interview</h5>
-                      <p class="text-dark small mb-0" style="line-height: 1.6;">
-                        Berkas Anda telah lolos peninjauan HRD! Tim kami sedang menjadwalkan sesi wawancara teknis (Online/On-site). Informasi waktu dan link pertemuan akan dikirimkan ke <strong>WhatsApp/Email</strong> Anda.
+                    <div class="w-100">
+                      <h5 class="fw-bold text-info mb-1">💬 Tahap 2: Wawancara / Interview Teknis</h5>
+                      <p class="text-dark small mb-2" style="line-height: 1.7; font-size: 0.95rem;">
+                        Selamat! Berkas Anda telah lolos peninjauan HRD. Tim kami telah mengundang Anda untuk mengikuti sesi wawancara &amp; evaluasi skill teknis.
                       </p>
+
+                      <div class="mt-3 pt-3 border-top border-info border-opacity-20">
+                        <strong class="d-block text-dark small mb-2"><i class="fas fa-clipboard-check text-info me-1"></i> Hal yang Perlu Dilakukan Pelamar Pada Tahap Ini:</strong>
+                        <ul class="list-unstyled text-muted small mb-0 d-flex flex-column gap-1" style="font-size: 12px; line-height: 1.6;">
+                          <li><i class="fas fa-envelope-open-text text-primary me-1"></i> <strong>1. Cek Undangan Wawancara:</strong> Periksa WhatsApp ({{ $app->phone }}) atau Email ({{ $app->email }}) Anda untuk melihat tanggal, waktu, dan link meeting (Google Meet/Zoom).</li>
+                          <li><i class="fas fa-laptop-code text-info me-1"></i> <strong>2. Persiapan Sesi Wawancara:</strong> Gunakan laptop dengan koneksi internet yang stabil, lingkungan tenang, dan persiapkan portofolio koding Anda.</li>
+                          <li><i class="fas fa-brain text-warning me-1"></i> <strong>3. Materi Wawancara:</strong> Pelajari kembali logika pemrosesan, arsitektur software, dan proyek yang pernah Anda selesaikan.</li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>
               @elseif(in_array($status, ['reviewed', 'reviewing', 'review hr']))
                 <div class="p-4 rounded-4 bg-primary bg-opacity-10 border border-primary border-opacity-30 mt-3 text-start shadow-sm" style="border-left: 5px solid #3b82f6 !important;">
                   <div class="d-flex align-items-start gap-3">
-                    <div class="rounded-circle bg-primary text-white p-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 48px; height: 48px;">
+                    <div class="rounded-circle bg-primary text-white p-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 52px; height: 52px;">
                       <i class="fas fa-search fs-4 anim-gentle"></i>
                     </div>
-                    <div>
+                    <div class="w-100">
                       <h5 class="fw-bold text-primary mb-1">🔍 Tahap 1: Berkas Sedang Direview Tim HRD</h5>
-                      <p class="text-dark small mb-0" style="line-height: 1.6;">
-                        Resume dan portofolio Anda saat ini sedang dipelajari secara mendalam oleh tim HRD &amp; Tech Lead kami. Hasil evaluasi akan diperbarui di sini secara berkala.
+                      <p class="text-dark small mb-2" style="line-height: 1.7; font-size: 0.95rem;">
+                        Resume dan portofolio Anda saat ini sedang dipelajari secara mendalam oleh tim HRD &amp; Tech Lead kami untuk kecocokan kualifikasi.
                       </p>
+
+                      <div class="mt-3 pt-3 border-top border-primary border-opacity-20">
+                        <strong class="d-block text-dark small mb-2"><i class="fas fa-tasks text-primary me-1"></i> Hal yang Perlu Dilakukan Pelamar Pada Tahap Ini:</strong>
+                        <ul class="list-unstyled text-muted small mb-0 d-flex flex-column gap-1" style="font-size: 12px; line-height: 1.6;">
+                          <li><i class="fas fa-clock text-warning me-1"></i> <strong>1. Estimasi Waktu:</strong> Penilaian berkas berlangsung 1 - 2 hari kerja.</li>
+                          <li><i class="fas fa-mobile-alt text-success me-1"></i> <strong>2. Pantau Kontak:</strong> Pastikan WhatsApp ({{ $app->phone }}) dan Email ({{ $app->email }}) Anda aktif untuk menerima undangan wawancara.</li>
+                          <li><i class="fas fa-folder text-info me-1"></i> <strong>3. Persiapan Portofolio:</strong> Rapikan repositori koding (GitHub / Drive) Anda jika tim HRD meminta sampel kode tambahan.</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              @else
+                <div class="p-4 rounded-4 bg-warning bg-opacity-10 border border-warning border-opacity-30 mt-3 text-start shadow-sm" style="border-left: 5px solid #f59e0b !important;">
+                  <div class="d-flex align-items-start gap-3">
+                    <div class="rounded-circle bg-warning text-dark p-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 48px; height: 48px;">
+                      <i class="fas fa-clock fs-4 anim-gentle"></i>
+                    </div>
+                    <div class="w-100">
+                      <h5 class="fw-bold text-dark mb-1">🟡 Berkas Diterima (Menunggu Review HRD)</h5>
+                      <p class="text-dark small mb-2" style="line-height: 1.7; font-size: 0.95rem;">
+                        Berkas lamaran dan CV Anda telah berhasil kami terima dan tersimpan di database Superadmin.
+                      </p>
+
+                      <div class="mt-3 pt-3 border-top border-warning border-opacity-30">
+                        <strong class="d-block text-dark small mb-2"><i class="fas fa-info-circle text-warning me-1"></i> Hal yang Perlu Dilakukan Pelamar:</strong>
+                        <ul class="list-unstyled text-muted small mb-0 d-flex flex-column gap-1" style="font-size: 12px; line-height: 1.6;">
+                          <li><i class="fas fa-check text-success me-1"></i> <strong>Tidak Perlu Kirim Ulang:</strong> Berkas Anda sudah aman di sistem kami.</li>
+                          <li><i class="fas fa-bell text-primary me-1"></i> <strong>Cek Berkal:</strong> Status akan otomatis berubah setelah tim HRD membuka dan menilai CV Anda.</li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>
