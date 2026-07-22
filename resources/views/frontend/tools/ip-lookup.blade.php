@@ -42,7 +42,7 @@
                 <label for="ipInput" class="form-label font-monospace fw-bold small text-muted">ALAMAT IP ATAU DOMAIN HOST *</label>
                 <div class="input-group">
                   <span class="input-group-text bg-light border-end-0"><i class="fas fa-search-location text-primary"></i></span>
-                  <input type="text" id="ipInput" class="form-control bg-light border-start-0 font-monospace" placeholder="Kosongkan untuk IP Anda sendiri, atau masukkan misal: 8.8.8.8 / sekawanputrapratama.com">
+                  <input type="text" id="ipInput" class="form-control bg-light border-start-0 font-monospace" placeholder="Kosongkan untuk IP Anda sendiri, atau masukkan misal: 8.8.8.8 / lintas.net.id">
                 </div>
               </div>
 
@@ -112,16 +112,60 @@
 
 @push('scripts')
 <script>
+function sanitizeInput(raw) {
+  if (!raw) return '';
+  let str = raw.trim();
+  // Remove protocol
+  str = str.replace(/^https?:\/\//i, '');
+  // Remove path, query string, port
+  str = str.split('/')[0].split('?')[0].split(':')[0];
+  return str;
+}
+
 function lookupIpAddress(e) {
   if (e) e.preventDefault();
-  const query = document.getElementById('ipInput').value.trim().replace(/^https?:\/\//, '').replace(/\/.*$/, '');
+  const rawValue = document.getElementById('ipInput').value;
+  const cleanHost = sanitizeInput(rawValue);
   const btn = document.getElementById('btnLookupIp');
   const card = document.getElementById('ipResultCard');
 
   btn.disabled = true;
   btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Mencari...';
 
-  const apiUrl = query ? `https://ipwho.is/${encodeURIComponent(query)}` : 'https://ipwho.is/';
+  // If cleanHost is empty, lookup current user IP
+  if (!cleanHost) {
+    fetchIpDetails('');
+    return;
+  }
+
+  // Check if cleanHost is a direct IPv4 (e.g. 8.8.8.8)
+  const isIpPattern = /^(\d{1,3}\.){3}\d{1,3}$/.test(cleanHost);
+
+  if (isIpPattern) {
+    fetchIpDetails(cleanHost);
+  } else {
+    // Resolve Domain to IP via Google DNS first
+    fetch(`https://dns.google/resolve?name=${encodeURIComponent(cleanHost)}&type=A`)
+      .then(res => res.json())
+      .then(dnsData => {
+        if (dnsData && dnsData.Answer && dnsData.Answer.length > 0) {
+          const resolvedIp = dnsData.Answer[0].data;
+          fetchIpDetails(resolvedIp, cleanHost);
+        } else {
+          // Fallback direct lookup
+          fetchIpDetails(cleanHost);
+        }
+      })
+      .catch(() => {
+        fetchIpDetails(cleanHost);
+      });
+  }
+}
+
+function fetchIpDetails(targetIp, originDomain = '') {
+  const btn = document.getElementById('btnLookupIp');
+  const card = document.getElementById('ipResultCard');
+  const apiUrl = targetIp ? `https://ipwho.is/${encodeURIComponent(targetIp)}` : 'https://ipwho.is/';
 
   fetch(apiUrl)
     .then(res => res.json())
@@ -131,7 +175,9 @@ function lookupIpAddress(e) {
 
       if (data && data.success !== false) {
         card.classList.remove('d-none');
-        document.getElementById('resIpTarget').textContent = data.ip || query;
+        
+        const displayHost = originDomain ? `${data.ip} (${originDomain})` : data.ip;
+        document.getElementById('resIpTarget').textContent = displayHost;
         document.getElementById('resFlag').textContent = data.flag ? data.flag.emoji : '🌐';
         document.getElementById('resCountry').textContent = data.country || 'Unknown';
         
