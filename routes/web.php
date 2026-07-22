@@ -12,6 +12,7 @@ Route::get('/', [FrontendController::class, 'home'])->name('home');
 Route::get('/api/system-health', [FrontendController::class, 'systemHealth'])->name('system-health');
 Route::post('/api/recommend-architecture', [FrontendController::class, 'recommendArchitecture'])->name('recommend-architecture');
 Route::get('/about', [FrontendController::class, 'about'])->name('about');
+Route::get('/company-profile', [FrontendController::class, 'companyProfile'])->name('company-profile');
 Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
 Route::post('/contact', [FrontendController::class, 'contactStore'])->name('contact.store');
 Route::post('/newsletter-subscribe', [FrontendController::class, 'newsletterStore'])->name('newsletter.store');

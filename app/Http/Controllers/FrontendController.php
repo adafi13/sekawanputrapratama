@@ -39,6 +39,21 @@ class FrontendController extends Controller
         return back()->with('success', 'Terima kasih telah berlangganan newsletter kami!');
     }
 
+    public function companyProfile()
+    {
+        $customPdf = \App\Models\Setting::get('site.company_profile_pdf');
+        if ($customPdf && \Illuminate\Support\Facades\Storage::disk('public')->exists($customPdf)) {
+            return response()->file(storage_path('app/public/' . $customPdf));
+        }
+
+        $staticPdf = public_path('downloads/Company_Profile_PT_Sekawan_Putra_Pratama.pdf');
+        if (file_exists($staticPdf)) {
+            return response()->file($staticPdf);
+        }
+
+        return redirect()->route('about');
+    }
+
     public function privacyPolicy()
     {
         return view('frontend.legal.privacy');

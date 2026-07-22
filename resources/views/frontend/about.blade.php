@@ -190,9 +190,17 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
         Transformasi Bisnis Melalui <br>
         <span class="abt-grad">Inovasi Digital</span>
       </h1>
-      <p class="abt-hero-sub reveal delay-200">
+      <p class="abt-hero-sub reveal delay-200 mb-4">
         Kami adalah kumpulan pemikir, pengembang, dan visioner yang berdedikasi untuk membangun solusi teknologi yang tidak hanya berfungsi, tetapi juga menginspirasi.
       </p>
+      <div class="reveal delay-300">
+        <a href="{{ route('company-profile') }}" target="_blank" class="btn btn-outline-info text-white border-info rounded-pill px-4 py-3 fw-bold shadow-sm me-2 mb-2" style="background: rgba(34, 211, 238, 0.15); backdrop-filter: blur(8px);">
+          <i class="fas fa-file-pdf me-2 text-info"></i> Unduh Company Profile Resmi (PDF)
+        </a>
+        <a href="{{ route('contact') }}" class="btn btn-primary rounded-pill px-4 py-3 fw-bold shadow-sm mb-2">
+          <i class="fas fa-comments me-2"></i> Konsultasi Gratis
+        </a>
+      </div>
     </div>
   </div>
 </section>
