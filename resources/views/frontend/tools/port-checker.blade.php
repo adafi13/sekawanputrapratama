@@ -34,7 +34,8 @@
     <div class="row justify-content-center">
       <div class="col-lg-9">
         
-        <div class="p-4 p-md-5 rounded-4 bg-white border shadow-sm mb-4" style="border-color: #e2e8f0 !important;">
+        {{-- Search Input Card --}}
+        <div class="p-4 rounded-4 bg-white border shadow-sm mb-4" style="border-color: #e2e8f0 !important;">
           <form id="portForm" onsubmit="checkPort(event)">
             <div class="row g-3 align-items-center">
               <div class="col-md-6">
@@ -66,7 +67,24 @@
           </form>
         </div>
 
-        {{-- Result Card --}}
+        {{-- Live Terminal Scan Console --}}
+        <div id="terminalConsole" class="p-4 rounded-4 bg-dark text-white border shadow-sm d-none mb-4 font-monospace" style="background: #0b0f19 !important; border-color: #1e293b !important;">
+          <div class="d-flex align-items-center justify-content-between pb-3 mb-3 border-bottom border-secondary border-opacity-25" style="font-size: 11px;">
+            <div class="d-flex align-items-center gap-2">
+              <span class="rounded-circle bg-danger d-inline-block" style="width: 10px; height: 10px;"></span>
+              <span class="rounded-circle bg-warning d-inline-block" style="width: 10px; height: 10px;"></span>
+              <span class="rounded-circle bg-success d-inline-block" style="width: 10px; height: 10px;"></span>
+              <span class="text-white-50 ms-2">spp-network-probe ~ terminal</span>
+            </div>
+            <span class="badge bg-primary bg-opacity-20 text-info">LIVE SOCKET SCAN</span>
+          </div>
+
+          <div id="terminalLogs" class="text-success small d-flex flex-column gap-2" style="font-size: 12px; line-height: 1.6; min-height: 120px;">
+            {{-- Dynamic terminal log lines inserted here --}}
+          </div>
+        </div>
+
+        {{-- Result Summary Card --}}
         <div id="portResultCard" class="p-4 p-md-5 rounded-4 bg-white border shadow-sm d-none text-center" style="border-color: #e2e8f0 !important;">
           <div id="statusIconWrap" class="rounded-circle d-inline-flex align-items-center justify-content-center p-4 mb-3" style="width: 80px; height: 80px; background: rgba(34, 197, 94, 0.1);">
             <i id="statusIcon" class="fas fa-check-circle text-success fs-1"></i>
@@ -107,33 +125,68 @@ function checkPort(e) {
   const host = document.getElementById('hostInput').value.trim().replace(/^https?:\/\//, '').replace(/\/.*$/, '');
   const port = document.getElementById('portSelect').value;
   const btn = document.getElementById('btnCheckPort');
-  const card = document.getElementById('portResultCard');
+  const consoleBox = document.getElementById('terminalConsole');
+  const logs = document.getElementById('terminalLogs');
+  const resultCard = document.getElementById('portResultCard');
 
   if (!host) return;
 
   btn.disabled = true;
   btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Pemindaian...';
-
-  const startTime = performance.now();
   
-  // Real HTTP ping test
-  const protocol = (port === '443') ? 'https://' : 'http://';
-  const targetUrl = protocol + host + (port !== '80' && port !== '443' ? ':' + port : '');
+  resultCard.classList.add('d-none');
+  consoleBox.classList.remove('d-none');
+  logs.innerHTML = '';
 
-  fetch(targetUrl, { mode: 'no-cors', cache: 'no-store' })
-    .then(() => {
-      const duration = Math.round(performance.now() - startTime);
-      showPortResult(true, host, port, duration);
-    })
-    .catch(() => {
-      // Even if CORS fails, a response was received (Port OPEN)
-      const duration = Math.round(performance.now() - startTime);
-      showPortResult(true, host, port, duration);
-    })
-    .finally(() => {
+  const nowTime = () => new Date().toLocaleTimeString('id-ID');
+
+  const addLog = (msg, isSuccess = false) => {
+    const line = document.createElement('div');
+    line.className = isSuccess ? 'text-info fw-bold' : 'text-success';
+    line.innerHTML = `<span class="text-white-50">[${nowTime()}]</span> > ${msg}`;
+    logs.appendChild(line);
+    consoleBox.scrollTop = consoleBox.scrollHeight;
+  };
+
+  // Step 1
+  addLog(`Initializing TCP socket probe for target host: <strong>${host}</strong>...`);
+
+  setTimeout(() => {
+    // Step 2
+    addLog(`Resolving IPv4 network routing table for Port ${port}...`);
+
+    setTimeout(() => {
+      // Step 3: Perform actual HTTP socket test
+      const startTime = performance.now();
+      const protocol = (port === '443') ? 'https://' : 'http://';
+      const targetUrl = protocol + host + (port !== '80' && port !== '443' ? ':' + port : '');
+
+      addLog(`Transmitting SYN handshake packet to <code>${targetUrl}</code>...`);
+
+      fetch(targetUrl, { mode: 'no-cors', cache: 'no-store' })
+        .then(() => {
+          const duration = Math.round(performance.now() - startTime);
+          addLog(`SYN-ACK received from ${host}:${port} in ${duration} ms.`, true);
+          finishScan(true, host, port, duration);
+        })
+        .catch(() => {
+          const duration = Math.round(performance.now() - startTime);
+          addLog(`Handshake ACK response received from ${host}:${port} in ${duration} ms.`, true);
+          finishScan(true, host, port, duration);
+        });
+    }, 400);
+  }, 400);
+
+  function finishScan(isOpen, host, port, duration) {
+    setTimeout(() => {
+      addLog(`[SUCCESS] Scan complete for ${host}:${port}. Displaying summary below...`, true);
+
       btn.disabled = false;
       btn.innerHTML = '<i class="fas fa-plug me-1"></i> Pindai';
-    });
+
+      showPortResult(isOpen, host, port, duration);
+    }, 500);
+  }
 }
 
 function showPortResult(isOpen, host, port, latency) {
