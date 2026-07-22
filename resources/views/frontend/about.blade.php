@@ -385,9 +385,106 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
           </ul>
         </div>
       </div>
+  </div>
+</section>
+
+{{-- INTERACTIVE TECH STACK ARSENAL --}}
+<section class="py-5 bg-light border-bottom">
+  <div class="container py-4">
+    <div class="text-center mb-5 reveal">
+      <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-20 rounded-pill px-4 py-2 mb-3 text-uppercase fw-bold" style="letter-spacing: 1.5px; font-size: 11px;">
+        <i class="fas fa-microchip me-2"></i> TECH STACK ARSENAL
+      </span>
+      <h2 class="fw-black text-dark display-5 mb-3" style="letter-spacing: -1px;">Teknologi Modern Teruji Industri</h2>
+      <p class="text-muted mx-auto" style="max-width: 680px; font-size: 1.05rem; line-height: 1.6;">
+        Kami menggunakan kombinasi <em>framework</em>, bahasa pemrograman, dan infrastruktur cloud terbaik untuk menghasilkan aplikasi berkecepatan tinggi, aman, dan siap tumbuh bersama bisnis Anda.
+      </p>
+
+      {{-- Filter Pills --}}
+      <div class="d-flex flex-wrap justify-content-center gap-2 mt-4" id="tech-stack-filters">
+        <button type="button" class="btn btn-primary rounded-pill px-4 py-2 fw-bold active filter-btn mb-1" data-filter="all">Semua Tech Stack</button>
+        <button type="button" class="btn btn-outline-secondary rounded-pill px-4 py-2 fw-bold filter-btn mb-1" data-filter="backend">⚙️ Backend</button>
+        <button type="button" class="btn btn-outline-secondary rounded-pill px-4 py-2 fw-bold filter-btn mb-1" data-filter="frontend">📱 Frontend & Mobile</button>
+        <button type="button" class="btn btn-outline-secondary rounded-pill px-4 py-2 fw-bold filter-btn mb-1" data-filter="cloud">☁️ Cloud & Networking</button>
+        <button type="button" class="btn btn-outline-secondary rounded-pill px-4 py-2 fw-bold filter-btn mb-1" data-filter="database">🗄️ Database & Cache</button>
+      </div>
+    </div>
+
+    {{-- Tech Cards Grid --}}
+    <div class="row g-3" id="tech-stack-grid">
+      @php
+        $techStack = [
+          // Backend
+          ['name' => 'Laravel 11', 'cat' => 'backend', 'icon' => 'fab fa-laravel text-danger', 'badge' => 'Enterprise Standard', 'desc' => 'Framework PHP nomor #1 untuk arsitektur backend robust, secure API, & ERP.'],
+          ['name' => 'PHP 8.4', 'cat' => 'backend', 'icon' => 'fab fa-php text-primary', 'badge' => 'High Performance', 'desc' => 'Eksekusi server ultra-cepat dengan JIT Compiler & sistem tipe modern.'],
+          ['name' => 'Node.js', 'cat' => 'backend', 'icon' => 'fab fa-node-js text-success', 'badge' => 'Real-time & Async', 'desc' => 'Arsitektur event-driven non-blocking untuk microservices & WebSocket.'],
+          ['name' => 'Python', 'cat' => 'backend', 'icon' => 'fab fa-python text-warning', 'badge' => 'Automation & AI', 'desc' => 'Scripting otomasi cerdas, pemrosesan data masif, & integrasi model AI.'],
+
+          // Frontend & Mobile
+          ['name' => 'Flutter', 'cat' => 'frontend', 'icon' => 'fas fa-mobile-alt text-info', 'badge' => 'Cross-Platform', 'desc' => 'Aplikasi Android & iOS performa native dari satu basis kode terpadu.'],
+          ['name' => 'React Native', 'cat' => 'frontend', 'icon' => 'fab fa-react text-info', 'badge' => 'Mobile App', 'desc' => 'Aplikasi seluler responsif dengan komponen antarmuka native modern.'],
+          ['name' => 'Vue.js / Next', 'cat' => 'frontend', 'icon' => 'fab fa-vuejs text-success', 'badge' => 'Reactive UI', 'desc' => 'Antarmuka web interaktif, SPA, dan SSR berkecepatan tinggi.'],
+          ['name' => 'Tailwind CSS', 'cat' => 'frontend', 'icon' => 'fas fa-wind text-info', 'badge' => 'Modern Design', 'desc' => 'Styling sistem UI/UX presisi, ringan, dan 100% responsif di layar HP.'],
+
+          // Cloud & Server
+          ['name' => 'AWS Cloud', 'cat' => 'cloud', 'icon' => 'fab fa-aws text-warning', 'badge' => 'Global Cloud', 'desc' => 'Layanan server EC2, S3 storage, & Auto Scaling kapasitas tinggi.'],
+          ['name' => 'Google Cloud', 'cat' => 'cloud', 'icon' => 'fab fa-google text-primary', 'badge' => 'Cloud Native', 'desc' => 'Infrastruktur cloud andal untuk analitik data & scalable hosting.'],
+          ['name' => 'Docker', 'cat' => 'cloud', 'icon' => 'fab fa-docker text-primary', 'badge' => 'Containerization', 'desc' => 'Isolasi aplikasi dalam kontainer untuk deployment instan tanpa kendala.'],
+          ['name' => 'Mikrotik & Network', 'cat' => 'cloud', 'icon' => 'fas fa-network-wired text-dark', 'badge' => 'Hardware Net', 'desc' => 'Instalasi jaringan LAN/WAN kantor, VPN dedicated, & keamanan router.'],
+
+          // Database
+          ['name' => 'PostgreSQL', 'cat' => 'database', 'icon' => 'fas fa-database text-primary', 'badge' => 'Relational DB', 'desc' => 'Database SQL ACID-compliant kelas enterprise untuk data kompleks.'],
+          ['name' => 'MySQL / MariaDB', 'cat' => 'database', 'icon' => 'fas fa-database text-warning', 'badge' => 'High Speed DB', 'desc' => 'Manajemen basis data relasional populer, cepat, dan sangat stabil.'],
+          ['name' => 'Redis Cache', 'cat' => 'database', 'icon' => 'fas fa-bolt text-danger', 'badge' => 'In-Memory Cache', 'desc' => 'Caching memori super cepat untuk mempercepat respon query & session.']
+        ];
+      @endphp
+
+      @foreach($techStack as $tech)
+        <div class="col-lg-3 col-md-4 col-sm-6 tech-card-item" data-category="{{ $tech['cat'] }}">
+          <div class="p-4 rounded-4 bg-white border h-100 shadow-sm transition-all" style="border-color: #e2e8f0 !important; transition: all 0.3s ease;">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+              <div class="rounded-3 bg-light p-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+                <i class="{{ $tech['icon'] }} fs-4"></i>
+              </div>
+              <span class="badge bg-light text-dark border rounded-pill px-2 py-1" style="font-size: 10px;">{{ $tech['badge'] }}</span>
+            </div>
+            <h5 class="fw-bold text-dark mb-2 fs-6">{{ $tech['name'] }}</h5>
+            <p class="text-muted mb-0" style="font-size: 12px; line-height: 1.5;">{{ $tech['desc'] }}</p>
+          </div>
+        </div>
+      @endforeach
     </div>
   </div>
 </section>
+
+@push('scripts')
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const filterBtns = document.querySelectorAll('#tech-stack-filters .filter-btn');
+    const techItems = document.querySelectorAll('#tech-stack-grid .tech-card-item');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        filterBtns.forEach(b => {
+          b.classList.remove('btn-primary', 'active');
+          b.classList.add('btn-outline-secondary');
+        });
+        this.classList.remove('btn-outline-secondary');
+        this.classList.add('btn-primary', 'active');
+
+        const filter = this.getAttribute('data-filter');
+        techItems.forEach(item => {
+          if (filter === 'all' || item.getAttribute('data-category') === filter) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+  });
+</script>
+@endpush
 
 {{-- TEAM SECTION --}}
 <section class="abt-team">
