@@ -48,7 +48,7 @@
       <i class="fas fa-check-circle fs-4 text-success"></i>
       <div>
         <strong class="d-block text-dark">{{ session('success') }}</strong>
-        <span class="small text-muted">Berkas Anda telah tersimpan secara aman di sistem Superadmin kami.</span>
+        <span class="small text-muted">Berkas Anda telah tersimpan secara aman di sistem rekrutmen internal PT Sekawan Putra Pratama.</span>
       </div>
     </div>
   </div>
@@ -235,7 +235,7 @@
                     <div class="w-100">
                       <h5 class="fw-bold text-dark mb-1">🟡 Berkas Diterima (Menunggu Review HRD)</h5>
                       <p class="text-dark small mb-2" style="line-height: 1.7; font-size: 0.95rem;">
-                        Berkas lamaran dan CV Anda telah berhasil kami terima dan tersimpan di database Superadmin.
+                        Berkas lamaran dan CV Anda telah berhasil kami terima dan tercatat secara resmi di sistem rekrutmen internal PT Sekawan Putra Pratama.
                       </p>
 
                       <div class="mt-3 pt-3 border-top border-warning border-opacity-30">
@@ -456,7 +456,7 @@
             <p class="text-muted small mb-4" style="max-width: 540px; margin: 0 auto;">Saat ini belum ada posisi lowongan spesifik yang dibuka. Namun kami selalu terbuka menerima CV dan portofolio Anda secara langsung!</p>
             
             <button type="button" class="btn btn-primary rounded-pill px-4 py-2.5 fw-bold shadow-sm" data-bs-toggle="modal" data-bs-target="#spontaneousModal" data-toggle="modal" data-target="#spontaneousModal" onclick="openSpontaneousModal()">
-              <i class="fas fa-paper-plane me-2"></i> Kirim CV Spontan ke Superadmin
+              <i class="fas fa-paper-plane me-2"></i> Kirim CV Spontan ke Tim Rekrutmen
             </button>
           </div>
         </div>
@@ -480,7 +480,7 @@
       <form action="{{ route('careers.apply-spontaneous') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="modal-body p-4">
-          <p class="text-muted small mb-4">CV dan berkas Anda akan langsung terkirim ke **Panel Superadmin HR PT Sekawan Putra Pratama** untuk diproses saat posisi yang sesuai dibuka.</p>
+          <p class="text-muted small mb-4">CV dan berkas Anda akan langsung diteruskan ke **Tim Rekrutmen PT Sekawan Putra Pratama** dan akan diproses segera setelah posisi yang sesuai tersedia.</p>
 
           <div class="row g-3">
             <div class="col-md-6">
@@ -518,7 +518,7 @@
         <div class="modal-footer border-top p-4">
           <button type="button" class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal" onclick="closeSpontaneousModal()">Batal</button>
           <button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold shadow-sm">
-            <i class="fas fa-paper-plane me-1"></i> Kirim CV ke Superadmin
+            <i class="fas fa-paper-plane me-1"></i> Kirim CV ke Tim Rekrutmen
           </button>
         </div>
       </form>
@@ -542,7 +542,7 @@
       <form action="{{ route('careers.check-status') }}" method="POST">
         @csrf
         <div class="modal-body p-4">
-          <p class="text-muted small mb-3">Masukkan **Email** atau **Nomor WhatsApp/HP** yang Anda gunakan saat melamar untuk melihat perkembangan status seleksi terkini dari Superadmin HR.</p>
+          <p class="text-muted small mb-3">Masukkan **Email** atau **Nomor WhatsApp/HP** yang Anda gunakan saat melamar untuk melihat perkembangan status seleksi terkini dari Tim HRD PT Sekawan Putra Pratama.</p>
 
           <div class="mb-3">
             <label for="checkSearch" class="form-label font-monospace fw-bold small text-muted">EMAIL ATAU NO. WHATSAPP *</label>
