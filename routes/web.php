@@ -50,6 +50,7 @@ Route::get('/careers', [CareerController::class, 'index'])->name('careers.index'
 Route::get('/careers/{slug}', [CareerController::class, 'show'])->name('careers.show');
 Route::post('/careers/{slug}/apply', [CareerController::class, 'apply'])->name('careers.apply');
 Route::post('/careers/apply-spontaneous', [CareerController::class, 'applySpontaneous'])->name('careers.apply-spontaneous');
+Route::post('/careers/check-status', [CareerController::class, 'checkStatus'])->name('careers.check-status');
 
 // Legal Routes
 Route::get('/privacy-policy', [FrontendController::class, 'privacyPolicy'])->name('privacy-policy');

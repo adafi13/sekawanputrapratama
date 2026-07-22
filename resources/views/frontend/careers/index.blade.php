@@ -33,6 +33,9 @@
       <button type="button" class="btn btn-outline-primary rounded-pill px-4 py-2.5 fw-bold" style="font-size: 13px;" data-bs-toggle="modal" data-bs-target="#spontaneousModal" data-toggle="modal" data-target="#spontaneousModal" onclick="openSpontaneousModal()">
         <i class="fas fa-paper-plane me-2"></i> Kirim CV Spontan
       </button>
+      <button type="button" class="btn btn-outline-dark rounded-pill px-4 py-2.5 fw-bold" style="font-size: 13px;" data-bs-toggle="modal" data-bs-target="#checkStatusModal" data-toggle="modal" data-target="#checkStatusModal" onclick="openCheckStatusModal()">
+        <i class="fas fa-search me-2"></i> Cek Status Lamaran
+      </button>
     </div>
   </div>
 </section>
@@ -52,7 +55,99 @@
 </section>
 @endif
 
-{{-- BENEFITS & FACILITIES (Modern Bento Grid Style) --}}
+{{-- STATUS CHECK RESULTS DISPLAY --}}
+@if(session('application_results'))
+<section class="py-4 bg-primary bg-opacity-10 border-bottom" id="status-results">
+  <div class="container">
+    <div class="p-4 p-md-5 rounded-4 bg-white border shadow-sm" style="border-color: #3b82f6 !important;">
+      <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+        <div>
+          <span class="badge bg-primary text-white px-3 py-1.5 rounded-pill fw-bold" style="font-size: 11px;">HASIL CEK STATUS LAMARAN</span>
+          <h4 class="fw-bold text-dark mb-0 mt-1">Status Berkas untuk: {{ session('search_query') }}</h4>
+        </div>
+        <a href="{{ route('careers.index') }}" class="btn btn-sm btn-light rounded-pill px-3 fw-bold"><i class="fas fa-times me-1"></i> Tutup Hasil</a>
+      </div>
+
+      <div class="row g-4">
+        @foreach(session('application_results') as $app)
+          <div class="col-lg-12">
+            <div class="p-4 rounded-4 border bg-light" style="border-color: #e2e8f0 !important;">
+              <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+                <div>
+                  <h5 class="fw-bold text-dark mb-1">{{ $app->name }}</h5>
+                  <span class="text-muted small"><i class="fas fa-briefcase text-primary me-1"></i> Posisi: <strong>{{ $app->jobOpening ? $app->jobOpening->title : 'Open Application / Spontan' }}</strong></span>
+                  <span class="text-muted small ms-md-3 d-block d-md-inline-block mt-1 mt-md-0"><i class="fas fa-calendar-alt text-primary me-1"></i> Tanggal Kirim: {{ $app->created_at->translatedFormat('d F Y (H:i)') }}</span>
+                </div>
+
+                @php
+                  $status = strtolower($app->status);
+                @endphp
+                
+                @if(in_array($status, ['hired', 'diterima (hired)', 'diterima']))
+                  <span class="badge bg-success text-white px-3 py-2 rounded-pill fs-6"><i class="fas fa-check-circle me-1"></i> DITERIMA (HIRED)</span>
+                @elseif(in_array($status, ['rejected', 'ditolak']))
+                  <span class="badge bg-danger text-white px-3 py-2 rounded-pill fs-6"><i class="fas fa-times-circle me-1"></i> BELUM SESUAI (DITOLAK)</span>
+                @elseif(in_array($status, ['interviewing', 'wawancara (interview)', 'wawancara']))
+                  <span class="badge bg-info text-dark px-3 py-2 rounded-pill fs-6"><i class="fas fa-comments me-1"></i> TAHAP 2: WAWANCARA / INTERVIEW</span>
+                @elseif(in_array($status, ['reviewing', 'review hr']))
+                  <span class="badge bg-primary text-white px-3 py-2 rounded-pill fs-6"><i class="fas fa-search me-1"></i> TAHAP 1: REVIEW HR &amp; BERKAS</span>
+                @else
+                  <span class="badge bg-warning text-dark px-3 py-2 rounded-pill fs-6"><i class="fas fa-clock me-1"></i> PENDING (MENUNGGU REVIEW HR)</span>
+                @endif
+              </div>
+
+              {{-- Stepper Progress Bar Tracker --}}
+              <div class="p-3 bg-white rounded-3 border mt-3" style="border-color: #e2e8f0 !important;">
+                <div class="row text-center text-muted small g-2">
+                  <div class="col-3">
+                    <div class="fw-bold {{ !in_array($status, ['rejected']) ? 'text-primary' : 'text-muted' }}"><i class="fas fa-check-circle"></i> 1. Kirim CV</div>
+                    <span style="font-size: 10px;" class="d-none d-sm-inline">Berkas Diterima</span>
+                  </div>
+                  <div class="col-3">
+                    <div class="fw-bold {{ in_array($status, ['reviewing', 'review hr', 'interviewing', 'wawancara (interview)', 'hired', 'diterima (hired)', 'diterima']) ? 'text-primary' : 'text-muted' }}"><i class="fas fa-search"></i> 2. Review HR</div>
+                    <span style="font-size: 10px;" class="d-none d-sm-inline">Penilaian Tim</span>
+                  </div>
+                  <div class="col-3">
+                    <div class="fw-bold {{ in_array($status, ['interviewing', 'wawancara (interview)', 'hired', 'diterima (hired)', 'diterima']) ? 'text-info' : 'text-muted' }}"><i class="fas fa-comments"></i> 3. Wawancara</div>
+                    <span style="font-size: 10px;" class="d-none d-sm-inline">Interview &amp; Skill</span>
+                  </div>
+                  <div class="col-3">
+                    <div class="fw-bold {{ in_array($status, ['hired', 'diterima (hired)', 'diterima']) ? 'text-success' : (in_array($status, ['rejected', 'ditolak']) ? 'text-danger' : 'text-muted') }}">
+                      <i class="fas fa-flag-checkered"></i> 4. Hasil
+                    </div>
+                    <span style="font-size: 10px;" class="d-none d-sm-inline">Offering / Final</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        @endforeach
+      </div>
+
+    </div>
+  </div>
+</section>
+@endif
+
+@if(session('error_status'))
+<section class="py-3 bg-danger bg-opacity-10 border-bottom" id="status-error">
+  <div class="container">
+    <div class="alert alert-danger border-0 mb-0 d-flex flex-wrap align-items-center justify-content-between gap-3">
+      <div class="d-flex align-items-center gap-3">
+        <i class="fas fa-exclamation-circle fs-4 text-danger"></i>
+        <div>
+          <strong class="d-block text-dark">{{ session('error_status') }}</strong>
+          <span class="small text-muted">Pastikan Anda memasukkan Email atau Nomor HP yang Anda gunakan saat melamar.</span>
+        </div>
+      </div>
+      <button type="button" class="btn btn-sm btn-outline-danger rounded-pill fw-bold" onclick="openCheckStatusModal()"><i class="fas fa-redo me-1"></i> Coba Lagi</button>
+    </div>
+  </div>
+</section>
+@endif
+
+{{-- BENEFITS & FACILITIES --}}
 <section class="py-5 bg-white">
   <div class="container py-3">
     <div class="text-center mb-5">
@@ -146,7 +241,6 @@
     </div>
 
     <div class="row g-4 text-center">
-      {{-- Step 1 --}}
       <div class="col-md-3">
         <div class="p-4 bg-white rounded-4 border shadow-sm h-100 position-relative" style="border-color: #e2e8f0 !important;">
           <span class="badge bg-primary text-white rounded-circle fs-6 mb-3 d-inline-flex align-items-center justify-content-center" style="width: 36px; height: 36px;">1</span>
@@ -155,7 +249,6 @@
         </div>
       </div>
 
-      {{-- Step 2 --}}
       <div class="col-md-3">
         <div class="p-4 bg-white rounded-4 border shadow-sm h-100 position-relative" style="border-color: #e2e8f0 !important;">
           <span class="badge bg-info text-white rounded-circle fs-6 mb-3 d-inline-flex align-items-center justify-content-center" style="width: 36px; height: 36px;">2</span>
@@ -164,7 +257,6 @@
         </div>
       </div>
 
-      {{-- Step 3 --}}
       <div class="col-md-3">
         <div class="p-4 bg-white rounded-4 border shadow-sm h-100 position-relative" style="border-color: #e2e8f0 !important;">
           <span class="badge bg-warning text-dark rounded-circle fs-6 mb-3 d-inline-flex align-items-center justify-content-center" style="width: 36px; height: 36px;">3</span>
@@ -173,7 +265,6 @@
         </div>
       </div>
 
-      {{-- Step 4 --}}
       <div class="col-md-3">
         <div class="p-4 bg-white rounded-4 border shadow-sm h-100 position-relative" style="border-color: #e2e8f0 !important;">
           <span class="badge bg-success text-white rounded-circle fs-6 mb-3 d-inline-flex align-items-center justify-content-center" style="width: 36px; height: 36px;">4</span>
@@ -244,7 +335,7 @@
   </div>
 </section>
 
-{{-- MODAL FORM SPONTANEOUS APPLY (CONNECTED TO SUPERADMIN FILAMENT DB) --}}
+{{-- MODAL FORM SPONTANEOUS APPLY --}}
 <div class="modal fade" id="spontaneousModal" tabindex="-1" aria-labelledby="spontaneousModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content border-0 rounded-4 shadow-lg">
@@ -306,12 +397,47 @@
   </div>
 </div>
 
+{{-- MODAL CEK STATUS LAMARAN --}}
+<div class="modal fade" id="checkStatusModal" tabindex="-1" aria-labelledby="checkStatusModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 rounded-4 shadow-lg">
+      <div class="modal-header border-bottom p-4">
+        <div>
+          <span class="badge bg-primary bg-opacity-10 text-primary fw-bold px-3 py-1 rounded-pill mb-1" style="font-size: 11px;">TRACK RECRUITMENT STATUS</span>
+          <h5 class="modal-title fw-bold text-dark" id="checkStatusModalLabel">Cek Status Lamaran Anda</h5>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="closeCheckStatusModal()"></button>
+      </div>
+
+      <form action="{{ route('careers.check-status') }}" method="POST">
+        @csrf
+        <div class="modal-body p-4">
+          <p class="text-muted small mb-3">Masukkan **Email** atau **Nomor WhatsApp/HP** yang Anda gunakan saat melamar untuk melihat perkembangan status seleksi terkini dari Superadmin HR.</p>
+
+          <div class="mb-3">
+            <label for="checkSearch" class="form-label font-monospace fw-bold small text-muted">EMAIL ATAU NO. WHATSAPP *</label>
+            <input type="text" id="checkSearch" name="search" class="form-control bg-light p-3" placeholder="Contoh: adityanovaldy721@gmail.com / 085156412702" required>
+          </div>
+        </div>
+
+        <div class="modal-footer border-top p-4">
+          <button type="button" class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal" onclick="closeCheckStatusModal()">Batal</button>
+          <button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold shadow-sm">
+            <i class="fas fa-search me-1"></i> Cek Status Sekarang
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
 @push('styles')
 <style>
-  #spontaneousModal {
+  #spontaneousModal, #checkStatusModal {
     z-index: 100005 !important;
   }
-  #spontaneousModal .modal-dialog {
+  #spontaneousModal .modal-dialog, #checkStatusModal .modal-dialog {
     z-index: 100006 !important;
     position: relative !important;
   }
@@ -327,12 +453,10 @@ function openSpontaneousModal() {
   const modalEl = document.getElementById('spontaneousModal');
   if (!modalEl) return;
 
-  // Move modal to body to prevent stacking context trap
   if (modalEl.parentElement !== document.body) {
     document.body.appendChild(modalEl);
   }
 
-  // Force high z-index and display
   modalEl.style.zIndex = '100005';
   modalEl.style.display = 'block';
   modalEl.classList.add('show');
@@ -348,7 +472,6 @@ function openSpontaneousModal() {
     document.body.appendChild(backdrop);
   }
 
-  // Try Bootstrap 5 & jQuery JS if available
   if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
     try {
       const bsModal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
@@ -361,6 +484,56 @@ function openSpontaneousModal() {
 
 function closeSpontaneousModal() {
   const modalEl = document.getElementById('spontaneousModal');
+  if (!modalEl) return;
+
+  if (typeof $ !== 'undefined' && $.fn && $.fn.modal) {
+    try { $(modalEl).modal('hide'); } catch(e) {}
+  }
+
+  modalEl.classList.remove('show');
+  modalEl.style.display = 'none';
+  modalEl.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('modal-open');
+
+  const backdrop = document.querySelectorAll('.modal-backdrop');
+  backdrop.forEach(b => b.remove());
+}
+
+function openCheckStatusModal() {
+  const modalEl = document.getElementById('checkStatusModal');
+  if (!modalEl) return;
+
+  if (modalEl.parentElement !== document.body) {
+    document.body.appendChild(modalEl);
+  }
+
+  modalEl.style.zIndex = '100005';
+  modalEl.style.display = 'block';
+  modalEl.classList.add('show');
+  modalEl.removeAttribute('aria-hidden');
+  modalEl.setAttribute('aria-modal', 'true');
+  document.body.classList.add('modal-open');
+
+  let backdrop = document.querySelector('.modal-backdrop');
+  if (!backdrop) {
+    backdrop = document.createElement('div');
+    backdrop.className = 'modal-backdrop fade show';
+    backdrop.style.zIndex = '100000';
+    document.body.appendChild(backdrop);
+  }
+
+  if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
+    try {
+      const bsModal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+      bsModal.show();
+    } catch(e) {}
+  } else if (typeof $ !== 'undefined' && $.fn && $.fn.modal) {
+    try { $(modalEl).modal('show'); } catch(e) {}
+  }
+}
+
+function closeCheckStatusModal() {
+  const modalEl = document.getElementById('checkStatusModal');
   if (!modalEl) return;
 
   if (typeof $ !== 'undefined' && $.fn && $.fn.modal) {

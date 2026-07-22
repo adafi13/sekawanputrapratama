@@ -112,4 +112,34 @@ class CareerController extends Controller
 
         return back()->with('success', 'Terima kasih! CV & Lamaran Spontan Anda berhasil dikirim ke Superadmin. Tim HR Sekawan Putra Pratama akan meninjau berkas Anda.');
     }
+
+    /**
+     * Check job application status by email or phone.
+     */
+    public function checkStatus(Request $request)
+    {
+        $request->validate([
+            'search' => 'required|string|max:255',
+        ], [
+            'search.required' => 'Masukkan Email atau Nomor HP/WA Anda.',
+        ]);
+
+        $search = trim($request->search);
+
+        $applications = JobApplication::with('jobOpening')
+            ->where(function($query) use ($search) {
+                $query->where('email', $search)
+                      ->orWhere('phone', $search)
+                      ->orWhere('email', 'LIKE', "%{$search}%")
+                      ->orWhere('phone', 'LIKE', "%{$search}%");
+            })
+            ->latest()
+            ->get();
+
+        if ($applications->isEmpty()) {
+            return back()->with('error_status', 'Tidak ditemukan berkas lamaran dengan Email/Nomor HP: ' . $search);
+        }
+
+        return back()->with('application_results', $applications)->with('search_query', $search);
+    }
 }
