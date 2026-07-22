@@ -120,6 +120,71 @@
                 </div>
               </div>
 
+              {{-- ANIMATED MESSAGE BANNERS FOR DITERIMA & DITOLAK --}}
+              @if(in_array($status, ['hired', 'accepted', 'diterima (hired)', 'diterima']))
+                <div class="p-4 rounded-4 bg-success bg-opacity-10 border border-success border-opacity-30 mt-3 text-start position-relative overflow-hidden shadow-sm" style="border-left: 5px solid #10b981 !important;">
+                  <div class="d-flex align-items-start gap-3">
+                    <div class="rounded-circle bg-success text-white p-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 54px; height: 54px;">
+                      <i class="fas fa-trophy fs-3 anim-celebrate"></i>
+                    </div>
+                    <div>
+                      <h5 class="fw-bold text-success mb-1">🎉 Selamat! Anda Lolos Seleksi &amp; Diterima di PT Sekawan Putra Pratama</h5>
+                      <p class="text-dark small mb-2" style="line-height: 1.7; font-size: 0.95rem;">
+                        Selamat Bergabung! Tim HRD kami akan segera menghubungi Anda secara langsung melalui <strong>WhatsApp ({{ $app->phone }})</strong> atau <strong>Email ({{ $app->email }})</strong> dalam waktu 1x24 jam kerja untuk koordinasi jadwal <em>Onboarding</em> &amp; penyerahan berkas <em>Offering Letter</em> resmi.
+                      </p>
+                      <div class="d-inline-flex align-items-center gap-2 text-success fw-bold small bg-white px-3 py-1.5 rounded-pill border border-success border-opacity-20 shadow-sm" style="font-size: 12px;">
+                        <i class="fab fa-whatsapp me-1 fs-6"></i> Mohon pastikan nomor WhatsApp &amp; Email Anda tetap aktif
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              @elseif(in_array($status, ['rejected', 'ditolak']))
+                <div class="p-4 rounded-4 bg-danger bg-opacity-10 border border-danger border-opacity-30 mt-3 text-start position-relative overflow-hidden shadow-sm" style="border-left: 5px solid #ef4444 !important;">
+                  <div class="d-flex align-items-start gap-3">
+                    <div class="rounded-circle bg-danger text-white p-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 54px; height: 54px;">
+                      <i class="fas fa-heart fs-3 anim-gentle"></i>
+                    </div>
+                    <div>
+                      <h5 class="fw-bold text-danger mb-1">🤝 Terima Kasih Atas Partisipasi &amp; Kesempatan Luar Biasa Ini</h5>
+                      <p class="text-dark small mb-2" style="line-height: 1.7; font-size: 0.95rem;">
+                        Mohon maaf, kualifikasi Anda saat ini belum sesuai dengan kebutuhan spesifik posisi <strong>{{ $app->jobOpening ? $app->jobOpening->title : 'yang dibuka' }}</strong>. Terima kasih banyak atas minat dan waktu yang telah Anda luangkan untuk mendaftar di PT Sekawan Putra Pratama.
+                      </p>
+                      <div class="d-inline-flex align-items-center gap-2 text-muted small bg-white px-3 py-1.5 rounded-pill border shadow-sm" style="font-size: 12px;">
+                        <i class="fas fa-folder-open me-1 text-primary"></i> Data CV Anda tetap tersimpan aman di database kami untuk prioritas posisi mendatang
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              @elseif(in_array($status, ['interviewed', 'interviewing', 'wawancara (interview)', 'wawancara']))
+                <div class="p-4 rounded-4 bg-info bg-opacity-10 border border-info border-opacity-30 mt-3 text-start shadow-sm" style="border-left: 5px solid #06b6d4 !important;">
+                  <div class="d-flex align-items-start gap-3">
+                    <div class="rounded-circle bg-info text-white p-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 48px; height: 48px;">
+                      <i class="fas fa-comments fs-4 anim-gentle"></i>
+                    </div>
+                    <div>
+                      <h5 class="fw-bold text-info mb-1">💬 Tahap 2: Undangan Wawancara / Interview</h5>
+                      <p class="text-dark small mb-0" style="line-height: 1.6;">
+                        Berkas Anda telah lolos peninjauan HRD! Tim kami sedang menjadwalkan sesi wawancara teknis (Online/On-site). Informasi waktu dan link pertemuan akan dikirimkan ke <strong>WhatsApp/Email</strong> Anda.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              @elseif(in_array($status, ['reviewed', 'reviewing', 'review hr']))
+                <div class="p-4 rounded-4 bg-primary bg-opacity-10 border border-primary border-opacity-30 mt-3 text-start shadow-sm" style="border-left: 5px solid #3b82f6 !important;">
+                  <div class="d-flex align-items-start gap-3">
+                    <div class="rounded-circle bg-primary text-white p-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 48px; height: 48px;">
+                      <i class="fas fa-search fs-4 anim-gentle"></i>
+                    </div>
+                    <div>
+                      <h5 class="fw-bold text-primary mb-1">🔍 Tahap 1: Berkas Sedang Direview Tim HRD</h5>
+                      <p class="text-dark small mb-0" style="line-height: 1.6;">
+                        Resume dan portofolio Anda saat ini sedang dipelajari secara mendalam oleh tim HRD &amp; Tech Lead kami. Hasil evaluasi akan diperbarui di sini secara berkala.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              @endif
+
             </div>
           </div>
         @endforeach
@@ -443,6 +508,28 @@
   }
   .modal-backdrop {
     z-index: 100000 !important;
+  }
+
+  @keyframes celebrationBounce {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    25% { transform: scale(1.15) rotate(-8deg); }
+    50% { transform: scale(1.2) rotate(8deg); }
+    75% { transform: scale(1.15) rotate(-4deg); }
+  }
+
+  @keyframes gentlePulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.08); opacity: 0.85; }
+  }
+
+  .anim-celebrate {
+    animation: celebrationBounce 2s ease-in-out infinite;
+    display: inline-block;
+  }
+
+  .anim-gentle {
+    animation: gentlePulse 2.5s ease-in-out infinite;
+    display: inline-block;
   }
 </style>
 @endpush
