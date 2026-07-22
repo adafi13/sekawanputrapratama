@@ -384,4 +384,9 @@ class FrontendController extends Controller
             return back()->with('error', 'Maaf, terjadi kesalahan teknis. Silakan hubungi kami via WhatsApp.');
         }
     }
+
+    public function speedtest()
+    {
+        return view('frontend.tools.speedtest');
+    }
 }

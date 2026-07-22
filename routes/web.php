@@ -35,6 +35,9 @@ Route::get('/services/{slug}', [FrontendController::class, 'serviceShow'])->name
 use App\Http\Controllers\CalculatorController;
 use App\Http\Controllers\CareerController;
 
+// Tools Routes
+Route::get('/speedtest', [FrontendController::class, 'speedtest'])->name('tools.speedtest');
+
 // Calculator Route
 Route::get('/calculator', [CalculatorController::class, 'index'])->name('calculator.index');
 
