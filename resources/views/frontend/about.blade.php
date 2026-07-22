@@ -306,71 +306,83 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
   </div>
 </section>
 
-{{-- SLA & GUARANTEE COMMITMENT MATRIX --}}
-<section class="py-5 bg-dark text-white position-relative overflow-hidden" style="background: linear-gradient(135deg, #050b14 0%, #0f172a 100%);">
-  <div class="container py-4 position-relative" style="z-index: 2;">
-    <div class="section-header text-center mb-5 reveal">
-      <span class="badge bg-primary bg-opacity-25 text-info border border-info border-opacity-30 rounded-pill px-4 py-2 mb-3 text-uppercase fw-bold" style="letter-spacing: 1.5px; font-size: 11px;">
+{{-- SLA & GUARANTEE COMMITMENT MATRIX (Ultra-Clean Light Bento Grid Style) --}}
+<section class="py-5 bg-white border-top border-bottom">
+  <div class="container py-4">
+    <div class="text-center mb-5 reveal">
+      <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-20 rounded-pill px-4 py-2 mb-3 text-uppercase fw-bold" style="letter-spacing: 1.5px; font-size: 11px;">
         <i class="fas fa-award me-2"></i> JAMINAN & STANDAR OPERASIONAL (SLA)
       </span>
-      <h2 class="fw-black text-white display-5 mb-3">Komitmen Kualitas Tanpa Kompromi</h2>
-      <p class="text-white-50 mx-auto" style="max-width: 680px; font-size: 1.05rem;">
-        Setiap solusi teknologi dan infrastruktur yang dirancang oleh PT Sekawan Putra Pratama dilindungi oleh 3 jaminan pilar utama untuk keamanan investasi bisnis Anda.
+      <h2 class="fw-black text-dark display-5 mb-3" style="letter-spacing: -1px;">Komitmen Kualitas Tanpa Kompromi</h2>
+      <p class="text-muted mx-auto" style="max-width: 680px; font-size: 1.05rem; line-height: 1.6;">
+        Setiap solusi teknologi dan infrastruktur yang dirancang oleh PT Sekawan Putra Pratama dilindungi oleh 3 pilar garansi utama untuk ketenangan dan keamanan investasi bisnis Anda.
       </p>
     </div>
 
     <div class="row g-4">
       {{-- Card 1: 99.9% Uptime --}}
       <div class="col-lg-4 col-md-6 reveal delay-100">
-        <div class="p-4 rounded-4 h-100 border border-white border-opacity-10" style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); transition: all 0.3s ease;">
-          <div class="d-flex align-items-center gap-3 mb-3">
-            <div class="rounded-3 bg-primary bg-opacity-25 text-info p-3 d-flex align-items-center justify-content-center" style="width: 54px; height: 54px; flex-shrink: 0;">
+        <div class="p-4 p-xl-5 rounded-4 h-100 bg-light border transition-all shadow-sm-hover" style="border-color: #e2e8f0 !important; transition: all 0.3s ease;">
+          <div class="d-flex align-items-center justify-content-between mb-4">
+            <div class="rounded-3 bg-primary bg-opacity-10 text-primary p-3 d-flex align-items-center justify-content-center" style="width: 56px; height: 56px;">
               <i class="fas fa-server fs-4"></i>
             </div>
-            <div>
-              <span class="text-info fw-bold d-block text-uppercase fs-6" style="letter-spacing: 1px;">99.9% Uptime</span>
-              <h5 class="fw-bold text-white mb-0 fs-6">Server & Infrastructure SLA</h5>
-            </div>
+            <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-20 rounded-pill px-3 py-2 fw-bold" style="font-size: 11px;">
+              99.9% UPTIME SLA
+            </span>
           </div>
-          <p class="text-white-50 small mb-0" style="line-height: 1.6;">
-            Jaminan keandalan uptime server, ketersediaan jaringan, dan manajemen cloud yang stabil untuk memastikan operasional bisnis Anda terus berjalan tanpa henti 24/7.
+          <h4 class="fw-bold text-dark mb-3">Server & Infrastructure SLA</h4>
+          <p class="text-muted small mb-4" style="line-height: 1.7;">
+            Jaminan keandalan uptime server, ketersediaan jaringan, dan manajemen cloud yang stabil untuk memastikan operasional bisnis Anda terus berjalan tanpa gangguan 24/7.
           </p>
+          <ul class="list-unstyled text-dark small fw-semibold mb-0 d-flex flex-column gap-2 border-top pt-3" style="border-color: #e2e8f0 !important;">
+            <li class="d-flex align-items-center gap-2"><i class="fas fa-check-circle text-primary"></i> 24/7 Server Active Monitoring</li>
+            <li class="d-flex align-items-center gap-2"><i class="fas fa-check-circle text-primary"></i> Automatic Failover & Cloud Backup</li>
+          </ul>
         </div>
       </div>
 
       {{-- Card 2: 100% Source Code Ownership --}}
       <div class="col-lg-4 col-md-6 reveal delay-200">
-        <div class="p-4 rounded-4 h-100 border border-white border-opacity-10" style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); transition: all 0.3s ease;">
-          <div class="d-flex align-items-center gap-3 mb-3">
-            <div class="rounded-3 bg-success bg-opacity-25 text-success p-3 d-flex align-items-center justify-content-center" style="width: 54px; height: 54px; flex-shrink: 0;">
+        <div class="p-4 p-xl-5 rounded-4 h-100 bg-light border transition-all shadow-sm-hover" style="border-color: #e2e8f0 !important; transition: all 0.3s ease;">
+          <div class="d-flex align-items-center justify-content-between mb-4">
+            <div class="rounded-3 bg-success bg-opacity-10 text-success p-3 d-flex align-items-center justify-content-center" style="width: 56px; height: 56px;">
               <i class="fas fa-code-branch fs-4"></i>
             </div>
-            <div>
-              <span class="text-success fw-bold d-block text-uppercase fs-6" style="letter-spacing: 1px;">100% Hak Milik</span>
-              <h5 class="fw-bold text-white mb-0 fs-6">Full Source Code Ownership</h5>
-            </div>
+            <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-20 rounded-pill px-3 py-2 fw-bold" style="font-size: 11px;">
+              100% HAK MILIK
+            </span>
           </div>
-          <p class="text-white-50 small mb-0" style="line-height: 1.6;">
-            Seluruh <em>source code</em>, dokumentasi arsitektur, dan aset sistem sepenuhnya menjadi hak milik perusahaan Anda tanpa ada keterikatan penguncian vendor (<em>No Vendor Lock-In</em>).
+          <h4 class="fw-bold text-dark mb-3">Full Source Code Ownership</h4>
+          <p class="text-muted small mb-4" style="line-height: 1.7;">
+            Seluruh <em>source code</em>, arsitektur sistem, dan hak cipta sepenuhnya menjadi milik perusahaan Anda tanpa ada keterikatan penguncian vendor (<em>No Vendor Lock-In</em>).
           </p>
+          <ul class="list-unstyled text-dark small fw-semibold mb-0 d-flex flex-column gap-2 border-top pt-3" style="border-color: #e2e8f0 !important;">
+            <li class="d-flex align-items-center gap-2"><i class="fas fa-check-circle text-success"></i> Full IP & Intellectual Ownership</li>
+            <li class="d-flex align-items-center gap-2"><i class="fas fa-check-circle text-success"></i> Clean Standardized Code Base</li>
+          </ul>
         </div>
       </div>
 
-      {{-- Card 3: 1 Year Maintenance & Support --}}
+      {{-- Card 3: 1 Year Maintenance --}}
       <div class="col-lg-4 col-md-12 reveal delay-300">
-        <div class="p-4 rounded-4 h-100 border border-white border-opacity-10" style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); transition: all 0.3s ease;">
-          <div class="d-flex align-items-center gap-3 mb-3">
-            <div class="rounded-3 bg-warning bg-opacity-25 text-warning p-3 d-flex align-items-center justify-content-center" style="width: 54px; height: 54px; flex-shrink: 0;">
+        <div class="p-4 p-xl-5 rounded-4 h-100 bg-light border transition-all shadow-sm-hover" style="border-color: #e2e8f0 !important; transition: all 0.3s ease;">
+          <div class="d-flex align-items-center justify-content-between mb-4">
+            <div class="rounded-3 bg-warning bg-opacity-10 text-warning p-3 d-flex align-items-center justify-content-center" style="width: 56px; height: 56px;">
               <i class="fas fa-user-shield fs-4"></i>
             </div>
-            <div>
-              <span class="text-warning fw-bold d-block text-uppercase fs-6" style="letter-spacing: 1px;">Garansi 1 Tahun</span>
-              <h5 class="fw-bold text-white mb-0 fs-6">Maintenance & On-Call Support</h5>
-            </div>
+            <span class="badge bg-warning bg-opacity-10 text-warning border border-warning border-opacity-20 rounded-pill px-3 py-2 fw-bold" style="font-size: 11px;">
+              GARANSI 1 TAHUN
+            </span>
           </div>
-          <p class="text-white-50 small mb-0" style="line-height: 1.6;">
-            Dukungan teknis responsif 24/7 dan pemeliharaan perbaikan bug secara berkala selama 12 bulan setelah tanggal serah terima pekerjaan (BAST).
+          <h4 class="fw-bold text-dark mb-3">Maintenance & On-Call Support</h4>
+          <p class="text-muted small mb-4" style="line-height: 1.7;">
+            Dukungan teknis responsif 24/7 dan pemeliharaan perbaikan bug secara gratis selama 12 bulan penuh setelah tanggal serah terima pekerjaan (BAST).
           </p>
+          <ul class="list-unstyled text-dark small fw-semibold mb-0 d-flex flex-column gap-2 border-top pt-3" style="border-color: #e2e8f0 !important;">
+            <li class="d-flex align-items-center gap-2"><i class="fas fa-check-circle text-warning"></i> Free 12-Month Bug Fixing</li>
+            <li class="d-flex align-items-center gap-2"><i class="fas fa-check-circle text-warning"></i> Emergency On-Call Response</li>
+          </ul>
         </div>
       </div>
     </div>
