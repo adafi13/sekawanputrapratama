@@ -196,7 +196,7 @@
                         <strong class="d-block text-dark small mb-2"><i class="fas fa-clipboard-check text-info me-1"></i> Hal yang Perlu Dilakukan Pelamar Pada Tahap Ini:</strong>
                         <ul class="list-unstyled text-muted small mb-0 d-flex flex-column gap-1" style="font-size: 12px; line-height: 1.6;">
                           <li><i class="fas fa-envelope-open-text text-primary me-1"></i> <strong>1. Cek Undangan Wawancara:</strong> Periksa WhatsApp ({{ $app->phone }}) atau Email ({{ $app->email }}) Anda untuk melihat tanggal, waktu, dan link meeting (Google Meet/Zoom).</li>
-                          <li><i class="fas fa-laptop-code text-info me-1"></i> <strong>2. Persiapan Sesi Wawancara:</strong> Gunakan laptop dengan koneksi internet yang stabil, lingkungan tenang, dan persiapkan portofolio koding Anda.</li>
+                          <li><i class="fas fa-map-marker-alt text-info me-1"></i> <strong>2. Persiapan Sesi Wawancara:</strong> Ikuti format yang tertera di undangan — <strong>Online</strong> (siapkan laptop & koneksi internet stabil via Google Meet/Zoom) atau <strong>Offline</strong> (hadir langsung ke kantor PT Sekawan Putra Pratama sesuai waktu yang ditentukan).</li>
                           <li><i class="fas fa-brain text-warning me-1"></i> <strong>3. Materi Wawancara:</strong> Pelajari kembali logika pemrosesan, arsitektur software, dan proyek yang pernah Anda selesaikan.</li>
                         </ul>
                       </div>
