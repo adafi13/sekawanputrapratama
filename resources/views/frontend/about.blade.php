@@ -183,22 +183,23 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
   <div class="abt-hero-glow"></div>
   <div class="container">
     <div class="abt-hero-content">
-      <div class="abt-hero-pill reveal">
-        <i class="fas fa-sparkles me-2"></i> KREATIVITAS TANPA BATAS
+      <div class="d-inline-flex align-items-center gap-2 text-info fw-bold text-uppercase mb-3" style="letter-spacing: 2px; font-size: 11px;">
+        <span class="d-inline-block bg-info rounded-circle" style="width: 6px; height: 6px;"></span>
+        PROFIL PERUSAHAAN &amp; KREDENSIAL IT
       </div>
       <h1 class="abt-hero-title reveal delay-100">
-        Transformasi Bisnis Melalui <br>
-        <span class="abt-grad">Inovasi Digital</span>
+        Pengembang Software &amp; Server <br>
+        <span class="abt-grad">Terpercaya untuk Bisnis Anda</span>
       </h1>
       <p class="abt-hero-sub reveal delay-200 mb-4">
-        Kami adalah kumpulan pemikir, pengembang, dan visioner yang berdedikasi untuk membangun solusi teknologi yang tidak hanya berfungsi, tetapi juga menginspirasi.
+        PT Sekawan Putra Pratama adalah perusahaan penyedia solusi IT terintegrasi yang menghadirkan rekayasa software custom, sistem ERP, arsitektur cloud server, dan jaringan terdedikasi bagi korporat maupun industri.
       </p>
       <div class="reveal delay-300">
         <a href="{{ route('company-profile') }}" target="_blank" class="btn btn-outline-info text-white border-info rounded-pill px-4 py-3 fw-bold shadow-sm me-2 mb-2" style="background: rgba(34, 211, 238, 0.15); backdrop-filter: blur(8px);">
           <i class="fas fa-file-pdf me-2 text-info"></i> Unduh Company Profile Resmi (PDF)
         </a>
         <a href="{{ route('contact') }}" class="btn btn-primary rounded-pill px-4 py-3 fw-bold shadow-sm mb-2">
-          <i class="fas fa-comments me-2"></i> Konsultasi Gratis
+          <i class="fas fa-comments me-2"></i> Konsultasi Proyek Gratis
         </a>
       </div>
     </div>
