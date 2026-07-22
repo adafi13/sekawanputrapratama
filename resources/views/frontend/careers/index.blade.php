@@ -9,7 +9,7 @@
         background: radial-gradient(circle at 50% 0%, #1e293b 0%, #0f172a 60%, #020617 100%);
         position: relative;
         overflow: hidden;
-        padding-top: 140px; /* Offset for fixed navbar header */
+        padding-top: 145px; /* Offset for fixed navbar header */
         padding-bottom: 60px;
     }
     .careers-hero::before {
@@ -22,6 +22,29 @@
         background: radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.15) 0%, transparent 40%),
                     radial-gradient(circle at 20% 80%, rgba(14, 165, 233, 0.12) 0%, transparent 40%);
         pointer-events: none;
+    }
+    @media (max-width: 768px) {
+        .careers-hero {
+            padding-top: 125px !important;
+            padding-bottom: 35px !important;
+        }
+        .careers-hero-badge {
+            font-size: 0.75rem !important;
+            padding: 6px 14px !important;
+            margin-bottom: 10px !important;
+        }
+        .careers-hero-title {
+            font-size: 1.65rem !important;
+            line-height: 1.3 !important;
+            letter-spacing: -0.5px !important;
+            margin-bottom: 10px !important;
+        }
+        .careers-hero-desc {
+            font-size: 0.925rem !important;
+            line-height: 1.5 !important;
+            padding: 0 10px !important;
+            margin-bottom: 0 !important;
+        }
     }
     .job-card {
         border: 2px solid #e2e8f0;
@@ -40,13 +63,13 @@
 {{-- HERO SECTION --}}
 <section class="careers-hero text-white">
     <div class="container text-center position-relative" style="z-index: 2;">
-        <span class="badge bg-primary bg-opacity-25 text-info border border-info border-opacity-30 rounded-pill px-4 py-2 mb-3 fs-6">
+        <span class="badge bg-primary bg-opacity-25 text-info border border-info border-opacity-30 rounded-pill px-4 py-2 mb-3 fs-6 careers-hero-badge">
             <i class="fas fa-briefcase me-2"></i> Careers & Talent Recruitment
         </span>
-        <h1 class="display-4 fw-black text-white mb-3" style="letter-spacing: -1px;">
+        <h1 class="display-4 fw-black text-white mb-3 careers-hero-title" style="letter-spacing: -1px;">
             Tumbuh & Berkembang Bersama Tim Sekawan
         </h1>
-        <p class="lead text-white-50 mx-auto" style="max-width: 720px; font-size: 1.15rem;">
+        <p class="lead text-white-50 mx-auto careers-hero-desc" style="max-width: 720px; font-size: 1.15rem;">
             Kami percaya bahwa inovasi besar lahir dari kolaborasi tim yang solid, kreatif, dan berdedikasi tinggi dalam menciptakan solusi teknologi berkualitas.
         </p>
     </div>

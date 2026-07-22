@@ -6,7 +6,16 @@
 @push('styles')
 <style>
     .career-detail-container {
-        padding-top: 130px; /* Offset for fixed navbar header */
+        padding-top: 140px; /* Offset for fixed navbar header */
+    }
+    @media (max-width: 768px) {
+        .career-detail-container {
+            padding-top: 115px !important;
+        }
+        .career-detail-container h1 {
+            font-size: 1.5rem !important;
+            line-height: 1.3 !important;
+        }
     }
 </style>
 @endpush
