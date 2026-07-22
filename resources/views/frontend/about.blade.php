@@ -848,15 +848,43 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
   </div>
 </section>
 
-{{-- CTA --}}
-<section class="abt-cta container mb-5">
-  <div class="cta-box reveal">
-    <div class="glow"></div>
-    <h2 class="cta-title">Siap Bertransformasi <br> Bersama Kami?</h2>
-    <p class="abt-hero-sub mb-5" style="color: rgba(255,255,255,0.6)">Mari diskusikan bagaimana teknologi kami dapat mempercepat pertumbuhan bisnis Anda.</p>
-    <a href="{{ route('contact') }}" class="cta-btn">
-      Mulai Konsultasi Gratis <i class="fas fa-arrow-right ms-2"></i>
-    </a>
+{{-- CTA (Enterprise High-Converting Action Card) --}}
+<section class="container my-5 py-3">
+  <div class="p-4 p-md-5 rounded-5 position-relative overflow-hidden shadow-lg reveal" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%); border: 1px solid rgba(255, 255, 255, 0.1);">
+    {{-- Glowing background accents --}}
+    <div class="position-absolute top-0 start-0 w-50 h-100 opacity-25" style="background: radial-gradient(circle at 20% 20%, #38bdf8 0%, transparent 60%); filter: blur(50px); pointer-events: none;"></div>
+    <div class="position-absolute bottom-0 end-0 w-50 h-100 opacity-25" style="background: radial-gradient(circle at 80% 80%, #10b981 0%, transparent 60%); filter: blur(50px); pointer-events: none;"></div>
+
+    <div class="position-relative z-1 text-center mx-auto" style="max-width: 780px;">
+      <span class="badge bg-primary bg-opacity-20 text-info border border-info border-opacity-30 rounded-pill px-4 py-2 mb-3 text-uppercase fw-bold" style="letter-spacing: 1.5px; font-size: 11px;">
+        <i class="fas fa-comments me-2"></i> KONSULTASI STRATEGIS TEKNOLOGI
+      </span>
+      
+      <h2 class="fw-black text-white display-5 mb-3" style="letter-spacing: -1px;">
+        Siap Mengakselerasi Digitalisasi Bisnis Anda?
+      </h2>
+      
+      <p class="text-white-50 leading-relaxed mb-4" style="font-size: 1.05rem; line-height: 1.8;">
+        Mari diskusikan kebutuhan infrastruktur IT, penginstalan jaringan server, hingga perancangan perangkat lunak custom bersama tim konsultan profesional PT Sekawan Putra Pratama.
+      </p>
+
+      {{-- Dual CTA Buttons --}}
+      <div class="d-flex flex-column flex-sm-row align-items-center justify-content-center gap-3 mb-4">
+        <a href="https://wa.me/6285156412702?text=Halo%20PT%20Sekawan%20Putra%20Pratama,%20saya%20ingin%20konsultasi%20mengenai%20layanan%20IT%20dan%20software." target="_blank" class="btn btn-success btn-lg rounded-pill px-4 py-3 fw-bold d-inline-flex align-items-center justify-content-center shadow-lg w-100 w-sm-auto" style="font-size: 1rem; background: #25d366; border-color: #25d366;">
+          <i class="fab fa-whatsapp me-2 fs-5"></i> Chat WhatsApp Direct
+        </a>
+        <a href="{{ route('contact') }}" class="btn btn-outline-light btn-lg rounded-pill px-4 py-3 fw-bold d-inline-flex align-items-center justify-content-center w-100 w-sm-auto" style="font-size: 1rem;">
+          <i class="fas fa-paper-plane me-2"></i> Kirim Pesan / Form Brief
+        </a>
+      </div>
+
+      {{-- Trust Highlights --}}
+      <div class="d-flex flex-wrap align-items-center justify-content-center gap-4 pt-3 border-top border-white border-opacity-10 text-white-50 small">
+        <span class="d-flex align-items-center gap-2"><i class="fas fa-check-circle text-info"></i> Respon Cepat &lt; 15 Menit</span>
+        <span class="d-flex align-items-center gap-2"><i class="fas fa-check-circle text-success"></i> Konsultasi Awal 100% Gratis</span>
+        <span class="d-flex align-items-center gap-2"><i class="fas fa-check-circle text-warning"></i> Jaminan Garansi SLA 99.9%</span>
+      </div>
+    </div>
   </div>
 </section>
 
