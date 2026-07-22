@@ -562,12 +562,56 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
         });
       });
     });
+    // Dynamic Scroll Fill for Timeline Progress Line
+    function updateTimelineProgress() {
+      const track = document.getElementById('timeline-track');
+      const fill = document.getElementById('timeline-progress-fill');
+      if (track && fill) {
+        const rect = track.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        if (rect.top < windowHeight && rect.bottom > 0) {
+          const totalHeight = rect.height;
+          const scrolled = Math.max(0, Math.min(totalHeight, (windowHeight * 0.6) - rect.top));
+          const percent = (scrolled / totalHeight) * 100;
+          fill.style.height = percent + '%';
+        }
+      }
+    }
+    window.addEventListener('scroll', updateTimelineProgress, { passive: true });
+    updateTimelineProgress();
   });
 </script>
 @endpush
 
-{{-- INTERACTIVE MILESTONE & JOURNEY TIMELINE (Ultra-Luxury Vertical Roadmap Stepper) --}}
-<section class="py-5 bg-light border-bottom position-relative overflow-hidden">
+{{-- INTERACTIVE MILESTONE & JOURNEY TIMELINE (Ultra-Luxury Vertical Roadmap Stepper with Scroll Fill Animation) --}}
+<section class="py-5 bg-light border-bottom position-relative overflow-hidden" id="timeline-section">
+  <style>
+    @keyframes pulseGlow {
+      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.6); }
+      70% { transform: scale(1.08); box-shadow: 0 0 0 15px rgba(59, 130, 246, 0); }
+      100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+    }
+    @keyframes floatCard {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+    .timeline-node-circle {
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      animation: pulseGlow 2.5s infinite;
+    }
+    .timeline-node-circle:hover {
+      transform: scale(1.2) rotate(5deg) !important;
+    }
+    .timeline-card-animated {
+      animation: floatCard 4.5s ease-in-out infinite;
+      transition: all 0.4s ease;
+    }
+    .timeline-card-animated:hover {
+      transform: translateY(-8px) scale(1.02) !important;
+      box-shadow: 0 20px 40px -15px rgba(2, 132, 199, 0.15) !important;
+    }
+  </style>
+
   <div class="container py-4">
     <div class="text-center mb-5 reveal">
       <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-20 rounded-pill px-4 py-2 mb-3 text-uppercase fw-bold" style="letter-spacing: 1.5px; font-size: 11px;">
@@ -581,13 +625,15 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
 
     {{-- Stepper Wrapper --}}
     <div class="position-relative mx-auto" style="max-width: 900px;">
-      {{-- Vertical Glowing Line --}}
-      <div class="position-absolute top-0 bottom-0 start-50 translate-middle-x z-0 d-none d-md-block" style="width: 4px; background: linear-gradient(180deg, #3b82f6 0%, #0284c7 50%, #10b981 100%); border-radius: 4px;"></div>
+      {{-- Dynamic Vertical Scroll Track Line --}}
+      <div id="timeline-track" class="position-absolute top-0 bottom-0 start-50 translate-middle-x z-0 d-none d-md-block" style="width: 4px; background: #cbd5e1; border-radius: 4px;">
+        <div id="timeline-progress-fill" style="width: 100%; height: 0%; background: linear-gradient(180deg, #3b82f6 0%, #0284c7 50%, #10b981 100%); border-radius: 4px; transition: height 0.1s linear;"></div>
+      </div>
 
       {{-- Step 1: 2024 --}}
-      <div class="row g-4 align-items-center mb-5 reveal">
+      <div class="row g-4 align-items-center mb-5 reveal-left">
         <div class="col-md-5 text-md-end order-2 order-md-1">
-          <div class="p-4 rounded-4 bg-white border shadow-sm transition-all" style="border-color: #e2e8f0 !important; border-right: 4px solid #3b82f6 !important;">
+          <div class="p-4 rounded-4 bg-white border shadow-sm timeline-card-animated" style="border-color: #e2e8f0 !important; border-right: 4px solid #3b82f6 !important;">
             <span class="badge bg-primary bg-opacity-10 text-primary fw-bold px-3 py-1 rounded-pill mb-2" style="font-size: 11px;">FASE FONDASI</span>
             <h4 class="fw-bold text-dark mb-2 fs-5">Pendirian & Solusi Perdana</h4>
             <p class="text-muted small mb-3" style="line-height: 1.6;">
@@ -606,7 +652,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
 
         {{-- Center Node Badge --}}
         <div class="col-md-2 text-center order-1 order-md-2 position-relative z-1">
-          <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-primary text-white font-monospace fw-bold shadow-lg border border-4 border-white mx-auto" style="width: 68px; height: 68px; font-size: 1.1rem; box-shadow: 0 0 20px rgba(59, 130, 246, 0.35) !important;">
+          <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-primary text-white font-monospace fw-bold shadow-lg border border-4 border-white mx-auto timeline-node-circle" style="width: 68px; height: 68px; font-size: 1.1rem;">
             2024
           </div>
         </div>
@@ -615,18 +661,18 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
       </div>
 
       {{-- Step 2: 2025 --}}
-      <div class="row g-4 align-items-center mb-5 reveal">
+      <div class="row g-4 align-items-center mb-5 reveal-right">
         <div class="col-md-5 d-none d-md-block order-1"></div>
 
         {{-- Center Node Badge --}}
         <div class="col-md-2 text-center order-1 order-md-2 position-relative z-1">
-          <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-info text-white font-monospace fw-bold shadow-lg border border-4 border-white mx-auto" style="width: 68px; height: 68px; font-size: 1.1rem; box-shadow: 0 0 20px rgba(14, 165, 233, 0.35) !important;">
+          <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-info text-white font-monospace fw-bold shadow-lg border border-4 border-white mx-auto timeline-node-circle" style="width: 68px; height: 68px; font-size: 1.1rem;">
             2025
           </div>
         </div>
 
         <div class="col-md-5 text-start order-2 order-md-3">
-          <div class="p-4 rounded-4 bg-white border shadow-sm transition-all" style="border-color: #e2e8f0 !important; border-left: 4px solid #0284c7 !important;">
+          <div class="p-4 rounded-4 bg-white border shadow-sm timeline-card-animated" style="border-color: #e2e8f0 !important; border-left: 4px solid #0284c7 !important; animation-delay: 0.5s;">
             <span class="badge bg-info bg-opacity-10 text-info fw-bold px-3 py-1 rounded-pill mb-2" style="font-size: 11px;">FASE EKSPANSI ENTERPRISE</span>
             <h4 class="fw-bold text-dark mb-2 fs-5">Kemitraan Manufaktur & Tbk</h4>
             <p class="text-muted small mb-3" style="line-height: 1.6;">
@@ -645,9 +691,9 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
       </div>
 
       {{-- Step 3: 2026 --}}
-      <div class="row g-4 align-items-center reveal">
+      <div class="row g-4 align-items-center reveal-left">
         <div class="col-md-5 text-md-end order-2 order-md-1">
-          <div class="p-4 rounded-4 bg-white border shadow-sm transition-all" style="border-color: #e2e8f0 !important; border-right: 4px solid #10b981 !important;">
+          <div class="p-4 rounded-4 bg-white border shadow-sm timeline-card-animated" style="border-color: #e2e8f0 !important; border-right: 4px solid #10b981 !important; animation-delay: 1s;">
             <span class="badge bg-success bg-opacity-10 text-success fw-bold px-3 py-1 rounded-pill mb-2" style="font-size: 11px;">FASE ECOSYSTEM & SAAS PLATFORMS</span>
             <h4 class="fw-bold text-dark mb-2 fs-5">Ekosistem Digital & Produk SaaS Inovatif</h4>
             <p class="text-muted small mb-3" style="line-height: 1.6;">
@@ -671,7 +717,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
 
         {{-- Center Node Badge --}}
         <div class="col-md-2 text-center order-1 order-md-2 position-relative z-1">
-          <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-success text-white font-monospace fw-bold shadow-lg border border-4 border-white mx-auto" style="width: 68px; height: 68px; font-size: 1.1rem; box-shadow: 0 0 20px rgba(16, 185, 129, 0.35) !important;">
+          <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-success text-white font-monospace fw-bold shadow-lg border border-4 border-white mx-auto timeline-node-circle" style="width: 68px; height: 68px; font-size: 1.1rem;">
             2026
           </div>
         </div>
