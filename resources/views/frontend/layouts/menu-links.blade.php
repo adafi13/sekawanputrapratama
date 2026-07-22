@@ -71,6 +71,15 @@
                 </div>
             </a>
         </li>
+        <li>
+            <a href="{{ route('tools.ip-lookup') }}" class="d-flex align-items-center p-2 rounded mb-1 {{ request()->routeIs('tools.ip-lookup') ? 'bg-primary bg-opacity-10 text-primary' : '' }}">
+                <i class="fas fa-map-marked-alt me-3 text-purple fs-5" style="color: #8b5cf6;"></i> 
+                <div>
+                    <strong class="d-block text-dark" style="font-size: 13px;">IP Geolokasi &amp; Server WHOIS</strong>
+                    <span class="text-muted d-block" style="font-size: 11px;">Lokasi Fisik Server, ISP &amp; Provider Hosting</span>
+                </div>
+            </a>
+        </li>
     </ul>
 </li>
 <li><a href="{{ route('portfolio.index') }}" class="{{ request()->routeIs('portfolio.*') ? 'active' : '' }}">Portfolio</a></li>

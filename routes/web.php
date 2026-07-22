@@ -40,6 +40,7 @@ Route::get('/speedtest', [FrontendController::class, 'speedtest'])->name('tools.
 Route::get('/tools/dns-lookup', [FrontendController::class, 'dnsLookup'])->name('tools.dns-lookup');
 Route::get('/tools/ssl-checker', [FrontendController::class, 'sslChecker'])->name('tools.ssl-checker');
 Route::get('/tools/port-checker', [FrontendController::class, 'portChecker'])->name('tools.port-checker');
+Route::get('/tools/ip-lookup', [FrontendController::class, 'ipLookup'])->name('tools.ip-lookup');
 
 // Calculator Route
 Route::get('/calculator', [CalculatorController::class, 'index'])->name('calculator.index');

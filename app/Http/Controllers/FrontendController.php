@@ -404,4 +404,9 @@ class FrontendController extends Controller
     {
         return view('frontend.tools.port-checker');
     }
+
+    public function ipLookup()
+    {
+        return view('frontend.tools.ip-lookup');
+    }
 }
