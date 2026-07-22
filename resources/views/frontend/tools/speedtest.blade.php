@@ -123,15 +123,31 @@
 <script>
   let isTesting = false;
 
-  // Detect IP info
-  fetch('https://api.ipify.org?format=json')
+  // Detect ISP & IP info
+  fetch('https://ipwho.is/')
     .then(res => res.json())
     .then(data => {
-      document.getElementById('client-ip-info').textContent = data.ip + ' (Verified Connection)';
+      if (data && data.ip) {
+        let isp = data.connection && data.connection.isp ? data.connection.isp : (data.org || 'Penyedia Jaringan Utama');
+        document.getElementById('client-ip-info').innerHTML = '<strong class="text-primary">' + isp + '</strong> (' + data.ip + ')';
+      } else {
+        fallbackIp();
+      }
     })
     .catch(() => {
-      document.getElementById('client-ip-info').textContent = 'Koneksi Terhubung';
+      fallbackIp();
     });
+
+  function fallbackIp() {
+    fetch('https://api.ipify.org?format=json')
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('client-ip-info').textContent = 'Penyedia Terhubung (' + data.ip + ')';
+      })
+      .catch(() => {
+        document.getElementById('client-ip-info').textContent = 'Koneksi Terhubung (Public Network)';
+      });
+  }
 
   function startSpeedTest() {
     if (isTesting) return;
