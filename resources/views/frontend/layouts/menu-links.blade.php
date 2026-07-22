@@ -25,49 +25,49 @@
     <a href="{{ route('tools.speedtest') }}" class="{{ request()->routeIs('tools.*') ? 'active' : '' }}">
         Tools <i class="fas fa-chevron-down ms-1 nav-dropdown-icon"></i>
     </a>
-    <ul class="nav-dropdown-menu" style="min-width: 270px;">
+    <ul class="nav-dropdown-menu" style="min-width: 280px; padding: 12px;">
         <li>
-            <a href="{{ route('tools.speedtest') }}" class="d-flex align-items-center bg-light p-2 rounded mb-2 border">
-                <i class="fas fa-bolt me-2 text-warning fs-5"></i> 
+            <a href="{{ route('tools.speedtest') }}" class="d-flex align-items-center p-2 rounded mb-1 {{ request()->routeIs('tools.speedtest') ? 'bg-primary bg-opacity-10 text-primary' : '' }}">
+                <i class="fas fa-tachometer-alt me-3 text-primary fs-5"></i> 
                 <div>
-                    <strong class="d-block text-primary" style="font-size: 12px;">SpeedTest Internet</strong>
-                    <span class="text-muted" style="font-size: 11px;">Uji Kecepatan &amp; Latensi Real-time</span>
+                    <strong class="d-block text-dark" style="font-size: 13px;">SpeedTest Internet</strong>
+                    <span class="text-muted d-block" style="font-size: 11px;">Uji Kecepatan &amp; Latensi Real-time</span>
                 </div>
             </a>
         </li>
         <li>
-            <a href="{{ route('about') }}#tech-stack-arsenal">
-                <i class="fas fa-server me-2 text-primary"></i> 
+            <a href="{{ route('tools.dns-lookup') }}" class="d-flex align-items-center p-2 rounded mb-1 {{ request()->routeIs('tools.dns-lookup') ? 'bg-primary bg-opacity-10 text-primary' : '' }}">
+                <i class="fas fa-search-location me-3 text-info fs-5"></i> 
                 <div>
-                    <strong class="d-block text-dark" style="font-size: 12px;">Backend Stack</strong>
-                    <span class="text-muted" style="font-size: 11px;">Laravel, Node.js, Python, PHP 8.x</span>
+                    <strong class="d-block text-dark" style="font-size: 13px;">Cek IP &amp; DNS Lookup</strong>
+                    <span class="text-muted d-block" style="font-size: 11px;">Analisa Record DNS &amp; ISP Domain</span>
                 </div>
             </a>
         </li>
         <li>
-            <a href="{{ route('about') }}#tech-stack-arsenal">
-                <i class="fas fa-mobile-alt me-2 text-info"></i> 
+            <a href="{{ route('calculator.index') }}" class="d-flex align-items-center p-2 rounded mb-1 {{ request()->routeIs('calculator.*') ? 'bg-primary bg-opacity-10 text-primary' : '' }}">
+                <i class="fas fa-calculator me-3 text-success fs-5"></i> 
                 <div>
-                    <strong class="d-block text-dark" style="font-size: 12px;">Frontend &amp; Mobile</strong>
-                    <span class="text-muted" style="font-size: 11px;">Flutter, React Native, Vue, Tailwind</span>
+                    <strong class="d-block text-dark" style="font-size: 13px;">Kalkulator Biaya IT</strong>
+                    <span class="text-muted d-block" style="font-size: 11px;">Estimasi Budget Web, App &amp; Server</span>
                 </div>
             </a>
         </li>
         <li>
-            <a href="{{ route('about') }}#tech-stack-arsenal">
-                <i class="fas fa-cloud me-2 text-warning"></i> 
+            <a href="{{ route('tools.password-generator') }}" class="d-flex align-items-center p-2 rounded mb-1 {{ request()->routeIs('tools.password-generator') ? 'bg-primary bg-opacity-10 text-primary' : '' }}">
+                <i class="fas fa-key me-3 text-warning fs-5"></i> 
                 <div>
-                    <strong class="d-block text-dark" style="font-size: 12px;">Cloud &amp; Network</strong>
-                    <span class="text-muted" style="font-size: 11px;">AWS, GCP, Docker, Mikrotik</span>
+                    <strong class="d-block text-dark" style="font-size: 13px;">Generator Password &amp; Hash</strong>
+                    <span class="text-muted d-block" style="font-size: 11px;">Enkripsi Kata Sandi &amp; Hash Siber</span>
                 </div>
             </a>
         </li>
         <li>
-            <a href="{{ route('about') }}#tech-stack-arsenal">
-                <i class="fas fa-database me-2 text-success"></i> 
+            <a href="{{ route('tools.port-checker') }}" class="d-flex align-items-center p-2 rounded mb-1 {{ request()->routeIs('tools.port-checker') ? 'bg-primary bg-opacity-10 text-primary' : '' }}">
+                <i class="fas fa-network-wired me-3 text-danger fs-5"></i> 
                 <div>
-                    <strong class="d-block text-dark" style="font-size: 12px;">Database &amp; Cache</strong>
-                    <span class="text-muted" style="font-size: 11px;">PostgreSQL, MySQL, Redis Cache</span>
+                    <strong class="d-block text-dark" style="font-size: 13px;">Ping &amp; Port Checker</strong>
+                    <span class="text-muted d-block" style="font-size: 11px;">Cek Status Port Server (80, 443, 22)</span>
                 </div>
             </a>
         </li>

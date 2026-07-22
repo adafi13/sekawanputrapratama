@@ -389,4 +389,19 @@ class FrontendController extends Controller
     {
         return view('frontend.tools.speedtest');
     }
+
+    public function dnsLookup()
+    {
+        return view('frontend.tools.dns-lookup');
+    }
+
+    public function passwordGenerator()
+    {
+        return view('frontend.tools.password-generator');
+    }
+
+    public function portChecker()
+    {
+        return view('frontend.tools.port-checker');
+    }
 }
