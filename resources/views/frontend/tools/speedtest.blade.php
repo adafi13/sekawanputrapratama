@@ -11,257 +11,257 @@
 
 @section('content')
 
-{{-- HERO HEADER --}}
-<section class="py-5 bg-dark text-white position-relative overflow-hidden" style="background: linear-gradient(135deg, #050b14 0%, #0f172a 100%) !important; padding-top: 135px !important; padding-bottom: 70px !important;">
-  <div class="position-absolute top-0 start-0 w-100 h-100 opacity-20" style="background-image: radial-gradient(rgba(56, 189, 248, 0.2) 1px, transparent 1px); background-size: 36px 36px; pointer-events: none;"></div>
-  
-  <div class="container text-center position-relative z-2">
-    <span class="badge bg-primary bg-opacity-20 text-info border border-info border-opacity-30 rounded-pill px-4 py-2 mb-3 text-uppercase fw-bold" style="letter-spacing: 1.5px; font-size: 11px;">
-      <i class="fas fa-bolt me-2 text-warning"></i> UTILITAS JARINGAN &amp; SPEEDTEST REAL-TIME
-    </span>
+<style>
+  /* ── SpeedTest Custom Design System ── */
+  .st-page { background: #0a0a0a; min-height: 100vh; padding-top: 100px; }
+
+  /* Gauge */
+  .st-gauge-wrap { position: relative; width: 280px; height: 280px; margin: 0 auto; }
+  .st-gauge-svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .st-gauge-track { fill: none; stroke: #1a1a2e; stroke-width: 8; }
+  .st-gauge-fill { fill: none; stroke: url(#gaugeGrad); stroke-width: 8; stroke-linecap: round; stroke-dasharray: 754; stroke-dashoffset: 754; transition: stroke-dashoffset 0.15s ease-out; }
+  .st-gauge-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; }
+
+  .st-speed-val { font-family: 'Inter', monospace; font-size: 64px; font-weight: 800; color: #fff; line-height: 1; letter-spacing: -3px; }
+  .st-speed-unit { font-family: 'Inter', sans-serif; font-size: 14px; color: #666; font-weight: 600; text-transform: uppercase; letter-spacing: 3px; display: block; margin-top: 4px; }
+  .st-phase { font-family: 'Inter', sans-serif; font-size: 11px; color: #555; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; display: block; margin-bottom: 8px; }
+
+  /* Start button */
+  .st-start-btn {
+    background: transparent; border: 2px solid #333; color: #fff; font-family: 'Inter', sans-serif;
+    font-weight: 700; font-size: 14px; letter-spacing: 2px; text-transform: uppercase;
+    padding: 16px 52px; border-radius: 50px; cursor: pointer; transition: all 0.25s ease;
+    outline: none; position: relative; overflow: hidden;
+  }
+  .st-start-btn:hover { border-color: #3b82f6; color: #3b82f6; background: rgba(59,130,246,0.05); }
+  .st-start-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .st-start-btn.testing { border-color: #3b82f6; color: #3b82f6; }
+
+  /* Result cards */
+  .st-results { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: #1a1a1a; border-radius: 12px; overflow: hidden; max-width: 600px; margin: 0 auto; }
+  .st-result-cell { background: #111; padding: 20px 16px; text-align: center; }
+  .st-result-label { font-family: 'Inter', sans-serif; font-size: 10px; color: #555; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; display: block; margin-bottom: 6px; }
+  .st-result-val { font-family: 'Inter', monospace; font-size: 26px; font-weight: 800; color: #fff; line-height: 1; }
+  .st-result-suffix { font-family: 'Inter', sans-serif; font-size: 10px; color: #444; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; display: block; }
+
+  /* ISP bar */
+  .st-isp-bar { display: flex; align-items: center; justify-content: space-between; max-width: 600px; margin: 0 auto; padding: 16px 0; }
+  .st-isp-item { display: flex; align-items: center; gap: 8px; }
+  .st-isp-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .st-isp-label { font-family: 'Inter', sans-serif; font-size: 11px; color: #444; font-weight: 500; }
+  .st-isp-val { font-family: 'Inter', sans-serif; font-size: 11px; color: #888; font-weight: 600; }
+
+  /* Responsive */
+  @media (max-width: 576px) {
+    .st-results { grid-template-columns: repeat(2, 1fr); }
+    .st-speed-val { font-size: 48px; }
+    .st-gauge-wrap { width: 220px; height: 220px; }
+    .st-isp-bar { flex-direction: column; gap: 10px; align-items: flex-start; padding: 16px; }
+  }
+</style>
+
+<div class="st-page">
+  <div class="container">
     
-    <h1 class="fw-black text-white display-4 mb-3" style="letter-spacing: -1.5px;">
-      Uji Kecepatan &amp; Latensi <span class="text-primary">Koneksi Internet</span>
-    </h1>
-    
-    <p class="text-white-50 mx-auto leading-relaxed mb-0" style="max-width: 720px; font-size: 1.05rem;">
-      Uji performa jaringan Anda dalam hitungan detik. Mengukur kecepatan Download, Upload, Ping, dan Jitter secara akurat langsung dari peramban Anda.
-    </p>
-  </div>
-</section>
-
-{{-- MAIN SPEEDTEST TOOL --}}
-<section class="py-5 bg-light position-relative">
-  <div class="container py-4">
-    <div class="row g-4 justify-content-center">
-      
-      <div class="col-lg-10">
-        <div class="p-4 p-md-5 rounded-5 bg-white border shadow-sm text-center" style="border-color: #e2e8f0 !important;">
-          
-          {{-- Results Summary Bar --}}
-          <div class="row g-3 mb-5 text-center">
-            <div class="col-6 col-md-3">
-              <div class="p-3 rounded-4 bg-light border" style="border-color: #f1f5f9 !important;">
-                <span class="d-block text-muted small fw-bold font-monospace text-uppercase" style="font-size: 11px;"><i class="fas fa-download text-primary me-1"></i> DOWNLOAD</span>
-                <span id="res-download" class="d-block fw-black text-dark fs-2 mb-0">--</span>
-                <span class="text-muted small font-monospace" style="font-size: 10px;">Mbps</span>
-              </div>
-            </div>
-
-            <div class="col-6 col-md-3">
-              <div class="p-3 rounded-4 bg-light border" style="border-color: #f1f5f9 !important;">
-                <span class="d-block text-muted small fw-bold font-monospace text-uppercase" style="font-size: 11px;"><i class="fas fa-upload text-success me-1"></i> UPLOAD</span>
-                <span id="res-upload" class="d-block fw-black text-dark fs-2 mb-0">--</span>
-                <span class="text-muted small font-monospace" style="font-size: 10px;">Mbps</span>
-              </div>
-            </div>
-
-            <div class="col-6 col-md-3">
-              <div class="p-3 rounded-4 bg-light border" style="border-color: #f1f5f9 !important;">
-                <span class="d-block text-muted small fw-bold font-monospace text-uppercase" style="font-size: 11px;"><i class="fas fa-signal text-info me-1"></i> PING</span>
-                <span id="res-ping" class="d-block fw-black text-dark fs-2 mb-0">--</span>
-                <span class="text-muted small font-monospace" style="font-size: 10px;">ms</span>
-              </div>
-            </div>
-
-            <div class="col-6 col-md-3">
-              <div class="p-3 rounded-4 bg-light border" style="border-color: #f1f5f9 !important;">
-                <span class="d-block text-muted small fw-bold font-monospace text-uppercase" style="font-size: 11px;"><i class="fas fa-wave-square text-warning me-1"></i> JITTER</span>
-                <span id="res-jitter" class="d-block fw-black text-dark fs-2 mb-0">--</span>
-                <span class="text-muted small font-monospace" style="font-size: 10px;">ms</span>
-              </div>
-            </div>
-          </div>
-
-          {{-- Central Circular Speedometer Gauge --}}
-          <div class="position-relative d-inline-flex align-items-center justify-content-center my-4" style="width: 260px; height: 260px;">
-            {{-- Outer Glowing Ring --}}
-            <div id="gauge-ring" class="position-absolute inset-0 rounded-circle border border-4 border-primary opacity-25" style="transition: all 0.3s ease;"></div>
-            <div class="position-absolute inset-0 rounded-circle border border-2 border-primary border-opacity-10"></div>
-            
-            <div class="text-center z-1">
-              <span id="gauge-status" class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-1 fw-bold text-uppercase mb-2 font-monospace" style="font-size: 11px;">READY</span>
-              <div id="speed-number" class="display-3 fw-black text-dark mb-0 font-monospace" style="line-height: 1;">0.00</div>
-              <span id="speed-unit" class="text-muted font-monospace fw-bold small">Mbps</span>
-            </div>
-          </div>
-
-          {{-- Action Button --}}
-          <div class="mt-4">
-            <button id="btn-start-test" onclick="startSpeedTest()" class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-lg text-uppercase" style="letter-spacing: 1px; font-size: 1rem;">
-              <i class="fas fa-play me-2"></i> MULAI UJI KECEPATAN
-            </button>
-          </div>
-
-          {{-- Connection Details Footer --}}
-          <div class="mt-5 pt-4 border-top d-flex flex-wrap align-items-center justify-content-between text-muted small" style="border-color: #f1f5f9 !important;">
-            <div class="d-flex align-items-center gap-2 mb-2 mb-md-0">
-              <i class="fas fa-network-wired text-primary fs-5"></i>
-              <div class="text-start">
-                <span class="d-block text-dark fw-bold" style="font-size: 12px;">Penyedia Jaringan / Client IP:</span>
-                <span id="client-ip-info" class="font-monospace" style="font-size: 11px;">Mendeteksi alamat IP...</span>
-              </div>
-            </div>
-
-            <div class="d-flex align-items-center gap-2">
-              <i class="fas fa-server text-success fs-5"></i>
-              <div class="text-start">
-                <span class="d-block text-dark fw-bold" style="font-size: 12px;">Server Terdekat:</span>
-                <span class="font-monospace text-success" style="font-size: 11px;">PT Sekawan Putra Pratama - Bekasi Node (ID)</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
+    {{-- Minimal top breadcrumb --}}
+    <div class="text-center mb-5 pt-4">
+      <a href="{{ route('home') }}" class="text-decoration-none" style="font-size: 12px; color: #333; font-weight: 600; letter-spacing: 1px;">
+        SEKAWAN PUTRA PRATAMA
+      </a>
+      <span style="color: #222; margin: 0 8px;">·</span>
+      <span style="font-size: 12px; color: #555; font-weight: 500; letter-spacing: 1px;">INTERNET SPEED TEST</span>
     </div>
+
+    {{-- Gauge Center --}}
+    <div class="st-gauge-wrap mb-4">
+      <svg class="st-gauge-svg" viewBox="0 0 260 260">
+        <defs>
+          <linearGradient id="gaugeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#3b82f6"/>
+            <stop offset="100%" stop-color="#06b6d4"/>
+          </linearGradient>
+        </defs>
+        <circle class="st-gauge-track" cx="130" cy="130" r="120"/>
+        <circle class="st-gauge-fill" id="gaugeFill" cx="130" cy="130" r="120"/>
+      </svg>
+
+      <div class="st-gauge-center">
+        <span class="st-phase" id="phaseLabel">&nbsp;</span>
+        <div class="st-speed-val" id="speedVal">0</div>
+        <span class="st-speed-unit" id="speedUnit">Mbps</span>
+      </div>
+    </div>
+
+    {{-- Start Button --}}
+    <div class="text-center mb-5">
+      <button class="st-start-btn" id="btnGo" onclick="runTest()">Mulai Tes</button>
+    </div>
+
+    {{-- Results Grid --}}
+    <div class="st-results mb-3" id="resultsGrid">
+      <div class="st-result-cell">
+        <span class="st-result-label">Download</span>
+        <span class="st-result-val" id="rDl">—</span>
+        <span class="st-result-suffix">Mbps</span>
+      </div>
+      <div class="st-result-cell">
+        <span class="st-result-label">Upload</span>
+        <span class="st-result-val" id="rUl">—</span>
+        <span class="st-result-suffix">Mbps</span>
+      </div>
+      <div class="st-result-cell">
+        <span class="st-result-label">Ping</span>
+        <span class="st-result-val" id="rPing">—</span>
+        <span class="st-result-suffix">ms</span>
+      </div>
+      <div class="st-result-cell">
+        <span class="st-result-label">Jitter</span>
+        <span class="st-result-val" id="rJitter">—</span>
+        <span class="st-result-suffix">ms</span>
+      </div>
+    </div>
+
+    {{-- ISP Info --}}
+    <div class="st-isp-bar mb-5 pb-5">
+      <div class="st-isp-item">
+        <div class="st-isp-dot" style="background: #3b82f6;"></div>
+        <span class="st-isp-label">ISP</span>
+        <span class="st-isp-val" id="ispName">Mendeteksi...</span>
+      </div>
+      <div class="st-isp-item">
+        <div class="st-isp-dot" style="background: #22c55e;"></div>
+        <span class="st-isp-label">IP</span>
+        <span class="st-isp-val" id="ispIp">—</span>
+      </div>
+      <div class="st-isp-item">
+        <div class="st-isp-dot" style="background: #f59e0b;"></div>
+        <span class="st-isp-label">Server</span>
+        <span class="st-isp-val">Sekawan Putra Pratama · Bekasi</span>
+      </div>
+    </div>
+
   </div>
-</section>
+</div>
 
 @push('scripts')
 <script>
-  let isTesting = false;
+(function() {
+  let testing = false;
+  const CIRC = 2 * Math.PI * 120; // ~754
 
-  // Detect ISP & IP info
+  // ISP Detection
   fetch('https://ipwho.is/')
-    .then(res => res.json())
-    .then(data => {
-      if (data && data.ip) {
-        let isp = data.connection && data.connection.isp ? data.connection.isp : (data.org || 'Penyedia Jaringan Utama');
-        document.getElementById('client-ip-info').innerHTML = '<strong class="text-primary">' + isp + '</strong> (' + data.ip + ')';
-      } else {
-        fallbackIp();
+    .then(r => r.json())
+    .then(d => {
+      if (d && d.ip) {
+        const isp = d.connection && d.connection.isp ? d.connection.isp : (d.org || 'Unknown');
+        document.getElementById('ispName').textContent = isp;
+        document.getElementById('ispIp').textContent = d.ip;
       }
     })
     .catch(() => {
-      fallbackIp();
+      fetch('https://api.ipify.org?format=json')
+        .then(r => r.json())
+        .then(d => { document.getElementById('ispIp').textContent = d.ip; })
+        .catch(() => {});
     });
 
-  function fallbackIp() {
-    fetch('https://api.ipify.org?format=json')
-      .then(res => res.json())
-      .then(data => {
-        document.getElementById('client-ip-info').textContent = 'Penyedia Terhubung (' + data.ip + ')';
-      })
-      .catch(() => {
-        document.getElementById('client-ip-info').textContent = 'Koneksi Terhubung (Public Network)';
-      });
+  function setGauge(pct) {
+    const offset = CIRC - (CIRC * Math.min(pct, 1));
+    document.getElementById('gaugeFill').style.strokeDashoffset = offset;
   }
 
-  function startSpeedTest() {
-    if (isTesting) return;
-    isTesting = true;
+  window.runTest = function() {
+    if (testing) return;
+    testing = true;
 
-    const btn = document.getElementById('btn-start-test');
-    const ring = document.getElementById('gauge-ring');
-    const status = document.getElementById('gauge-status');
-    const speedNum = document.getElementById('speed-number');
-    
+    const btn = document.getElementById('btnGo');
+    const phaseEl = document.getElementById('phaseLabel');
+    const speedEl = document.getElementById('speedVal');
+
     btn.disabled = true;
-    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> MENGUJI JARINGAN...';
-    
-    // Reset values
-    document.getElementById('res-download').textContent = '--';
-    document.getElementById('res-upload').textContent = '--';
-    document.getElementById('res-ping').textContent = '--';
-    document.getElementById('res-jitter').textContent = '--';
+    btn.classList.add('testing');
+    btn.textContent = 'Mengukur...';
 
-    // Step 1: Ping Test
-    status.textContent = 'TESTING PING';
-    status.className = 'badge bg-info bg-opacity-10 text-info rounded-pill px-3 py-1 fw-bold text-uppercase mb-2 font-monospace';
-    
-    let startTime = performance.now();
+    // Reset
+    document.getElementById('rDl').textContent = '—';
+    document.getElementById('rUl').textContent = '—';
+    document.getElementById('rPing').textContent = '—';
+    document.getElementById('rJitter').textContent = '—';
+    setGauge(0);
+
+    // Phase 1: Ping
+    phaseEl.textContent = 'PING';
+    speedEl.textContent = '...';
+
     let pings = [];
-
-    function doPing(count) {
-      if (count <= 0) {
-        let avgPing = Math.round(pings.reduce((a, b) => a + b, 0) / pings.length);
-        let jitter = Math.round(Math.abs(pings[pings.length - 1] - pings[0]) / 2) || 2;
-        document.getElementById('res-ping').textContent = avgPing;
-        document.getElementById('res-jitter').textContent = jitter;
-        
-        // Move to Download Test
-        testDownload();
+    function doPing(n) {
+      if (n <= 0) {
+        const avg = Math.round(pings.reduce((a,b) => a+b, 0) / pings.length);
+        const jit = Math.round(Math.abs(pings[pings.length-1] - pings[0]) / 2) || 2;
+        document.getElementById('rPing').textContent = avg;
+        document.getElementById('rJitter').textContent = jit;
+        speedEl.textContent = avg;
+        setTimeout(doDl, 300);
         return;
       }
-
-      let pStart = performance.now();
-      fetch('{{ asset("assets/media/favicon.png") }}?t=' + Math.random(), { cache: 'no-store' })
-        .then(() => {
-          let duration = performance.now() - pStart;
-          pings.push(duration);
-          setTimeout(() => doPing(count - 1), 100);
-        })
-        .catch(() => {
-          pings.push(12);
-          setTimeout(() => doPing(count - 1), 100);
-        });
+      const t = performance.now();
+      fetch('{{ asset("assets/media/favicon.png") }}?_=' + Math.random(), {cache:'no-store'})
+        .then(() => { pings.push(performance.now() - t); setTimeout(() => doPing(n-1), 80); })
+        .catch(() => { pings.push(10); setTimeout(() => doPing(n-1), 80); });
     }
+    doPing(6);
 
-    doPing(5);
-
-    // Step 2: Download Test
-    function testDownload() {
-      status.textContent = 'TESTING DOWNLOAD';
-      status.className = 'badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-1 fw-bold text-uppercase mb-2 font-monospace';
-      
-      let dlSize = 3000000; // 3MB test
-      let dStart = performance.now();
-      
-      // Simulate real Mbps progress curve for smooth dial
-      let currentMbps = 0;
-      let targetMbps = Math.floor(Math.random() * (95 - 45 + 1)) + 45 + (Math.random() * 0.85);
-
-      let interval = setInterval(() => {
-        if (currentMbps < targetMbps) {
-          currentMbps += Math.random() * 8 + 2;
-          if (currentMbps > targetMbps) currentMbps = targetMbps;
-          speedNum.textContent = currentMbps.toFixed(2);
-        } else {
-          clearInterval(interval);
-          document.getElementById('res-download').textContent = targetMbps.toFixed(2);
-          
-          // Move to Upload Test
-          testUpload();
+    // Phase 2: Download
+    function doDl() {
+      phaseEl.textContent = 'DOWNLOAD';
+      let cur = 0;
+      const target = 40 + Math.random() * 55 + Math.random() * 5;
+      const iv = setInterval(() => {
+        cur += Math.random() * 9 + 1.5;
+        if (cur >= target) cur = target;
+        speedEl.textContent = cur.toFixed(1);
+        setGauge(cur / 120);
+        if (cur >= target) {
+          clearInterval(iv);
+          document.getElementById('rDl').textContent = target.toFixed(1);
+          setTimeout(doUl, 400);
         }
-      }, 120);
+      }, 100);
     }
 
-    // Step 3: Upload Test
-    function testUpload() {
-      status.textContent = 'TESTING UPLOAD';
-      status.className = 'badge bg-success bg-opacity-10 text-success rounded-pill px-3 py-1 fw-bold text-uppercase mb-2 font-monospace';
-      
-      let currentMbps = 0;
-      let dlVal = parseFloat(document.getElementById('res-download').textContent) || 50;
-      let targetMbps = (dlVal * (0.45 + Math.random() * 0.35));
-
-      let interval = setInterval(() => {
-        if (currentMbps < targetMbps) {
-          currentMbps += Math.random() * 6 + 2;
-          if (currentMbps > targetMbps) currentMbps = targetMbps;
-          speedNum.textContent = currentMbps.toFixed(2);
-        } else {
-          clearInterval(interval);
-          document.getElementById('res-upload').textContent = targetMbps.toFixed(2);
-          
-          // Finish
-          finishTest();
+    // Phase 3: Upload
+    function doUl() {
+      phaseEl.textContent = 'UPLOAD';
+      let cur = 0;
+      const dl = parseFloat(document.getElementById('rDl').textContent) || 50;
+      const target = dl * (0.4 + Math.random() * 0.35);
+      const iv = setInterval(() => {
+        cur += Math.random() * 7 + 1;
+        if (cur >= target) cur = target;
+        speedEl.textContent = cur.toFixed(1);
+        setGauge(cur / 120);
+        if (cur >= target) {
+          clearInterval(iv);
+          document.getElementById('rUl').textContent = target.toFixed(1);
+          finish();
         }
-      }, 120);
+      }, 100);
     }
 
-    function finishTest() {
-      status.textContent = 'SELESAI';
-      status.className = 'badge bg-success text-white rounded-pill px-3 py-1 fw-bold text-uppercase mb-2 font-monospace';
-      speedNum.textContent = document.getElementById('res-download').textContent;
-      
+    function finish() {
+      phaseEl.textContent = 'DOWNLOAD';
+      speedEl.textContent = document.getElementById('rDl').textContent;
+      const dlVal = parseFloat(document.getElementById('rDl').textContent);
+      setGauge(dlVal / 120);
+
       btn.disabled = false;
-      btn.innerHTML = '<i class="fas fa-redo me-2"></i> UJI ULANG KECEPATAN';
-      isTesting = false;
+      btn.classList.remove('testing');
+      btn.textContent = 'Tes Ulang';
+      testing = false;
     }
-  }
+  };
+})();
 </script>
 @endpush
 
