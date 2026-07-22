@@ -244,34 +244,106 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
   </div>
 </section>
 
-{{-- MISSION & STATS --}}
-<section class="abt-mission">
-  <div class="container">
-    <div class="mission-card reveal">
-      <div class="mission-left">
-        <span class="label">Misi Kami</span>
-        <h2>Membangun Jembatan Menuju <span class="text-primary">Masa Depan Digital</span></h2>
-        <p>
-          Sejak 2024, PT Sekawan Putra Pratama telah berkomitmen untuk menghadirkan kualitas tingkat dunia dalam setiap baris kode yang kami tulis. Fokus kami adalah memberdayakan bisnis lokal untuk bersaing di panggung global melalui infrastruktur IT yang kokoh dan aplikasi yang intuitif.
+{{-- PROFIL PERUSAHAAN & VISI MISI --}}
+<section class="py-5 bg-white">
+  <div class="container py-4">
+    {{-- Grid 2 Kolom: Profil Perusahaan & Stats --}}
+    <div class="row g-4 align-items-center mb-5">
+      <div class="col-lg-7 reveal">
+        <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-20 rounded-pill px-4 py-2 mb-3 text-uppercase fw-bold" style="letter-spacing: 1.5px; font-size: 11px;">
+          <i class="fas fa-building me-2"></i> PROFIL PERUSAHAAN
+        </span>
+        <h2 class="fw-black text-dark display-6 mb-4" style="letter-spacing: -1px;">
+          Mitra Strategis <span class="text-primary">Transformasi Digital</span> Bisnis Anda
+        </h2>
+        <p class="text-muted leading-relaxed mb-3" style="font-size: 1.05rem; line-height: 1.8;">
+          <strong>PT Sekawan Putra Pratama</strong> adalah perusahaan teknologi informasi yang berdedikasi menghadirkan solusi digital terintegrasi. Kami hadir menjembatani kebutuhan bisnis—mulai dari UMKM hingga perusahaan berskala besar—dengan inovasi teknologi yang tepat guna.
+        </p>
+        <p class="text-muted leading-relaxed mb-0" style="font-size: 1.05rem; line-height: 1.8;">
+          Kami memahami bahwa setiap bisnis memiliki tantangan unik. Oleh karena itu, kami tidak menerapkan pendekatan <em>"satu solusi untuk semua"</em>. Kami merancang sistem yang disesuaikan (custom) dengan alur kerja, target pasar, dan standar operasional Anda untuk memastikan efisiensi dan pertumbuhan yang nyata.
         </p>
       </div>
-      <div class="mission-right">
-        <div class="stats-grid-mini">
-          <div class="stat-box-mini reveal delay-100">
-            <span class="num">50+</span>
-            <span class="txt">Proyek Selesai</span>
+
+      <div class="col-lg-5 reveal delay-100">
+        <div class="row g-3">
+          <div class="col-6">
+            <div class="p-4 rounded-4 bg-light border text-center transition-all" style="border-color: #e2e8f0 !important;">
+              <span class="d-block fw-black text-primary display-5 mb-1">50+</span>
+              <span class="text-muted small fw-bold text-uppercase" style="letter-spacing: 0.5px; font-size: 11px;">Proyek Selesai</span>
+            </div>
           </div>
-          <div class="stat-box-mini reveal delay-200">
-            <span class="num">20+</span>
-            <span class="txt">Klien Aktif</span>
+          <div class="col-6">
+            <div class="p-4 rounded-4 bg-light border text-center transition-all" style="border-color: #e2e8f0 !important;">
+              <span class="d-block fw-black text-info display-5 mb-1">20+</span>
+              <span class="text-muted small fw-bold text-uppercase" style="letter-spacing: 0.5px; font-size: 11px;">Klien Aktif</span>
+            </div>
           </div>
-          <div class="stat-box-mini reveal delay-300">
-            <span class="num">2024</span>
-            <span class="txt">Tahun Berdiri</span>
+          <div class="col-6">
+            <div class="p-4 rounded-4 bg-light border text-center transition-all" style="border-color: #e2e8f0 !important;">
+              <span class="d-block fw-black text-dark display-5 mb-1">2024</span>
+              <span class="text-muted small fw-bold text-uppercase" style="letter-spacing: 0.5px; font-size: 11px;">Tahun Berdiri</span>
+            </div>
           </div>
-          <div class="stat-box-mini reveal delay-400">
-            <span class="num">24/7</span>
-            <span class="txt">Dukungan Teknis</span>
+          <div class="col-6">
+            <div class="p-4 rounded-4 bg-light border text-center transition-all" style="border-color: #e2e8f0 !important;">
+              <span class="d-block fw-black text-success display-5 mb-1">24/7</span>
+              <span class="text-muted small fw-bold text-uppercase" style="letter-spacing: 0.5px; font-size: 11px;">Dukungan Teknis</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {{-- VISI & MISI BLOCK --}}
+    <div class="p-4 p-lg-5 rounded-4 bg-light border reveal" style="border-color: #e2e8f0 !important;">
+      <div class="row g-4">
+        {{-- VISI --}}
+        <div class="col-lg-5 border-end-lg">
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <div class="rounded-3 bg-primary text-white p-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+              <i class="fas fa-eye fs-4"></i>
+            </div>
+            <div>
+              <span class="text-primary fw-bold small text-uppercase" style="letter-spacing: 1px;">PANDANGAN STRATEGIS</span>
+              <h3 class="fw-bold text-dark mb-0 fs-4">VISI KAMI</h3>
+            </div>
+          </div>
+          <p class="text-muted leading-relaxed mb-0" style="font-size: 1.05rem; line-height: 1.8;">
+            "Menjadi katalisator transformasi digital terpercaya yang mendorong pertumbuhan bisnis di seluruh Indonesia melalui inovasi teknologi yang solutif."
+          </p>
+        </div>
+
+        {{-- MISI --}}
+        <div class="col-lg-7 ps-lg-4">
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <div class="rounded-3 bg-success text-white p-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+              <i class="fas fa-bullseye fs-4"></i>
+            </div>
+            <div>
+              <span class="text-success fw-bold small text-uppercase" style="letter-spacing: 1px;">PILAR EKSEKUSI</span>
+              <h3 class="fw-bold text-dark mb-0 fs-4">MISI KAMI</h3>
+            </div>
+          </div>
+
+          <div class="row g-3">
+            <div class="col-md-12">
+              <div class="p-3 bg-white rounded-3 border" style="border-color: #e2e8f0 !important;">
+                <h6 class="fw-bold text-dark mb-1"><i class="fas fa-check-circle text-primary me-2"></i> Solusi Tepat Guna</h6>
+                <p class="text-muted small mb-0" style="line-height: 1.6;">Menghadirkan infrastruktur dan sistem IT yang aman, efektif, dan terukur sesuai kebutuhan bisnis Anda.</p>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="p-3 bg-white rounded-3 border" style="border-color: #e2e8f0 !important;">
+                <h6 class="fw-bold text-dark mb-1"><i class="fas fa-check-circle text-success me-2"></i> Orientasi Kualitas</h6>
+                <p class="text-muted small mb-0" style="line-height: 1.6;">Mengembangkan produk digital berstandar tinggi dengan pendekatan profesional demi kepuasan klien.</p>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="p-3 bg-white rounded-3 border" style="border-color: #e2e8f0 !important;">
+                <h6 class="fw-bold text-dark mb-1"><i class="fas fa-check-circle text-info me-2"></i> Kemitraan Jangka Panjang</h6>
+                <p class="text-muted small mb-0" style="line-height: 1.6;">Membangun hubungan profesional yang berkelanjutan melalui pelayanan responsif dan dukungan teknis handal.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
