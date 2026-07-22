@@ -486,12 +486,12 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
 </script>
 @endpush
 
-{{-- INTERACTIVE MILESTONE & JOURNEY TIMELINE --}}
-<section class="py-5 bg-white border-bottom position-relative overflow-hidden">
+{{-- INTERACTIVE MILESTONE & JOURNEY TIMELINE (Ultra-Luxury Vertical Roadmap Stepper) --}}
+<section class="py-5 bg-light border-bottom position-relative overflow-hidden">
   <div class="container py-4">
     <div class="text-center mb-5 reveal">
       <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-20 rounded-pill px-4 py-2 mb-3 text-uppercase fw-bold" style="letter-spacing: 1.5px; font-size: 11px;">
-        <i class="fas fa-rocket me-2"></i> PETA PERJALANAN PERUSAHAAN
+        <i class="fas fa-route me-2"></i> PETA PERJALANAN PERUSAHAAN
       </span>
       <h2 class="fw-black text-dark display-5 mb-3" style="letter-spacing: -1px;">Rekam Jejak & Milestone Tumbuh</h2>
       <p class="text-muted mx-auto" style="max-width: 680px; font-size: 1.05rem; line-height: 1.6;">
@@ -499,87 +499,99 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
       </p>
     </div>
 
-    {{-- Timeline Cards Row --}}
-    <div class="row g-4 position-relative">
-      {{-- Connecting Line (Desktop) --}}
-      <div class="d-none d-lg-block position-absolute top-50 start-0 w-100 translate-middle-y z-0" style="height: 4px; background: linear-gradient(90deg, #e2e8f0 0%, #0284c7 50%, #10b981 100%);"></div>
+    {{-- Stepper Wrapper --}}
+    <div class="position-relative mx-auto" style="max-width: 900px;">
+      {{-- Vertical Glowing Line --}}
+      <div class="position-absolute top-0 bottom-0 start-50 translate-middle-x z-0 d-none d-md-block" style="width: 4px; background: linear-gradient(180deg, #3b82f6 0%, #0284c7 50%, #10b981 100%); border-radius: 4px;"></div>
 
-      {{-- Milestone 1: 2024 --}}
-      <div class="col-lg-4 reveal delay-100 position-relative z-1">
-        <div class="card border-0 rounded-4 shadow-sm h-100 overflow-hidden transition-all" style="background: #f8fafc; border: 1px solid #e2e8f0 !important;">
-          <div class="card-header bg-white border-bottom p-4 d-flex align-items-center justify-content-between">
-            <span class="badge bg-primary px-3 py-2 rounded-pill fw-bold fs-6 shadow-sm">
-              <i class="fas fa-flag me-1"></i> 2024
-            </span>
-            <span class="text-muted small font-monospace fw-semibold">FASE FONDASI</span>
-          </div>
-          <div class="card-body p-4">
-            <h4 class="fw-bold text-dark mb-3">Pendirian & Solusi Perdana</h4>
-            <p class="text-muted small mb-4" style="line-height: 1.7;">
+      {{-- Step 1: 2024 --}}
+      <div class="row g-4 align-items-center mb-5 reveal">
+        <div class="col-md-5 text-md-end order-2 order-md-1">
+          <div class="p-4 rounded-4 bg-white border shadow-sm transition-all" style="border-color: #e2e8f0 !important; border-right: 4px solid #3b82f6 !important;">
+            <span class="badge bg-primary bg-opacity-10 text-primary fw-bold px-3 py-1 rounded-pill mb-2" style="font-size: 11px;">FASE FONDASI</span>
+            <h4 class="fw-bold text-dark mb-2 fs-5">Pendirian & Solusi Perdana</h4>
+            <p class="text-muted small mb-3" style="line-height: 1.6;">
               Resmi berdirinya <strong>PT Sekawan Putra Pratama</strong> di Bekasi. Berfokus menghadirkan solusi pengembang sistem custom dan perancangan website profesional bagi puluhan klien awal.
             </p>
-            <div class="bg-white p-3 rounded-3 border" style="border-color: #e2e8f0 !important;">
+            <div class="bg-light p-3 rounded-3 border text-start" style="border-color: #f1f5f9 !important;">
               <span class="d-block text-primary fw-bold small mb-1"><i class="fas fa-check-circle me-1"></i> Milestone Utama:</span>
               <ul class="list-unstyled mb-0 text-muted small" style="font-size: 12px; line-height: 1.6;">
-                <li>• Legalitas Badan Hukum Resmikan PT.</li>
-                <li>• Rilis 20+ Proyek Web & Software Custom.</li>
-                <li>• Pembentukan Tim Eng & Infrastructure.</li>
+                <li>• Legalitas Badan Hukum Resmikan PT</li>
+                <li>• Rilis 20+ Proyek Web & Software Custom</li>
+                <li>• Pembentukan Tim Eng & Infrastructure</li>
               </ul>
             </div>
           </div>
         </div>
+
+        {{-- Center Node Badge --}}
+        <div class="col-md-2 text-center order-1 order-md-2 position-relative z-1">
+          <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-primary text-white font-monospace fw-bold shadow-lg border border-4 border-white mx-auto" style="width: 68px; height: 68px; font-size: 1.1rem; box-shadow: 0 0 20px rgba(59, 130, 246, 0.35) !important;">
+            2024
+          </div>
+        </div>
+
+        <div class="col-md-5 d-none d-md-block order-3"></div>
       </div>
 
-      {{-- Milestone 2: 2025 --}}
-      <div class="col-lg-4 reveal delay-200 position-relative z-1">
-        <div class="card border-0 rounded-4 shadow-sm h-100 overflow-hidden transition-all" style="background: #f8fafc; border: 1px solid #0284c7 !important;">
-          <div class="card-header bg-primary text-white border-bottom p-4 d-flex align-items-center justify-content-between">
-            <span class="badge bg-white text-primary px-3 py-2 rounded-pill fw-bold fs-6 shadow-sm">
-              <i class="fas fa-building me-1"></i> 2025
-            </span>
-            <span class="text-white-50 small font-monospace fw-semibold">FASE EKSPANSI ENTERPRISE</span>
+      {{-- Step 2: 2025 --}}
+      <div class="row g-4 align-items-center mb-5 reveal">
+        <div class="col-md-5 d-none d-md-block order-1"></div>
+
+        {{-- Center Node Badge --}}
+        <div class="col-md-2 text-center order-1 order-md-2 position-relative z-1">
+          <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-info text-white font-monospace fw-bold shadow-lg border border-4 border-white mx-auto" style="width: 68px; height: 68px; font-size: 1.1rem; box-shadow: 0 0 20px rgba(14, 165, 233, 0.35) !important;">
+            2025
           </div>
-          <div class="card-body p-4">
-            <h4 class="fw-bold text-dark mb-3">Kemitraan Manufaktur & Tbk</h4>
-            <p class="text-muted small mb-4" style="line-height: 1.7;">
+        </div>
+
+        <div class="col-md-5 text-start order-2 order-md-3">
+          <div class="p-4 rounded-4 bg-white border shadow-sm transition-all" style="border-color: #e2e8f0 !important; border-left: 4px solid #0284c7 !important;">
+            <span class="badge bg-info bg-opacity-10 text-info fw-bold px-3 py-1 rounded-pill mb-2" style="font-size: 11px;">FASE EKSPANSI ENTERPRISE</span>
+            <h4 class="fw-bold text-dark mb-2 fs-5">Kemitraan Manufaktur & Tbk</h4>
+            <p class="text-muted small mb-3" style="line-height: 1.6;">
               Dipercaya oleh raksasa industri seperti <strong>PT Astra Daihatsu Motor</strong> (QC & Production Monitoring) dan <strong>PT Sarana Mitra Luas Tbk</strong> (ERP OPTIMA & Server Network).
             </p>
-            <div class="bg-white p-3 rounded-3 border" style="border-color: #e2e8f0 !important;">
+            <div class="bg-light p-3 rounded-3 border text-start" style="border-color: #f1f5f9 !important;">
               <span class="d-block text-success fw-bold small mb-1"><i class="fas fa-check-circle me-1"></i> Milestone Utama:</span>
               <ul class="list-unstyled mb-0 text-muted small" style="font-size: 12px; line-height: 1.6;">
-                <li>• Deployment Real-time QC Dashboard ADM.</li>
-                <li>• Peluncuran ERP Multi-Modul (CRM, WMS, Finance).</li>
-                <li>• Instalasi CCTV & Server PT Banyu Ayu Kosmetika.</li>
+                <li>• Deployment Real-time QC Dashboard ADM</li>
+                <li>• Peluncuran ERP Multi-Modul (CRM, WMS, Finance)</li>
+                <li>• Instalasi CCTV & Server PT Banyu Ayu Kosmetika</li>
               </ul>
             </div>
           </div>
         </div>
       </div>
 
-      {{-- Milestone 3: 2026 --}}
-      <div class="col-lg-4 reveal delay-300 position-relative z-1">
-        <div class="card border-0 rounded-4 shadow-sm h-100 overflow-hidden transition-all" style="background: #f8fafc; border: 1px solid #10b981 !important;">
-          <div class="card-header bg-success text-white border-bottom p-4 d-flex align-items-center justify-content-between">
-            <span class="badge bg-white text-success px-3 py-2 rounded-pill fw-bold fs-6 shadow-sm">
-              <i class="fas fa-chart-line me-1"></i> 2026
-            </span>
-            <span class="text-white-50 small font-monospace fw-semibold">FASE ECOSYSTEM & CLOUD</span>
-          </div>
-          <div class="card-body p-4">
-            <h4 class="fw-bold text-dark mb-3">Ekosistem Digital & Portal Klien</h4>
-            <p class="text-muted small mb-4" style="line-height: 1.7;">
+      {{-- Step 3: 2026 --}}
+      <div class="row g-4 align-items-center reveal">
+        <div class="col-md-5 text-md-end order-2 order-md-1">
+          <div class="p-4 rounded-4 bg-white border shadow-sm transition-all" style="border-color: #e2e8f0 !important; border-right: 4px solid #10b981 !important;">
+            <span class="badge bg-success bg-opacity-10 text-success fw-bold px-3 py-1 rounded-pill mb-2" style="font-size: 11px;">FASE ECOSYSTEM & CLOUD</span>
+            <h4 class="fw-bold text-dark mb-2 fs-5">Ekosistem Digital & Portal Klien</h4>
+            <p class="text-muted small mb-3" style="line-height: 1.6;">
               Integrasi Kalkulator Estimasi Biaya IT, Portal Klien Mandiri, dan perluasan Managed Infrastructure Services bagi kawasan industri Bekasi, Karawang, & Jabodetabek.
             </p>
-            <div class="bg-white p-3 rounded-3 border" style="border-color: #e2e8f0 !important;">
+            <div class="bg-light p-3 rounded-3 border text-start" style="border-color: #f1f5f9 !important;">
               <span class="d-block text-info fw-bold small mb-1"><i class="fas fa-check-circle me-1"></i> Milestone Utama:</span>
               <ul class="list-unstyled mb-0 text-muted small" style="font-size: 12px; line-height: 1.6;">
-                <li>• Peluncuran Live Kalkulator Biaya Proyek.</li>
-                <li>• Portal Klien (Manajemen Project & Billing).</li>
-                <li>• Jaminan 99.9% Uptime & 1-Year Maintenance.</li>
+                <li>• Peluncuran Live Kalkulator Biaya Proyek</li>
+                <li>• Portal Klien (Manajemen Project & Billing)</li>
+                <li>• Jaminan 99.9% Uptime & 1-Year Maintenance</li>
               </ul>
             </div>
           </div>
         </div>
+
+        {{-- Center Node Badge --}}
+        <div class="col-md-2 text-center order-1 order-md-2 position-relative z-1">
+          <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-success text-white font-monospace fw-bold shadow-lg border border-4 border-white mx-auto" style="width: 68px; height: 68px; font-size: 1.1rem; box-shadow: 0 0 20px rgba(16, 185, 129, 0.35) !important;">
+            2026
+          </div>
+        </div>
+
+        <div class="col-md-5 d-none d-md-block order-3"></div>
       </div>
     </div>
   </div>
