@@ -492,7 +492,7 @@
 
           <div class="mb-3">
             <label for="checkSearch" class="form-label font-monospace fw-bold small text-muted">EMAIL ATAU NO. WHATSAPP *</label>
-            <input type="text" id="checkSearch" name="search" class="form-control bg-light p-3" placeholder="Contoh: adityanovaldy721@gmail.com / 085156412702" required>
+            <input type="text" id="checkSearch" name="search" class="form-control bg-light p-3" placeholder="Contoh: hr@sekawanputrapratama.com / 081234567890" required>
           </div>
         </div>
 
