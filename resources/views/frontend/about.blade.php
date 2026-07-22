@@ -197,6 +197,45 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
   </div>
 </section>
 
+{{-- LEGAL & COMPLIANCE VERIFICATION BADGE --}}
+<section class="py-4 bg-light border-bottom">
+  <div class="container">
+    <div class="row g-3 align-items-center justify-content-center text-center text-md-start">
+      <div class="col-md-4 d-flex align-items-center justify-content-center justify-content-md-start gap-3">
+        <div class="rounded-circle bg-primary bg-opacity-10 text-primary p-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; flex-shrink: 0;">
+          <i class="fas fa-file-contract fs-5"></i>
+        </div>
+        <div>
+          <span class="d-block text-muted small fw-bold text-uppercase" style="letter-spacing: 0.5px;">Nomor Induk Berusaha (NIB)</span>
+          <strong class="text-dark font-monospace fs-6">0505260088735</strong>
+          <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-20 ms-1" style="font-size: 10px;">OSS BKPM RI</span>
+        </div>
+      </div>
+
+      <div class="col-md-4 d-flex align-items-center justify-content-center justify-content-md-start gap-3">
+        <div class="rounded-circle bg-primary bg-opacity-10 text-primary p-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; flex-shrink: 0;">
+          <i class="fas fa-id-card fs-5"></i>
+        </div>
+        <div>
+          <span class="d-block text-muted small fw-bold text-uppercase" style="letter-spacing: 0.5px;">NPWP Badan Perusahaan</span>
+          <strong class="text-dark font-monospace fs-6">1000 0000 0948 6824</strong>
+          <span class="badge bg-info bg-opacity-10 text-info border border-info border-opacity-20 ms-1" style="font-size: 10px;">DJP Cikarang</span>
+        </div>
+      </div>
+
+      <div class="col-md-4 d-flex align-items-center justify-content-center justify-content-md-start gap-3">
+        <div class="rounded-circle bg-success bg-opacity-10 text-success p-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; flex-shrink: 0;">
+          <i class="fas fa-shield-alt fs-5"></i>
+        </div>
+        <div>
+          <span class="d-block text-muted small fw-bold text-uppercase" style="letter-spacing: 0.5px;">Status Legalitas PT</span>
+          <strong class="text-dark small">PT Resmi Terdaftar Kemenkumham & DJP</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 {{-- MISSION & STATS --}}
 <section class="abt-mission">
   <div class="container">

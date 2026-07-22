@@ -53,10 +53,31 @@ class SettingSeeder extends Seeder
             ],
             [
                 'key' => 'contact.address',
-                'value' => 'Sekawan Office - Bekasi, Jawa Barat',
+                'value' => 'Perum Mega Regency Blok G3 No. 38, RT 002 / RW 020, Sukaragam, Kec. Serang Baru, Kab. Bekasi, Jawa Barat 17330',
                 'type' => 'text',
                 'group' => 'contact',
                 'description' => 'Alamat kantor',
+            ],
+            [
+                'key' => 'legal.nib',
+                'value' => '0505260088735',
+                'type' => 'text',
+                'group' => 'legal',
+                'description' => 'Nomor Induk Berusaha (NIB)',
+            ],
+            [
+                'key' => 'legal.npwp',
+                'value' => '100000009488824',
+                'type' => 'text',
+                'group' => 'legal',
+                'description' => 'NPWP Badan Perusahaan',
+            ],
+            [
+                'key' => 'legal.kpp',
+                'value' => 'KPP Pratama Cikarang Selatan',
+                'type' => 'text',
+                'group' => 'legal',
+                'description' => 'Kantor Pelayanan Pajak',
             ],
             [
                 'key' => 'contact.office_hours',
