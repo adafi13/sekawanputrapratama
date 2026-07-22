@@ -469,7 +469,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
 </section>
 
 {{-- INTERACTIVE TECH STACK ARSENAL --}}
-<section class="py-5 bg-light border-bottom">
+<section class="py-5 bg-light border-bottom" id="tech-stack-arsenal">
   <div class="container py-4">
     <div class="text-center mb-5 reveal">
       <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-20 rounded-pill px-4 py-2 mb-3 text-uppercase fw-bold" style="letter-spacing: 1.5px; font-size: 11px;">
