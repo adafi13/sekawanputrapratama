@@ -583,24 +583,42 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
 </script>
 @endpush
 
-{{-- INTERACTIVE MILESTONE & JOURNEY TIMELINE (Ultra-Luxury Vertical Roadmap Stepper with Scroll Fill Animation) --}}
+{{-- INTERACTIVE MILESTONE & JOURNEY TIMELINE (Ultra-Luxury Vertical Roadmap Stepper with Traveling LED Laser Light) --}}
 <section class="py-5 bg-light border-bottom position-relative overflow-hidden" id="timeline-section">
   <style>
+    @keyframes ledLaserMove {
+      0% { top: -25%; opacity: 0; }
+      15% { opacity: 1; }
+      85% { opacity: 1; }
+      100% { top: 125%; opacity: 0; }
+    }
     @keyframes pulseGlow {
-      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.6); }
-      70% { transform: scale(1.08); box-shadow: 0 0 0 15px rgba(59, 130, 246, 0); }
-      100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.7), 0 0 15px rgba(14, 165, 233, 0.5); }
+      50% { transform: scale(1.06); box-shadow: 0 0 25px 6px rgba(14, 165, 233, 0.8), 0 0 45px rgba(16, 185, 129, 0.6); }
+      100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.7), 0 0 15px rgba(14, 165, 233, 0.5); }
     }
     @keyframes floatCard {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
+      50% { transform: translateY(-6px); }
+    }
+    .timeline-led-beam {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 180px;
+      background: linear-gradient(180deg, transparent 0%, #38bdf8 30%, #00f2fe 60%, #10b981 85%, transparent 100%);
+      box-shadow: 0 0 15px #38bdf8, 0 0 30px #00f2fe, 0 0 45px #10b981;
+      animation: ledLaserMove 3.2s linear infinite;
+      z-index: 2;
+      border-radius: 6px;
     }
     .timeline-node-circle {
       transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       animation: pulseGlow 2.5s infinite;
     }
     .timeline-node-circle:hover {
-      transform: scale(1.2) rotate(5deg) !important;
+      transform: scale(1.25) rotate(6deg) !important;
+      box-shadow: 0 0 35px #00f2fe !important;
     }
     .timeline-card-animated {
       animation: floatCard 4.5s ease-in-out infinite;
@@ -608,7 +626,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
     }
     .timeline-card-animated:hover {
       transform: translateY(-8px) scale(1.02) !important;
-      box-shadow: 0 20px 40px -15px rgba(2, 132, 199, 0.15) !important;
+      box-shadow: 0 20px 40px -15px rgba(2, 132, 199, 0.2) !important;
     }
   </style>
 
@@ -625,9 +643,10 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
 
     {{-- Stepper Wrapper --}}
     <div class="position-relative mx-auto" style="max-width: 900px;">
-      {{-- Dynamic Vertical Scroll Track Line --}}
-      <div id="timeline-track" class="position-absolute top-0 bottom-0 start-50 translate-middle-x z-0 d-none d-md-block" style="width: 4px; background: #cbd5e1; border-radius: 4px;">
-        <div id="timeline-progress-fill" style="width: 100%; height: 0%; background: linear-gradient(180deg, #3b82f6 0%, #0284c7 50%, #10b981 100%); border-radius: 4px; transition: height 0.1s linear;"></div>
+      {{-- Dynamic Vertical Scroll Track Line with Traveling LED Laser --}}
+      <div id="timeline-track" class="position-absolute top-0 bottom-0 start-50 translate-middle-x z-0 d-none d-md-block overflow-hidden" style="width: 6px; background: #cbd5e1; border-radius: 6px;">
+        <div id="timeline-progress-fill" style="width: 100%; height: 0%; background: linear-gradient(180deg, #3b82f6 0%, #0284c7 50%, #10b981 100%); border-radius: 6px; box-shadow: 0 0 15px rgba(14, 165, 233, 0.8);"></div>
+        <div class="timeline-led-beam"></div>
       </div>
 
       {{-- Step 1: 2024 --}}
