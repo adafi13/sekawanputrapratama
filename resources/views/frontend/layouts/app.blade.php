@@ -687,6 +687,30 @@
             color: #0F172A;
         }
 
+        /* Mobile Submenu Dropdown Styling */
+        .mobile-nav__container .nav-dropdown-menu {
+            position: static !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: none !important;
+            box-shadow: none !important;
+            border: none !important;
+            background: #f8fafc !important;
+            padding: 6px 10px !important;
+            margin: 6px 0 10px !important;
+            border-radius: 8px !important;
+            display: none;
+            width: 100% !important;
+        }
+        .mobile-nav__container .nav-item-dropdown.active > .nav-dropdown-menu,
+        .mobile-nav__container .nav-item-dropdown.open > .nav-dropdown-menu {
+            display: block !important;
+        }
+        .mobile-nav__container .nav-item-dropdown.active > a .nav-dropdown-icon,
+        .mobile-nav__container .nav-item-dropdown.open > a .nav-dropdown-icon {
+            transform: rotate(180deg) !important;
+        }
+
         /* Divider */
         .mobile-nav__divider {
             height: 1px;
@@ -899,6 +923,17 @@
     </script>
     <script src="{{ asset('assets/js/app.js') }}"></script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $(document).on('click', '.mobile-nav__container .nav-item-dropdown > a', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var $parent = $(this).closest('.nav-item-dropdown');
+                $parent.toggleClass('open active');
+                $parent.children('.nav-dropdown-menu').first().slideToggle(200);
+            });
+        });
+    </script>
     <script>
         lightbox.option({ 'resizeDuration': 200, 'wrapAround': true });
         /* Scroll-aware navbar */

@@ -70,19 +70,16 @@ var MyScroll = "";
       }
 
       if ($(".mobile-nav__container .main-menu__list").length) {
-        let dropdownAnchor = $(".mobile-nav__container .main-menu__list .dropdown > a");
+        let dropdownAnchor = $(".mobile-nav__container .main-menu__list .dropdown > a, .mobile-nav__container .main-menu__list .nav-item-dropdown > a");
         dropdownAnchor.each(function () {
           let self = $(this);
-          let toggleBtn = document.createElement("BUTTON");
-          toggleBtn.setAttribute("aria-label", "dropdown toggler");
-          toggleBtn.innerHTML = "<i class='fa fa-angle-down'></i>";
-          self.append(function () { return toggleBtn; });
-          self.find("button").on("click", function (e) {
-            e.preventDefault();
-            let self = $(this);
-            self.toggleClass("expanded");
-            self.parent().toggleClass("expanded");
-            self.parent().parent().children("ul").slideToggle();
+          self.on("click", function (e) {
+            let parentLi = self.parent();
+            if (parentLi.hasClass("nav-item-dropdown") || parentLi.hasClass("dropdown")) {
+              e.preventDefault();
+              parentLi.toggleClass("active open");
+              parentLi.children(".nav-dropdown-menu, ul").slideToggle(200);
+            }
           });
         });
       }
