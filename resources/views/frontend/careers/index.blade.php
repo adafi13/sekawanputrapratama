@@ -30,7 +30,7 @@
       <a href="#active-jobs" class="btn btn-primary rounded-pill px-4 py-2.5 fw-bold shadow-sm" style="font-size: 13px;">
         <i class="fas fa-briefcase me-2"></i> Lihat Lowongan Aktif
       </a>
-      <button type="button" class="btn btn-outline-primary rounded-pill px-4 py-2.5 fw-bold" style="font-size: 13px;" data-bs-toggle="modal" data-bs-target="#spontaneousModal">
+      <button type="button" class="btn btn-outline-primary rounded-pill px-4 py-2.5 fw-bold" style="font-size: 13px;" data-bs-toggle="modal" data-bs-target="#spontaneousModal" data-toggle="modal" data-target="#spontaneousModal" onclick="openSpontaneousModal()">
         <i class="fas fa-paper-plane me-2"></i> Kirim CV Spontan
       </button>
     </div>
@@ -234,7 +234,7 @@
             <h5 class="fw-bold text-dark mb-2">Belum Ada Lowongan Khusus yang Dibuka</h5>
             <p class="text-muted small mb-4" style="max-width: 540px; margin: 0 auto;">Saat ini belum ada posisi lowongan spesifik yang dibuka. Namun kami selalu terbuka menerima CV dan portofolio Anda secara langsung!</p>
             
-            <button type="button" class="btn btn-primary rounded-pill px-4 py-2.5 fw-bold shadow-sm" data-bs-toggle="modal" data-bs-target="#spontaneousModal">
+            <button type="button" class="btn btn-primary rounded-pill px-4 py-2.5 fw-bold shadow-sm" data-bs-toggle="modal" data-bs-target="#spontaneousModal" data-toggle="modal" data-target="#spontaneousModal" onclick="openSpontaneousModal()">
               <i class="fas fa-paper-plane me-2"></i> Kirim CV Spontan ke Superadmin
             </button>
           </div>
@@ -251,9 +251,9 @@
       <div class="modal-header border-bottom p-4">
         <div>
           <span class="badge bg-primary bg-opacity-10 text-primary fw-bold px-3 py-1 rounded-pill mb-1" style="font-size: 11px;">OPEN APPLICATION</span>
-          <h5 class="modal-title fw-bold text-dark id="spontaneousModalLabel">Formulir Kirim CV Spontan</h5>
+          <h5 class="modal-title fw-bold text-dark" id="spontaneousModalLabel">Formulir Kirim CV Spontan</h5>
         </div>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="closeSpontaneousModal()"></button>
       </div>
 
       <form action="{{ route('careers.apply-spontaneous') }}" method="POST" enctype="multipart/form-data">
@@ -295,7 +295,7 @@
         </div>
 
         <div class="modal-footer border-top p-4">
-          <button type="button" class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal" onclick="closeSpontaneousModal()">Batal</button>
           <button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold shadow-sm">
             <i class="fas fa-paper-plane me-1"></i> Kirim CV ke Superadmin
           </button>
@@ -305,5 +305,60 @@
     </div>
   </div>
 </div>
+
+@push('scripts')
+<script>
+function openSpontaneousModal() {
+  const modalEl = document.getElementById('spontaneousModal');
+  if (!modalEl) return;
+
+  if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
+    try {
+      const bsModal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+      bsModal.show();
+      return;
+    } catch(e) {}
+  }
+  
+  if (typeof $ !== 'undefined' && $.fn && $.fn.modal) {
+    try {
+      $(modalEl).modal('show');
+      return;
+    } catch(e) {}
+  }
+
+  // Fallback Vanilla JS Modal Opener
+  modalEl.classList.add('show');
+  modalEl.style.display = 'block';
+  modalEl.removeAttribute('aria-hidden');
+  modalEl.setAttribute('aria-modal', 'true');
+  document.body.classList.add('modal-open');
+
+  let backdrop = document.querySelector('.modal-backdrop');
+  if (!backdrop) {
+    backdrop = document.createElement('div');
+    backdrop.className = 'modal-backdrop fade show';
+    document.body.appendChild(backdrop);
+  }
+}
+
+function closeSpontaneousModal() {
+  const modalEl = document.getElementById('spontaneousModal');
+  if (!modalEl) return;
+
+  if (typeof $ !== 'undefined' && $.fn && $.fn.modal) {
+    try { $(modalEl).modal('hide'); } catch(e) {}
+  }
+
+  modalEl.classList.remove('show');
+  modalEl.style.display = 'none';
+  modalEl.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('modal-open');
+
+  const backdrop = document.querySelector('.modal-backdrop');
+  if (backdrop) backdrop.remove();
+}
+</script>
+@endpush
 
 @endsection
