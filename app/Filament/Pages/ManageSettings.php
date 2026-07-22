@@ -76,8 +76,10 @@ class ManageSettings extends Page
                             ]),
                         Tab::make('Kontak')
                             ->schema([
-                                TextInput::make('contact.phone')->label('Nomor Telepon'),
-                                TextInput::make('contact.email')->label('Email')->email(),
+                                TextInput::make('contact.phone')->label('Nomor Telepon Utama'),
+                                TextInput::make('contact.email')->label('Email Utama')->email(),
+                                TextInput::make('contact.hr_phone')->label('Nomor WA / HP Rekrutmen (HRD)')->placeholder('085156412702'),
+                                TextInput::make('contact.hr_email')->label('Email Rekrutmen (HRD)')->email()->placeholder('hr@sekawanputrapratama.com'),
                                 TextInput::make('contact.address')->label('Alamat')->columnSpanFull(),
                                 TextInput::make('contact.office_hours')->label('Jam Operasional'),
                             ]),

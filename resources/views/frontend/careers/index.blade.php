@@ -121,6 +121,11 @@
               </div>
 
               {{-- ANIMATED MESSAGE BANNERS FOR DITERIMA & DITOLAK --}}
+              @php
+                $hrPhone = \App\Models\Setting::get('contact.hr_phone', \App\Models\Setting::get('contact.phone', '085156412702'));
+                $hrEmail = \App\Models\Setting::get('contact.hr_email', \App\Models\Setting::get('contact.email', 'hr@sekawanputrapratama.com'));
+              @endphp
+
               @if(in_array($status, ['hired', 'accepted', 'diterima (hired)', 'diterima']))
                 <div class="p-4 rounded-4 bg-success bg-opacity-10 border border-success border-opacity-30 mt-3 text-start position-relative overflow-hidden shadow-sm" style="border-left: 5px solid #10b981 !important;">
                   <div class="d-flex align-items-start gap-3">
@@ -130,10 +135,16 @@
                     <div>
                       <h5 class="fw-bold text-success mb-1">🎉 Selamat! Anda Lolos Seleksi &amp; Diterima di PT Sekawan Putra Pratama</h5>
                       <p class="text-dark small mb-2" style="line-height: 1.7; font-size: 0.95rem;">
-                        Selamat Bergabung! Tim HRD kami akan segera menghubungi Anda secara langsung melalui <strong>WhatsApp ({{ $app->phone }})</strong> atau <strong>Email ({{ $app->email }})</strong> dalam waktu 1x24 jam kerja untuk koordinasi jadwal <em>Onboarding</em> &amp; penyerahan berkas <em>Offering Letter</em> resmi.
+                        Selamat Bergabung! Tim HRD kami akan segera menghubungi kontak Anda <strong>(WA: {{ $app->phone }} | Email: {{ $app->email }})</strong> dalam waktu 1x24 jam kerja untuk koordinasi jadwal <em>Onboarding</em> &amp; penyerahan <em>Offering Letter</em> resmi.
                       </p>
-                      <div class="d-inline-flex align-items-center gap-2 text-success fw-bold small bg-white px-3 py-1.5 rounded-pill border border-success border-opacity-20 shadow-sm" style="font-size: 12px;">
-                        <i class="fab fa-whatsapp me-1 fs-6"></i> Mohon pastikan nomor WhatsApp &amp; Email Anda tetap aktif
+                      
+                      <div class="d-flex flex-wrap gap-2 align-items-center mt-2">
+                        <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $hrPhone) }}" target="_blank" class="d-inline-flex align-items-center gap-2 text-success fw-bold small bg-white px-3 py-1.5 rounded-pill border border-success border-opacity-20 shadow-sm text-decoration-none" style="font-size: 12px;">
+                          <i class="fab fa-whatsapp me-1 fs-6"></i> Hubungi WA HRD: {{ $hrPhone }}
+                        </a>
+                        <a href="mailto:{{ $hrEmail }}" class="d-inline-flex align-items-center gap-2 text-primary fw-bold small bg-white px-3 py-1.5 rounded-pill border border-primary border-opacity-20 shadow-sm text-decoration-none" style="font-size: 12px;">
+                          <i class="fas fa-envelope me-1 fs-6"></i> Email HRD: {{ $hrEmail }}
+                        </a>
                       </div>
                     </div>
                   </div>
