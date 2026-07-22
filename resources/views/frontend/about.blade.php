@@ -308,9 +308,17 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-lexend); }
               <h3 class="fw-bold text-dark mb-0 fs-4">VISI KAMI</h3>
             </div>
           </div>
-          <p class="text-muted leading-relaxed mb-0" style="font-size: 1.05rem; line-height: 1.8;">
-            "Menjadi katalisator transformasi digital terpercaya yang mendorong pertumbuhan bisnis di seluruh Indonesia melalui inovasi teknologi yang solutif."
+          <p class="text-muted leading-relaxed mb-4" style="font-size: 1rem; line-height: 1.85;">
+            "Menjadi mitra teknologi pilihan utama dan katalisator transformasi digital terdepan di Indonesia, yang secara konsisten memberdayakan lanskap bisnis nasional hingga taraf global melalui inovasi perangkat lunak berkualitas tinggi, keandalan infrastruktur cloud &amp; jaringan, serta komitmen kemitraan strategis yang berorientasi pada keberlanjutan dan profitabilitas masa depan bisnis Anda."
           </p>
+          <div class="bg-white p-3 rounded-3 border" style="border-color: #e2e8f0 !important;">
+            <span class="d-block text-primary fw-bold small mb-2"><i class="fas fa-compass me-1"></i> Arah Pengembangan Visi:</span>
+            <ul class="list-unstyled mb-0 text-muted small d-flex flex-column gap-1" style="font-size: 12px; line-height: 1.6;">
+              <li><i class="fas fa-chevron-right text-primary me-2" style="font-size: 10px;"></i> Inovasi Arsitektur Perangkat Lunak Modern</li>
+              <li><i class="fas fa-chevron-right text-primary me-2" style="font-size: 10px;"></i> Skalabilitas Sistem Klien Menuju Pasar Global</li>
+              <li><i class="fas fa-chevron-right text-primary me-2" style="font-size: 10px;"></i> Integritas Keamanan Data &amp; Infrastruktur 24/7</li>
+            </ul>
+          </div>
         </div>
 
         {{-- MISI --}}
