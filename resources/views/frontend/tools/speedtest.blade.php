@@ -50,8 +50,8 @@
             </div>
 
             <div class="d-flex align-items-center gap-2">
-              <span class="badge bg-success bg-opacity-20 text-success border border-success border-opacity-30 rounded-pill px-3 py-1 font-monospace small" style="font-size: 11px;">
-                <i class="fas fa-circle me-1 animate-pulse" style="font-size: 8px;"></i> LIVE ENGINE
+              <span class="badge rounded-pill px-3 py-1 font-monospace small" style="background-color: rgba(16, 185, 129, 0.2); color: #34d399 !important; border: 1px solid rgba(52, 211, 153, 0.5); font-size: 11px; font-weight: 700;">
+                <i class="fas fa-circle me-1 animate-pulse" style="font-size: 8px; color: #10b981;"></i> LIVE ENGINE
               </span>
             </div>
           </div>
