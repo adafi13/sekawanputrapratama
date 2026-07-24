@@ -11,12 +11,12 @@
 
 @section('content')
 
-{{-- HERO HEADER (Clean Light Corporate Theme) --}}
-<section class="py-5 bg-white border-bottom position-relative overflow-hidden" style="padding-top: 135px !important; padding-bottom: 65px !important;">
+{{-- HERO HEADER (Clean White Corporate Theme) --}}
+<section class="py-5 bg-white border-bottom position-relative overflow-hidden" style="padding-top: 135px !important; padding-bottom: 55px !important;">
   <div class="container text-center position-relative z-2">
-    <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-20 rounded-pill px-4 py-2 mb-3 text-uppercase fw-bold" style="letter-spacing: 1.5px; font-size: 11px;">
-      <i class="fas fa-tachometer-alt me-2"></i> UTILITAS JARINGAN REAL-TIME
-    </span>
+    <div class="text-uppercase fw-bold text-primary small mb-2" style="letter-spacing: 1.5px; font-size: 11px;">
+      • PENGUJI KECEPATAN JARINGAN REAL-TIME
+    </div>
     
     <h1 class="fw-black text-dark display-5 mb-3" style="letter-spacing: -1.2px; font-weight: 900;">
       Uji Kecepatan &amp; Latensi <span class="text-primary">Koneksi Internet</span>
@@ -35,29 +35,11 @@
       
       <div class="col-lg-10">
         
-        {{-- Enterprise Network Console Wrapper --}}
-        <div class="rounded-4 overflow-hidden shadow-lg border-0" style="background-color: #0f172a !important;">
+        {{-- Clean Corporate Card Wrapper --}}
+        <div class="p-3 p-md-4 rounded-4 bg-white border shadow-sm text-center" style="border-color: #e2e8f0 !important;">
           
-          {{-- Console Header Bar --}}
-          <div class="px-4 py-3 border-bottom border-secondary border-opacity-25 d-flex flex-wrap align-items-center justify-content-between gap-2" style="background: rgba(15, 23, 42, 0.95);">
-            <div class="d-flex align-items-center gap-2">
-              <span class="rounded-circle d-inline-block" style="width: 12px; height: 12px; background-color: #ef4444;"></span>
-              <span class="rounded-circle d-inline-block" style="width: 12px; height: 12px; background-color: #f59e0b;"></span>
-              <span class="rounded-circle d-inline-block" style="width: 12px; height: 12px; background-color: #10b981;"></span>
-              <span class="ms-2 font-monospace fw-bold text-white small" style="letter-spacing: 0.5px; font-size: 12px;">
-                <i class="fas fa-terminal text-primary me-1"></i> SEKAWAN NETWORK CONSOLE v2.4
-              </span>
-            </div>
-
-            <div class="d-flex align-items-center gap-2">
-              <span class="badge rounded-pill px-3 py-1 font-monospace small" style="background-color: rgba(16, 185, 129, 0.2); color: #34d399 !important; border: 1px solid rgba(52, 211, 153, 0.5); font-size: 11px; font-weight: 700;">
-                <i class="fas fa-circle me-1 animate-pulse" style="font-size: 8px; color: #10b981;"></i> LIVE ENGINE
-              </span>
-            </div>
-          </div>
-
           {{-- OpenSpeedTest HTML5 Engine Embed --}}
-          <div class="position-relative overflow-hidden" style="min-height: 540px; background-color: #1e222d;">
+          <div class="position-relative overflow-hidden rounded-3 border mb-4" style="min-height: 540px; border-color: #e2e8f0 !important; background-color: #1e222d;">
             <iframe 
               src="https://openspeedtest.com/Get-widget.php" 
               style="width: 100%; height: 540px; border: none; overflow: hidden; display: block;" 
@@ -67,46 +49,44 @@
           </div>
 
           {{-- Technical Specs & Client ISP Footer Bar --}}
-          <div class="p-3 p-md-4 border-top border-secondary border-opacity-25" style="background-color: #0b1120;">
-            <div class="row g-3 text-start">
-              
-              <div class="col-12 col-md-6 col-lg-3">
-                <div class="p-3 rounded-3 border" style="background-color: #1e293b; border-color: #334155 !important;">
-                  <span class="d-block text-uppercase font-monospace fw-bold mb-1" style="font-size: 10px; letter-spacing: 0.8px; color: #94a3b8 !important;">PENYEDIA JARINGAN / CLIENT IP</span>
-                  <span id="client-isp-info" class="fw-bold text-white font-monospace d-block text-truncate" style="font-size: 12px;">
-                    <span class="spinner-border spinner-border-sm me-1 text-primary" role="status"></span> Mendeteksi ISP &amp; IP...
-                  </span>
-                </div>
+          <div class="row g-3 text-start pt-3 border-top" style="border-color: #f1f5f9 !important;">
+            
+            <div class="col-12 col-md-6 col-lg-3">
+              <div class="p-3 rounded-3 bg-light border h-100" style="border-color: #e2e8f0 !important;">
+                <span class="d-block text-muted text-uppercase fw-bold mb-1" style="font-size: 10px; letter-spacing: 0.8px;">PENYEDIA JARINGAN / CLIENT IP</span>
+                <span id="client-isp-info" class="fw-bold text-dark d-block text-truncate" style="font-size: 12px;">
+                  <span class="spinner-border spinner-border-sm me-1 text-primary" role="status"></span> Mendeteksi ISP &amp; IP...
+                </span>
               </div>
-
-              <div class="col-12 col-md-6 col-lg-3">
-                <div class="p-3 rounded-3 border" style="background-color: #1e293b; border-color: #334155 !important;">
-                  <span class="d-block text-uppercase font-monospace fw-bold mb-1" style="font-size: 10px; letter-spacing: 0.8px; color: #94a3b8 !important;">ENGINE</span>
-                  <span class="fw-bold text-white font-monospace d-block" style="font-size: 12px;">
-                    <i class="fas fa-microchip text-primary me-1"></i> OpenSpeedTest™ HTML5
-                  </span>
-                </div>
-              </div>
-
-              <div class="col-12 col-md-6 col-lg-3">
-                <div class="p-3 rounded-3 border" style="background-color: #1e293b; border-color: #334155 !important;">
-                  <span class="d-block text-uppercase font-monospace fw-bold mb-1" style="font-size: 10px; letter-spacing: 0.8px; color: #94a3b8 !important;">PROTOCOL</span>
-                  <span class="fw-bold text-white font-monospace d-block" style="font-size: 12px;">
-                    <i class="fas fa-lock text-success me-1"></i> HTTPS Secure (TLS 1.3)
-                  </span>
-                </div>
-              </div>
-
-              <div class="col-12 col-md-6 col-lg-3">
-                <div class="p-3 rounded-3 border" style="background-color: #1e293b; border-color: #334155 !important;">
-                  <span class="d-block text-uppercase font-monospace fw-bold mb-1" style="font-size: 10px; letter-spacing: 0.8px; color: #94a3b8 !important;">LOCATION NODE</span>
-                  <span class="fw-bold text-white font-monospace d-block" style="font-size: 12px;">
-                    <i class="fas fa-server text-info me-1"></i> Jakarta / Bekasi Node (ID)
-                  </span>
-                </div>
-              </div>
-
             </div>
+
+            <div class="col-12 col-md-6 col-lg-3">
+              <div class="p-3 rounded-3 bg-light border h-100" style="border-color: #e2e8f0 !important;">
+                <span class="d-block text-muted text-uppercase fw-bold mb-1" style="font-size: 10px; letter-spacing: 0.8px;">ENGINE</span>
+                <span class="fw-bold text-dark d-block" style="font-size: 12px;">
+                  <i class="fas fa-microchip text-primary me-1"></i> OpenSpeedTest™ HTML5
+                </span>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3">
+              <div class="p-3 rounded-3 bg-light border h-100" style="border-color: #e2e8f0 !important;">
+                <span class="d-block text-muted text-uppercase fw-bold mb-1" style="font-size: 10px; letter-spacing: 0.8px;">PROTOCOL</span>
+                <span class="fw-bold text-dark d-block" style="font-size: 12px;">
+                  <i class="fas fa-lock text-success me-1"></i> HTTPS Secure (TLS 1.3)
+                </span>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3">
+              <div class="p-3 rounded-3 bg-light border h-100" style="border-color: #e2e8f0 !important;">
+                <span class="d-block text-muted text-uppercase fw-bold mb-1" style="font-size: 10px; letter-spacing: 0.8px;">LOCATION NODE</span>
+                <span class="fw-bold text-dark d-block" style="font-size: 12px;">
+                  <i class="fas fa-server text-info me-1"></i> Jakarta / Bekasi Node (ID)
+                </span>
+              </div>
+            </div>
+
           </div>
 
         </div>
