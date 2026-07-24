@@ -46,34 +46,45 @@
             </iframe>
           </div>
 
-          {{-- Technical Specs Footer --}}
+          {{-- Technical Specs & Client ISP Footer --}}
           <div class="row g-3 text-start pt-3 border-top" style="border-color: #f1f5f9 !important;">
-            <div class="col-md-4">
-              <div class="p-3 rounded-3 bg-light border" style="border-color: #f1f5f9 !important;">
-                <span class="d-block text-muted text-uppercase font-monospace fw-bold" style="font-size: 10px; letter-spacing: 0.5px;">ENGINE</span>
-                <span class="fw-bold text-dark font-monospace" style="font-size: 13px;">
+            
+            <div class="col-12 col-md-6 col-lg-3">
+              <div class="p-3 rounded-3 bg-light border h-100" style="border-color: #f1f5f9 !important;">
+                <span class="d-block text-muted text-uppercase font-monospace fw-bold mb-1" style="font-size: 10px; letter-spacing: 0.5px;">PENYEDIA JARINGAN / CLIENT IP</span>
+                <span id="client-isp-info" class="fw-bold text-dark font-monospace d-block text-truncate" style="font-size: 12px;">
+                  <span class="spinner-border spinner-border-sm me-1 text-primary" role="status"></span> Mendeteksi ISP &amp; IP...
+                </span>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3">
+              <div class="p-3 rounded-3 bg-light border h-100" style="border-color: #f1f5f9 !important;">
+                <span class="d-block text-muted text-uppercase font-monospace fw-bold mb-1" style="font-size: 10px; letter-spacing: 0.5px;">ENGINE</span>
+                <span class="fw-bold text-dark font-monospace d-block" style="font-size: 12px;">
                   <i class="fas fa-microchip text-primary me-1"></i> OpenSpeedTest™ HTML5
                 </span>
               </div>
             </div>
 
-            <div class="col-md-4">
-              <div class="p-3 rounded-3 bg-light border" style="border-color: #f1f5f9 !important;">
-                <span class="d-block text-muted text-uppercase font-monospace fw-bold" style="font-size: 10px; letter-spacing: 0.5px;">PROTOCOL</span>
-                <span class="fw-bold text-dark font-monospace" style="font-size: 13px;">
+            <div class="col-12 col-md-6 col-lg-3">
+              <div class="p-3 rounded-3 bg-light border h-100" style="border-color: #f1f5f9 !important;">
+                <span class="d-block text-muted text-uppercase font-monospace fw-bold mb-1" style="font-size: 10px; letter-spacing: 0.5px;">PROTOCOL</span>
+                <span class="fw-bold text-dark font-monospace d-block" style="font-size: 12px;">
                   <i class="fas fa-lock text-success me-1"></i> HTTPS Secure (TLS 1.3)
                 </span>
               </div>
             </div>
 
-            <div class="col-md-4">
-              <div class="p-3 rounded-3 bg-light border" style="border-color: #f1f5f9 !important;">
-                <span class="d-block text-muted text-uppercase font-monospace fw-bold" style="font-size: 10px; letter-spacing: 0.5px;">LOCATION NODE</span>
-                <span class="fw-bold text-dark font-monospace" style="font-size: 13px;">
+            <div class="col-12 col-md-6 col-lg-3">
+              <div class="p-3 rounded-3 bg-light border h-100" style="border-color: #f1f5f9 !important;">
+                <span class="d-block text-muted text-uppercase font-monospace fw-bold mb-1" style="font-size: 10px; letter-spacing: 0.5px;">LOCATION NODE</span>
+                <span class="fw-bold text-dark font-monospace d-block" style="font-size: 12px;">
                   <i class="fas fa-server text-info me-1"></i> Jakarta / Bekasi Node (ID)
                 </span>
               </div>
             </div>
+
           </div>
 
         </div>
@@ -82,4 +93,35 @@
     </div>
   </div>
 </section>
+
+@push('scripts')
+<script>
+  // Detect Real-time Client ISP & IP
+  fetch('https://ipwho.is/')
+    .then(res => res.json())
+    .then(data => {
+      if (data && data.ip) {
+        let isp = data.connection && data.connection.isp ? data.connection.isp : (data.org || 'Penyedia Jaringan Utama');
+        document.getElementById('client-isp-info').innerHTML = '<i class="fas fa-network-wired text-primary me-1"></i> <strong class="text-primary">' + isp + '</strong> <span class="text-muted">(' + data.ip + ')</span>';
+      } else {
+        fallbackIp();
+      }
+    })
+    .catch(() => {
+      fallbackIp();
+    });
+
+  function fallbackIp() {
+    fetch('https://api.ipify.org?format=json')
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('client-isp-info').innerHTML = '<i class="fas fa-network-wired text-primary me-1"></i> <span class="text-primary font-monospace">' + data.ip + '</span>';
+      })
+      .catch(() => {
+        document.getElementById('client-isp-info').innerHTML = '<i class="fas fa-globe text-muted me-1"></i> Terhubung (Public Network)';
+      });
+  }
+</script>
+@endpush
+
 @endsection
