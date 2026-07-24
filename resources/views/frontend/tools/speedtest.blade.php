@@ -210,121 +210,159 @@
 
     doPing(5);
 
-    // Step 2: Download Test
+    // Step 2: Download Test (Duration: 5 Seconds, 3 Parallel Streams)
     function testDownload() {
       status.textContent = 'MENGUJI DOWNLOAD';
       status.className = 'badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-1 fw-bold text-uppercase mb-2 font-monospace';
       
+      const DURATION_MS = 5000;
+      const CONCURRENCY = 3;
       const startTime = performance.now();
-      const downloadUrl = '{{ route("tools.speedtest.download") }}?t=' + Math.random();
-      
-      fetch(downloadUrl, { cache: 'no-store' })
-        .then(response => {
-          if (!response.ok) throw new Error('Network response was not ok');
-          const reader = response.body.getReader();
-          let receivedLength = 0; 
+      let totalBytesLoaded = 0;
+      let isRunning = true;
+      let activeControllers = [];
 
-          return new ReadableStream({
-            start(controller) {
-              function push() {
-                reader.read().then(({ done, value }) => {
-                  if (done) {
-                    controller.close();
-                    return;
-                  }
-                  receivedLength += value.length;
-                  
-                  let durationInSeconds = (performance.now() - startTime) / 1000;
-                  if (durationInSeconds > 0) {
-                      let bitsLoaded = receivedLength * 8;
-                      let mbps = (bitsLoaded / durationInSeconds) / (1024 * 1024);
-                      speedNum.textContent = mbps.toFixed(2);
-                      setGaugeProgress(mbps);
-                  }
-                  
-                  controller.enqueue(value);
-                  push();
-                }).catch(err => {
-                  controller.error(err);
-                });
-              };
-              push();
+      const uiInterval = setInterval(() => {
+        const elapsedSec = (performance.now() - startTime) / 1000;
+        if (elapsedSec > 0.1) {
+          const bits = totalBytesLoaded * 8;
+          const mbps = (bits / elapsedSec) / (1024 * 1024);
+          speedNum.textContent = mbps.toFixed(2);
+          setGaugeProgress(mbps);
+        }
+      }, 100);
+
+      function worker() {
+        if (!isRunning) return;
+        const controller = new AbortController();
+        activeControllers.push(controller);
+
+        const url = '{{ route("tools.speedtest.download") }}?size=10485760&t=' + Math.random() + '_' + Math.random();
+
+        fetch(url, { cache: 'no-store', signal: controller.signal })
+          .then(res => {
+            if (!res.ok) return;
+            const reader = res.body.getReader();
+            function readChunk() {
+              if (!isRunning) return;
+              reader.read().then(({ done, value }) => {
+                if (done) {
+                  if (isRunning) worker();
+                  return;
+                }
+                if (value) {
+                  totalBytesLoaded += value.length;
+                }
+                readChunk();
+              }).catch(() => {});
             }
-          });
-        })
-        .then(stream => new Response(stream))
-        .then(response => response.blob())
-        .then(blob => {
-          const durationInSeconds = (performance.now() - startTime) / 1000;
-          const bitsLoaded = blob.size * 8;
-          let finalMbps = (bitsLoaded / durationInSeconds) / (1024 * 1024);
-          
-          document.getElementById('res-download').textContent = finalMbps.toFixed(2);
-          testUpload();
-        })
-        .catch(error => {
-          console.error('Download test failed:', error);
-          document.getElementById('res-download').textContent = 'Error';
-          testUpload();
-        });
+            readChunk();
+          })
+          .catch(() => {});
+      }
+
+      for (let i = 0; i < CONCURRENCY; i++) {
+        worker();
+      }
+
+      setTimeout(() => {
+        isRunning = false;
+        clearInterval(uiInterval);
+        activeControllers.forEach(c => c.abort());
+
+        const totalElapsedSec = (performance.now() - startTime) / 1000;
+        const finalMbps = ((totalBytesLoaded * 8) / totalElapsedSec) / (1024 * 1024);
+        
+        const resDl = Math.max(finalMbps, 0).toFixed(2);
+        document.getElementById('res-download').textContent = resDl;
+        speedNum.textContent = resDl;
+        setGaugeProgress(parseFloat(resDl));
+
+        setTimeout(testUpload, 500);
+      }, DURATION_MS);
     }
 
-    // Step 3: Upload Test
+    // Step 3: Upload Test (Duration: 5 Seconds, 3 Parallel Streams)
     function testUpload() {
       status.textContent = 'MENGUJI UPLOAD';
       status.className = 'badge bg-success bg-opacity-10 text-success rounded-pill px-3 py-1 fw-bold text-uppercase mb-2 font-monospace';
       
-      const payloadSize = 5 * 1024 * 1024; // 5MB test payload
-      const data = new Uint8Array(payloadSize);
-      for(let i=0; i<payloadSize; i++) {
-          data[i] = Math.floor(Math.random() * 256);
+      const DURATION_MS = 5000;
+      const CONCURRENCY = 3;
+      const UPLOAD_CHUNK_SIZE = 4 * 1024 * 1024; // 4MB per chunk
+      
+      const payload = new Uint8Array(UPLOAD_CHUNK_SIZE);
+      for (let i = 0; i < UPLOAD_CHUNK_SIZE; i += 4096) {
+        payload[i] = Math.floor(Math.random() * 256);
       }
-      const blob = new Blob([data], {type: 'application/octet-stream'});
-      
+      const blob = new Blob([payload], { type: 'application/octet-stream' });
+
       const startTime = performance.now();
-      const uploadUrl = '{{ route("tools.speedtest.upload") }}';
-      
-      const xhr = new XMLHttpRequest();
-      
-      xhr.upload.onprogress = function(event) {
-          if (event.lengthComputable) {
-              let durationInSeconds = (performance.now() - startTime) / 1000;
-              if (durationInSeconds > 0) {
-                  let bitsLoaded = event.loaded * 8;
-                  let mbps = (bitsLoaded / durationInSeconds) / (1024 * 1024);
-                  speedNum.textContent = mbps.toFixed(2);
-                  setGaugeProgress(mbps);
-              }
+      let totalBytesUploaded = 0;
+      let activeWorkerLoaded = [0, 0, 0];
+      let isRunning = true;
+      let activeXhrs = [];
+
+      const uiInterval = setInterval(() => {
+        const elapsedSec = (performance.now() - startTime) / 1000;
+        if (elapsedSec > 0.1) {
+          const currentTotal = totalBytesUploaded + activeWorkerLoaded.reduce((a, b) => a + b, 0);
+          const bits = currentTotal * 8;
+          const mbps = (bits / elapsedSec) / (1024 * 1024);
+          speedNum.textContent = mbps.toFixed(2);
+          setGaugeProgress(mbps);
+        }
+      }, 100);
+
+      function uploadWorker(workerId) {
+        if (!isRunning) return;
+        
+        const xhr = new XMLHttpRequest();
+        activeXhrs.push(xhr);
+        
+        xhr.upload.onprogress = function(e) {
+          if (isRunning && e.lengthComputable) {
+            activeWorkerLoaded[workerId] = e.loaded;
           }
-      };
+        };
 
-      xhr.onload = function() {
-          if (xhr.status >= 200 && xhr.status < 300) {
-              let durationInSeconds = (performance.now() - startTime) / 1000;
-              let bitsLoaded = payloadSize * 8;
-              let finalMbps = (bitsLoaded / durationInSeconds) / (1024 * 1024);
-              
-              document.getElementById('res-upload').textContent = finalMbps.toFixed(2);
-          } else {
-              document.getElementById('res-upload').textContent = 'Error';
-          }
-          finishTest();
-      };
+        xhr.onload = xhr.onerror = function() {
+          if (!isRunning) return;
+          totalBytesUploaded += activeWorkerLoaded[workerId];
+          activeWorkerLoaded[workerId] = 0;
+          uploadWorker(workerId);
+        };
 
-      xhr.onerror = function() {
-          document.getElementById('res-upload').textContent = 'Error';
-          finishTest();
-      };
+        xhr.open('POST', '{{ route("tools.speedtest.upload") }}', true);
+        xhr.send(blob);
+      }
 
-      xhr.open('POST', uploadUrl, true);
-      xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');
-      xhr.send(blob);
+      for (let i = 0; i < CONCURRENCY; i++) {
+        uploadWorker(i);
+      }
+
+      setTimeout(() => {
+        isRunning = false;
+        clearInterval(uiInterval);
+        activeXhrs.forEach(x => { try { x.abort(); } catch(e){} });
+
+        const totalElapsedSec = (performance.now() - startTime) / 1000;
+        const currentTotal = totalBytesUploaded + activeWorkerLoaded.reduce((a, b) => a + b, 0);
+        const finalMbps = ((currentTotal * 8) / totalElapsedSec) / (1024 * 1024);
+
+        const resUl = Math.max(finalMbps, 0).toFixed(2);
+        document.getElementById('res-upload').textContent = resUl;
+        speedNum.textContent = resUl;
+        setGaugeProgress(parseFloat(resUl));
+
+        finishTest();
+      }, DURATION_MS);
     }
 
     function finishTest() {
       status.textContent = 'SELESAI';
       status.className = 'badge bg-success text-white rounded-pill px-3 py-1 fw-bold text-uppercase mb-2 font-monospace';
-      const dlRes = parseFloat(document.getElementById('res-download').textContent);
+      const dlRes = parseFloat(document.getElementById('res-download').textContent) || 0;
       speedNum.textContent = dlRes.toFixed(2);
       setGaugeProgress(dlRes);
       

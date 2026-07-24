@@ -390,34 +390,45 @@ class FrontendController extends Controller
         return view('frontend.tools.speedtest');
     }
 
-    public function speedtestDownload()
+    public function speedtestDownload(Request $request)
     {
-        // 10MB payload (using random-like data to avoid gzip compression artificially inflating speed)
-        $size = 10 * 1024 * 1024; // 10MB
-        return response()->stream(function () use ($size) {
-            $chunkSize = 1024 * 1024; // 1MB chunk
-            $data = random_bytes($chunkSize); // Generate random bytes to prevent compression
-            
+        $size = min((int) $request->input('size', 5242880), 20971520); // Default 5MB, max 20MB
+        if ($size <= 0) $size = 5242880;
+
+        // Pre-generate 1MB random pattern to prevent gzip compression and avoid CPU overhead
+        static $pattern = null;
+        if ($pattern === null) {
+            $pattern = random_bytes(1024 * 1024);
+        }
+        
+        return response()->stream(function () use ($size, $pattern) {
+            $chunkSize = 1024 * 1024;
             $sent = 0;
             while ($sent < $size) {
-                echo $data;
-                flush();
-                $sent += $chunkSize;
+                $toSend = min($chunkSize, $size - $sent);
+                echo substr($pattern, 0, $toSend);
+                @ob_flush();
+                @flush();
+                $sent += $toSend;
             }
         }, 200, [
             'Content-Type' => 'application/octet-stream',
             'Content-Length' => $size,
-            'Content-Encoding' => 'identity', // Tell web server not to compress
-            'Cache-Control' => 'no-cache, no-store, must-revalidate',
+            'Content-Encoding' => 'identity',
+            'Cache-Control' => 'no-cache, no-store, must-revalidate, max-age=0',
             'Pragma' => 'no-cache',
             'Expires' => '0',
+            'X-Accel-Buffering' => 'no',
         ]);
     }
 
     public function speedtestUpload(Request $request)
     {
-        // Just accept the payload and discard it
-        return response()->json(['status' => 'success']);
+        return response('OK', 200, [
+            'Content-Type' => 'text/plain',
+            'Cache-Control' => 'no-cache, no-store, must-revalidate',
+            'X-Accel-Buffering' => 'no',
+        ]);
     }
 
     public function dnsLookup()

@@ -14,6 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->validateCsrfTokens(except: [
             'api/recommend-architecture',
             'api/*',
+            'tools/speedtest/upload',
         ]);
         // Admin middleware sekarang dihandle oleh Filament
         $middleware->web(append: [
