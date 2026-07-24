@@ -390,6 +390,36 @@ class FrontendController extends Controller
         return view('frontend.tools.speedtest');
     }
 
+    public function speedtestDownload()
+    {
+        // 10MB payload (using random-like data to avoid gzip compression artificially inflating speed)
+        $size = 10 * 1024 * 1024; // 10MB
+        return response()->stream(function () use ($size) {
+            $chunkSize = 1024 * 1024; // 1MB chunk
+            $data = random_bytes($chunkSize); // Generate random bytes to prevent compression
+            
+            $sent = 0;
+            while ($sent < $size) {
+                echo $data;
+                flush();
+                $sent += $chunkSize;
+            }
+        }, 200, [
+            'Content-Type' => 'application/octet-stream',
+            'Content-Length' => $size,
+            'Content-Encoding' => 'identity', // Tell web server not to compress
+            'Cache-Control' => 'no-cache, no-store, must-revalidate',
+            'Pragma' => 'no-cache',
+            'Expires' => '0',
+        ]);
+    }
+
+    public function speedtestUpload(Request $request)
+    {
+        // Just accept the payload and discard it
+        return response()->json(['status' => 'success']);
+    }
+
     public function dnsLookup()
     {
         return view('frontend.tools.dns-lookup');

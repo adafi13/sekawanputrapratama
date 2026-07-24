@@ -149,8 +149,12 @@
       });
   }
 
+  let currentMaxSpeed = 100;
   function setGaugeProgress(mbps) {
-    const maxSpeed = 100;
+    if (mbps > currentMaxSpeed) {
+      currentMaxSpeed = Math.ceil(mbps / 100) * 100; // Increase visually max bounds dynamically 
+    }
+    const maxSpeed = currentMaxSpeed;
     const fraction = Math.min(mbps / maxSpeed, 1);
     const offset = CIRCUMFERENCE - (CIRCUMFERENCE * fraction);
     document.getElementById('gauge-arc').style.strokeDashoffset = offset;
@@ -211,21 +215,58 @@
       status.textContent = 'MENGUJI DOWNLOAD';
       status.className = 'badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-1 fw-bold text-uppercase mb-2 font-monospace';
       
-      let currentMbps = 0;
-      let targetMbps = Math.floor(Math.random() * (95 - 45 + 1)) + 45 + (Math.random() * 0.85);
+      const startTime = performance.now();
+      const downloadUrl = '{{ route("tools.speedtest.download") }}?t=' + Math.random();
+      
+      fetch(downloadUrl, { cache: 'no-store' })
+        .then(response => {
+          if (!response.ok) throw new Error('Network response was not ok');
+          const reader = response.body.getReader();
+          let receivedLength = 0; 
 
-      let interval = setInterval(() => {
-        if (currentMbps < targetMbps) {
-          currentMbps += Math.random() * 8 + 2;
-          if (currentMbps > targetMbps) currentMbps = targetMbps;
-          speedNum.textContent = currentMbps.toFixed(2);
-          setGaugeProgress(currentMbps);
-        } else {
-          clearInterval(interval);
-          document.getElementById('res-download').textContent = targetMbps.toFixed(2);
+          return new ReadableStream({
+            start(controller) {
+              function push() {
+                reader.read().then(({ done, value }) => {
+                  if (done) {
+                    controller.close();
+                    return;
+                  }
+                  receivedLength += value.length;
+                  
+                  let durationInSeconds = (performance.now() - startTime) / 1000;
+                  if (durationInSeconds > 0) {
+                      let bitsLoaded = receivedLength * 8;
+                      let mbps = (bitsLoaded / durationInSeconds) / (1024 * 1024);
+                      speedNum.textContent = mbps.toFixed(2);
+                      setGaugeProgress(mbps);
+                  }
+                  
+                  controller.enqueue(value);
+                  push();
+                }).catch(err => {
+                  controller.error(err);
+                });
+              };
+              push();
+            }
+          });
+        })
+        .then(stream => new Response(stream))
+        .then(response => response.blob())
+        .then(blob => {
+          const durationInSeconds = (performance.now() - startTime) / 1000;
+          const bitsLoaded = blob.size * 8;
+          let finalMbps = (bitsLoaded / durationInSeconds) / (1024 * 1024);
+          
+          document.getElementById('res-download').textContent = finalMbps.toFixed(2);
           testUpload();
-        }
-      }, 120);
+        })
+        .catch(error => {
+          console.error('Download test failed:', error);
+          document.getElementById('res-download').textContent = 'Error';
+          testUpload();
+        });
     }
 
     // Step 3: Upload Test
@@ -233,22 +274,51 @@
       status.textContent = 'MENGUJI UPLOAD';
       status.className = 'badge bg-success bg-opacity-10 text-success rounded-pill px-3 py-1 fw-bold text-uppercase mb-2 font-monospace';
       
-      let currentMbps = 0;
-      let dlVal = parseFloat(document.getElementById('res-download').textContent) || 50;
-      let targetMbps = (dlVal * (0.45 + Math.random() * 0.35));
+      const payloadSize = 5 * 1024 * 1024; // 5MB test payload
+      const data = new Uint8Array(payloadSize);
+      for(let i=0; i<payloadSize; i++) {
+          data[i] = Math.floor(Math.random() * 256);
+      }
+      const blob = new Blob([data], {type: 'application/octet-stream'});
+      
+      const startTime = performance.now();
+      const uploadUrl = '{{ route("tools.speedtest.upload") }}';
+      
+      const xhr = new XMLHttpRequest();
+      
+      xhr.upload.onprogress = function(event) {
+          if (event.lengthComputable) {
+              let durationInSeconds = (performance.now() - startTime) / 1000;
+              if (durationInSeconds > 0) {
+                  let bitsLoaded = event.loaded * 8;
+                  let mbps = (bitsLoaded / durationInSeconds) / (1024 * 1024);
+                  speedNum.textContent = mbps.toFixed(2);
+                  setGaugeProgress(mbps);
+              }
+          }
+      };
 
-      let interval = setInterval(() => {
-        if (currentMbps < targetMbps) {
-          currentMbps += Math.random() * 6 + 2;
-          if (currentMbps > targetMbps) currentMbps = targetMbps;
-          speedNum.textContent = currentMbps.toFixed(2);
-          setGaugeProgress(currentMbps);
-        } else {
-          clearInterval(interval);
-          document.getElementById('res-upload').textContent = targetMbps.toFixed(2);
+      xhr.onload = function() {
+          if (xhr.status >= 200 && xhr.status < 300) {
+              let durationInSeconds = (performance.now() - startTime) / 1000;
+              let bitsLoaded = payloadSize * 8;
+              let finalMbps = (bitsLoaded / durationInSeconds) / (1024 * 1024);
+              
+              document.getElementById('res-upload').textContent = finalMbps.toFixed(2);
+          } else {
+              document.getElementById('res-upload').textContent = 'Error';
+          }
           finishTest();
-        }
-      }, 120);
+      };
+
+      xhr.onerror = function() {
+          document.getElementById('res-upload').textContent = 'Error';
+          finishTest();
+      };
+
+      xhr.open('POST', uploadUrl, true);
+      xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');
+      xhr.send(blob);
     }
 
     function finishTest() {
