@@ -1,14 +1,34 @@
 @extends('frontend.layouts.app')
 
-@section('title', 'Generator Script Load Balance MikroTik PCC - PT Sekawan Putra Pratama')
-@section('meta_description', 'Buat script load balance MikroTik otomatis metode PCC (Per Connection Classifier) hingga 10 ISP untuk RouterOS v6 dan v7 secara gratis.')
+@section('title', 'Generator Script Load Balance PCC MikroTik RouterOS v6 v7 Gratis - PT Sekawan Putra Pratama')
+@section('meta_description', 'Buat script load balance MikroTik metode PCC (Per Connection Classifier) otomatis untuk RouterOS v6 & v7 hingga 10 ISP. Sesi bank, e-commerce, game online tetap stabil tanpa putus IP.')
+@section('meta_keywords', 'script load balance pcc mikrotik, per connection classifier mikrotik, pcc routeros v7, load balance stabil mikrotik, multi isp mikrotik, script pcc routeros v6, generator script mikrotik gratis, load balance game online mikrotik, load balance bank mikrotik')
+@section('og_title', 'Generator Script Load Balance PCC MikroTik - PT Sekawan Putra Pratama')
+@section('og_description', 'Generator script PCC (Per Connection Classifier) untuk MikroTik RouterOS v6 & v7. Sesi transaksi bank, game online, & e-commerce tetap stabil. Gratis dan siap pakai.')
 
-@include('frontend.partials.breadcrumb-schema', ['crumbs' => [
-    ['name' => 'Home', 'url' => route('home')],
-    ['name' => 'Tools', 'url' => route('tools.speedtest')],
-    ['name' => 'MikroTik Tools', 'url' => route('tools.mikrotik.index')],
-    ['name' => 'PCC Generator', 'url' => route('tools.mikrotik.pcc')],
-]])
+@push('head')
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Generator Script Load Balance PCC MikroTik",
+  "applicationCategory": "NetworkingApplication",
+  "operatingSystem": "Web Browser",
+  "description": "Tool gratis membuat script Load Balance PCC MikroTik RouterOS v6 & v7 hingga 10 ISP. Stabil untuk transaksi bank, e-commerce, dan game online.",
+  "url": "{{ route('tools.mikrotik.pcc') }}",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "IDR"},
+  "publisher": {"@type": "Organization", "name": "PT Sekawan Putra Pratama", "url": "{{ route('home') }}"},
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"{{ route('home') }}"},
+      {"@type":"ListItem","position":2,"name":"MikroTik Tools","item":"{{ route('tools.mikrotik.index') }}"},
+      {"@type":"ListItem","position":3,"name":"Load Balance PCC Generator","item":"{{ route('tools.mikrotik.pcc') }}"}
+    ]
+  }
+}
+</script>
+@endpush
 
 @section('content')
 

@@ -1,13 +1,35 @@
 @extends('frontend.layouts.app')
 
-@section('title', 'Generator Script MikroTik & ISP - PT Sekawan Putra Pratama')
-@section('meta_description', 'Kumpulan tools generator script MikroTik & ISP gratis: Load Balance ECMP, NTH, PCC, dan Failover Recursive Gateway untuk RouterOS v6 dan v7.')
+@section('title', 'Generator Script MikroTik RouterOS & Multi-WAN ISP Gratis - PT Sekawan Putra Pratama')
+@section('meta_description', 'Generator script MikroTik RouterOS v6 & v7 gratis: Load Balance ECMP, NTH, PCC, dan Failover Recursive Gateway. Salin langsung ke Winbox Terminal tanpa error sintaks.')
+@section('meta_keywords', 'generator script mikrotik, load balance mikrotik, script ecmp mikrotik, script nth mikrotik, script pcc mikrotik, failover mikrotik, routeros v7, load balance 2 isp mikrotik, multi wan mikrotik indonesia')
+@section('og_title', 'Generator Script MikroTik & Multi-WAN ISP Gratis - PT Sekawan Putra Pratama')
+@section('og_description', 'Buat script Load Balance ECMP, NTH, PCC, dan Failover Recursive Gateway untuk MikroTik RouterOS v6 & v7. Gratis, akurat, dan siap pakai langsung di Winbox.')
 
-@include('frontend.partials.breadcrumb-schema', ['crumbs' => [
-    ['name' => 'Home', 'url' => route('home')],
-    ['name' => 'Tools', 'url' => route('tools.speedtest')],
-    ['name' => 'MikroTik Tools', 'url' => route('tools.mikrotik.index')],
-]])
+@push('head')
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Generator Script MikroTik RouterOS & Multi-WAN ISP",
+  "description": "Kumpulan tool generator script MikroTik gratis untuk Load Balance ECMP, NTH, PCC, dan Failover Recursive Gateway RouterOS v6 & v7.",
+  "url": "{{ route('tools.mikrotik.index') }}",
+  "publisher": {
+    "@type": "Organization",
+    "name": "PT Sekawan Putra Pratama",
+    "url": "{{ route('home') }}"
+  },
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"{{ route('home') }}"},
+      {"@type":"ListItem","position":2,"name":"Tools","item":"{{ route('tools.speedtest') }}"},
+      {"@type":"ListItem","position":3,"name":"Generator MikroTik & ISP","item":"{{ route('tools.mikrotik.index') }}"}
+    ]
+  }
+}
+</script>
+@endpush
 
 @section('content')
 

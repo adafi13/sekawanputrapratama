@@ -365,6 +365,7 @@
     </style>
 
     @stack('styles')
+    @stack('head')
 </head>
 
 <body class="tt-smooth-scroll">

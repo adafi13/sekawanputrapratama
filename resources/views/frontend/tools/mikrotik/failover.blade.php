@@ -1,14 +1,34 @@
 @extends('frontend.layouts.app')
 
-@section('title', 'Generator Script MikroTik Failover Recursive Gateway - PT Sekawan Putra Pratama')
-@section('meta_description', 'Buat script failover otomatis MikroTik dengan metode Recursive Gateway (Check-Gateway Ping via DNS Google/Cloudflare) untuk RouterOS v6 dan v7.')
+@section('title', 'Generator Script Failover Recursive Gateway MikroTik RouterOS v6 v7 Gratis - PT Sekawan Putra Pratama')
+@section('meta_description', 'Buat script failover MikroTik otomatis dengan metode Recursive Routing. ISP utama mati langsung pindah ke backup tanpa putus koneksi. Untuk RouterOS v6 & v7. Gratis.')
+@section('meta_keywords', 'script failover mikrotik, failover recursive gateway mikrotik, auto failover mikrotik, backup isp mikrotik, recursive routing mikrotik, script failover routeros v6, script failover routeros v7, generator failover mikrotik gratis, isp backup otomatis mikrotik')
+@section('og_title', 'Generator Script Failover Recursive Gateway MikroTik - PT Sekawan Putra Pratama')
+@section('og_description', 'Generator script Failover Recursive Routing untuk MikroTik RouterOS v6 & v7. ISP utama mati langsung failover ke backup otomatis. Gratis dan akurat.')
 
-@include('frontend.partials.breadcrumb-schema', ['crumbs' => [
-    ['name' => 'Home', 'url' => route('home')],
-    ['name' => 'Tools', 'url' => route('tools.speedtest')],
-    ['name' => 'MikroTik Tools', 'url' => route('tools.mikrotik.index')],
-    ['name' => 'Failover Recursive', 'url' => route('tools.mikrotik.failover')],
-]])
+@push('head')
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Generator Script Failover Recursive Gateway MikroTik",
+  "applicationCategory": "NetworkingApplication",
+  "operatingSystem": "Web Browser",
+  "description": "Tool gratis untuk membuat script Failover Recursive Gateway MikroTik RouterOS v6 & v7. ISP utama mati otomatis pindah ke ISP backup tanpa intervensi manual.",
+  "url": "{{ route('tools.mikrotik.failover') }}",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "IDR"},
+  "publisher": {"@type": "Organization", "name": "PT Sekawan Putra Pratama", "url": "{{ route('home') }}"},
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"{{ route('home') }}"},
+      {"@type":"ListItem","position":2,"name":"MikroTik Tools","item":"{{ route('tools.mikrotik.index') }}"},
+      {"@type":"ListItem","position":3,"name":"Failover Recursive Generator","item":"{{ route('tools.mikrotik.failover') }}"}
+    ]
+  }
+}
+</script>
+@endpush
 
 @section('content')
 

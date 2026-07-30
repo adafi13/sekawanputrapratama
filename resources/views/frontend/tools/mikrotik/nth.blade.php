@@ -1,14 +1,34 @@
 @extends('frontend.layouts.app')
 
-@section('title', 'Generator Script Load Balance MikroTik NTH - PT Sekawan Putra Pratama')
-@section('meta_description', 'Buat script load balance MikroTik otomatis metode NTH (Every-Packet Round-Robin) hingga 10 ISP untuk RouterOS v6 dan v7 secara gratis.')
+@section('title', 'Generator Script Load Balance NTH MikroTik RouterOS v6 Gratis - PT Sekawan Putra Pratama')
+@section('meta_description', 'Buat script load balance MikroTik metode NTH (Every-Packet Round Robin) otomatis untuk RouterOS v6 hingga 10 ISP. Gratis, akurat, siap paste di Winbox Terminal.')
+@section('meta_keywords', 'script load balance nth mikrotik, nth routeros, load balance round robin mikrotik, multi wan mikrotik v6, script nth routeros v6, generator script mikrotik gratis, every packet load balance mikrotik, pembagian bandwidth mikrotik')
+@section('og_title', 'Generator Script Load Balance NTH MikroTik - PT Sekawan Putra Pratama')
+@section('og_description', 'Generator script NTH Round Robin untuk MikroTik RouterOS v6. Isi form ISP, klik generate, salin ke Winbox Terminal. Gratis dan akurat.')
 
-@include('frontend.partials.breadcrumb-schema', ['crumbs' => [
-    ['name' => 'Home', 'url' => route('home')],
-    ['name' => 'Tools', 'url' => route('tools.speedtest')],
-    ['name' => 'MikroTik Tools', 'url' => route('tools.mikrotik.index')],
-    ['name' => 'NTH Generator', 'url' => route('tools.mikrotik.nth')],
-]])
+@push('head')
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Generator Script Load Balance NTH MikroTik",
+  "applicationCategory": "NetworkingApplication",
+  "operatingSystem": "Web Browser",
+  "description": "Tool gratis untuk membuat script Load Balance NTH (Every-Packet Round Robin) MikroTik RouterOS v6 secara otomatis hingga 10 WAN/ISP.",
+  "url": "{{ route('tools.mikrotik.nth') }}",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "IDR"},
+  "publisher": {"@type": "Organization", "name": "PT Sekawan Putra Pratama", "url": "{{ route('home') }}"},
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"{{ route('home') }}"},
+      {"@type":"ListItem","position":2,"name":"MikroTik Tools","item":"{{ route('tools.mikrotik.index') }}"},
+      {"@type":"ListItem","position":3,"name":"Load Balance NTH Generator","item":"{{ route('tools.mikrotik.nth') }}"}
+    ]
+  }
+}
+</script>
+@endpush
 
 @section('content')
 
