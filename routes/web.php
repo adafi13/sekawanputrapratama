@@ -44,6 +44,17 @@ Route::get('/tools/ssl-checker', [FrontendController::class, 'sslChecker'])->nam
 Route::get('/tools/port-checker', [FrontendController::class, 'portChecker'])->name('tools.port-checker');
 Route::get('/tools/ip-lookup', [FrontendController::class, 'ipLookup'])->name('tools.ip-lookup');
 
+use App\Http\Controllers\MikrotikToolController;
+
+// MikroTik Generator Tools Routes
+Route::prefix('tools/mikrotik')->name('tools.mikrotik.')->group(function () {
+    Route::get('/', [MikrotikToolController::class, 'index'])->name('index');
+    Route::get('/load-balance-ecmp', [MikrotikToolController::class, 'ecmp'])->name('ecmp');
+    Route::get('/load-balance-nth', [MikrotikToolController::class, 'nth'])->name('nth');
+    Route::get('/load-balance-pcc', [MikrotikToolController::class, 'pcc'])->name('pcc');
+    Route::get('/failover-recursive', [MikrotikToolController::class, 'failover'])->name('failover');
+});
+
 // Calculator Route
 Route::get('/calculator', [CalculatorController::class, 'index'])->name('calculator.index');
 

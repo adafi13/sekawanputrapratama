@@ -27,6 +27,15 @@
     </a>
     <ul class="nav-dropdown-menu nav-dropdown-tools">
         <li>
+            <a href="{{ route('tools.mikrotik.index') }}" class="d-flex align-items-center p-2 rounded mb-1 {{ request()->routeIs('tools.mikrotik.*') ? 'bg-primary bg-opacity-10 text-primary' : '' }}">
+                <i class="fas fa-microchip me-3 text-primary fs-5"></i> 
+                <div>
+                    <strong class="d-block text-dark" style="font-size: 13px;">Generator MikroTik &amp; ISP</strong>
+                    <span class="text-muted d-block" style="font-size: 11px;">Script Load Balance ECMP, NTH, PCC &amp; Failover</span>
+                </div>
+            </a>
+        </li>
+        <li>
             <a href="{{ route('tools.speedtest') }}" class="d-flex align-items-center p-2 rounded mb-1 {{ request()->routeIs('tools.speedtest') ? 'bg-primary bg-opacity-10 text-primary' : '' }}">
                 <i class="fas fa-tachometer-alt me-3 text-primary fs-5"></i> 
                 <div>
