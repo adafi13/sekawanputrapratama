@@ -63,7 +63,7 @@
         <div class="card border-0 rounded-4 shadow-sm">
           <div class="card-body p-4 p-md-5">
             <h5 class="fw-bold text-dark mb-4"><i class="fas fa-lock me-2 text-primary"></i>Konfigurasi WireGuard VPN</h5>
-            <form id="wireguardForm">
+            <form id="wireguardForm" novalidate>
               <div class="row g-3">
 
                 {{-- Interface Name --}}
@@ -168,6 +168,10 @@
   document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('wireguardForm').addEventListener('submit', function(e) {
       e.preventDefault();
+      if (!this.checkValidity()) {
+        alert('Mohon lengkapi semua kolom yang wajib diisi (*).');
+        return;
+      }
       const iface      = document.getElementById('wg_iface').value.trim() || 'wg-vpn0';
       const port       = document.getElementById('wg_port').value.trim() || '51820';
       const tunnelIp   = document.getElementById('wg_tunnel_ip').value.trim() || '10.10.10.1/24';

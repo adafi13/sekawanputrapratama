@@ -63,7 +63,7 @@
         <div class="card border-0 rounded-4 shadow-sm">
           <div class="card-body p-4 p-md-5">
             <h5 class="fw-bold text-dark mb-4"><i class="fas fa-network-wired me-2 text-primary"></i>Konfigurasi DHCP Server</h5>
-            <form id="dhcpForm">
+            <form id="dhcpForm" novalidate>
               <div class="row g-3">
 
                 {{-- RouterOS Version --}}
@@ -199,6 +199,10 @@
   document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('dhcpForm').addEventListener('submit', function(e) {
       e.preventDefault();
+      if (!this.checkValidity()) {
+        alert('Mohon lengkapi semua kolom yang wajib diisi (*).');
+        return;
+      }
       const version   = document.getElementById('dhcp_version').value;
       const iface     = document.getElementById('dhcp_iface').value.trim() || 'bridge-lan';
       const srvName   = document.getElementById('dhcp_srv_name').value.trim() || 'dhcp-lan';

@@ -61,7 +61,7 @@
             <i class="fas fa-shield-alt text-warning"></i> Parameter Failover Recursive 2 ISP
           </h4>
 
-          <form id="failoverForm" autocomplete="off">
+          <form id="failoverForm" novalidate autocomplete="off">
             <div class="row g-3 mb-4">
               
               <div class="col-md-6">
@@ -164,6 +164,10 @@
   document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('failoverForm').addEventListener('submit', function(e) {
       e.preventDefault();
+      if (!this.checkValidity()) {
+        alert('Mohon lengkapi semua kolom yang wajib diisi (*).');
+        return;
+      }
       const version = document.getElementById('mikrotik_version').value;
       const checkHost = document.getElementById('check_host').value.trim();
       const ether1 = document.getElementById('ether1').value.trim();

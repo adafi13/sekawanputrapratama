@@ -85,7 +85,7 @@
           <div class="card border-0 rounded-4 shadow-sm">
             <div class="card-body p-4 p-md-5">
               <h5 class="fw-bold text-dark mb-4"><i class="fas fa-layer-group me-2 text-primary"></i>Buat User Profile (Paket Bandwidth)</h5>
-              <form id="profileForm">
+              <form id="profileForm" novalidate>
                 <div class="row g-3">
                   <div class="col-md-6">
                     <label class="form-label fw-semibold small text-dark">Nama Profile / Paket</label>
@@ -152,7 +152,7 @@
           <div class="card border-0 rounded-4 shadow-sm">
             <div class="card-body p-4 p-md-5">
               <h5 class="fw-bold text-dark mb-4"><i class="fas fa-users me-2 text-primary"></i>Buat User / Voucher Hotspot</h5>
-              <form id="userForm">
+              <form id="userForm" novalidate>
                 <div class="row g-3">
                   <div class="col-md-6">
                     <label class="form-label fw-semibold small text-dark">Mode</label>
@@ -234,7 +234,7 @@
           <div class="card border-0 rounded-4 shadow-sm">
             <div class="card-body p-4 p-md-5">
               <h5 class="fw-bold text-dark mb-4"><i class="fas fa-server me-2 text-primary"></i>Buat Server Profile Hotspot</h5>
-              <form id="serverProfileForm">
+              <form id="serverProfileForm" novalidate>
                 <div class="row g-3">
                   <div class="col-md-6">
                     <label class="form-label fw-semibold small text-dark">Nama Server Profile</label>
@@ -337,6 +337,10 @@
 
   document.getElementById('profileForm').addEventListener('submit', function(e) {
     e.preventDefault();
+      if (!this.checkValidity()) {
+        alert('Mohon lengkapi semua kolom yang wajib diisi (*).');
+        return;
+      }
     const name     = document.getElementById('profile_name').value.trim();
     const server   = document.getElementById('hs_server_name').value.trim() || 'all';
     const dl       = document.getElementById('prof_dl').value;
@@ -361,6 +365,10 @@
 
   document.getElementById('userForm').addEventListener('submit', function(e) {
     e.preventDefault();
+      if (!this.checkValidity()) {
+        alert('Mohon lengkapi semua kolom yang wajib diisi (*).');
+        return;
+      }
     const mode     = document.getElementById('user_mode').value;
     const server   = document.getElementById('user_hs_server').value.trim() || 'all';
     const profile  = document.getElementById('user_profile').value.trim() || 'default';
@@ -402,6 +410,10 @@
 
   document.getElementById('serverProfileForm').addEventListener('submit', function(e) {
     e.preventDefault();
+      if (!this.checkValidity()) {
+        alert('Mohon lengkapi semua kolom yang wajib diisi (*).');
+        return;
+      }
     const name    = document.getElementById('srv_name').value.trim() || 'hsprof-default';
     const dns     = document.getElementById('srv_dns').value.trim();
     const html    = document.getElementById('srv_html').value.trim() || 'hotspot';

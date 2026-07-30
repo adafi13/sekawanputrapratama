@@ -61,7 +61,7 @@
             <i class="fas fa-project-diagram text-success"></i> Parameter Konfigurasi PCC
           </h4>
 
-          <form id="pccForm" autocomplete="off">
+          <form id="pccForm" novalidate autocomplete="off">
             <div class="row g-3 mb-4">
               
               <div class="col-md-4">
@@ -192,6 +192,10 @@
 
     document.getElementById('pccForm').addEventListener('submit', function(e) {
       e.preventDefault();
+      if (!this.checkValidity()) {
+        alert('Mohon lengkapi semua kolom yang wajib diisi (*).');
+        return;
+      }
       const version = document.getElementById('mikrotik_version').value;
       const classifier = document.getElementById('pcc_classifier').value;
       const ipBlock = document.getElementById('ip_block').value.trim();

@@ -63,7 +63,7 @@
         <div class="card border-0 rounded-4 shadow-sm">
           <div class="card-body p-4 p-md-5">
             <h5 class="fw-bold text-dark mb-4"><i class="fas fa-sliders-h me-2 text-primary"></i>Konfigurasi Simple Queue</h5>
-            <form id="simpleQueueForm">
+            <form id="simpleQueueForm" novalidate>
               <div class="row g-3">
 
                 {{-- RouterOS Version --}}
@@ -242,6 +242,10 @@
   document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('simpleQueueForm').addEventListener('submit', function(e) {
       e.preventDefault();
+      if (!this.checkValidity()) {
+        alert('Mohon lengkapi semua kolom yang wajib diisi (*).');
+        return;
+      }
       const version   = document.getElementById('mikrotik_version').value;
       const mode      = document.getElementById('queue_mode').value;
       const dlMax     = document.getElementById('max_download').value;

@@ -61,7 +61,7 @@
             <i class="fas fa-exchange-alt text-info"></i> Parameter Konfigurasi NTH
           </h4>
 
-          <form id="nthForm" autocomplete="off">
+          <form id="nthForm" novalidate autocomplete="off">
             <div class="row g-3 mb-4">
               
               <div class="col-md-4">
@@ -185,6 +185,10 @@
 
     document.getElementById('nthForm').addEventListener('submit', function(e) {
       e.preventDefault();
+      if (!this.checkValidity()) {
+        alert('Mohon lengkapi semua kolom yang wajib diisi (*).');
+        return;
+      }
       const version = document.getElementById('mikrotik_version').value;
       const ipBlock = document.getElementById('ip_block').value.trim();
       
