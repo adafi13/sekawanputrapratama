@@ -45,7 +45,7 @@
     </h1>
     
     <p class="text-muted mx-auto leading-relaxed mb-0" style="max-width: 720px; font-size: 1.05rem;">
-      7 tools gratis untuk network engineer Indonesia. Script RouterOS v6 & v7 otomatis, siap salin dan pakai langsung di Winbox Terminal tanpa risiko kesalahan sintaks.
+      9 tools gratis untuk network engineer Indonesia. Script RouterOS v6 &amp; v7 otomatis, siap salin dan pakai langsung di Winbox Terminal tanpa risiko kesalahan sintaks.
     </p>
   </div>
 </section>
@@ -180,6 +180,38 @@
           </p>
           <a href="{{ route('tools.mikrotik.subnet-calculator') }}" class="btn rounded-pill w-100 fw-bold small" style="border: 2px solid #14b8a6; color: #14b8a6;">
             Buka Calculator <i class="fas fa-arrow-right ms-1"></i>
+          </a>
+        </div>
+      </div>
+
+      {{-- Tool Card 8: WireGuard VPN --}}
+      <div class="col-md-6 col-lg-4">
+        <div class="card border-0 rounded-4 shadow-sm h-100 p-3 p-md-4 transition-all hover-translate-y bg-white">
+          <div class="rounded-circle p-3 d-inline-flex align-items-center justify-content-center mb-3" style="width: 56px; height: 56px; background: rgba(139,92,246,0.1); color: #8b5cf6;">
+            <i class="fas fa-user-shield fs-4"></i>
+          </div>
+          <h5 class="fw-bold text-dark mb-2">WireGuard VPN Generator</h5>
+          <p class="text-muted small mb-4 flex-grow-1" style="line-height: 1.6;">
+            Generate script Server, Peer, dan file template client <code>.conf</code> untuk VPN WireGuard modern di MikroTik RouterOS v7.
+          </p>
+          <a href="{{ route('tools.mikrotik.wireguard') }}" class="btn rounded-pill w-100 fw-bold small" style="border: 2px solid #8b5cf6; color: #8b5cf6;">
+            Buka Generator <i class="fas fa-arrow-right ms-1"></i>
+          </a>
+        </div>
+      </div>
+
+      {{-- Tool Card 9: DHCP Server --}}
+      <div class="col-md-6 col-lg-4">
+        <div class="card border-0 rounded-4 shadow-sm h-100 p-3 p-md-4 transition-all hover-translate-y bg-white">
+          <div class="rounded-circle p-3 d-inline-flex align-items-center justify-content-center mb-3" style="width: 56px; height: 56px; background: rgba(245,158,11,0.1); color: #f59e0b;">
+            <i class="fas fa-server fs-4"></i>
+          </div>
+          <h5 class="fw-bold text-dark mb-2">DHCP Server Generator</h5>
+          <p class="text-muted small mb-4 flex-grow-1" style="line-height: 1.6;">
+            Buat script IP Pool, DHCP Server, DHCP Network (Gateway/DNS), dan Static IP Reservation (MAC Binding) untuk RouterOS v6 &amp; v7.
+          </p>
+          <a href="{{ route('tools.mikrotik.dhcp-server') }}" class="btn rounded-pill w-100 fw-bold small" style="border: 2px solid #f59e0b; color: #f59e0b;">
+            Buka Generator <i class="fas fa-arrow-right ms-1"></i>
           </a>
         </div>
       </div>

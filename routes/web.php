@@ -57,6 +57,8 @@ Route::prefix('tools/mikrotik')->name('tools.mikrotik.')->group(function () {
     Route::get('/simple-queue', [MikrotikToolController::class, 'simpleQueue'])->name('simple-queue');
     Route::get('/hotspot', [MikrotikToolController::class, 'hotspot'])->name('hotspot');
     Route::get('/subnet-calculator', [MikrotikToolController::class, 'subnetCalculator'])->name('subnet-calculator');
+    Route::get('/wireguard', [MikrotikToolController::class, 'wireguard'])->name('wireguard');
+    Route::get('/dhcp-server', [MikrotikToolController::class, 'dhcpServer'])->name('dhcp-server');
 });
 
 // Calculator Route

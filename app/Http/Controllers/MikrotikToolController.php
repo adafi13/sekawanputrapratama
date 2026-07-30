@@ -45,4 +45,14 @@ class MikrotikToolController extends Controller
     {
         return view('frontend.tools.mikrotik.subnet-calculator');
     }
+
+    public function wireguard()
+    {
+        return view('frontend.tools.mikrotik.wireguard');
+    }
+
+    public function dhcpServer()
+    {
+        return view('frontend.tools.mikrotik.dhcp-server');
+    }
 }
