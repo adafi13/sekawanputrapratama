@@ -224,9 +224,9 @@
     script += "\n";
 
     // NAT Masquerade
-    script += "/ip firewall NAT\n";
+    script += "/ip firewall nat\n";
     for (let i = 0; i < n; i++) {
-      script += `/ip firewall nat add chain=srcnat out-interface="${ethers[i]}" action=masquerade comment="LB NTH WAN ${i + 1} by Sekawan"\n`;
+      script += `add chain=srcnat out-interface="${ethers[i]}" action=masquerade comment="LB NTH WAN ${i + 1} by Sekawan"\n`;
     }
     script += "\n";
 
@@ -262,7 +262,7 @@
     }
 
     for (let i = 0; i < n; i++) {
-      script += `add action=mark-connection chain=prerouting connection-mark=no-mark connection-state=new dst-address-list=!ip-local in-interface=!${ethers[i]} new-connection-mark="cm-${ethers[i]}" nth="${n},${i + 1}" passthrough=yes src-address-list=ip-local comment="LB NTH Packet ${i + 1} of ${n}"\n`;
+      script += `add action=mark-connection chain=prerouting connection-mark=no-mark connection-state=new dst-address-list=!ip-local new-connection-mark="cm-${ethers[i]}" every=${n} remainder=${i} passthrough=yes src-address-list=ip-local comment="LB NTH Packet ${i + 1} of ${n}"\n`;
     }
 
     // Mark Routing

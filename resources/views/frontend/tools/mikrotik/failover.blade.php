@@ -206,24 +206,28 @@
     
     if (version === "7") {
       // RouterOS v7 Recursive Routing
-      script += `# Static route to Host Target via Primary Gateway\n`;
-      script += `add dst-address=${checkHost}/32 gateway="${gateway1}" scope=10 target-scope=10 comment="Recursive Host Target WAN1 by Sekawan"\n\n`;
-      
-      script += `# Default route via Target Host (Primary distance=1)\n`;
-      script += `add check-gateway=ping distance=1 dst-address=0.0.0.0/0 gateway="${checkHost}" target-scope=11 comment="Primary Default Route Recursive by Sekawan"\n\n`;
+      script += `# [LANGKAH 1] Rute statis ke IP target ping via Gateway ISP Utama\n`;
+      script += `# scope=10 agar route ini tidak dijadikan gateway rekursif oleh route lain\n`;
+      script += `add dst-address=${checkHost}/32 gateway="${gateway1}" scope=10 comment="Recursive Ping Target via Primary by Sekawan"\n\n`;
 
-      script += `# Secondary Failover route (Backup distance=2)\n`;
-      script += `add distance=2 dst-address=0.0.0.0/0 gateway="${gateway2}" comment="Backup Default Route WAN2 by Sekawan"\n`;
+      script += `# [LANGKAH 2] Default route rekursif ke IP target (distance=1 = utama)\n`;
+      script += `# Jika ping ke ${checkHost} gagal, route ini otomatis non-aktif -> failover ke backup\n`;
+      script += `add dst-address=0.0.0.0/0 gateway="${checkHost}" target-scope=11 distance=1 comment="Primary Default Recursive Route by Sekawan"\n\n`;
+
+      script += `# [LANGKAH 3] Default route backup via ISP 2 (distance=2 = hanya aktif bila ISP 1 mati)\n`;
+      script += `add dst-address=0.0.0.0/0 gateway="${gateway2}" distance=2 comment="Backup Default Route WAN2 by Sekawan"\n`;
     } else {
       // RouterOS v6 Recursive Routing
-      script += `# Static route to Host Target via Primary Gateway\n`;
-      script += `add dst-address=${checkHost}/32 gateway="${gateway1}" scope=10 target-scope=10 comment="Recursive Host Target WAN1 by Sekawan"\n\n`;
+      script += `# [LANGKAH 1] Rute statis ke IP target ping via Gateway ISP Utama\n`;
+      script += `# scope=10 agar route ini tidak dijadikan gateway rekursif oleh route lain\n`;
+      script += `add dst-address=${checkHost}/32 gateway="${gateway1}" scope=10 comment="Recursive Ping Target via Primary by Sekawan"\n\n`;
 
-      script += `# Default route via Target Host (Primary distance=1)\n`;
-      script += `add check-gateway=ping distance=1 gateway="${checkHost}" target-scope=11 comment="Primary Default Route Recursive by Sekawan"\n\n`;
+      script += `# [LANGKAH 2] Default route rekursif ke IP target (distance=1 = utama)\n`;
+      script += `# Jika ping ke ${checkHost} gagal, route ini otomatis non-aktif -> failover ke backup\n`;
+      script += `add dst-address=0.0.0.0/0 gateway="${checkHost}" target-scope=11 distance=1 comment="Primary Default Recursive Route by Sekawan"\n\n`;
 
-      script += `# Secondary Failover route (Backup distance=2)\n`;
-      script += `add distance=2 gateway="${gateway2}" comment="Backup Default Route WAN2 by Sekawan"\n`;
+      script += `# [LANGKAH 3] Default route backup via ISP 2 (distance=2 = hanya aktif bila ISP 1 mati)\n`;
+      script += `add dst-address=0.0.0.0/0 gateway="${gateway2}" distance=2 comment="Backup Default Route WAN2 by Sekawan"\n`;
     }
 
     return script;

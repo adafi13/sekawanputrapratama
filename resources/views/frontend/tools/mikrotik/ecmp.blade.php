@@ -263,7 +263,8 @@
     // Mark Connection & Routing
     for (let i = 0; i < n; i++) {
       script += `add action=mark-connection chain=input in-interface="${ethers[i]}" new-connection-mark="cm-${ethers[i]}" passthrough=yes comment="LB ECMP Mark Connection ${ethers[i]}"\n`;
-      script += `add action=mark-routing chain=output connection-mark="cm-${ethers[i]}" new-routing-mark="to-${ethers[i]}" passthrough=yes comment="LB ECMP Mark Routing ${ethers[i]}"\n`;
+      script += `add action=mark-routing chain=output connection-mark="cm-${ethers[i]}" new-routing-mark="to-${ethers[i]}" passthrough=yes comment="LB ECMP Mark Routing Output ${ethers[i]}"\n`;
+      script += `add action=mark-routing chain=prerouting connection-mark="cm-${ethers[i]}" dst-address-list=!ip-local new-routing-mark="to-${ethers[i]}" passthrough=yes src-address-list=ip-local comment="LB ECMP Mark Routing Prerouting ${ethers[i]}"\n`;
     }
 
     return script;
