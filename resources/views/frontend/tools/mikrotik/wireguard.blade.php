@@ -63,46 +63,46 @@
         <div class="card border-0 rounded-4 shadow-sm">
           <div class="card-body p-4 p-md-5">
             <h5 class="fw-bold text-dark mb-4"><i class="fas fa-lock me-2 text-primary"></i>Konfigurasi WireGuard VPN</h5>
-            <form id="wireguardForm" novalidate>
+            <form id="wireguardForm">
               <div class="row g-3">
 
                 {{-- Interface Name --}}
                 <div class="col-md-6">
                   <label class="form-label fw-semibold small text-dark">Nama Interface WireGuard</label>
-                  <input type="text" class="form-control rounded-3" id="wg_iface" placeholder="wg-vpn0" value="wg-vpn0">
+                  <input type="text" class="form-control rounded-3" id="wg_iface" placeholder="wg-vpn0" value="wg-vpn0" required>
                 </div>
 
                 {{-- Listen Port --}}
                 <div class="col-md-6">
                   <label class="form-label fw-semibold small text-dark">Listen Port (UDP)</label>
-                  <input type="number" class="form-control rounded-3" id="wg_port" placeholder="51820" value="51820" min="1" max="65535">
+                  <input type="number" class="form-control rounded-3" id="wg_port" placeholder="51820" value="51820" min="1" max="65535" required>
                 </div>
 
                 {{-- VPN Subnet IP --}}
                 <div class="col-md-6">
                   <label class="form-label fw-semibold small text-dark">IP Subnet VPN (Router / Gateway)</label>
-                  <input type="text" class="form-control rounded-3" id="wg_tunnel_ip" placeholder="10.10.10.1/24" value="10.10.10.1/24">
+                  <input type="text" class="form-control rounded-3" id="wg_tunnel_ip" placeholder="10.10.10.1/24" value="10.10.10.1/24" required>
                   <div class="form-text">IP lokal untuk interface WireGuard router</div>
                 </div>
 
                 {{-- Public Endpoint --}}
                 <div class="col-md-6">
                   <label class="form-label fw-semibold small text-dark">Public Endpoint (IP / Domain Router)</label>
-                  <input type="text" class="form-control rounded-3" id="wg_public_endpoint" placeholder="203.0.113.1 atau vpn.domain.com">
+                  <input type="text" class="form-control rounded-3" id="wg_public_endpoint" placeholder="203.0.113.1 atau vpn.domain.com" required>
                   <div class="form-text">IP Publik WAN atau DDNS Router untuk koneksi dari client</div>
                 </div>
 
                 {{-- Number of Clients --}}
                 <div class="col-md-6">
                   <label class="form-label fw-semibold small text-dark">Jumlah Peer / Client Remote</label>
-                  <input type="number" class="form-control rounded-3" id="wg_client_count" placeholder="3" value="3" min="1" max="50">
+                  <input type="number" class="form-control rounded-3" id="wg_client_count" placeholder="3" value="3" min="1" max="50" required>
                   <div class="form-text">Maksimal 50 client per generator</div>
                 </div>
 
                 {{-- Client IP Starting --}}
                 <div class="col-md-6">
                   <label class="form-label fw-semibold small text-dark">Client IP Mulai</label>
-                  <input type="text" class="form-control rounded-3" id="wg_client_start_ip" placeholder="10.10.10.2" value="10.10.10.2">
+                  <input type="text" class="form-control rounded-3" id="wg_client_start_ip" placeholder="10.10.10.2" value="10.10.10.2" required>
                   <div class="form-text">Client 1 akan dapat 10.10.10.2, Client 2 10.10.10.3, dst.</div>
                 </div>
 

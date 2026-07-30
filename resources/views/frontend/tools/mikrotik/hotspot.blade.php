@@ -85,11 +85,11 @@
           <div class="card border-0 rounded-4 shadow-sm">
             <div class="card-body p-4 p-md-5">
               <h5 class="fw-bold text-dark mb-4"><i class="fas fa-layer-group me-2 text-primary"></i>Buat User Profile (Paket Bandwidth)</h5>
-              <form id="profileForm" novalidate>
+              <form id="profileForm">
                 <div class="row g-3">
                   <div class="col-md-6">
                     <label class="form-label fw-semibold small text-dark">Nama Profile / Paket</label>
-                    <input type="text" class="form-control rounded-3" id="profile_name" placeholder="Paket-10Mbps" value="Paket-10Mbps">
+                    <input type="text" class="form-control rounded-3" id="profile_name" placeholder="Paket-10Mbps" value="Paket-10Mbps" required>
                   </div>
                   <div class="col-md-6">
                     <label class="form-label fw-semibold small text-dark">Hotspot Server Name</label>
@@ -99,7 +99,7 @@
                   <div class="col-md-6">
                     <label class="form-label fw-semibold small text-dark">Limit Download</label>
                     <div class="input-group">
-                      <input type="number" class="form-control" id="prof_dl" placeholder="10" value="10">
+                      <input type="number" class="form-control" id="prof_dl" placeholder="10" value="10" required>
                       <select class="form-select" id="prof_dl_unit" style="max-width:90px;">
                         <option value="M" selected>Mbps</option>
                         <option value="k">Kbps</option>
@@ -110,7 +110,7 @@
                   <div class="col-md-6">
                     <label class="form-label fw-semibold small text-dark">Limit Upload</label>
                     <div class="input-group">
-                      <input type="number" class="form-control" id="prof_ul" placeholder="5" value="5">
+                      <input type="number" class="form-control" id="prof_ul" placeholder="5" value="5" required>
                       <select class="form-select" id="prof_ul_unit" style="max-width:90px;">
                         <option value="M" selected>Mbps</option>
                         <option value="k">Kbps</option>
@@ -152,7 +152,7 @@
           <div class="card border-0 rounded-4 shadow-sm">
             <div class="card-body p-4 p-md-5">
               <h5 class="fw-bold text-dark mb-4"><i class="fas fa-users me-2 text-primary"></i>Buat User / Voucher Hotspot</h5>
-              <form id="userForm" novalidate>
+              <form id="userForm">
                 <div class="row g-3">
                   <div class="col-md-6">
                     <label class="form-label fw-semibold small text-dark">Mode</label>
@@ -234,7 +234,7 @@
           <div class="card border-0 rounded-4 shadow-sm">
             <div class="card-body p-4 p-md-5">
               <h5 class="fw-bold text-dark mb-4"><i class="fas fa-server me-2 text-primary"></i>Buat Server Profile Hotspot</h5>
-              <form id="serverProfileForm" novalidate>
+              <form id="serverProfileForm">
                 <div class="row g-3">
                   <div class="col-md-6">
                     <label class="form-label fw-semibold small text-dark">Nama Server Profile</label>

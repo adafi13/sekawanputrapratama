@@ -63,7 +63,7 @@
         <div class="card border-0 rounded-4 shadow-sm">
           <div class="card-body p-4 p-md-5">
             <h5 class="fw-bold text-dark mb-4"><i class="fas fa-network-wired me-2 text-primary"></i>Konfigurasi DHCP Server</h5>
-            <form id="dhcpForm" novalidate>
+            <form id="dhcpForm">
               <div class="row g-3">
 
                 {{-- RouterOS Version --}}
@@ -78,50 +78,50 @@
                 {{-- Interface Name --}}
                 <div class="col-md-6">
                   <label class="form-label fw-semibold small text-dark">Interface LAN</label>
-                  <input type="text" class="form-control rounded-3" id="dhcp_iface" placeholder="bridge-lan" value="bridge-lan">
+                  <input type="text" class="form-control rounded-3" id="dhcp_iface" placeholder="bridge-lan" value="bridge-lan" required>
                   <div class="form-text">Contoh: bridge-lan, ether2-lan, vlan10</div>
                 </div>
 
                 {{-- Server Name --}}
                 <div class="col-md-6">
                   <label class="form-label fw-semibold small text-dark">Nama DHCP Server</label>
-                  <input type="text" class="form-control rounded-3" id="dhcp_srv_name" placeholder="dhcp-lan" value="dhcp-lan">
+                  <input type="text" class="form-control rounded-3" id="dhcp_srv_name" placeholder="dhcp-lan" value="dhcp-lan" required>
                 </div>
 
                 {{-- Network Subnet --}}
                 <div class="col-md-6">
                   <label class="form-label fw-semibold small text-dark">Subnet Network</label>
-                  <input type="text" class="form-control rounded-3" id="dhcp_network" placeholder="192.168.10.0/24" value="192.168.10.0/24">
+                  <input type="text" class="form-control rounded-3" id="dhcp_network" placeholder="192.168.10.0/24" value="192.168.10.0/24" required>
                 </div>
 
                 {{-- Gateway --}}
                 <div class="col-md-6">
                   <label class="form-label fw-semibold small text-dark">Gateway IP (Default Router)</label>
-                  <input type="text" class="form-control rounded-3" id="dhcp_gateway" placeholder="192.168.10.1" value="192.168.10.1">
+                  <input type="text" class="form-control rounded-3" id="dhcp_gateway" placeholder="192.168.10.1" value="192.168.10.1" required>
                 </div>
 
                 {{-- Lease Time --}}
                 <div class="col-md-6">
                   <label class="form-label fw-semibold small text-dark">Lease Time</label>
-                  <input type="text" class="form-control rounded-3" id="dhcp_lease_time" placeholder="1d (1 hari) / 8h / 30m" value="1d">
+                  <input type="text" class="form-control rounded-3" id="dhcp_lease_time" placeholder="1d (1 hari) / 8h / 30m" value="1d" required>
                   <div class="form-text">Format: 1d = 1 hari, 12h = 12 jam, 30m = 30 menit</div>
                 </div>
 
                 {{-- Pool IP Range --}}
                 <div class="col-md-6">
                   <label class="form-label fw-semibold small text-dark">IP Pool Mulai</label>
-                  <input type="text" class="form-control rounded-3" id="dhcp_pool_start" placeholder="192.168.10.10" value="192.168.10.10">
+                  <input type="text" class="form-control rounded-3" id="dhcp_pool_start" placeholder="192.168.10.10" value="192.168.10.10" required>
                 </div>
 
                 <div class="col-md-6">
                   <label class="form-label fw-semibold small text-dark">IP Pool Akhir</label>
-                  <input type="text" class="form-control rounded-3" id="dhcp_pool_end" placeholder="192.168.10.254" value="192.168.10.254">
+                  <input type="text" class="form-control rounded-3" id="dhcp_pool_end" placeholder="192.168.10.254" value="192.168.10.254" required>
                 </div>
 
                 {{-- DNS Servers --}}
                 <div class="col-md-6">
                   <label class="form-label fw-semibold small text-dark">DNS Server Utama & Cadangan</label>
-                  <input type="text" class="form-control rounded-3" id="dhcp_dns" placeholder="1.1.1.1,8.8.8.8" value="1.1.1.1,8.8.8.8">
+                  <input type="text" class="form-control rounded-3" id="dhcp_dns" placeholder="1.1.1.1,8.8.8.8" value="1.1.1.1,8.8.8.8" required>
                   <div class="form-text">Pisahkan dengan koma jika lebih dari satu DNS</div>
                 </div>
 

@@ -63,7 +63,7 @@
         <div class="card border-0 rounded-4 shadow-sm">
           <div class="card-body p-4 p-md-5">
             <h5 class="fw-bold text-dark mb-4"><i class="fas fa-sliders-h me-2 text-primary"></i>Konfigurasi Simple Queue</h5>
-            <form id="simpleQueueForm" novalidate>
+            <form id="simpleQueueForm">
               <div class="row g-3">
 
                 {{-- RouterOS Version --}}
@@ -104,7 +104,7 @@
                 <div class="col-md-6">
                   <label class="form-label fw-semibold small text-dark">Limit Download (Max)</label>
                   <div class="input-group">
-                    <input type="number" class="form-control rounded-start-3" id="max_download" placeholder="10" value="10" min="1">
+                    <input type="number" class="form-control rounded-start-3" id="max_download" placeholder="10" value="10" min="1" required>
                     <select class="form-select" id="dl_unit" style="max-width:90px;">
                       <option value="M" selected>Mbps</option>
                       <option value="k">Kbps</option>
@@ -117,7 +117,7 @@
                 <div class="col-md-6">
                   <label class="form-label fw-semibold small text-dark">Limit Upload (Max)</label>
                   <div class="input-group">
-                    <input type="number" class="form-control rounded-start-3" id="max_upload" placeholder="5" value="5" min="1">
+                    <input type="number" class="form-control rounded-start-3" id="max_upload" placeholder="5" value="5" min="1" required>
                     <select class="form-select" id="ul_unit" style="max-width:90px;">
                       <option value="M" selected>Mbps</option>
                       <option value="k">Kbps</option>

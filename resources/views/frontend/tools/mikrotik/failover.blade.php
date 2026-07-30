@@ -61,12 +61,12 @@
             <i class="fas fa-shield-alt text-warning"></i> Parameter Failover Recursive 2 ISP
           </h4>
 
-          <form id="failoverForm" novalidate autocomplete="off">
+          <form id="failoverForm" autocomplete="off">
             <div class="row g-3 mb-4">
               
               <div class="col-md-6">
                 <label for="mikrotik_version" class="form-label font-monospace fw-bold small text-muted">VERSI ROUTEROS *</label>
-                <select class="form-select bg-light p-3 border-0" id="mikrotik_version" name="mikrotik_version" style="font-size: 0.95rem;">
+                <select class="form-select bg-light p-3 border-0" id="mikrotik_version" name="mikrotik_version" required style="font-size: 0.95rem;">
                   <option value="7" selected>MikroTik RouterOS v7 (Rekomendasi)</option>
                   <option value="6">MikroTik RouterOS v6</option>
                 </select>
@@ -74,7 +74,7 @@
 
               <div class="col-md-6">
                 <label for="check_host" class="form-label font-monospace fw-bold small text-muted">IP PUB PING TARGET (PRIMARY RECURSIVE) *</label>
-                <input type="text" class="form-control bg-light p-3 border-0" id="check_host" name="check_host" value="8.8.8.8" placeholder="8.8.8.8" style="font-size: 0.95rem;">
+                <input type="text" class="form-control bg-light p-3 border-0" id="check_host" name="check_host" value="8.8.8.8" placeholder="8.8.8.8" required style="font-size: 0.95rem;">
                 <span class="text-muted small mt-1 d-block" style="font-size: 11px;">
                   IP Publik yang akan terus di-ping untuk memastikan ISP Utama memiliki internet asli (default: 8.8.8.8 Google DNS).
                 </span>
@@ -91,12 +91,12 @@
                   
                   <div class="mb-3">
                     <label class="form-label font-monospace fw-bold small text-muted">INTERFACE ETHER WAN 1 *</label>
-                    <input type="text" class="form-control bg-white p-2.5 border" id="ether1" name="ether1" value="ether1" style="font-size: 0.9rem;">
+                    <input type="text" class="form-control bg-white p-2.5 border" id="ether1" name="ether1" value="ether1" required style="font-size: 0.9rem;">
                   </div>
 
                   <div>
                     <label class="form-label font-monospace fw-bold small text-muted">IP GATEWAY ISP 1 *</label>
-                    <input type="text" class="form-control bg-white p-2.5 border" id="gateway1" name="gateway1" placeholder="Contoh: 192.168.1.1" style="font-size: 0.9rem;">
+                    <input type="text" class="form-control bg-white p-2.5 border" id="gateway1" name="gateway1" placeholder="Contoh: 192.168.1.1" required style="font-size: 0.9rem;">
                   </div>
                 </div>
               </div>
@@ -108,12 +108,12 @@
                   
                   <div class="mb-3">
                     <label class="form-label font-monospace fw-bold small text-muted">INTERFACE ETHER WAN 2 *</label>
-                    <input type="text" class="form-control bg-white p-2.5 border" id="ether2" name="ether2" value="ether2" style="font-size: 0.9rem;">
+                    <input type="text" class="form-control bg-white p-2.5 border" id="ether2" name="ether2" value="ether2" required style="font-size: 0.9rem;">
                   </div>
 
                   <div>
                     <label class="form-label font-monospace fw-bold small text-muted">IP GATEWAY ISP 2 *</label>
-                    <input type="text" class="form-control bg-white p-2.5 border" id="gateway2" name="gateway2" placeholder="Contoh: 192.168.2.1" style="font-size: 0.9rem;">
+                    <input type="text" class="form-control bg-white p-2.5 border" id="gateway2" name="gateway2" placeholder="Contoh: 192.168.2.1" required style="font-size: 0.9rem;">
                   </div>
                 </div>
               </div>
