@@ -208,6 +208,11 @@
     script += "# Tanggal: " + dateStr + "\n";
     script += "# RouterOS: Version " + version + "\n";
     script += "# Jumlah ISP: " + n + " WAN Link\n";
+    script += "#\n";
+    script += "# PETUNJUK PENGGUNAAN:\n";
+    script += "# 1. Salin script ini dan buka Winbox > New Terminal, lalu Paste.\n";
+    script += "# 2. Jika WAN memakai DHCP Client, set 'Add Default Route' = no di IP > DHCP Client.\n";
+    script += "# 3. Pastikan nama interface Ether WAN di MikroTik sudah sesuai.\n";
     script += "###############################################################\n\n";
 
     // Address List

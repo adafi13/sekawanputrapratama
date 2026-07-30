@@ -189,6 +189,11 @@
     script += "# ISP Primary: " + ether1 + " (Gateway: " + gateway1 + ")\n";
     script += "# ISP Backup: " + ether2 + " (Gateway: " + gateway2 + ")\n";
     script += "# Recursive Target: " + checkHost + "\n";
+    script += "#\n";
+    script += "# PETUNJUK PENGGUNAAN:\n";
+    script += "# 1. Salin script ini dan buka Winbox > New Terminal, lalu Paste.\n";
+    script += "# 2. Jika WAN memakai DHCP Client, set 'Add Default Route' = no di IP > DHCP Client.\n";
+    script += "# 3. Pastikan nama interface Ether WAN di MikroTik sudah sesuai.\n";
     script += "###############################################################\n\n";
 
     // NAT Masquerade
