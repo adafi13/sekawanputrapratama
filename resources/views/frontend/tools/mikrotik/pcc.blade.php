@@ -266,13 +266,13 @@
     }
 
     for (let i = 0; i < n; i++) {
-      script += `add action=mark-connection chain=prerouting connection-state=new dst-address-list=!ip-local in-interface=!${ethers[i]} new-connection-mark="cm-${ethers[i]}" per-connection-classifier="${classifier}:${n}/${i}" passthrough=yes src-address-list=ip-local comment="LB PCC Hash ${i + 1} of ${n}"\n`;
+      script += `add action=mark-connection chain=prerouting connection-mark=no-mark connection-state=new dst-address-list=!ip-local in-interface=!${ethers[i]} new-connection-mark="cm-${ethers[i]}" per-connection-classifier="${classifier}:${n}/${i}" passthrough=yes src-address-list=ip-local comment="LB PCC Hash ${i + 1} of ${n}"\n`;
     }
 
     // Mark Routing
     for (let i = 0; i < n; i++) {
       script += `add action=mark-routing chain=output connection-mark="cm-${ethers[i]}" new-routing-mark="to-${ethers[i]}" passthrough=yes comment="LB PCC Output ${ethers[i]}"\n`;
-      script += `add action=mark-routing chain=prerouting connection-mark="cm-${ethers[i]}" new-routing-mark="to-${ethers[i]}" passthrough=yes src-address-list=ip-local comment="LB PCC Prerouting ${ethers[i]}"\n`;
+      script += `add action=mark-routing chain=prerouting connection-mark="cm-${ethers[i]}" dst-address-list=!ip-local new-routing-mark="to-${ethers[i]}" passthrough=yes src-address-list=ip-local comment="LB PCC Prerouting ${ethers[i]}"\n`;
     }
 
     return script;
