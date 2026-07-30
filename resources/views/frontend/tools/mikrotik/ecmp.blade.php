@@ -9,21 +9,21 @@
 @push('head')
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
+  "@@context": "https://schema.org",
+  "@@type": "SoftwareApplication",
   "name": "Generator Script Load Balance ECMP MikroTik",
   "applicationCategory": "NetworkingApplication",
   "operatingSystem": "Web Browser",
   "description": "Tool gratis untuk membuat script Load Balance ECMP MikroTik RouterOS v6 dan v7 secara otomatis hingga 10 WAN/ISP.",
   "url": "{{ route('tools.mikrotik.ecmp') }}",
-  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "IDR"},
-  "publisher": {"@type": "Organization", "name": "PT Sekawan Putra Pratama", "url": "{{ route('home') }}"},
+  "offers": {"@@type": "Offer", "price": "0", "priceCurrency": "IDR"},
+  "publisher": {"@@type": "Organization", "name": "PT Sekawan Putra Pratama", "url": "{{ route('home') }}"},
   "breadcrumb": {
-    "@type": "BreadcrumbList",
+    "@@type": "BreadcrumbList",
     "itemListElement": [
-      {"@type":"ListItem","position":1,"name":"Home","item":"{{ route('home') }}"},
-      {"@type":"ListItem","position":2,"name":"MikroTik Tools","item":"{{ route('tools.mikrotik.index') }}"},
-      {"@type":"ListItem","position":3,"name":"Load Balance ECMP Generator","item":"{{ route('tools.mikrotik.ecmp') }}"}
+      {"@@type":"ListItem","position":1,"name":"Home","item":"{{ route('home') }}"},
+      {"@@type":"ListItem","position":2,"name":"MikroTik Tools","item":"{{ route('tools.mikrotik.index') }}"},
+      {"@@type":"ListItem","position":3,"name":"Load Balance ECMP Generator","item":"{{ route('tools.mikrotik.ecmp') }}"}
     ]
   }
 }

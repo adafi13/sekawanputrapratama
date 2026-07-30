@@ -9,22 +9,22 @@
 @push('head')
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@type": "WebPage",
+  "@@context": "https://schema.org",
+  "@@type": "WebPage",
   "name": "Generator Script MikroTik RouterOS & Networking Tools",
   "description": "Kumpulan tool generator script MikroTik gratis untuk Load Balance ECMP, NTH, PCC, Failover, Simple Queue, Hotspot, dan Subnet Calculator.",
   "url": "{{ route('tools.mikrotik.index') }}",
   "publisher": {
-    "@type": "Organization",
+    "@@type": "Organization",
     "name": "PT Sekawan Putra Pratama",
     "url": "{{ route('home') }}"
   },
   "breadcrumb": {
-    "@type": "BreadcrumbList",
+    "@@type": "BreadcrumbList",
     "itemListElement": [
-      {"@type":"ListItem","position":1,"name":"Home","item":"{{ route('home') }}"},
-      {"@type":"ListItem","position":2,"name":"Tools","item":"{{ route('tools.speedtest') }}"},
-      {"@type":"ListItem","position":3,"name":"MikroTik & Networking Tools","item":"{{ route('tools.mikrotik.index') }}"}
+      {"@@type":"ListItem","position":1,"name":"Home","item":"{{ route('home') }}"},
+      {"@@type":"ListItem","position":2,"name":"Tools","item":"{{ route('tools.speedtest') }}"},
+      {"@@type":"ListItem","position":3,"name":"MikroTik & Networking Tools","item":"{{ route('tools.mikrotik.index') }}"}
     ]
   }
 }

@@ -9,21 +9,21 @@
 @push('head')
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
+  "@@context": "https://schema.org",
+  "@@type": "SoftwareApplication",
   "name": "Subnet & IP Address Calculator",
   "applicationCategory": "NetworkingApplication",
   "operatingSystem": "Web Browser",
   "description": "Tool kalkulator subnet IPv4 online gratis. Hitung Network Address, Broadcast, Range Host, Wildcard Mask, dan Total Host dari CIDR notation.",
   "url": "{{ route('tools.mikrotik.subnet-calculator') }}",
-  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "IDR"},
-  "publisher": {"@type": "Organization", "name": "PT Sekawan Putra Pratama", "url": "{{ route('home') }}"},
+  "offers": {"@@type": "Offer", "price": "0", "priceCurrency": "IDR"},
+  "publisher": {"@@type": "Organization", "name": "PT Sekawan Putra Pratama", "url": "{{ route('home') }}"},
   "breadcrumb": {
-    "@type": "BreadcrumbList",
+    "@@type": "BreadcrumbList",
     "itemListElement": [
-      {"@type":"ListItem","position":1,"name":"Home","item":"{{ route('home') }}"},
-      {"@type":"ListItem","position":2,"name":"MikroTik Tools","item":"{{ route('tools.mikrotik.index') }}"},
-      {"@type":"ListItem","position":3,"name":"Subnet Calculator","item":"{{ route('tools.mikrotik.subnet-calculator') }}"}
+      {"@@type":"ListItem","position":1,"name":"Home","item":"{{ route('home') }}"},
+      {"@@type":"ListItem","position":2,"name":"MikroTik Tools","item":"{{ route('tools.mikrotik.index') }}"},
+      {"@@type":"ListItem","position":3,"name":"Subnet Calculator","item":"{{ route('tools.mikrotik.subnet-calculator') }}"}
     ]
   }
 }

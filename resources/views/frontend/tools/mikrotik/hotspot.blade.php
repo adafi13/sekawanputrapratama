@@ -9,21 +9,21 @@
 @push('head')
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
+  "@@context": "https://schema.org",
+  "@@type": "SoftwareApplication",
   "name": "Generator Script Hotspot MikroTik",
   "applicationCategory": "NetworkingApplication",
   "operatingSystem": "Web Browser",
   "description": "Tool gratis untuk membuat script Hotspot MikroTik RouterOS v6 & v7. Generate Server Profile, User Profile, dan User/Voucher secara massal.",
   "url": "{{ route('tools.mikrotik.hotspot') }}",
-  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "IDR"},
-  "publisher": {"@type": "Organization", "name": "PT Sekawan Putra Pratama", "url": "{{ route('home') }}"},
+  "offers": {"@@type": "Offer", "price": "0", "priceCurrency": "IDR"},
+  "publisher": {"@@type": "Organization", "name": "PT Sekawan Putra Pratama", "url": "{{ route('home') }}"},
   "breadcrumb": {
-    "@type": "BreadcrumbList",
+    "@@type": "BreadcrumbList",
     "itemListElement": [
-      {"@type":"ListItem","position":1,"name":"Home","item":"{{ route('home') }}"},
-      {"@type":"ListItem","position":2,"name":"MikroTik Tools","item":"{{ route('tools.mikrotik.index') }}"},
-      {"@type":"ListItem","position":3,"name":"Hotspot Generator","item":"{{ route('tools.mikrotik.hotspot') }}"}
+      {"@@type":"ListItem","position":1,"name":"Home","item":"{{ route('home') }}"},
+      {"@@type":"ListItem","position":2,"name":"MikroTik Tools","item":"{{ route('tools.mikrotik.index') }}"},
+      {"@@type":"ListItem","position":3,"name":"Hotspot Generator","item":"{{ route('tools.mikrotik.hotspot') }}"}
     ]
   }
 }

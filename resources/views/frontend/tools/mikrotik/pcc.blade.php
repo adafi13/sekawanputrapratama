@@ -9,21 +9,21 @@
 @push('head')
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
+  "@@context": "https://schema.org",
+  "@@type": "SoftwareApplication",
   "name": "Generator Script Load Balance PCC MikroTik",
   "applicationCategory": "NetworkingApplication",
   "operatingSystem": "Web Browser",
   "description": "Tool gratis membuat script Load Balance PCC MikroTik RouterOS v6 & v7 hingga 10 ISP. Stabil untuk transaksi bank, e-commerce, dan game online.",
   "url": "{{ route('tools.mikrotik.pcc') }}",
-  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "IDR"},
-  "publisher": {"@type": "Organization", "name": "PT Sekawan Putra Pratama", "url": "{{ route('home') }}"},
+  "offers": {"@@type": "Offer", "price": "0", "priceCurrency": "IDR"},
+  "publisher": {"@@type": "Organization", "name": "PT Sekawan Putra Pratama", "url": "{{ route('home') }}"},
   "breadcrumb": {
-    "@type": "BreadcrumbList",
+    "@@type": "BreadcrumbList",
     "itemListElement": [
-      {"@type":"ListItem","position":1,"name":"Home","item":"{{ route('home') }}"},
-      {"@type":"ListItem","position":2,"name":"MikroTik Tools","item":"{{ route('tools.mikrotik.index') }}"},
-      {"@type":"ListItem","position":3,"name":"Load Balance PCC Generator","item":"{{ route('tools.mikrotik.pcc') }}"}
+      {"@@type":"ListItem","position":1,"name":"Home","item":"{{ route('home') }}"},
+      {"@@type":"ListItem","position":2,"name":"MikroTik Tools","item":"{{ route('tools.mikrotik.index') }}"},
+      {"@@type":"ListItem","position":3,"name":"Load Balance PCC Generator","item":"{{ route('tools.mikrotik.pcc') }}"}
     ]
   }
 }
