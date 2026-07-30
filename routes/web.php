@@ -36,6 +36,7 @@ use App\Http\Controllers\CalculatorController;
 use App\Http\Controllers\CareerController;
 
 // Tools Routes
+Route::get('/tools', [MikrotikToolController::class, 'index'])->name('tools.index');
 Route::get('/speedtest', [FrontendController::class, 'speedtest'])->name('tools.speedtest');
 Route::get('/tools/speedtest/download', [FrontendController::class, 'speedtestDownload'])->name('tools.speedtest.download');
 Route::post('/tools/speedtest/upload', [FrontendController::class, 'speedtestUpload'])->name('tools.speedtest.upload');

@@ -22,18 +22,66 @@
     </ul>
 </li>
 <li class="nav-item-dropdown">
-    <a href="{{ route('tools.speedtest') }}" class="{{ request()->routeIs('tools.*') ? 'active' : '' }}">
+    <a href="{{ route('tools.mikrotik.index') }}" class="{{ request()->routeIs('tools.*') || request()->routeIs('calculator.*') || request()->routeIs('speedtest') ? 'active' : '' }}">
         Tools <i class="fas fa-chevron-down ms-1 nav-dropdown-icon"></i>
     </a>
-    <ul class="nav-dropdown-menu nav-dropdown-tools">
+    <ul class="nav-dropdown-menu nav-dropdown-tools" style="min-width: 320px;">
+        
+        {{-- MIKROTIK & NETWORK GENERATORS --}}
+        <li class="px-2 pt-2 pb-1 text-uppercase font-monospace fw-bold text-primary" style="font-size: 10px; letter-spacing: 1px;">
+            • MIKROTIK &amp; NETWORK TOOLS
+        </li>
         <li>
-            <a href="{{ route('tools.mikrotik.index') }}" class="d-flex align-items-center p-2 rounded mb-1 {{ request()->routeIs('tools.mikrotik.*') ? 'bg-primary bg-opacity-10 text-primary' : '' }}">
+            <a href="{{ route('tools.mikrotik.index') }}" class="d-flex align-items-center p-2 rounded mb-1 {{ request()->routeIs('tools.mikrotik.index') ? 'bg-primary bg-opacity-10 text-primary' : '' }}">
                 <i class="fas fa-microchip me-3 text-primary fs-5"></i> 
                 <div>
-                    <strong class="d-block text-dark" style="font-size: 13px;">Generator MikroTik &amp; ISP</strong>
-                    <span class="text-muted d-block" style="font-size: 11px;">Script Load Balance ECMP, NTH, PCC &amp; Failover</span>
+                    <strong class="d-block text-dark" style="font-size: 13px;">Hub Generator MikroTik &amp; ISP</strong>
+                    <span class="text-muted d-block" style="font-size: 11px;">Indeks Lengkap Script Otomatisasi RouterOS</span>
                 </div>
             </a>
+        </li>
+        <li>
+            <a href="{{ route('tools.mikrotik.ecmp') }}" class="d-flex align-items-center p-2 rounded mb-1 {{ request()->routeIs('tools.mikrotik.ecmp') ? 'bg-primary bg-opacity-10 text-primary' : '' }}">
+                <i class="fas fa-random me-3 text-primary fs-6"></i> 
+                <div>
+                    <strong class="d-block text-dark" style="font-size: 12px;">Load Balance ECMP Generator</strong>
+                    <span class="text-muted d-block" style="font-size: 10px;">Equal Cost Multi Path RouterOS v6 &amp; v7</span>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('tools.mikrotik.nth') }}" class="d-flex align-items-center p-2 rounded mb-1 {{ request()->routeIs('tools.mikrotik.nth') ? 'bg-primary bg-opacity-10 text-primary' : '' }}">
+                <i class="fas fa-exchange-alt me-3 text-info fs-6"></i> 
+                <div>
+                    <strong class="d-block text-dark" style="font-size: 12px;">Load Balance NTH Generator</strong>
+                    <span class="text-muted d-block" style="font-size: 10px;">Every-Packet Round Robin RouterOS v6 &amp; v7</span>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('tools.mikrotik.pcc') }}" class="d-flex align-items-center p-2 rounded mb-1 {{ request()->routeIs('tools.mikrotik.pcc') ? 'bg-primary bg-opacity-10 text-primary' : '' }}">
+                <i class="fas fa-project-diagram me-3 text-success fs-6"></i> 
+                <div>
+                    <strong class="d-block text-dark" style="font-size: 12px;">Load Balance PCC Generator</strong>
+                    <span class="text-muted d-block" style="font-size: 10px;">Per Connection Classifier Hash Sessions</span>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('tools.mikrotik.failover') }}" class="d-flex align-items-center p-2 rounded mb-1 {{ request()->routeIs('tools.mikrotik.failover') ? 'bg-primary bg-opacity-10 text-primary' : '' }}">
+                <i class="fas fa-shield-alt me-3 text-warning fs-6"></i> 
+                <div>
+                    <strong class="d-block text-dark" style="font-size: 12px;">Failover Recursive Gateway</strong>
+                    <span class="text-muted d-block" style="font-size: 10px;">Check-Gateway Ping DNS Cloudflare/Google</span>
+                </div>
+            </a>
+        </li>
+
+        <li class="my-2 border-bottom"></li>
+
+        {{-- UTILITAS WEB & SECURITY --}}
+        <li class="px-2 pb-1 text-uppercase font-monospace fw-bold text-muted" style="font-size: 10px; letter-spacing: 1px;">
+            • UTILITAS WEB &amp; SYSTEM
         </li>
         <li>
             <a href="{{ route('tools.speedtest') }}" class="d-flex align-items-center p-2 rounded mb-1 {{ request()->routeIs('tools.speedtest') ? 'bg-primary bg-opacity-10 text-primary' : '' }}">
