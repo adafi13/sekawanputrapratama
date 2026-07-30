@@ -54,7 +54,7 @@
             <div class="col-12 col-md-6 col-lg-3">
               <div class="p-3 rounded-3 bg-light border h-100" style="border-color: #e2e8f0 !important;">
                 <span class="d-block text-muted text-uppercase fw-bold mb-1" style="font-size: 10px; letter-spacing: 0.8px;">PENYEDIA JARINGAN / CLIENT IP</span>
-                <span id="client-isp-info" class="fw-bold text-dark d-block text-truncate" style="font-size: 12px;">
+                <span id="client-isp-info" class="d-block" style="font-size: 12px;">
                   <span class="spinner-border spinner-border-sm me-1 text-primary" role="status"></span> Mendeteksi ISP &amp; IP...
                 </span>
               </div>
@@ -105,7 +105,9 @@
     .then(data => {
       if (data && data.ip) {
         let isp = data.connection && data.connection.isp ? data.connection.isp : (data.org || 'Penyedia Jaringan Utama');
-        document.getElementById('client-isp-info').innerHTML = '<i class="fas fa-network-wired text-primary me-1"></i> <strong class="text-primary">' + isp + '</strong> <span class="text-muted">(' + data.ip + ')</span>';
+        document.getElementById('client-isp-info').innerHTML = 
+          '<div class="fw-bold text-primary mb-0.5 text-truncate" style="max-width: 100%;" title="' + isp + '"><i class="fas fa-network-wired me-1"></i> ' + isp + '</div>' +
+          '<div class="font-monospace text-dark fw-bold" style="font-size: 11px;"><span class="text-muted">IP:</span> ' + data.ip + '</div>';
       } else {
         fallbackIp();
       }
@@ -118,10 +120,10 @@
     fetch('https://api.ipify.org?format=json')
       .then(res => res.json())
       .then(data => {
-        document.getElementById('client-isp-info').innerHTML = '<i class="fas fa-network-wired text-primary me-1"></i> <span class="text-primary font-monospace">' + data.ip + '</span>';
+        document.getElementById('client-isp-info').innerHTML = '<div class="font-monospace text-primary fw-bold" style="font-size: 12px;"><i class="fas fa-network-wired me-1"></i> IP: ' + data.ip + '</div>';
       })
       .catch(() => {
-        document.getElementById('client-isp-info').innerHTML = '<i class="fas fa-globe text-muted me-1"></i> Terhubung (Public Network)';
+        document.getElementById('client-isp-info').innerHTML = '<div class="text-muted small"><i class="fas fa-globe me-1"></i> Terhubung (Public Network)</div>';
       });
   }
 </script>
