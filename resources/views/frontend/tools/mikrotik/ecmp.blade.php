@@ -170,7 +170,7 @@
         ispCount++;
         renderIspInputs();
       } else {
-        alert('Maksimal 10 ISP.');
+        Swal.fire({ icon: 'warning', title: 'Perhatian', text: 'Maksimal 10 ISP.', confirmButtonColor: '#0d6efd' });
       }
     });
 
@@ -186,7 +186,7 @@
     document.getElementById('ecmpForm').addEventListener('submit', function(e) {
       e.preventDefault();
       if (!this.checkValidity()) {
-        alert('Mohon lengkapi semua kolom yang wajib diisi (*).');
+        Swal.fire({ icon: 'warning', title: 'Perhatian', text: 'Mohon lengkapi semua kolom yang wajib diisi (*).', confirmButtonColor: '#0d6efd' });
         return;
       }
       const version = document.getElementById('mikrotik_version').value;
@@ -196,7 +196,7 @@
       const gateways = Array.from(document.querySelectorAll("input[name='gateway[]']")).map(el => el.value.trim());
 
       if (ethers.length < 1 || gateways.length < 1 || !ipBlock) {
-        alert('Mohon lengkapi seluruh data interface dan gateway!');
+        Swal.fire({ icon: 'warning', title: 'Perhatian', text: 'Mohon lengkapi seluruh data interface dan gateway!', confirmButtonColor: '#0d6efd' });
         return;
       }
 

@@ -200,7 +200,7 @@
     document.getElementById('dhcpForm').addEventListener('submit', function(e) {
       e.preventDefault();
       if (!this.checkValidity()) {
-        alert('Mohon lengkapi semua kolom yang wajib diisi (*).');
+        Swal.fire({ icon: 'warning', title: 'Perhatian', text: 'Mohon lengkapi semua kolom yang wajib diisi (*).', confirmButtonColor: '#0d6efd' });
         return;
       }
       const version   = document.getElementById('dhcp_version').value;
@@ -216,7 +216,7 @@
       const enableStatic = document.getElementById('dhcp_enable_static').checked;
 
       if (!poolStart || !poolEnd) {
-        alert('Masukkan IP Pool Mulai dan IP Pool Akhir!');
+        Swal.fire({ icon: 'warning', title: 'Perhatian', text: 'Masukkan IP Pool Mulai dan IP Pool Akhir!', confirmButtonColor: '#0d6efd' });
         return;
       }
 

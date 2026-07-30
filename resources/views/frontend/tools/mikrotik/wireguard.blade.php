@@ -169,7 +169,7 @@
     document.getElementById('wireguardForm').addEventListener('submit', function(e) {
       e.preventDefault();
       if (!this.checkValidity()) {
-        alert('Mohon lengkapi semua kolom yang wajib diisi (*).');
+        Swal.fire({ icon: 'warning', title: 'Perhatian', text: 'Mohon lengkapi semua kolom yang wajib diisi (*).', confirmButtonColor: '#0d6efd' });
         return;
       }
       const iface      = document.getElementById('wg_iface').value.trim() || 'wg-vpn0';
@@ -181,14 +181,14 @@
       const allowLan   = document.getElementById('wg_allow_lan').checked;
 
       if (!endpoint) {
-        alert('Masukkan Public Endpoint (IP Publik / Domain DDNS Router)!');
+        Swal.fire({ icon: 'warning', title: 'Perhatian', text: 'Masukkan Public Endpoint (IP Publik / Domain DDNS Router)!', confirmButtonColor: '#0d6efd' });
         return;
       }
 
       // Convert start IP to integer
       const ipParts = startIpStr.split('.').map(Number);
       if (ipParts.length !== 4 || ipParts.some(p => isNaN(p) || p < 0 || p > 255)) {
-        alert('Format Client IP Mulai tidak valid!');
+        Swal.fire({ icon: 'warning', title: 'Perhatian', text: 'Format Client IP Mulai tidak valid!', confirmButtonColor: '#0d6efd' });
         return;
       }
       const startNum = ((ipParts[0]<<24)|(ipParts[1]<<16)|(ipParts[2]<<8)|ipParts[3]) >>> 0;

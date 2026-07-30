@@ -243,7 +243,7 @@
     document.getElementById('simpleQueueForm').addEventListener('submit', function(e) {
       e.preventDefault();
       if (!this.checkValidity()) {
-        alert('Mohon lengkapi semua kolom yang wajib diisi (*).');
+        Swal.fire({ icon: 'warning', title: 'Perhatian', text: 'Mohon lengkapi semua kolom yang wajib diisi (*).', confirmButtonColor: '#0d6efd' });
         return;
       }
       const version   = document.getElementById('mikrotik_version').value;
@@ -261,13 +261,13 @@
       if (mode === 'single') {
         const target = document.getElementById('target_ip').value.trim();
         const qname  = document.getElementById('queue_name').value.trim() || 'user-1';
-        if (!target) { alert('Masukkan Target IP / Subnet!'); return; }
+        if (!target) { Swal.fire({ icon: 'warning', title: 'Perhatian', text: 'Masukkan Target IP / Subnet!', confirmButtonColor: '#0d6efd' }); return; }
         script = generateSingleQueue(version, qname, target, maxRateStr, dlMax, dlUnit, ulMax, ulUnit, iface, burst);
       } else {
         const start  = document.getElementById('bulk_start').value.trim();
         const end    = document.getElementById('bulk_end').value.trim();
         const prefix = document.getElementById('bulk_prefix').value.trim() || 'client-';
-        if (!start || !end) { alert('Masukkan IP Mulai dan IP Akhir!'); return; }
+        if (!start || !end) { Swal.fire({ icon: 'warning', title: 'Perhatian', text: 'Masukkan IP Mulai dan IP Akhir!', confirmButtonColor: '#0d6efd' }); return; }
         script = generateBulkQueue(version, start, end, prefix, maxRateStr, dlMax, dlUnit, ulMax, ulUnit, iface, burst);
       }
 
@@ -333,14 +333,14 @@
     const endParts   = endIp.split('.').map(Number);
 
     if (startParts.length !== 4 || endParts.length !== 4) {
-      alert('Format IP tidak valid!'); return '';
+      Swal.fire({ icon: 'warning', title: 'Perhatian', text: 'Format IP tidak valid!', confirmButtonColor: '#0d6efd' }); return '';
     }
 
     const startNum = ((startParts[0]<<24)|(startParts[1]<<16)|(startParts[2]<<8)|startParts[3]) >>> 0;
     const endNum   = ((endParts[0]<<24)|(endParts[1]<<16)|(endParts[2]<<8)|endParts[3]) >>> 0;
 
-    if (endNum < startNum) { alert('IP Akhir harus lebih besar dari IP Mulai!'); return ''; }
-    if ((endNum - startNum) > 253) { alert('Maksimal 254 IP sekaligus untuk performa yang baik!'); return ''; }
+    if (endNum < startNum) { Swal.fire({ icon: 'warning', title: 'Perhatian', text: 'IP Akhir harus lebih besar dari IP Mulai!', confirmButtonColor: '#0d6efd' }); return ''; }
+    if ((endNum - startNum) > 253) { Swal.fire({ icon: 'warning', title: 'Perhatian', text: 'Maksimal 254 IP sekaligus untuk performa yang baik!', confirmButtonColor: '#0d6efd' }); return ''; }
 
     let script = "###############################################################\n";
     script += "# MIKROTIK BULK SIMPLE QUEUE SCRIPT\n";

@@ -165,7 +165,7 @@
     document.getElementById('failoverForm').addEventListener('submit', function(e) {
       e.preventDefault();
       if (!this.checkValidity()) {
-        alert('Mohon lengkapi semua kolom yang wajib diisi (*).');
+        Swal.fire({ icon: 'warning', title: 'Perhatian', text: 'Mohon lengkapi semua kolom yang wajib diisi (*).', confirmButtonColor: '#0d6efd' });
         return;
       }
       const version = document.getElementById('mikrotik_version').value;
@@ -176,7 +176,7 @@
       const gateway2 = document.getElementById('gateway2').value.trim();
 
       if (!gateway1 || !gateway2 || !ether1 || !ether2) {
-        alert('Mohon lengkapi seluruh data interface dan gateway!');
+        Swal.fire({ icon: 'warning', title: 'Perhatian', text: 'Mohon lengkapi seluruh data interface dan gateway!', confirmButtonColor: '#0d6efd' });
         return;
       }
 

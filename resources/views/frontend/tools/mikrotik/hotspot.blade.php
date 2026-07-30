@@ -338,7 +338,7 @@
   document.getElementById('profileForm').addEventListener('submit', function(e) {
     e.preventDefault();
       if (!this.checkValidity()) {
-        alert('Mohon lengkapi semua kolom yang wajib diisi (*).');
+        Swal.fire({ icon: 'warning', title: 'Perhatian', text: 'Mohon lengkapi semua kolom yang wajib diisi (*).', confirmButtonColor: '#0d6efd' });
         return;
       }
     const name     = document.getElementById('profile_name').value.trim();
@@ -366,7 +366,7 @@
   document.getElementById('userForm').addEventListener('submit', function(e) {
     e.preventDefault();
       if (!this.checkValidity()) {
-        alert('Mohon lengkapi semua kolom yang wajib diisi (*).');
+        Swal.fire({ icon: 'warning', title: 'Perhatian', text: 'Mohon lengkapi semua kolom yang wajib diisi (*).', confirmButtonColor: '#0d6efd' });
         return;
       }
     const mode     = document.getElementById('user_mode').value;
@@ -411,7 +411,7 @@
   document.getElementById('serverProfileForm').addEventListener('submit', function(e) {
     e.preventDefault();
       if (!this.checkValidity()) {
-        alert('Mohon lengkapi semua kolom yang wajib diisi (*).');
+        Swal.fire({ icon: 'warning', title: 'Perhatian', text: 'Mohon lengkapi semua kolom yang wajib diisi (*).', confirmButtonColor: '#0d6efd' });
         return;
       }
     const name    = document.getElementById('srv_name').value.trim() || 'hsprof-default';
