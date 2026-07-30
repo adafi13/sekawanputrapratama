@@ -237,19 +237,23 @@
         script += `add name="to-${ethers[i]}" fib comment="LB ECMP Table by Sekawan"\n`;
       }
       script += "\n/ip route\n";
-      // Main ECMP route
-      script += `add check-gateway=ping distance=1 gateway="${gateways.join(',')}" routing-table="main" comment="LB ECMP Main Gateway by Sekawan"\n`;
-      // Individual routes
+      // Main ECMP route — pisahkan per gateway, bukan gabung, karena ROS v7 ECMP lewat multiple route distance=1
       for (let i = 0; i < n; i++) {
-        script += `add check-gateway=ping distance=1 gateway="${gateways[i]}" routing-table="to-${ethers[i]}" comment="LB ECMP Static ${ethers[i]} by Sekawan"\n`;
+        script += `add dst-address=0.0.0.0/0 check-gateway=ping distance=1 gateway="${gateways[i]}" routing-table=main comment="LB ECMP Main WAN ${i+1} by Sekawan"\n`;
+      }
+      // Individual per-WAN routing table routes
+      for (let i = 0; i < n; i++) {
+        script += `add dst-address=0.0.0.0/0 check-gateway=ping distance=1 gateway="${gateways[i]}" routing-table="to-${ethers[i]}" comment="LB ECMP Static ${ethers[i]} by Sekawan"\n`;
       }
     } else {
       script += "/ip route\n";
-      // Main ECMP route
-      script += `add check-gateway=ping distance=1 gateway="${gateways.join(',')}" comment="LB ECMP Main Gateway by Sekawan"\n`;
-      // Individual routes
+      // Main ECMP route v6 — buat satu route per gateway dengan distance=1 (ECMP)
       for (let i = 0; i < n; i++) {
-        script += `add check-gateway=ping distance=1 gateway="${gateways[i]}" routing-mark="to-${ethers[i]}" comment="LB ECMP Static ${ethers[i]} by Sekawan"\n`;
+        script += `add dst-address=0.0.0.0/0 check-gateway=ping distance=1 gateway=${gateways[i]} comment="LB ECMP Main WAN ${i+1} by Sekawan"\n`;
+      }
+      // Individual per-WAN routing-mark routes
+      for (let i = 0; i < n; i++) {
+        script += `add dst-address=0.0.0.0/0 check-gateway=ping distance=1 gateway=${gateways[i]} routing-mark="to-${ethers[i]}" comment="LB ECMP Static ${ethers[i]} by Sekawan"\n`;
       }
     }
     script += "\n";

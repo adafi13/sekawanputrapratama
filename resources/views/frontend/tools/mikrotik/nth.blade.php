@@ -232,20 +232,22 @@
 
     // Routing Table & Routes
     if (version === "7") {
+      script += "# CATATAN: RouterOS v7 tidak mendukung NTH. Gunakan metode PCC atau ECMP untuk v7.\n";
+      script += "# Script routing di bawah tetap dibuat, namun mangle NTH berikut tidak akan aktif di v7.\n\n";
       script += "/routing table\n";
       for (let i = 0; i < n; i++) {
         script += `add name="to-${ethers[i]}" fib comment="LB NTH Table by Sekawan"\n`;
       }
       script += "\n/ip route\n";
       for (let i = 0; i < n; i++) {
-        script += `add check-gateway=ping distance=1 gateway="${gateways[i]}" routing-table="to-${ethers[i]}" comment="LB NTH Route WAN ${i + 1} by Sekawan"\n`;
-        script += `add check-gateway=ping distance=${i + 1} gateway="${gateways[i]}" routing-table="main" comment="LB NTH Main Failover ${ethers[i]} by Sekawan"\n`;
+        script += `add dst-address=0.0.0.0/0 check-gateway=ping distance=1 gateway="${gateways[i]}" routing-table="to-${ethers[i]}" comment="LB NTH Route WAN ${i + 1} by Sekawan"\n`;
+        script += `add dst-address=0.0.0.0/0 check-gateway=ping distance=${i + 1} gateway="${gateways[i]}" routing-table=main comment="LB NTH Main Failover ${ethers[i]} by Sekawan"\n`;
       }
     } else {
       script += "/ip route\n";
       for (let i = 0; i < n; i++) {
-        script += `add check-gateway=ping distance=1 gateway="${gateways[i]}" routing-mark="to-${ethers[i]}" comment="LB NTH Route WAN ${i + 1} by Sekawan"\n`;
-        script += `add check-gateway=ping distance=${i + 1} gateway="${gateways[i]}" comment="LB NTH Main Failover ${ethers[i]} by Sekawan"\n`;
+        script += `add dst-address=0.0.0.0/0 check-gateway=ping distance=1 gateway=${gateways[i]} routing-mark="to-${ethers[i]}" comment="LB NTH Route WAN ${i + 1} by Sekawan"\n`;
+        script += `add dst-address=0.0.0.0/0 check-gateway=ping distance=${i + 1} gateway=${gateways[i]} comment="LB NTH Main Failover ${ethers[i]} by Sekawan"\n`;
       }
     }
     script += "\n";
@@ -262,6 +264,7 @@
     }
 
     for (let i = 0; i < n; i++) {
+      // every=N remainder=I: bagi paket ke-N secara bergantian mulai dari paket ke-I (0-indexed)
       script += `add action=mark-connection chain=prerouting connection-mark=no-mark connection-state=new dst-address-list=!ip-local new-connection-mark="cm-${ethers[i]}" every=${n} remainder=${i} passthrough=yes src-address-list=ip-local comment="LB NTH Packet ${i + 1} of ${n}"\n`;
     }
 

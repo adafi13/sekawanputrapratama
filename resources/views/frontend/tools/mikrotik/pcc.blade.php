@@ -247,14 +247,14 @@
       }
       script += "\n/ip route\n";
       for (let i = 0; i < n; i++) {
-        script += `add check-gateway=ping distance=1 gateway="${gateways[i]}" routing-table="to-${ethers[i]}" comment="LB PCC Route WAN ${i + 1} by Sekawan"\n`;
-        script += `add check-gateway=ping distance=${i + 1} gateway="${gateways[i]}" routing-table="main" comment="LB PCC Main Failover ${ethers[i]} by Sekawan"\n`;
+        script += `add dst-address=0.0.0.0/0 check-gateway=ping distance=1 gateway="${gateways[i]}" routing-table="to-${ethers[i]}" comment="LB PCC Route WAN ${i + 1} by Sekawan"\n`;
+        script += `add dst-address=0.0.0.0/0 check-gateway=ping distance=${i + 1} gateway="${gateways[i]}" routing-table=main comment="LB PCC Main Failover ${ethers[i]} by Sekawan"\n`;
       }
     } else {
       script += "/ip route\n";
       for (let i = 0; i < n; i++) {
-        script += `add check-gateway=ping distance=1 gateway="${gateways[i]}" routing-mark="to-${ethers[i]}" comment="LB PCC Route WAN ${i + 1} by Sekawan"\n`;
-        script += `add check-gateway=ping distance=${i + 1} gateway="${gateways[i]}" comment="LB PCC Main Failover ${ethers[i]} by Sekawan"\n`;
+        script += `add dst-address=0.0.0.0/0 check-gateway=ping distance=1 gateway=${gateways[i]} routing-mark="to-${ethers[i]}" comment="LB PCC Route WAN ${i + 1} by Sekawan"\n`;
+        script += `add dst-address=0.0.0.0/0 check-gateway=ping distance=${i + 1} gateway=${gateways[i]} comment="LB PCC Main Failover ${ethers[i]} by Sekawan"\n`;
       }
     }
     script += "\n";
@@ -271,7 +271,8 @@
     }
 
     for (let i = 0; i < n; i++) {
-      script += `add action=mark-connection chain=prerouting connection-mark=no-mark connection-state=new dst-address-list=!ip-local in-interface=!${ethers[i]} new-connection-mark="cm-${ethers[i]}" per-connection-classifier="${classifier}:${n}/${i}" passthrough=yes src-address-list=ip-local comment="LB PCC Hash ${i + 1} of ${n}"\n`;
+      // in-interface=!"etherX" diberi kutip untuk menghindari error bila nama ether mengandung angka/spasi
+      script += `add action=mark-connection chain=prerouting connection-mark=no-mark connection-state=new dst-address-list=!ip-local in-interface=!"${ethers[i]}" new-connection-mark="cm-${ethers[i]}" per-connection-classifier="${classifier}:${n}/${i}" passthrough=yes src-address-list=ip-local comment="LB PCC Hash ${i + 1} of ${n}"\n`;
     }
 
     // Mark Routing
