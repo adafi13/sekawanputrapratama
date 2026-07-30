@@ -54,6 +54,9 @@ Route::prefix('tools/mikrotik')->name('tools.mikrotik.')->group(function () {
     Route::get('/load-balance-nth', [MikrotikToolController::class, 'nth'])->name('nth');
     Route::get('/load-balance-pcc', [MikrotikToolController::class, 'pcc'])->name('pcc');
     Route::get('/failover-recursive', [MikrotikToolController::class, 'failover'])->name('failover');
+    Route::get('/simple-queue', [MikrotikToolController::class, 'simpleQueue'])->name('simple-queue');
+    Route::get('/hotspot', [MikrotikToolController::class, 'hotspot'])->name('hotspot');
+    Route::get('/subnet-calculator', [MikrotikToolController::class, 'subnetCalculator'])->name('subnet-calculator');
 });
 
 // Calculator Route

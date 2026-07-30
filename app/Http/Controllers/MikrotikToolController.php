@@ -30,4 +30,19 @@ class MikrotikToolController extends Controller
     {
         return view('frontend.tools.mikrotik.failover');
     }
+
+    public function simpleQueue()
+    {
+        return view('frontend.tools.mikrotik.simple-queue');
+    }
+
+    public function hotspot()
+    {
+        return view('frontend.tools.mikrotik.hotspot');
+    }
+
+    public function subnetCalculator()
+    {
+        return view('frontend.tools.mikrotik.subnet-calculator');
+    }
 }
