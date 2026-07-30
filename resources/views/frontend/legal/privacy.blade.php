@@ -4,7 +4,7 @@
 @section('meta_description', 'Kebijakan Privasi resmi PT Sekawan Putra Pratama yang menjelaskan perlindungan data pribadi pengguna dan klien sesuai Undang-Undang Perlindungan Data Pribadi (UU PDP).')
 
 @section('content')
-<section class="py-5 text-white" style="background: linear-gradient(135deg, #050b14 0%, #0f172a 100%);">
+<section class="text-white" style="background: linear-gradient(135deg, #050b14 0%, #0f172a 100%); padding-top: 135px !important; padding-bottom: 55px !important;">
     <div class="container py-4 text-center">
         <span class="badge bg-primary bg-opacity-20 text-info border border-info border-opacity-30 rounded-pill px-3 py-2 mb-3">
             <i class="fas fa-shield-alt me-1"></i> Legal & Compliance
