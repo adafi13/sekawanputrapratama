@@ -257,13 +257,13 @@
     }
 
     for (let i = 0; i < n; i++) {
-      script += `add action=mark-connection chain=prerouting connection-state=new dst-address-list=!ip-local in-interface=!${ethers[i]} new-connection-mark="cm-${ethers[i]}" nth="${n},${i + 1}" passthrough=yes src-address-list=ip-local comment="LB NTH Packet ${i + 1} of ${n}"\n`;
+      script += `add action=mark-connection chain=prerouting connection-mark=no-mark connection-state=new dst-address-list=!ip-local in-interface=!${ethers[i]} new-connection-mark="cm-${ethers[i]}" nth="${n},${i + 1}" passthrough=yes src-address-list=ip-local comment="LB NTH Packet ${i + 1} of ${n}"\n`;
     }
 
     // Mark Routing
     for (let i = 0; i < n; i++) {
       script += `add action=mark-routing chain=output connection-mark="cm-${ethers[i]}" new-routing-mark="to-${ethers[i]}" passthrough=yes comment="LB NTH Output ${ethers[i]}"\n`;
-      script += `add action=mark-routing chain=prerouting connection-mark="cm-${ethers[i]}" new-routing-mark="to-${ethers[i]}" passthrough=yes src-address-list=ip-local comment="LB NTH Prerouting ${ethers[i]}"\n`;
+      script += `add action=mark-routing chain=prerouting connection-mark="cm-${ethers[i]}" dst-address-list=!ip-local new-routing-mark="to-${ethers[i]}" passthrough=yes src-address-list=ip-local comment="LB NTH Prerouting ${ethers[i]}"\n`;
     }
 
     return script;
