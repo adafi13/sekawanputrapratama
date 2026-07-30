@@ -350,24 +350,36 @@
 
     let script = makeHeader('USER PROFILE');
     script += `/ip hotspot user profile\n`;
-    script += `add name="${name}" rate-limit="${dl}${dlU}/${ul}${ulU}" session-timeout=${session} idle-timeout=${idle} shared-users=${shared} keepalive-timeout=${keepalive} comment="Hotspot Profile by Sekawan"\n`;
+    // MikroTik rate-limit format: UPLOAD/DOWNLOAD
+    let line = `add name="${name}" rate-limit="${ul}${ulU}/${dl}${dlU}" shared-users=${shared} comment="Hotspot Profile by Sekawan"`;
+    if (session && session !== '0') line += ` session-timeout=${session}`;
+    if (idle && idle !== '0') line += ` idle-timeout=${idle}`;
+    if (keepalive && keepalive !== '0') line += ` keepalive-timeout=${keepalive}`;
+    script += line + "\n";
     output(script);
   });
 
   document.getElementById('userForm').addEventListener('submit', function(e) {
     e.preventDefault();
     const mode     = document.getElementById('user_mode').value;
-    const server   = document.getElementById('user_hs_server').value.trim() || 'hotspot1';
+    const server   = document.getElementById('user_hs_server').value.trim() || 'all';
     const profile  = document.getElementById('user_profile').value.trim() || 'default';
     const uptime   = document.getElementById('user_uptime').value.trim() || '0';
 
     let script = makeHeader('USER / VOUCHER');
     script += `/ip hotspot user\n`;
 
+    const buildUserLine = (uname, upass) => {
+      let l = `add name="${uname}" password="${upass}" profile="${profile}" server="${server}"`;
+      if (uptime && uptime !== '0') l += ` limit-uptime=${uptime}`;
+      l += ` comment="Hotspot Voucher by Sekawan"`;
+      return l;
+    };
+
     if (mode === 'single') {
       const uname = document.getElementById('user_single_name').value.trim() || 'user01';
       const upass = document.getElementById('user_single_pass').value.trim() || uname;
-      script += `add name="${uname}" password="${upass}" profile="${profile}" limit-uptime=${uptime} server="${server}" comment="Hotspot User by Sekawan"\n`;
+      script += buildUserLine(uname, upass) + "\n";
     } else {
       const prefix = document.getElementById('bulk_user_prefix').value.trim() || 'voucher-';
       const start  = parseInt(document.getElementById('bulk_user_start').value) || 1;
@@ -382,7 +394,7 @@
         let upass = uname;
         if (passMode === 'fixed') upass = fixedPass;
         else if (passMode === 'random') upass = randStr();
-        script += `add name="${uname}" password="${upass}" profile="${profile}" limit-uptime=${uptime} server="${server}" comment="Hotspot Voucher by Sekawan"\n`;
+        script += buildUserLine(uname, upass) + "\n";
       }
     }
     output(script);

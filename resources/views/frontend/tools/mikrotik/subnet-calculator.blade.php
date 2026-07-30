@@ -277,6 +277,12 @@
         maskNum = ipToNum(maskStr);
         if (ipNum === null) throw new Error('Format IP Address tidak valid.');
         if (maskNum === null) throw new Error('Format Subnet Mask tidak valid.');
+
+        // Validasi subnet mask harus berupa bit kontigu (111...000)
+        const inverted = (~maskNum) >>> 0;
+        if ((inverted & (inverted + 1)) !== 0) {
+          throw new Error('Subnet Mask tidak valid (bit 1 harus kontigu, contoh: 255.255.255.0).');
+        }
         prefix = maskToPrefix(maskNum);
       }
 
