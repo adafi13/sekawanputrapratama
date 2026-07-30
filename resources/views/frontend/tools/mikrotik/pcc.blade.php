@@ -61,12 +61,12 @@
             <i class="fas fa-project-diagram text-success"></i> Parameter Konfigurasi PCC
           </h4>
 
-          <form id="pccForm" autocomplete="off">
+          <form id="pccForm" novalidate autocomplete="off">
             <div class="row g-3 mb-4">
               
               <div class="col-md-4">
                 <label for="mikrotik_version" class="form-label font-monospace fw-bold small text-muted">VERSI ROUTEROS *</label>
-                <select class="form-select bg-light p-3 border-0" id="mikrotik_version" name="mikrotik_version" required style="font-size: 0.95rem;">
+                <select class="form-select bg-light p-3 border-0" id="mikrotik_version" name="mikrotik_version" style="font-size: 0.95rem;">
                   <option value="7" selected>MikroTik RouterOS v7 (Rekomendasi)</option>
                   <option value="6">MikroTik RouterOS v6</option>
                 </select>
@@ -74,7 +74,7 @@
 
               <div class="col-md-4">
                 <label for="pcc_classifier" class="form-label font-monospace fw-bold small text-muted">METODE HASH PCC *</label>
-                <select class="form-select bg-light p-3 border-0" id="pcc_classifier" name="pcc_classifier" required style="font-size: 0.95rem;">
+                <select class="form-select bg-light p-3 border-0" id="pcc_classifier" name="pcc_classifier" style="font-size: 0.95rem;">
                   <option value="both-addresses-and-ports" selected>both-addresses-and-ports (Rekomendasi Merata)</option>
                   <option value="both-addresses">both-addresses (Paling Stabil untuk Bank &amp; E-Commerce)</option>
                   <option value="src-address">src-address (Berdasarkan IP Klien)</option>
@@ -84,7 +84,7 @@
 
               <div class="col-md-4">
                 <label for="ip_block" class="form-label font-monospace fw-bold small text-muted">SUBNET IP LOKAL / LAN *</label>
-                <input type="text" class="form-control bg-light p-3 border-0" id="ip_block" name="ip_block" value="10.0.0.0/8,172.16.0.0/12,192.168.0.0/16" placeholder="192.168.10.0/24" required style="font-size: 0.95rem;">
+                <input type="text" class="form-control bg-light p-3 border-0" id="ip_block" name="ip_block" value="10.0.0.0/8,172.16.0.0/12,192.168.0.0/16" placeholder="192.168.10.0/24" style="font-size: 0.95rem;">
               </div>
 
             </div>
@@ -153,11 +153,11 @@
         <div class="row g-3 align-items-end">
           <div class="col-md-5">
             <label class="form-label font-monospace fw-bold small text-muted">INTERFACE ETHER (WAN ${i + 1}) *</label>
-            <input type="text" class="form-control bg-white p-2.5 border" name="ether[]" value="ether${i + 1}" placeholder="ether${i + 1}" required style="font-size: 0.9rem;">
+            <input type="text" class="form-control bg-white p-2.5 border" name="ether[]" value="ether${i + 1}" placeholder="ether${i + 1}" style="font-size: 0.9rem;">
           </div>
           <div class="col-md-5">
             <label class="form-label font-monospace fw-bold small text-muted">IP GATEWAY ISP ${i + 1} *</label>
-            <input type="text" class="form-control bg-white p-2.5 border" name="gateway[]" placeholder="Contoh: 192.168.${i + 1}.1" required style="font-size: 0.9rem;">
+            <input type="text" class="form-control bg-white p-2.5 border" name="gateway[]" placeholder="Contoh: 192.168.${i + 1}.1" style="font-size: 0.9rem;">
           </div>
           <div class="col-md-2 text-end">
             ${ispCount > 1 ? `<button type="button" class="btn btn-outline-danger w-100 remove-isp" title="Hapus ISP"><i class="fas fa-trash me-1"></i> Hapus</button>` : ''}
