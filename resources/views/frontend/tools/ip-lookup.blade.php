@@ -196,13 +196,13 @@ function fetchIpDetails(targetIp, originDomain = '') {
         
         document.getElementById('resMapFrame').src = `https://www.google.com/maps?q=${lat},${lon}&z=12&output=embed`;
       } else {
-        alert('Gagal menemukan data IP/Domain. Pastikan format IP atau domain sudah benar.');
+        Swal.fire({ icon: 'warning', title: 'Perhatian', text: 'Gagal menemukan data IP/Domain. Pastikan format IP atau domain sudah benar.', confirmButtonColor: '#0d6efd' });
       }
     })
     .catch(() => {
       btn.disabled = false;
       btn.innerHTML = '<i class="fas fa-compass me-1"></i> Cek Lokasi IP';
-      alert('Terjadi kesalahan koneksi ke resolver IP.');
+      Swal.fire({ icon: 'error', title: 'Error', text: 'Terjadi kesalahan koneksi ke resolver IP.', confirmButtonColor: '#0d6efd' });
     });
 }
 
