@@ -493,17 +493,13 @@ class QuotationForm
                             ->helperText('Official position in company'),
                     ]),
                     Grid::make(2)->schema([
-                        FileUpload::make('prepared_signature_path')
+                        \Coolsam\SignaturePad\Forms\Components\Fields\SignaturePad::make('prepared_signature_path')
                             ->label('Prepared By Signature')
-                            ->image()
-                            ->directory('signatures')
-                            ->maxSize(2048)
-                            ->helperText('Upload signature image (PNG transparent recommended)'),
-                        FileUpload::make('approved_signature_path')
+                            ->penColor('blue')
+                            ->helperText('Draw signature on the pad'),
+                        \Coolsam\SignaturePad\Forms\Components\Fields\SignaturePad::make('approved_signature_path')
                             ->label('Approved By Signature')
-                            ->image()
-                            ->directory('signatures')
-                            ->maxSize(2048)
+                            ->penColor('black')
                             ->helperText('Optional client signature if available'),
                     ]),
                 ])

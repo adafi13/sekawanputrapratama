@@ -539,10 +539,18 @@
                 <tr>
                     <td class="w-half valign-top" style="padding-right: 20px;">
                         <div class="sig-label">Client Approval:</div>
-                        @if($quotation->approved_signature_path && Storage::disk('public')->exists($quotation->approved_signature_path))
-                            <div style="margin-bottom: 5px;">
-                                <img src="{{ public_path('storage/' . $quotation->approved_signature_path) }}" alt="Signature" style="max-height: 60px; max-width: 150px;">
-                            </div>
+                        @if($quotation->approved_signature_path)
+                            @if(\Illuminate\Support\Str::startsWith($quotation->approved_signature_path, 'data:image'))
+                                <div style="margin-bottom: 5px;">
+                                    <img src="{{ $quotation->approved_signature_path }}" alt="Signature" style="max-height: 60px; max-width: 150px;">
+                                </div>
+                            @elseif(Storage::disk('public')->exists($quotation->approved_signature_path))
+                                <div style="margin-bottom: 5px;">
+                                    <img src="{{ public_path('storage/' . $quotation->approved_signature_path) }}" alt="Signature" style="max-height: 60px; max-width: 150px;">
+                                </div>
+                            @else
+                                <div class="sig-line"></div>
+                            @endif
                         @else
                             <div class="sig-line"></div>
                         @endif
@@ -551,10 +559,18 @@
                     </td>
                     <td class="w-half valign-top">
                         <div class="sig-label">Authorized Representative:</div>
-                        @if($quotation->prepared_signature_path && Storage::disk('public')->exists($quotation->prepared_signature_path))
-                            <div style="margin-bottom: 5px;">
-                                <img src="{{ public_path('storage/' . $quotation->prepared_signature_path) }}" alt="Signature" style="max-height: 60px; max-width: 150px;">
-                            </div>
+                        @if($quotation->prepared_signature_path)
+                            @if(\Illuminate\Support\Str::startsWith($quotation->prepared_signature_path, 'data:image'))
+                                <div style="margin-bottom: 5px;">
+                                    <img src="{{ $quotation->prepared_signature_path }}" alt="Signature" style="max-height: 60px; max-width: 150px;">
+                                </div>
+                            @elseif(Storage::disk('public')->exists($quotation->prepared_signature_path))
+                                <div style="margin-bottom: 5px;">
+                                    <img src="{{ public_path('storage/' . $quotation->prepared_signature_path) }}" alt="Signature" style="max-height: 60px; max-width: 150px;">
+                                </div>
+                            @else
+                                <div class="sig-line"></div>
+                            @endif
                         @else
                             <div class="sig-line"></div>
                         @endif
