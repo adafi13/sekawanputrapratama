@@ -100,7 +100,6 @@ class QuotationForm
                             Select::make('lead_id')
                                 ->label('From Lead')
                                 ->relationship('lead', 'company_name')
-                                ->required()
                                 ->searchable()
                                 ->preload()
                                 ->live()
