@@ -464,6 +464,7 @@
                                 <li><a href="{{ route('blog.index') }}">Artikel</a></li>
                                 <li><a href="{{ route('privacy-policy') }}">Kebijakan Privasi</a></li>
                                 <li><a href="{{ route('terms') }}">Syarat & Ketentuan</a></li>
+                                <li><a href="javascript:void(0)" onclick="openCookieSettings()"><i class="fas fa-cookie-bite text-warning me-1"></i> Pengaturan Cookie</a></li>
                             </ul>
                         </div>
                     </div>
@@ -1073,5 +1074,8 @@
 
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    {{-- Cookie Consent Banner --}}
+    @include('frontend.partials.cookie_banner')
 </body>
 </html>
