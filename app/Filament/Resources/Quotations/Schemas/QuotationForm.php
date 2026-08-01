@@ -96,7 +96,7 @@ class QuotationForm
                                 ->required()
                                 ->native(false)
                                 ->displayFormat('d F Y')
-                                ->minDate(now())
+                                ->minDate(today())
                                 ->helperText('Default 30 days from today'),
                             // Status removed from create form - auto-set to Draft
                             // Status changes will auto-sync with Lead status
