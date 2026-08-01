@@ -59,10 +59,10 @@ class QuotationForm
                     Placeholder::make('letterhead')
                         ->hiddenLabel()
                         ->content(function () {
-                            $companyName = \App\Models\Setting::get('company_name', 'PT. SEKAWAN PUTRA PRATAMA');
-                            $companyAddress = \App\Models\Setting::get('company_address', 'Jl. Contoh Alamat No. 123, Jakarta');
-                            $companyPhone = \App\Models\Setting::get('company_phone', '+62 21 1234567');
-                            $companyEmail = \App\Models\Setting::get('company_email', 'info@spp.com');
+                            $companyName = \App\Models\Setting::get('site.company_name', 'PT. SEKAWAN PUTRA PRATAMA');
+                            $companyAddress = \App\Models\Setting::get('contact.address', 'Perumahan Mega Regency, Blk. L5 No. 23, Sukaragam, Bekasi, Jawa Barat 17330');
+                            $companyPhone = \App\Models\Setting::get('contact.phone', '+62 851-5641-2702');
+                            $companyEmail = \App\Models\Setting::get('contact.email', 'admin@sekawanputrapratama.com');
 
                             return new \Illuminate\Support\HtmlString('
                             <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 3px solid #2563eb; padding-bottom: 20px; margin-bottom: 30px;">
