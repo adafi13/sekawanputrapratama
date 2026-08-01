@@ -36,7 +36,7 @@
 </div>
 
 <!-- Modal Preferences Cookie -->
-<div id="cookie-settings-modal" class="sp-modal-overlay" style="display: none;">
+<div id="cookie-settings-modal" class="sp-modal-overlay">
     <div class="sp-modal-card">
         <div class="sp-modal-header">
             <div class="sp-modal-title">
@@ -91,13 +91,12 @@
 </div>
 
 <style>
-/* Reset & Scope for Cookie Banner */
 .sp-cookie-wrapper {
     position: fixed !important;
     bottom: 24px !important;
     left: 24px !important;
     z-index: 999999 !important;
-    max-width: 520px !important;
+    max-width: 500px !important;
     width: calc(100% - 48px) !important;
     font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
 }
@@ -220,7 +219,7 @@
     color: #ffffff !important;
 }
 
-/* Modal Styling */
+/* Modal Styling - Default Hidden without display:flex !important */
 .sp-modal-overlay {
     position: fixed !important;
     top: 0 !important;
@@ -231,11 +230,15 @@
     backdrop-filter: blur(8px) !important;
     -webkit-backdrop-filter: blur(8px) !important;
     z-index: 9999999 !important;
-    display: flex !important;
+    display: none;
     align-items: center !important;
     justify-content: center !important;
     padding: 16px !important;
     box-sizing: border-box !important;
+}
+
+.sp-modal-overlay.active {
+    display: flex !important;
 }
 
 .sp-modal-card {
@@ -381,6 +384,14 @@ document.addEventListener('DOMContentLoaded', function() {
         return null;
     }
 
+    function showModal() {
+        if (modal) modal.classList.add('active');
+    }
+
+    function hideModal() {
+        if (modal) modal.classList.remove('active');
+    }
+
     function saveConsent(data) {
         const consentData = {
             status: data.status || 'accepted',
@@ -396,24 +407,25 @@ document.addEventListener('DOMContentLoaded', function() {
         document.cookie = COOKIE_KEY + "=" + consentData.status + ";expires=" + d.toUTCString() + ";path=/;SameSite=Lax";
         
         if (banner) banner.style.display = 'none';
-        if (modal) modal.style.display = 'none';
+        hideModal();
 
         if (consentData.analytics && typeof gtag === 'function') {
             gtag('consent', 'update', { 'analytics_storage': 'granted' });
         }
     }
 
+    // Only show small bottom banner if consent not yet given
     if (!getConsent() && banner) {
         setTimeout(() => { banner.style.display = 'block'; }, 1000);
     }
 
     if (btnAccept) btnAccept.onclick = () => saveConsent({ status: 'accepted', analytics: true, marketing: true });
     if (btnDecline) btnDecline.onclick = () => saveConsent({ status: 'essential_only', analytics: false, marketing: false });
-    if (btnSettings) btnSettings.onclick = () => { if (modal) modal.style.display = 'flex'; };
-    if (btnCloseModal) btnCloseModal.onclick = () => { if (modal) modal.style.display = 'none'; };
+    if (btnSettings) btnSettings.onclick = () => showModal();
+    if (btnCloseModal) btnCloseModal.onclick = () => hideModal();
 
     if (modal) {
-        modal.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+        modal.onclick = (e) => { if (e.target === modal) hideModal(); };
     }
 
     if (btnSaveSettings) {
@@ -432,7 +444,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (a) a.checked = consent.analytics;
             if (m) m.checked = consent.marketing;
         }
-        if (modal) modal.style.display = 'flex';
+        showModal();
     };
 });
 </script>
