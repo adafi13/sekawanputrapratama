@@ -4,258 +4,201 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Quotation #{{ $quotation->quotation_number }}</title>
     <style>
-        /* --- PAGE SETUP --- */
         @page {
-            margin: 0cm;
+            margin: 35px 40px 50px 40px;
         }
         body {
-            font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+            font-family: 'Helvetica', 'Arial', sans-serif;
             font-size: 9pt;
             color: #334155;
-            line-height: 1.5;
-            margin: 0;
-            padding: 0;
-            background: white;
-        }
-        
-        .page-container {
-            padding: 1.5cm;
-        }
-
-        /* --- UTILITY CLASSES --- */
-        .w-full { width: 100%; }
-        .w-half { width: 50%; vertical-align: top; }
-        .w-1/3 { width: 33.33%; vertical-align: top; }
-        .w-2/3 { width: 66.66%; vertical-align: top; }
-        .text-right { text-align: right; }
-        .text-center { text-align: center; }
-        .text-bold { font-weight: bold; }
-        .uppercase { text-transform: uppercase; }
-        .text-blue { color: #0f172a; } /* Darker professional slate */
-        .text-gray { color: #64748b; }
-        .text-light { color: #94a3b8; }
-        .mt-2 { margin-top: 8px; }
-        .mt-4 { margin-top: 16px; }
-        .mt-6 { margin-top: 24px; }
-        .mt-8 { margin-top: 32px; }
-        .mb-2 { margin-bottom: 8px; }
-        .mb-4 { margin-bottom: 16px; }
-        .valign-top { vertical-align: top; }
-        .valign-middle { vertical-align: middle; }
-
-        /* --- HEADER BORDER --- */
-        .top-bar {
-            height: 6px;
-            width: 100%;
-            background-color: #2563eb;
-        }
-
-        /* --- HEADER --- */
-        .header-table {
-            width: 100%;
-            margin-bottom: 30px;
-        }
-        .company-logo {
-            max-width: 180px;
-            max-height: 70px;
-            margin-bottom: 10px;
-        }
-        .company-info { 
-            font-size: 8pt; 
-            color: #64748b; 
             line-height: 1.4;
         }
-        .doc-title { 
-            font-size: 26pt; 
-            font-weight: 800; 
-            color: #1e293b; 
-            letter-spacing: 2px;
+
+        /* UTILITIES */
+        .w-full { width: 100%; }
+        .w-half { width: 50%; }
+        .text-right { text-align: right; }
+        .text-center { text-align: center; }
+        .valign-top { vertical-align: top; }
+        .valign-bottom { vertical-align: bottom; }
+        .mb-2 { margin-bottom: 8px; }
+        .mb-4 { margin-bottom: 16px; }
+        .mt-4 { margin-top: 16px; }
+        
+        /* HEADER */
+        .header-table {
+            width: 100%;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #2563eb;
+            padding-bottom: 15px;
+        }
+        .company-logo {
+            max-width: 200px;
+            max-height: 80px;
             margin-bottom: 5px;
+        }
+        .company-name-text {
+            font-size: 18pt;
+            font-weight: bold;
+            color: #0f172a;
+            margin-bottom: 5px;
+        }
+        .company-info {
+            font-size: 8pt;
+            color: #64748b;
+            line-height: 1.4;
+        }
+        .doc-title {
+            font-size: 24pt;
+            font-weight: 800;
+            color: #1e293b;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
             text-transform: uppercase;
         }
-        
         .doc-meta-table {
             float: right;
             border-collapse: collapse;
         }
         .doc-meta-table td {
-            padding: 4px 10px;
+            padding: 2px 10px;
             font-size: 8pt;
         }
-        .doc-meta-label { 
+        .doc-meta-label {
             font-weight: 600;
             color: #94a3b8;
             text-transform: uppercase;
             text-align: right;
         }
         .doc-meta-value {
-            font-weight: 600;
+            font-weight: bold;
             color: #0f172a;
             text-align: right;
         }
 
-        /* --- RECIPIENT & INFO BOX --- */
+        /* RECIPIENT BOX */
         .info-grid {
             width: 100%;
             margin-bottom: 25px;
-            border-top: 1px solid #e2e8f0;
-            border-bottom: 1px solid #e2e8f0;
-            padding: 15px 0;
         }
-        
-        .info-label { 
-            font-size: 7pt; 
-            font-weight: 700; 
-            color: #94a3b8; 
-            text-transform: uppercase; 
-            margin-bottom: 4px; 
+        .info-box {
+            background-color: #f8fafc;
+            border-radius: 4px;
+            padding: 12px;
+            border-left: 4px solid #2563eb;
+        }
+        .info-label {
+            font-size: 7.5pt;
+            font-weight: bold;
+            color: #64748b;
+            text-transform: uppercase;
+            margin-bottom: 4px;
             letter-spacing: 0.5px;
         }
-        .info-name { 
-            font-size: 11pt; 
-            font-weight: 700; 
+        .info-name {
+            font-size: 11pt;
+            font-weight: bold;
             color: #0f172a;
             margin-bottom: 4px;
         }
-        .info-detail { 
-            font-size: 8.5pt; 
-            color: #475569; 
+        .info-detail {
+            font-size: 8.5pt;
+            color: #475569;
             line-height: 1.4;
         }
 
-        /* --- OPENING MESSAGE --- */
+        /* OPENING MESSAGE */
         .opening-message {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             font-size: 9.5pt;
             text-align: justify;
             color: #334155;
-            line-height: 1.6;
+            line-height: 1.5;
         }
 
-        /* --- ITEMS TABLE --- */
+        /* ITEMS TABLE */
         .items-table {
             width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            margin-bottom: 25px;
-        }
-        .items-table thead {
-            background: #f1f5f9;
+            border-collapse: collapse;
+            margin-bottom: 20px;
         }
         .items-table th {
+            background-color: #1e293b;
+            color: white;
             text-align: left;
-            padding: 10px 12px;
-            font-size: 7.5pt;
-            font-weight: 700;
-            color: #475569;
+            padding: 8px 10px;
+            font-size: 8pt;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            border-bottom: 2px solid #cbd5e1;
         }
-        .items-table tbody tr td {
+        .items-table td {
             border-bottom: 1px solid #e2e8f0;
-            padding: 12px;
+            padding: 10px;
             vertical-align: top;
             font-size: 9pt;
         }
-        .items-table tbody tr:nth-child(even) td {
-            background-color: #fafaf9;
+        .items-table tr:nth-child(even) td {
+            background-color: #f8fafc;
         }
-        
-        .item-name { 
-            font-weight: 700; 
+        .item-name {
+            font-weight: bold;
             color: #0f172a;
             margin-bottom: 3px;
         }
-        .item-desc { 
-            font-size: 8pt; 
-            color: #64748b; 
-            line-height: 1.4;
-        }
-
-        /* --- SUMMARY TABLE --- */
-        .summary-table { 
-            width: 100%; 
-            border-collapse: collapse;
-        }
-        .summary-label { 
-            text-align: right; 
-            padding: 6px 15px 6px 0; 
-            font-weight: 500; 
+        .item-desc {
+            font-size: 8pt;
             color: #64748b;
-            font-size: 9pt;
+            line-height: 1.3;
         }
-        .summary-value { 
-            text-align: right; 
-            padding: 6px 0; 
-            width: 130px; 
-            font-weight: 600;
-            color: #0f172a;
-            font-size: 9.5pt;
-        }
-        .total-row {
-            border-top: 2px solid #e2e8f0;
-        }
-        .total-row .summary-label { 
-            padding: 12px 15px 12px 0; 
-            font-size: 11pt; 
-            font-weight: 800;
-            color: #0f172a;
-        }
-        .total-row .summary-value {
+        .highlight {
+            background-color: #eff6ff;
             color: #2563eb;
-            font-size: 12pt;
-            font-weight: 800;
-            padding: 12px 0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 8pt;
         }
 
-        /* --- PAYMENT SCHEDULE --- */
-        .section-title { 
-            font-size: 10pt; 
-            font-weight: 700; 
-            color: #0f172a; 
+        /* TOTALS AND TERMS LAYOUT */
+        .bottom-layout {
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        /* TERMS */
+        .section-title {
+            font-size: 9pt;
+            font-weight: bold;
+            color: #0f172a;
             margin-bottom: 8px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            display: inline-block;
-            border-bottom: 2px solid #2563eb;
+            border-bottom: 1px solid #2563eb;
             padding-bottom: 4px;
+            display: inline-block;
         }
-        .payment-table { 
-            width: 100%; 
+        .payment-table {
+            width: 100%;
             border-collapse: collapse;
-            margin-bottom: 25px;
+            margin-bottom: 15px;
         }
-        .payment-table tr td {
-            padding: 8px 0;
+        .payment-table td {
+            padding: 6px 0;
             border-bottom: 1px dashed #cbd5e1;
             font-size: 8.5pt;
         }
-        .payment-table tr:last-child td {
-            border-bottom: none;
-        }
-        .payment-label {
-            color: #475569;
-        }
-        .payment-amount {
-            text-align: right;
-            font-weight: 700;
-            color: #0f172a;
-        }
-
-        /* --- TERMS & CONDITIONS --- */
-        .terms-list { 
-            padding-left: 0; 
-            margin: 0 0 25px 0;
+        .terms-list {
+            padding-left: 0;
+            margin: 0;
             list-style: none;
         }
-        .terms-list li { 
-            margin-bottom: 6px;
+        .terms-list li {
+            margin-bottom: 5px;
             font-size: 8pt;
             color: #475569;
-            line-height: 1.5;
+            line-height: 1.4;
+            padding-left: 12px;
             position: relative;
-            padding-left: 14px;
         }
         .terms-list li:before {
             content: "•";
@@ -264,19 +207,62 @@
             color: #2563eb;
             font-weight: bold;
         }
-        
-        /* --- CLOSING MESSAGE --- */
+
+        /* SUMMARY */
+        .summary-box {
+            background-color: #f8fafc;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+        }
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .summary-table td {
+            padding: 6px 0;
+            font-size: 9pt;
+        }
+        .summary-label {
+            text-align: left;
+            color: #64748b;
+            font-weight: 500;
+        }
+        .summary-value {
+            text-align: right;
+            color: #0f172a;
+            font-weight: bold;
+        }
+        .total-row {
+            border-top: 2px solid #cbd5e1;
+        }
+        .total-row td {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        .total-row .summary-label {
+            font-size: 11pt;
+            font-weight: bold;
+            color: #0f172a;
+        }
+        .total-row .summary-value {
+            font-size: 12pt;
+            font-weight: bold;
+            color: #2563eb;
+        }
+
+        /* CLOSING MESSAGE */
         .closing-message {
-            margin: 25px 0;
+            margin: 20px 0;
             font-size: 9.5pt;
             text-align: justify;
             color: #334155;
-            line-height: 1.6;
+            line-height: 1.5;
         }
 
-        /* --- SIGNATURE BOX --- */
+        /* SIGNATURES */
         .signature-section {
-            margin-top: 40px;
+            margin-top: 30px;
             page-break-inside: avoid;
         }
         .sig-container {
@@ -285,112 +271,121 @@
         .sig-box {
             text-align: center;
         }
-        .sig-role { 
-            font-size: 8.5pt; 
-            color: #64748b; 
-            margin-bottom: 10px;
-            font-weight: 600;
+        .sig-role {
+            font-size: 8.5pt;
+            color: #64748b;
+            font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            margin-bottom: 5px;
         }
         .sig-space {
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            height: 90px;
+            vertical-align: bottom;
+            text-align: center;
         }
-        .sig-line { 
-            border-bottom: 1px solid #94a3b8; 
-            width: 80%; 
+        .sig-line {
+            border-bottom: 1px solid #94a3b8;
+            width: 70%;
             margin: 0 auto 5px auto;
         }
-        .sig-name { 
-            font-weight: 700; 
+        .sig-name {
+            font-weight: bold;
             font-size: 10pt;
             color: #0f172a;
             margin-bottom: 2px;
         }
-        .sig-date { 
-            font-size: 8pt; 
-            color: #64748b; 
+        .sig-date {
+            font-size: 8pt;
+            color: #64748b;
         }
 
-        /* --- FOOTER --- */
-        .footer { 
-            position: fixed; 
-            bottom: 0; 
-            left: 0; 
-            right: 0; 
-            height: 1.5cm; 
-            text-align: center; 
-            font-size: 7.5pt; 
-            color: #94a3b8; 
+        /* FOOTER */
+        .footer {
+            position: fixed;
+            bottom: -30px;
+            left: 0;
+            right: 0;
+            height: 30px;
+            text-align: center;
+            font-size: 7.5pt;
+            color: #94a3b8;
             border-top: 1px solid #e2e8f0;
-            padding-top: 10px;
-            background: white;
-            line-height: 1.4;
+            padding-top: 8px;
         }
-        
+
         .page-break-avoid {
             page-break-inside: avoid;
-        }
-        
-        /* Highlight tags */
-        .highlight {
-            background-color: #eff6ff;
-            color: #1e40af;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: 600;
-            font-size: 7.5pt;
         }
     </style>
 </head>
 <body>
 
-    <div class="top-bar"></div>
+    {{-- Helper to base64 encode images --}}
+    @php
+        function getBase64Image($path) {
+            if (empty($path)) return '';
+            
+            // If it's already a base64 string
+            if (\Illuminate\Support\Str::startsWith($path, 'data:image')) {
+                return $path;
+            }
+            
+            // Check if it's a valid local path
+            if (file_exists($path)) {
+                $type = pathinfo($path, PATHINFO_EXTENSION);
+                $data = file_get_contents($path);
+                return 'data:image/' . $type . ';base64,' . base64_encode($data);
+            }
+            
+            return '';
+        }
+        
+        // Prepare company logo
+        $logoData = getBase64Image($company['logo'] ?? '');
+    @endphp
 
-    <div class="page-container">
-        <!-- HEADER -->
-        <table class="header-table">
-            <tr>
-                <td class="w-half valign-middle">
-                    @if(isset($company['logo']) && $company['logo'])
-                        <img src="{{ $company['logo'] }}" alt="Logo" class="company-logo">
-                    @else
-                        <div style="font-size: 20pt; font-weight: 900; color: #0f172a; margin-bottom: 5px;">{{ $company['name'] }}</div>
-                    @endif
-                    <div class="company-info">
-                        @if($company['address']){{ $company['address'] }}<br>@endif
-                        @if($company['phone'])T. {{ $company['phone'] }}@endif
-                        @if($company['email']) &nbsp;|&nbsp; E. {{ $company['email'] }}@endif
-                        @if($company['website'])<br>{{ $company['website'] }}@endif
-                    </div>
-                </td>
-                <td class="w-half text-right valign-top">
-                    <div class="doc-title">QUOTATION</div>
-                    <table class="doc-meta-table">
-                        <tr>
-                            <td class="doc-meta-label">Reference Number</td>
-                            <td class="doc-meta-value">#{{ $quotation->quotation_number }}</td>
-                        </tr>
-                        <tr>
-                            <td class="doc-meta-label">Date Issued</td>
-                            <td class="doc-meta-value">{{ $quotation->created_at->format('d M Y') }}</td>
-                        </tr>
-                        <tr>
-                            <td class="doc-meta-label" style="color: #ef4444;">Valid Until</td>
-                            <td class="doc-meta-value" style="color: #ef4444;">{{ $quotation->valid_until->format('d M Y') }}</td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
+    <!-- HEADER -->
+    <table class="header-table">
+        <tr>
+            <td class="w-half valign-bottom">
+                @if($logoData)
+                    <img src="{{ $logoData }}" alt="Logo" class="company-logo">
+                @else
+                    <div class="company-name-text">{{ $company['name'] }}</div>
+                @endif
+                <div class="company-info">
+                    @if($company['address']){{ $company['address'] }}<br>@endif
+                    @if($company['phone'])T. {{ $company['phone'] }}@endif
+                    @if($company['email']) &nbsp;|&nbsp; E. {{ $company['email'] }}@endif
+                    @if($company['website'])<br>{{ $company['website'] }}@endif
+                </div>
+            </td>
+            <td class="w-half text-right valign-bottom">
+                <div class="doc-title">QUOTATION</div>
+                <table class="doc-meta-table">
+                    <tr>
+                        <td class="doc-meta-label">Reference</td>
+                        <td class="doc-meta-value">#{{ $quotation->quotation_number }}</td>
+                    </tr>
+                    <tr>
+                        <td class="doc-meta-label">Date Issued</td>
+                        <td class="doc-meta-value">{{ $quotation->created_at->format('d M Y') }}</td>
+                    </tr>
+                    <tr>
+                        <td class="doc-meta-label" style="color: #ef4444;">Valid Until</td>
+                        <td class="doc-meta-value" style="color: #ef4444;">{{ $quotation->valid_until->format('d M Y') }}</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
 
-        <!-- RECIPIENT INFO -->
-        <table class="info-grid">
-            <tr>
-                <td class="w-2/3 valign-top">
+    <!-- RECIPIENT INFO -->
+    <table class="info-grid">
+        <tr>
+            <td class="valign-top" style="padding-right: 20px;">
+                <div class="info-box">
                     <div class="info-label">Prepared For</div>
                     <div class="info-name">{{ $quotation->customer->company_name ?? $quotation->lead->company_name ?? 'Client Name' }}</div>
                     <div class="info-detail">
@@ -400,125 +395,131 @@
                         {{ $quotation->customer->address ?? '' }}<br>
                         {{ $quotation->customer->phone ?? '' }}
                     </div>
-                </td>
-                <td class="w-1/3 valign-top text-right">
-                    @if($quotation->lead)
+                </div>
+            </td>
+            <td class="w-half valign-top">
+                @if($quotation->lead)
+                    <div class="info-box" style="background-color: white; border-color: #cbd5e1;">
                         <div class="info-label">Project Details</div>
-                        <div class="info-detail" style="font-weight: 600; color: #0f172a;">
+                        <div class="info-detail" style="font-weight: bold; color: #0f172a;">
                             {{ $quotation->lead->title ?? 'New Project Implementation' }}
                         </div>
-                    @endif
-                </td>
-            </tr>
-        </table>
+                    </div>
+                @endif
+            </td>
+        </tr>
+    </table>
 
-        <!-- OPENING MESSAGE -->
-        @if($quotation->opening_content)
-            <div class="opening-message">
-                {!! $quotation->opening_content !!}
-            </div>
-        @endif
+    <!-- OPENING MESSAGE -->
+    @if($quotation->opening_content)
+        <div class="opening-message">
+            {!! $quotation->opening_content !!}
+        </div>
+    @endif
 
-        <!-- ITEMS TABLE -->
-        <table class="items-table">
-            <thead>
-                <tr>
-                    <th width="5%" class="text-center">#</th>
-                    <th width="45%">Description</th>
-                    <th width="20%" class="text-right">Unit Price</th>
-                    <th width="10%" class="text-center">Disc</th>
-                    <th width="20%" class="text-right">Amount</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($quotation->items as $index => $item)
-                    @php
-                        $price = (float) ($item->unit_price ?? 0);
-                        $discPercent = (float) ($item->discount_percent ?? 0);
-                        $discAmount = $price * ($discPercent / 100);
-                        $total = $price - $discAmount;
-                    @endphp
-                    <tr>
-                        <td class="text-center text-gray">{{ $index + 1 }}</td>
-                        <td>
-                            <div class="item-name">{{ $item->name }}</div>
-                            @if($item->description)
-                                <div class="item-desc">{{ $item->description }}</div>
-                            @endif
-                        </td>
-                        <td class="text-right">Rp {{ number_format($price, 0, ',', '.') }}</td>
-                        <td class="text-center">
-                            @if($discPercent > 0)
-                                <span class="highlight">{{ number_format($discPercent, 0) }}%</span>
-                            @else
-                                -
-                            @endif
-                        </td>
-                        <td class="text-right text-bold">Rp {{ number_format($total, 0, ',', '.') }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-
-        <!-- TOTALS & SPLIT VIEW -->
-        <table class="w-full page-break-avoid mt-4">
+    <!-- ITEMS TABLE -->
+    <table class="items-table">
+        <thead>
             <tr>
-                <td class="w-half valign-top" style="padding-right: 30px;">
-                    <!-- PAYMENT SCHEDULE -->
-                    @if(!empty($calculations['payment_terms']))
-                        <div class="section-title">Payment Schedule</div>
-                        <table class="payment-table">
-                            @foreach($calculations['payment_terms'] as $index => $term)
-                                <tr>
-                                    <td class="payment-label">
-                                        <strong>Termin {{ $index + 1 }}</strong><br>
-                                        <span style="font-size: 7.5pt; color:#64748b;">{{ $term['description'] }}</span>
-                                    </td>
-                                    <td class="payment-amount valign-top">Rp {{ number_format($term['amount'], 0, ',', '.') }}</td>
-                                </tr>
-                            @endforeach
-                        </table>
+                <th width="5%" class="text-center">#</th>
+                <th width="45%">Description</th>
+                <th width="20%" class="text-right">Unit Price</th>
+                <th width="10%" class="text-center">Disc</th>
+                <th width="20%" class="text-right">Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($quotation->items as $index => $item)
+                @php
+                    $price = (float) ($item->unit_price ?? 0);
+                    $discPercent = (float) ($item->discount_percent ?? 0);
+                    $discAmount = $price * ($discPercent / 100);
+                    $total = $price - $discAmount;
+                @endphp
+                <tr>
+                    <td class="text-center text-gray" style="font-weight: bold;">{{ $index + 1 }}</td>
+                    <td>
+                        <div class="item-name">{{ $item->name }}</div>
+                        @if($item->description)
+                            <div class="item-desc">{{ $item->description }}</div>
+                        @endif
+                    </td>
+                    <td class="text-right">Rp {{ number_format($price, 0, ',', '.') }}</td>
+                    <td class="text-center">
+                        @if($discPercent > 0)
+                            <span class="highlight">{{ number_format($discPercent, 0) }}%</span>
+                        @else
+                            -
+                        @endif
+                    </td>
+                    <td class="text-right" style="font-weight: bold;">Rp {{ number_format($total, 0, ',', '.') }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+
+    <!-- TOTALS & TERMS -->
+    <table class="bottom-layout page-break-avoid">
+        <tr>
+            <td class="w-half valign-top" style="padding-right: 30px;">
+                
+                <!-- PAYMENT SCHEDULE -->
+                @if(!empty($calculations['payment_terms']))
+                    <div class="section-title">Payment Schedule</div>
+                    <table class="payment-table">
+                        @foreach($calculations['payment_terms'] as $index => $term)
+                            <tr>
+                                <td>
+                                    <strong>Termin {{ $index + 1 }}</strong><br>
+                                    <span style="font-size: 7.5pt; color:#64748b;">{{ $term['description'] }}</span>
+                                </td>
+                                <td style="text-align: right; font-weight: bold; color: #0f172a; vertical-align: top;">
+                                    Rp {{ number_format($term['amount'], 0, ',', '.') }}
+                                </td>
+                            </tr>
+                        @endforeach
+                    </table>
+                @endif
+
+                <!-- TERMS & CONDITIONS -->
+                <div class="section-title mt-4">Terms & Conditions</div>
+                <ul class="terms-list">
+                    @php
+                        $defaultTerms = \App\Models\Quotation::getDefaultTerms();
+                        $hasTerms = false;
+                    @endphp
+                    
+                    {{-- Standard Terms --}}
+                    @if($quotation->terms_and_conditions && is_array($quotation->terms_and_conditions))
+                        @foreach($quotation->terms_and_conditions as $key)
+                            @if(isset($defaultTerms[$key]))
+                                <li>{{ $defaultTerms[$key] }}</li>
+                                @php $hasTerms = true; @endphp
+                            @endif
+                        @endforeach
                     @endif
 
-                    <!-- TERMS & CONDITIONS -->
-                    <div class="section-title mt-2">Terms & Conditions</div>
-                    <ul class="terms-list">
-                        @php
-                            $defaultTerms = \App\Models\Quotation::getDefaultTerms();
-                            $hasTerms = false;
-                        @endphp
-                        
-                        {{-- Standard Terms --}}
-                        @if($quotation->terms_and_conditions && is_array($quotation->terms_and_conditions))
-                            @foreach($quotation->terms_and_conditions as $key)
-                                @if(isset($defaultTerms[$key]))
-                                    <li>{{ $defaultTerms[$key] }}</li>
-                                    @php $hasTerms = true; @endphp
-                                @endif
-                            @endforeach
-                        @endif
+                    {{-- Custom Terms from Repeater --}}
+                    @if($quotation->custom_terms && is_array($quotation->custom_terms))
+                        @foreach($quotation->custom_terms as $customTerm)
+                            @if(isset($customTerm['term']) && !empty($customTerm['term']))
+                                <li>{{ $customTerm['term'] }}</li>
+                                @php $hasTerms = true; @endphp
+                            @endif
+                        @endforeach
+                    @endif
 
-                        {{-- Custom Terms from Repeater --}}
-                        @if($quotation->custom_terms && is_array($quotation->custom_terms))
-                            @foreach($quotation->custom_terms as $customTerm)
-                                @if(isset($customTerm['term']) && !empty($customTerm['term']))
-                                    <li>{{ $customTerm['term'] }}</li>
-                                    @php $hasTerms = true; @endphp
-                                @endif
-                            @endforeach
-                        @endif
+                    {{-- Fallback --}}
+                    @if(!$hasTerms)
+                        <li>Syarat dan ketentuan pembayaran sesuai dengan termin pembayaran di atas.</li>
+                        <li>Penawaran harga ini berlaku selama 30 hari sejak tanggal diterbitkan.</li>
+                    @endif
+                </ul>
+            </td>
 
-                        {{-- Fallback if completely empty --}}
-                        @if(!$hasTerms)
-                            <li>Syarat dan ketentuan pembayaran sesuai dengan termin pembayaran.</li>
-                            <li>Penawaran harga ini berlaku selama 30 hari sejak tanggal diterbitkan.</li>
-                            <li>Pekerjaan di luar ruang lingkup (scope of work) akan dikenakan biaya tambahan.</li>
-                        @endif
-                    </ul>
-                </td>
-
-                <td class="w-half valign-top">
-                    <!-- SUMMARY -->
+            <td class="w-half valign-top">
+                <!-- SUMMARY BOX -->
+                <div class="summary-box">
                     <table class="summary-table">
                         <tr>
                             <td class="summary-label">Subtotal</td>
@@ -526,7 +527,7 @@
                         </tr>
                         @if($calculations['discount_percentage'] > 0)
                             <tr>
-                                <td class="summary-label text-gray">Discount ({{ $calculations['discount_percentage'] }}%)</td>
+                                <td class="summary-label">Discount ({{ $calculations['discount_percentage'] }}%)</td>
                                 <td class="summary-value" style="color: #ef4444;">- Rp {{ number_format($calculations['discount_amount'], 0, ',', '.') }}</td>
                             </tr>
                         @endif
@@ -541,58 +542,71 @@
                             <td class="summary-value">Rp {{ number_format($calculations['grand_total'], 0, ',', '.') }}</td>
                         </tr>
                     </table>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <!-- CLOSING MESSAGE -->
+    @if($quotation->closing_content)
+        <div class="closing-message page-break-avoid">
+            {!! $quotation->closing_content !!}
+        </div>
+    @endif
+
+    <!-- SIGNATURES -->
+    <div class="signature-section">
+        <table class="sig-container">
+            <tr>
+                <!-- CLIENT SIGNATURE -->
+                <td class="w-half valign-top sig-box">
+                    <div class="sig-role">Client Approval</div>
+                    <div class="sig-space">
+                        @php
+                            $approvedSig = '';
+                            if($quotation->approved_signature_path) {
+                                if(\Illuminate\Support\Str::startsWith($quotation->approved_signature_path, 'data:image')) {
+                                    $approvedSig = $quotation->approved_signature_path;
+                                } else {
+                                    $approvedSig = getBase64Image(public_path('storage/' . $quotation->approved_signature_path));
+                                }
+                            }
+                        @endphp
+                        
+                        @if($approvedSig)
+                            <img src="{{ $approvedSig }}" alt="Signature" style="max-height: 80px; max-width: 180px;">
+                        @endif
+                    </div>
+                    <div class="sig-line"></div>
+                    <div class="sig-name">{{ $quotation->customer->company_name ?? $quotation->lead->company_name ?? '_______________' }}</div>
+                    <div class="sig-date">Date: _________________</div>
+                </td>
+
+                <!-- COMPANY SIGNATURE -->
+                <td class="w-half valign-top sig-box">
+                    <div class="sig-role">Authorized Representative</div>
+                    <div class="sig-space">
+                        @php
+                            $preparedSig = '';
+                            if($quotation->prepared_signature_path) {
+                                if(\Illuminate\Support\Str::startsWith($quotation->prepared_signature_path, 'data:image')) {
+                                    $preparedSig = $quotation->prepared_signature_path;
+                                } else {
+                                    $preparedSig = getBase64Image(public_path('storage/' . $quotation->prepared_signature_path));
+                                }
+                            }
+                        @endphp
+                        
+                        @if($preparedSig)
+                            <img src="{{ $preparedSig }}" alt="Signature" style="max-height: 80px; max-width: 180px;">
+                        @endif
+                    </div>
+                    <div class="sig-line"></div>
+                    <div class="sig-name">{{ $quotation->prepared_by ?? $company['name'] }}</div>
+                    <div class="sig-date">{{ $quotation->prepared_by_position ?? 'Sales Representative' }}</div>
                 </td>
             </tr>
         </table>
-
-        <!-- CLOSING MESSAGE -->
-        @if($quotation->closing_content)
-            <div class="closing-message page-break-avoid">
-                {!! $quotation->closing_content !!}
-            </div>
-        @endif
-
-        <!-- SIGNATURES -->
-        <div class="signature-section">
-            <table class="sig-container">
-                <tr>
-                    <!-- CLIENT SIGNATURE -->
-                    <td class="w-half valign-top sig-box">
-                        <div class="sig-role">Client Approval</div>
-                        <div class="sig-space">
-                            @if($quotation->approved_signature_path)
-                                @if(\Illuminate\Support\Str::startsWith($quotation->approved_signature_path, 'data:image'))
-                                    <img src="{{ $quotation->approved_signature_path }}" alt="Signature" style="max-height: 70px; max-width: 180px;">
-                                @elseif(Storage::disk('public')->exists($quotation->approved_signature_path))
-                                    <img src="{{ public_path('storage/' . $quotation->approved_signature_path) }}" alt="Signature" style="max-height: 70px; max-width: 180px;">
-                                @endif
-                            @endif
-                        </div>
-                        <div class="sig-line"></div>
-                        <div class="sig-name">{{ $quotation->customer->company_name ?? $quotation->lead->company_name ?? '_______________' }}</div>
-                        <div class="sig-date">Date: _________________</div>
-                    </td>
-
-                    <!-- COMPANY SIGNATURE -->
-                    <td class="w-half valign-top sig-box">
-                        <div class="sig-role">Authorized Representative</div>
-                        <div class="sig-space">
-                            @if($quotation->prepared_signature_path)
-                                @if(\Illuminate\Support\Str::startsWith($quotation->prepared_signature_path, 'data:image'))
-                                    <img src="{{ $quotation->prepared_signature_path }}" alt="Signature" style="max-height: 70px; max-width: 180px;">
-                                @elseif(Storage::disk('public')->exists($quotation->prepared_signature_path))
-                                    <img src="{{ public_path('storage/' . $quotation->prepared_signature_path) }}" alt="Signature" style="max-height: 70px; max-width: 180px;">
-                                @endif
-                            @endif
-                        </div>
-                        <div class="sig-line"></div>
-                        <div class="sig-name">{{ $quotation->prepared_by ?? $company['name'] }}</div>
-                        <div class="sig-date">{{ $quotation->prepared_by_position ?? 'Sales Representative' }}</div>
-                    </td>
-                </tr>
-            </table>
-        </div>
-
     </div>
 
     <!-- FOOTER -->
