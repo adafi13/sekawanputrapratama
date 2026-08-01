@@ -4,8 +4,51 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "23eff1af69e046c5dd8cf0105bf44590",
+    "content-hash": "d81b1b9c293edea32457e5956d4835f8",
     "packages": [
+        {
+            "name": "alfianm/filament-signature-pad",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alfianm/filament-signature-pad.git",
+                "reference": "2dadae3416deb51581c7a69e222e96d0796b3c2c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alfianm/filament-signature-pad/zipball/2dadae3416deb51581c7a69e222e96d0796b3c2c",
+                "reference": "2dadae3416deb51581c7a69e222e96d0796b3c2c",
+                "shasum": ""
+            },
+            "require": {
+                "filament/filament": "^4.0",
+                "illuminate/support": "^11.0|^12.0",
+                "php": "^8.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Alfianm\\FilamentSignaturePad\\SignaturePadServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Alfianm\\FilamentSignaturePad\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Filament v4 plugin that adds a Signature Pad field.",
+            "support": {
+                "issues": "https://github.com/alfianm/filament-signature-pad/issues",
+                "source": "https://github.com/alfianm/filament-signature-pad/tree/v1.0.0"
+            },
+            "time": "2025-10-03T06:09:49+00:00"
+        },
         {
             "name": "anourvalar/eloquent-serialize",
             "version": "1.3.5",

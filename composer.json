@@ -7,6 +7,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "alfianm/filament-signature-pad": "*",
         "barryvdh/laravel-dompdf": "^3.1",
         "cviebrock/eloquent-sluggable": "^12.0",
         "filament/filament": "4.0",

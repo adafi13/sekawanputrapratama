@@ -493,11 +493,11 @@ class QuotationForm
                             ->helperText('Official position in company'),
                     ]),
                     Grid::make(2)->schema([
-                        \Coolsam\SignaturePad\Forms\Components\Fields\SignaturePad::make('prepared_signature_path')
+                        \Alfianm\FilamentSignaturePad\Forms\Components\SignaturePad::make('prepared_signature_path')
                             ->label('Prepared By Signature')
                             ->penColor('blue')
                             ->helperText('Draw signature on the pad'),
-                        \Coolsam\SignaturePad\Forms\Components\Fields\SignaturePad::make('approved_signature_path')
+                        \Alfianm\FilamentSignaturePad\Forms\Components\SignaturePad::make('approved_signature_path')
                             ->label('Approved By Signature')
                             ->penColor('black')
                             ->helperText('Optional client signature if available'),
