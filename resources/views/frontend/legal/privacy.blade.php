@@ -40,13 +40,23 @@
                 <h5 class="fw-bold text-dark mt-5 mb-3 border-bottom pb-2">3. Perlindungan & Keamanan Data</h5>
                 <p>Kami menerapkan standar keamanan teknis dan organisasi yang ketat, termasuk enkripsi SSL/TLS, proteksi firewall server, serta pembatasan akses data hanya kepada personel yang berwenang demi mencegah akses tidak sah, kebocoran, atau penyalahgunaan data.</p>
 
-                <h5 class="fw-bold text-dark mt-5 mb-3 border-bottom pb-2">4. Pengungkapan Kepada Pihak Ketiga</h5>
+                <h5 class="fw-bold text-dark mt-5 mb-3 border-bottom pb-2">4. Penggunaan Cookie & Teknologi Pelacakan (Cookie Policy)</h5>
+                <p>Website kami menggunakan cookie dan teknologi serupa untuk meningkatkan pengalaman navigasi Anda. Cookie adalah file teks kecil yang disimpan di perangkat Anda saat mengunjungi situs web kami.</p>
+                <p><strong class="text-dark">Jenis cookie yang kami gunakan:</strong></p>
+                <ul>
+                    <li class="mb-2"><strong class="text-dark">Cookie Esensial (Wajib):</strong> Diperlukan agar fungsi dasar website seperti keamanan SSL, navigasi halaman, dan perlindungan formulir bekerja dengan baik. Cookie ini tidak dapat dinonaktifkan.</li>
+                    <li class="mb-2"><strong class="text-dark">Cookie Analitis & Performa:</strong> Membantu kami mengumpulkan informasi anonim mengenai statistik jumlah pengunjung dan halaman favorit menggunakan Google Analytics.</li>
+                    <li><strong class="text-dark">Cookie Pemasaran & Preferensi:</strong> Digunakan untuk mengingat preferensi Anda serta menampilkan konten promo/iklan yang relevan.</li>
+                </ul>
+                <p>Anda dapat mengubah atau menarik persetujuan cookie Anda kapan saja melalui menu <a href="javascript:void(0)" onclick="openCookieSettings()" class="text-primary fw-bold">Pengaturan Cookie</a> di bagian bawah (footer) website ini.</p>
+
+                <h5 class="fw-bold text-dark mt-5 mb-3 border-bottom pb-2">5. Pengungkapan Kepada Pihak Ketiga</h5>
                 <p>Kami <strong class="text-dark">TIDAK PERNAH menjual, menyewakan, atau memperdagangkan</strong> data pribadi Anda kepada pihak ketiga manapun untuk tujuan pemasaran. Pengungkapan data hanya dilakukan jika diwajibkan oleh hukum atau putusan pengadilan yang sah di Republik Indonesia.</p>
 
-                <h5 class="fw-bold text-dark mt-5 mb-3 border-bottom pb-2">5. Hak Pemilik Data</h5>
+                <h5 class="fw-bold text-dark mt-5 mb-3 border-bottom pb-2">6. Hak Pemilik Data</h5>
                 <p>Sebagai pemilik data pribadi, Anda memiliki hak penuh untuk meminta akses, koreksi, atau penghapusan data pribadi Anda dari database kami kapan saja dengan menghubungi tim kami.</p>
 
-                <h5 class="fw-bold text-dark mt-5 mb-3 border-bottom pb-2">6. Hubungi Kami</h5>
+                <h5 class="fw-bold text-dark mt-5 mb-3 border-bottom pb-2">7. Hubungi Kami</h5>
                 <p>Jika Anda memiliki pertanyaan seputar Kebijakan Privasi ini, silakan hubungi kami di:</p>
                 <div class="p-4 bg-light rounded-4 border mt-3">
                     <div class="mb-2"><i class="fas fa-building text-primary me-2"></i><strong class="text-dark">PT Sekawan Putra Pratama</strong></div>
