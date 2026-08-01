@@ -92,7 +92,7 @@ class QuotationsTable
                     ->action(function (Quotation $record) {
                         try {
                             return QuotationPdfService::download($record);
-                        } catch (\Exception $e) {
+                        } catch (\Throwable $e) {
                             \Filament\Notifications\Notification::make()
                                 ->title('Error')
                                 ->body('Failed to generate PDF: ' . $e->getMessage())
@@ -117,7 +117,7 @@ class QuotationsTable
                                 ->body("PDF for quotation {$record->quotation_number} has been regenerated.")
                                 ->success()
                                 ->send();
-                        } catch (\Exception $e) {
+                        } catch (\Throwable $e) {
                             \Filament\Notifications\Notification::make()
                                 ->title('Error')
                                 ->body('Failed to regenerate PDF: ' . $e->getMessage())

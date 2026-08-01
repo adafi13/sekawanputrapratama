@@ -94,7 +94,15 @@ class CreateQuotation extends CreateRecord
     protected function afterCreate(): void
     {
         // Auto-generate PDF after creating quotation
-        \App\Services\QuotationPdfService::generate($this->record);
+        try {
+            \App\Services\QuotationPdfService::generate($this->record);
+        } catch (\Throwable $e) {
+            \Filament\Notifications\Notification::make()
+                ->title('Warning')
+                ->body('Quotation created successfully, but PDF generation failed: ' . $e->getMessage())
+                ->warning()
+                ->send();
+        }
         
         // Update lead status if quotation created from lead
         if ($this->record->lead_id) {

@@ -36,7 +36,7 @@ class ViewQuotation extends ViewRecord
                             ->title('PDF Regenerated')
                             ->success()
                             ->send();
-                    } catch (\Exception $e) {
+                    } catch (\Throwable $e) {
                         \Filament\Notifications\Notification::make()
                             ->title('Error')
                             ->body('Gagal membuat PDF: ' . $e->getMessage())
@@ -59,7 +59,7 @@ class ViewQuotation extends ViewRecord
                             Storage::disk('local')->path($this->record->pdf_path),
                             'Quotation-'.$this->record->quotation_number.'-'.now()->format('Y-m-d').'.pdf'
                         );
-                    } catch (\Exception $e) {
+                    } catch (\Throwable $e) {
                         \Filament\Notifications\Notification::make()
                             ->title('Error')
                             ->body('Gagal mengunduh PDF: ' . $e->getMessage())
