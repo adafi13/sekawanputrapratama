@@ -1062,13 +1062,13 @@
     </style>
     @stack('scripts')
 
-    {{-- Google Analytics - Uncomment dan ganti G-XXXXXXXXXX dengan ID Anda --}}
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y8530X1QEN"></script>
+    {{-- Google Analytics --}}
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2Z113H5GHY"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', 'G-Y8530X1QEN');
+        gtag('config', 'G-2Z113H5GHY');
     </script>
 
 
