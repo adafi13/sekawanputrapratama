@@ -203,6 +203,21 @@ class QuotationPdfService
     }
 
     /**
+     * Get clean download filename for quotation
+     */
+    public static function getDownloadFilename(Quotation $quotation): string
+    {
+        $clientName = $quotation->customer->company_name ?? $quotation->lead->company_name ?? '';
+        $cleanClient = $clientName ? \Illuminate\Support\Str::slug($clientName, '_') : '';
+
+        if ($cleanClient) {
+            return sprintf('Penawaran_%s_%s.pdf', $quotation->quotation_number, strtoupper($cleanClient));
+        }
+
+        return sprintf('Penawaran_%s.pdf', $quotation->quotation_number);
+    }
+
+    /**
      * Download PDF
      */
     public static function download(Quotation $quotation): \Symfony\Component\HttpFoundation\BinaryFileResponse
@@ -214,7 +229,7 @@ class QuotationPdfService
 
         return Storage::disk('local')->download(
             $quotation->pdf_path,
-            $quotation->quotation_number . '.pdf'
+            self::getDownloadFilename($quotation)
         );
     }
 }

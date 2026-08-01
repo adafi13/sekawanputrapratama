@@ -130,7 +130,7 @@ class EditQuotation extends EditRecord
                         }
                         return response()->download(
                             Storage::disk('local')->path($this->record->pdf_path),
-                            'Quotation-'.$this->record->quotation_number.'-'.now()->format('Y-m-d').'.pdf'
+                            \App\Services\QuotationPdfService::getDownloadFilename($this->record)
                         );
                     } catch (\Throwable $e) {
                         \Filament\Notifications\Notification::make()
