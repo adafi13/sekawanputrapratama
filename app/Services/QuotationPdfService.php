@@ -80,10 +80,18 @@ class QuotationPdfService
         // Grand total
         $grandTotal = $afterDiscount + $taxAmount;
 
-        // Calculate payment terms amounts
-        $term1Amount = $grandTotal * (($quotation->payment_term_1_percentage ?? 30) / 100);
-        $term2Amount = $grandTotal * (($quotation->payment_term_2_percentage ?? 40) / 100);
-        $term3Amount = $grandTotal * (($quotation->payment_term_3_percentage ?? 30) / 100);
+        // Calculate payment terms amounts dynamically
+        $paymentTerms = [];
+        if (is_array($quotation->payment_terms)) {
+            foreach ($quotation->payment_terms as $term) {
+                $percentage = (float) ($term['percentage'] ?? 0);
+                $paymentTerms[] = [
+                    'percentage' => $percentage,
+                    'amount' => $grandTotal * ($percentage / 100),
+                    'description' => $term['description'] ?? '',
+                ];
+            }
+        }
 
         return [
             'subtotal' => $subtotal,
@@ -93,23 +101,7 @@ class QuotationPdfService
             'tax_percentage' => $quotation->tax_percentage ?? 11,
             'tax_amount' => $taxAmount,
             'grand_total' => $grandTotal,
-            'payment_terms' => [
-                [
-                    'percentage' => $quotation->payment_term_1_percentage ?? 30,
-                    'amount' => $term1Amount,
-                    'description' => $quotation->payment_term_1_description ?? 'Down Payment',
-                ],
-                [
-                    'percentage' => $quotation->payment_term_2_percentage ?? 40,
-                    'amount' => $term2Amount,
-                    'description' => $quotation->payment_term_2_description ?? 'Progress Payment',
-                ],
-                [
-                    'percentage' => $quotation->payment_term_3_percentage ?? 30,
-                    'amount' => $term3Amount,
-                    'description' => $quotation->payment_term_3_description ?? 'Final Payment',
-                ],
-            ],
+            'payment_terms' => $paymentTerms,
         ];
     }
 

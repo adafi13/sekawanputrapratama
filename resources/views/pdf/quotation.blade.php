@@ -539,13 +539,25 @@
                 <tr>
                     <td class="w-half valign-top" style="padding-right: 20px;">
                         <div class="sig-label">Client Approval:</div>
-                        <div class="sig-line"></div>
+                        @if($quotation->approved_signature_path && Storage::disk('public')->exists($quotation->approved_signature_path))
+                            <div style="margin-bottom: 5px;">
+                                <img src="{{ public_path('storage/' . $quotation->approved_signature_path) }}" alt="Signature" style="max-height: 60px; max-width: 150px;">
+                            </div>
+                        @else
+                            <div class="sig-line"></div>
+                        @endif
                         <div class="sig-name">{{ $quotation->customer->company_name ?? $quotation->lead->company_name ?? '[Client Name]' }}</div>
                         <div class="sig-date">Date: _________________</div>
                     </td>
                     <td class="w-half valign-top">
                         <div class="sig-label">Authorized Representative:</div>
-                        <div class="sig-line"></div>
+                        @if($quotation->prepared_signature_path && Storage::disk('public')->exists($quotation->prepared_signature_path))
+                            <div style="margin-bottom: 5px;">
+                                <img src="{{ public_path('storage/' . $quotation->prepared_signature_path) }}" alt="Signature" style="max-height: 60px; max-width: 150px;">
+                            </div>
+                        @else
+                            <div class="sig-line"></div>
+                        @endif
                         <div class="sig-name">{{ $quotation->prepared_by ?? $company['name'] }}</div>
                         <div class="sig-date">{{ $quotation->prepared_by_position ?? 'Sales Manager' }}</div>
                         @if($quotation->sales_pic)

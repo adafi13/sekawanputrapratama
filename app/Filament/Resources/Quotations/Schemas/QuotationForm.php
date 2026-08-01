@@ -58,13 +58,18 @@ class QuotationForm
                     // 1. KOP SURAT
                     Placeholder::make('letterhead')
                         ->hiddenLabel()
-                        ->content(new \Illuminate\Support\HtmlString('
+                            $companyName = \App\Models\Setting::get('company_name', 'PT. SEKAWAN PUTRA PRATAMA');
+                            $companyAddress = \App\Models\Setting::get('company_address', 'Jl. Contoh Alamat No. 123, Jakarta');
+                            $companyPhone = \App\Models\Setting::get('company_phone', '+62 21 1234567');
+                            $companyEmail = \App\Models\Setting::get('company_email', 'info@spp.com');
+
+                            return new \Illuminate\Support\HtmlString('
                             <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 3px solid #2563eb; padding-bottom: 20px; margin-bottom: 30px;">
                                 <div>
-                                    <h1 style="font-size: 28px; font-weight: bold; color: #2563eb; margin: 0;">PT. SEKAWAN PUTRA PRATAMA</h1>
+                                    <h1 style="font-size: 28px; font-weight: bold; color: #2563eb; margin: 0;">' . e($companyName) . '</h1>
                                     <p style="margin: 8px 0 0 0; color: #64748b; font-size: 13px;">
-                                        Jl. Contoh Alamat No. 123, Jakarta<br>
-                                        Phone: +62 21 1234567 | Email: info@spp.com
+                                        ' . e($companyAddress) . '<br>
+                                        Phone: ' . e($companyPhone) . ' | Email: ' . e($companyEmail) . '
                                     </p>
                                 </div>
                                 <div style="text-align: right;">
@@ -72,7 +77,8 @@ class QuotationForm
                                     <p style="color: #94a3b8; font-size: 12px; margin: 5px 0 0 0;">Auto-generated</p>
                                 </div>
                             </div>
-                        ')),
+                        ');
+                        }),
 
                     // 2. META DATA
                     Grid::make(3)
@@ -386,56 +392,36 @@ class QuotationForm
                         ')),
                     Section::make()
                         ->schema([
-                            // Termin 1 (side by side)
-                            Grid::make(2)->schema([
-                                TextInput::make('payment_term_1_percentage')
-                                    ->label('Termin 1 (%)')
-                                    ->numeric()
-                                    ->default(30)
-                                    ->suffix('%')
-                                    ->minValue(0)
-                                    ->maxValue(100)
-                                    ->helperText('Down Payment'),
-                                Textarea::make('payment_term_1_description')
-                                    ->label('Termin 1 Details')
-                                    ->placeholder('e.g., Down Payment after agreement signed')
-                                    ->default('A1')
-                                    ->rows(2),
-                            ]),
-                            
-                            // Termin 2 (side by side)
-                            Grid::make(2)->schema([
-                                TextInput::make('payment_term_2_percentage')
-                                    ->label('Termin 2 (%)')
-                                    ->numeric()
-                                    ->default(40)
-                                    ->suffix('%')
-                                    ->minValue(0)
-                                    ->maxValue(100)
-                                    ->helperText('Progress Payment'),
-                                Textarea::make('payment_term_2_description')
-                                    ->label('Termin 2 Details')
-                                    ->placeholder('e.g., Progress Payment at 50% project completion')
-                                    ->default('A2')
-                                    ->rows(2),
-                            ]),
-                            
-                            // Termin 3 (side by side)
-                            Grid::make(2)->schema([
-                                TextInput::make('payment_term_3_percentage')
-                                    ->label('Termin 3 (%)')
-                                    ->numeric()
-                                    ->default(30)
-                                    ->suffix('%')
-                                    ->minValue(0)
-                                    ->maxValue(100)
-                                    ->helperText('Final Payment'),
-                                Textarea::make('payment_term_3_description')
-                                    ->label('Termin 3 Details')
-                                    ->placeholder('e.g., Final Payment upon project completion & handover')
-                                    ->default('A3')
-                                    ->rows(2),
-                            ]),
+                            Repeater::make('payment_terms')
+                                ->label('Termin Pembayaran')
+                                ->schema([
+                                    Grid::make(12)->schema([
+                                        TextInput::make('percentage')
+                                            ->label('Persentase (%)')
+                                            ->numeric()
+                                            ->suffix('%')
+                                            ->minValue(0)
+                                            ->maxValue(100)
+                                            ->required()
+                                            ->columnSpan(4),
+                                        Textarea::make('description')
+                                            ->label('Detail Termin')
+                                            ->placeholder('Contoh: DP 50% setelah tanda tangan kontrak')
+                                            ->required()
+                                            ->rows(1)
+                                            ->columnSpan(8),
+                                    ]),
+                                ])
+                                ->default([
+                                    ['percentage' => 30, 'description' => 'Down Payment setelah tanda tangan kontrak'],
+                                    ['percentage' => 40, 'description' => 'Progress Payment (Proyek mencapai 50%)'],
+                                    ['percentage' => 30, 'description' => 'Final Payment (Serah terima 100%)'],
+                                ])
+                                ->addActionLabel('Tambah Termin')
+                                ->collapsible()
+                                ->collapsed(false)
+                                ->itemLabel(fn (array $state): ?string => isset($state['percentage']) ? 'Termin ' . $state['percentage'] . '%' : 'Termin Baru')
+                                ->columnSpanFull(),
                         ])
                         ->extraAttributes(['style' => 'background: #fffbeb; padding: 20px; border-radius: 8px; border: 2px solid #fbbf24;']),
 
@@ -506,12 +492,18 @@ class QuotationForm
                             ->helperText('Official position in company'),
                     ]),
                     Grid::make(2)->schema([
-                        Placeholder::make('prepared_signature')
+                        FileUpload::make('prepared_signature_path')
                             ->label('Prepared By Signature')
-                            ->content(new \Illuminate\Support\HtmlString('<div style="border: 1px dashed #cbd5e1; padding: 40px; text-align: center; background: white; border-radius: 8px;"><span style="color: #94a3b8;">Signature Area</span></div>')),
-                        Placeholder::make('approved_signature')
+                            ->image()
+                            ->directory('signatures')
+                            ->maxSize(2048)
+                            ->helperText('Upload signature image (PNG transparent recommended)'),
+                        FileUpload::make('approved_signature_path')
                             ->label('Approved By Signature')
-                            ->content(new \Illuminate\Support\HtmlString('<div style="border: 1px dashed #cbd5e1; padding: 40px; text-align: center; background: white; border-radius: 8px;"><span style="color: #94a3b8;">Client Signature</span></div>')),
+                            ->image()
+                            ->directory('signatures')
+                            ->maxSize(2048)
+                            ->helperText('Optional client signature if available'),
                     ]),
                 ])
                 ->extraAttributes([
