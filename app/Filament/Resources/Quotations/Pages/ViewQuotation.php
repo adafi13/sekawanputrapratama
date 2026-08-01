@@ -46,8 +46,10 @@ class ViewQuotation extends ViewRecord
                         \App\Services\QuotationPdfService::generate($this->record);
                         $this->record->refresh();
                     }
-                    
-                    return redirect()->route('quotations.download', $this->record);
+                    return response()->download(
+                        Storage::disk('local')->path($this->record->pdf_path),
+                        'Quotation-'.$this->record->quotation_number.'-'.now()->format('Y-m-d').'.pdf'
+                    );
                 }),
         ];
     }
