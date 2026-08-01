@@ -58,6 +58,7 @@ class QuotationForm
                     // 1. KOP SURAT
                     Placeholder::make('letterhead')
                         ->hiddenLabel()
+                        ->content(function () {
                             $companyName = \App\Models\Setting::get('company_name', 'PT. SEKAWAN PUTRA PRATAMA');
                             $companyAddress = \App\Models\Setting::get('company_address', 'Jl. Contoh Alamat No. 123, Jakarta');
                             $companyPhone = \App\Models\Setting::get('company_phone', '+62 21 1234567');
