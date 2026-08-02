@@ -538,20 +538,28 @@
         <td class="bottom-notes-cell">
             @if(!empty($selectedTerms))
                 <div class="sec-label">Catatan :</div>
-                <ul class="terms-ol">
-                    @foreach($selectedTerms as $t)
-                        <li>{{ $t }}</li>
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 8px;">
+                    @foreach($selectedTerms as $idx => $t)
+                        <tr>
+                            <td style="width: 16px; vertical-align: top; font-size: 8pt; font-weight: bold; color: #000; padding: 1px 0; line-height: 1.45;">{{ $idx + 1 }}.</td>
+                            <td style="vertical-align: top; font-size: 8pt; color: #111; line-height: 1.45; padding: 1px 0;">{{ $t }}</td>
+                        </tr>
                     @endforeach
-                </ul>
+                </table>
             @endif
 
             @if(!empty($payTerms))
-                <div class="sec-label" style="margin-top: 10px;">Termin Pembayaran :</div>
-                <ul class="terms-ol">
-                    @foreach($payTerms as $pt)
-                        <li>{{ $pt['description'] }} &mdash; <strong>Rp&nbsp;{{ number_format($pt['amount'], 0, ',', '.') }}</strong></li>
+                <div class="sec-label" style="margin-top: 8px;">Termin Pembayaran :</div>
+                <table style="width: 100%; border-collapse: collapse;">
+                    @foreach($payTerms as $idx => $pt)
+                        <tr>
+                            <td style="width: 16px; vertical-align: top; font-size: 8pt; font-weight: bold; color: #000; padding: 1px 0; line-height: 1.45;">{{ $idx + 1 }}.</td>
+                            <td style="vertical-align: top; font-size: 8pt; color: #111; line-height: 1.45; padding: 1px 0;">
+                                {{ $pt['description'] }} &mdash; <strong>Rp&nbsp;{{ number_format($pt['amount'], 0, ',', '.') }}</strong>
+                            </td>
+                        </tr>
                     @endforeach
-                </ul>
+                </table>
             @endif
         </td>
 
