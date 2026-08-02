@@ -5,390 +5,420 @@
     <title>Quotation #{{ $quotation->quotation_number }}</title>
     <style>
         @page {
-            margin: 28px 30px 40px 30px;
+            margin: 28px 32px 42px 32px;
         }
         body {
             font-family: 'Arial', 'Helvetica', sans-serif;
             font-size: 9pt;
-            color: #000000;
+            color: #000;
             line-height: 1.35;
             margin: 0;
             padding: 0;
         }
 
         /* ======== HEADER ======== */
-        .header-wrapper {
+        .header-table {
             width: 100%;
-            border-bottom: 2px solid #000000;
+            border-bottom: 2.5px solid #000;
             padding-bottom: 10px;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
         .logo-cell {
-            width: 160px;
+            width: 150px;
             vertical-align: middle;
         }
         .company-logo {
             max-height: 80px;
-            max-width: 150px;
+            max-width: 145px;
         }
         .company-detail-cell {
             vertical-align: middle;
-            padding-left: 16px;
+            padding-left: 14px;
         }
         .company-name {
-            font-size: 18pt;
+            font-size: 17pt;
             font-weight: bold;
-            color: #000000;
+            color: #000;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin: 0 0 4px 0;
+            margin: 0 0 3px 0;
         }
         .company-info {
             font-size: 8pt;
-            color: #333333;
-            line-height: 1.5;
-        }
-
-        /* ======== DOC META ======== */
-        .doc-meta-wrapper {
-            width: 100%;
-            margin-bottom: 14px;
-        }
-        .doc-label {
-            font-size: 8.5pt;
-            font-weight: bold;
             color: #333;
-        }
-        .doc-value {
-            font-size: 8.5pt;
-            color: #000;
+            line-height: 1.6;
         }
 
-        /* ======== TO/FROM BOX ======== */
-        .recipient-box {
-            margin-bottom: 12px;
+        /* ======== DOC META TABLE ======== */
+        .doc-meta-label {
+            font-size: 8.5pt;
+            font-weight: bold;
+            color: #000;
+            padding: 2px 10px 2px 0;
+            white-space: nowrap;
         }
-        .recipient-label {
+        .doc-meta-value {
             font-size: 8.5pt;
             color: #000;
-            margin-bottom: 3px;
+            padding: 2px 0;
         }
-        .recipient-name {
-            font-size: 10pt;
+
+        /* ======== RECIPIENT ======== */
+        .kepada-label {
+            font-size: 9pt;
+            color: #000;
+            margin-bottom: 2px;
+        }
+        .kepada-name {
+            font-size: 9.5pt;
             font-weight: bold;
             color: #000;
         }
-        .recipient-address {
+        .kepada-detail {
             font-size: 8.5pt;
             color: #222;
-        }
-        .subject-line {
-            font-size: 9pt;
-            margin-bottom: 12px;
+            line-height: 1.45;
         }
 
         /* ======== OPENING MESSAGE ======== */
-        .opening-message {
-            font-size: 9pt;
+        .opening-msg {
+            font-size: 8.5pt;
             text-align: justify;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             color: #000;
-            line-height: 1.5;
+            line-height: 1.55;
         }
 
         /* ======== ITEMS TABLE ======== */
         .items-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 8px;
+            margin-bottom: 0;
         }
         .items-table th {
-            background-color: #f0f0f0;
-            border: 1px solid #999999;
+            background-color: #e8e8e8;
+            border: 1px solid #888;
             padding: 6px 8px;
             font-size: 8.5pt;
             font-weight: bold;
             text-align: center;
-            color: #000000;
+            color: #000;
         }
         .items-table td {
-            border: 1px solid #999999;
-            padding: 6px 8px;
+            border: 1px solid #aaa;
+            padding: 5px 8px;
             font-size: 8.5pt;
             vertical-align: top;
-            color: #000000;
+            color: #000;
         }
-        .items-table td.num { text-align: center; width: 26px; }
-        .items-table td.desc { text-align: left; }
-        .items-table td.price { text-align: right; white-space: nowrap; }
-        .items-table td.qty { text-align: center; width: 40px; }
-        .items-table td.amount { text-align: right; font-weight: bold; white-space: nowrap; }
-        .items-table tr:nth-child(even) td { background-color: #fafafa; }
-        .item-name { font-weight: bold; margin-bottom: 1px; }
-        .item-desc { font-size: 7.5pt; color: #555; }
+        .items-table td.col-no   { text-align: center; width: 24px; }
+        .items-table td.col-desc { text-align: left; }
+        .items-table td.col-harga { text-align: right; white-space: nowrap; width: 100px; }
+        .items-table td.col-qty   { text-align: center; width: 40px; }
+        .items-table td.col-jumlah{ text-align: right; font-weight: bold; white-space: nowrap; width: 110px; }
+        .item-name { font-weight: bold; }
+        .item-sub  { font-size: 7.5pt; color: #555; margin-top: 1px; }
 
-        /* ======== TOTAL ROW ======== */
+        /* TOTAL ROW */
         .total-row td {
-            border: 1px solid #999;
+            border: 1px solid #888;
             padding: 6px 8px;
-            font-size: 9pt;
+            font-size: 9.5pt;
             font-weight: bold;
-            background-color: #f0f0f0;
+        }
+        .total-sub td {
+            border: 1px solid #bbb;
+            padding: 4px 8px;
+            font-size: 8.5pt;
+            background: #f5f5f5;
         }
 
         /* ======== BOTTOM SECTION ======== */
-        .bottom-table {
-            width: 100%;
-            margin-top: 14px;
-        }
-        .bottom-table td.notes-cell {
+        .bottom-notes-cell {
             vertical-align: top;
-            width: 55%;
-            padding-right: 20px;
+            width: 52%;
+            padding-right: 18px;
         }
-        .bottom-table td.sign-cell {
+        .bottom-sign-cell {
             vertical-align: top;
-            width: 45%;
+            width: 48%;
         }
-
-        /* NOTES/TERMS */
-        .section-label {
+        .sec-label {
             font-size: 8.5pt;
             font-weight: bold;
-            color: #000;
-            margin-bottom: 5px;
             text-decoration: underline;
+            margin-bottom: 4px;
+            color: #000;
         }
-        .note-text {
-            font-size: 8pt;
-            color: #222;
-            line-height: 1.45;
-            margin-bottom: 12px;
-        }
-        .terms-list {
-            list-style: none;
-            padding: 0;
+        .terms-ol {
             margin: 0;
+            padding: 0;
+            counter-reset: term-counter;
         }
-        .terms-list li {
-            font-size: 8pt;
-            color: #222;
-            padding: 1px 0;
-            padding-left: 14px;
+        .terms-ol li {
+            list-style: none;
+            font-size: 7.8pt;
+            color: #111;
+            line-height: 1.45;
+            padding-left: 15px;
             position: relative;
-            line-height: 1.4;
+            margin-bottom: 2px;
         }
-        .terms-list li:before {
-            content: counter(li-counter) ".";
-            counter-increment: li-counter;
+        .terms-ol li:before {
+            content: counter(term-counter) ".";
+            counter-increment: term-counter;
             position: absolute;
             left: 0;
             font-weight: bold;
         }
-        .terms-ol {
-            counter-reset: li-counter;
-        }
 
-        /* PAYMENT SCHEDULE */
-        .payment-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 12px;
+        /* ======== SIGNATURE AREA ======== */
+        .sign-container {
+            text-align: center;
         }
-        .payment-table td {
-            padding: 3px 0;
-            font-size: 8pt;
-            border-bottom: 1px dashed #ccc;
-            color: #222;
-        }
-        .payment-table td.pay-amount {
-            text-align: right;
-            font-weight: bold;
-        }
-
-        /* SIGNATURE BOX */
-        .sign-city {
+        .sign-city-date {
             font-size: 8.5pt;
             color: #000;
             margin-bottom: 4px;
+            text-align: left;
         }
         .sign-greeting {
             font-size: 8.5pt;
             font-weight: bold;
-            margin-bottom: 55px;
+            margin-bottom: 6px;
             color: #000;
         }
+
+        /* Stamp Effect */
+        .stamp-wrapper {
+            position: relative;
+            height: 90px;
+            width: 200px;
+            margin: 0 auto;
+        }
+        .stamp-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 88px;
+            height: 88px;
+            border-radius: 50%;
+            border: 3px solid #003399;
+            box-sizing: border-box;
+            opacity: 0.7;
+        }
+        .stamp-circle-inner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 74px;
+            height: 74px;
+            border-radius: 50%;
+            border: 1.5px dashed #003399;
+            box-sizing: border-box;
+            opacity: 0.6;
+        }
+        .stamp-text-top {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            text-align: center;
+            font-size: 5pt;
+            font-weight: bold;
+            color: #003399;
+            letter-spacing: 0.5px;
+            line-height: 1.2;
+            margin-top: -16px;
+            opacity: 0.8;
+        }
+        .stamp-text-mid {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -52%);
+            font-size: 5.5pt;
+            font-weight: bold;
+            color: #003399;
+            letter-spacing: 0.3px;
+            text-align: center;
+            width: 60px;
+            opacity: 0.8;
+        }
+        .stamp-star {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 8pt;
+            color: #003399;
+            margin-top: 10px;
+            opacity: 0.7;
+        }
+
+        .sig-image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -58%);
+            max-width: 80px;
+            max-height: 55px;
+            filter: grayscale(100%) contrast(200%) brightness(0%);
+        }
+
         .sign-line {
-            border-bottom: 1px solid #000;
-            width: 160px;
-            margin-bottom: 3px;
+            border-bottom: 1.5px solid #000;
+            width: 170px;
+            margin: 0 auto 3px;
         }
         .sign-name {
             font-size: 9pt;
             font-weight: bold;
             color: #000;
+            text-align: center;
         }
         .sign-position {
             font-size: 8pt;
-            color: #444;
-        }
-        .sign-img {
-            max-height: 60px;
-            max-width: 140px;
-            position: absolute;
-            bottom: 5px;
-            left: 10px;
-        }
-        .sign-space {
-            position: relative;
-            height: 65px;
+            color: #333;
+            text-align: center;
         }
 
-        /* CLIENT APPROVAL BOX */
-        .approve-box {
+        /* CLIENT SIGN BOX */
+        .client-sign-box {
             border: 1px solid #aaa;
-            padding: 8px;
+            padding: 6px 8px;
             text-align: center;
-            margin-bottom: 8px;
+            height: 90px;
         }
-        .approve-label {
-            font-size: 8pt;
-            color: #555;
-            margin-bottom: 40px;
-        }
-        .approve-line {
-            border-bottom: 1px solid #555;
-            margin-bottom: 3px;
-        }
-        .approve-name {
-            font-size: 8pt;
-            font-weight: bold;
-        }
-        .approve-date {
+        .client-sign-label {
             font-size: 7.5pt;
-            color: #666;
+            color: #555;
+            margin-bottom: 0;
         }
 
         /* FOOTER */
-        .footer {
+        .pdf-footer {
             position: fixed;
-            bottom: -28px;
+            bottom: -35px;
             left: 0;
             right: 0;
-            height: 28px;
-            border-top: 1px solid #999;
-            padding-top: 6px;
+            height: 30px;
+            border-top: 1.5px solid #888;
+            padding-top: 5px;
             text-align: center;
             font-size: 7.5pt;
             color: #555;
         }
 
-        .page-break-avoid { page-break-inside: avoid; }
+        .avoid-break { page-break-inside: avoid; }
     </style>
 </head>
 <body>
 
 @php
-    function getBase64Img($path) {
+    // Base64 image helper
+    function pdfB64Img($path) {
         if (empty($path)) return '';
         if (\Illuminate\Support\Str::startsWith($path, 'data:image')) return $path;
-        if (file_exists($path)) {
+        if (!empty($path) && file_exists($path)) {
             $ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
             if ($ext === 'jpg') $ext = 'jpeg';
-            $data = file_get_contents($path);
-            return 'data:image/' . $ext . ';base64,' . base64_encode($data);
+            return 'data:image/' . $ext . ';base64,' . base64_encode(file_get_contents($path));
         }
         return '';
     }
-    $logoData = getBase64Img($company['logo'] ?? '');
 
-    // Signature images
-    $preparedSigData = '';
-    if ($quotation->prepared_signature_path) {
-        if (\Illuminate\Support\Str::startsWith($quotation->prepared_signature_path, 'data:image')) {
-            $preparedSigData = $quotation->prepared_signature_path;
-        } else {
-            $preparedSigData = getBase64Img(public_path('storage/' . $quotation->prepared_signature_path));
-        }
-    }
-    $approvedSigData = '';
-    if ($quotation->approved_signature_path) {
-        if (\Illuminate\Support\Str::startsWith($quotation->approved_signature_path, 'data:image')) {
-            $approvedSigData = $quotation->approved_signature_path;
-        } else {
-            $approvedSigData = getBase64Img(public_path('storage/' . $quotation->approved_signature_path));
-        }
+    $logoB64 = pdfB64Img($company['logo'] ?? '');
+
+    // Signature paths
+    $prepSigB64 = '';
+    if (!empty($quotation->prepared_signature_path)) {
+        $sp = \Illuminate\Support\Str::startsWith($quotation->prepared_signature_path, 'data:image')
+            ? $quotation->prepared_signature_path
+            : pdfB64Img(public_path('storage/' . $quotation->prepared_signature_path));
+        $prepSigB64 = $sp;
     }
 
-    $clientCompanyName = $quotation->customer->company_name ?? $quotation->lead->company_name ?? '';
-    $clientAddress = $quotation->customer->address ?? '';
-    $clientPhone = $quotation->customer->phone ?? '';
+    $appSigB64 = '';
+    if (!empty($quotation->approved_signature_path)) {
+        $sp = \Illuminate\Support\Str::startsWith($quotation->approved_signature_path, 'data:image')
+            ? $quotation->approved_signature_path
+            : pdfB64Img(public_path('storage/' . $quotation->approved_signature_path));
+        $appSigB64 = $sp;
+    }
+
+    $clientCompany = $quotation->customer->company_name ?? $quotation->lead->company_name ?? '';
     $clientContact = $quotation->customer->contact_name ?? '';
+    $clientAddress = $quotation->customer->address ?? '';
+    $clientPhone   = $quotation->customer->phone ?? '';
+
+    $companyNameShort = strtoupper(preg_replace('/^(PT\.?\s*|CV\.?\s*)/i', '', $company['name']));
 @endphp
 
-<!-- HEADER -->
-<table class="header-wrapper">
+<!-- ===== HEADER ===== -->
+<table class="header-table">
     <tr>
         <td class="logo-cell">
-            @if($logoData)
-                <img src="{{ $logoData }}" alt="Logo" class="company-logo">
-            @else
-                <div class="company-name">{{ $company['name'] }}</div>
+            @if($logoB64)
+                <img src="{{ $logoB64 }}" alt="Logo" class="company-logo">
             @endif
         </td>
         <td class="company-detail-cell">
-            @if(!$logoData)
-            @else
-                <div class="company-name">{{ $company['name'] }}</div>
-            @endif
+            <div class="company-name">{{ $company['name'] }}</div>
             <div class="company-info">
                 {{ $company['address'] }}<br>
-                @if($company['phone'])HP : {{ $company['phone'] }}@endif
-                @if($company['email'])&nbsp;&nbsp;|&nbsp;&nbsp;email : {{ $company['email'] }}@endif
+                @if(!empty($company['phone']))HP : {{ $company['phone'] }}@endif
+                @if(!empty($company['email']))&nbsp;&nbsp;&nbsp;email : {{ $company['email'] }}@endif
             </div>
         </td>
     </tr>
 </table>
 
-<!-- RECIPIENT & DOC META -->
+<!-- ===== RECIPIENT + DOC META ===== -->
 <table style="width: 100%; margin-bottom: 12px;">
     <tr>
-        <td style="vertical-align: top; width: 60%;">
-            <div class="recipient-label">Kepada Yth. :
-                @if($clientContact)
-                    <strong>{{ $clientContact }}</strong>
-                @elseif($clientCompanyName)
-                    <strong>{{ $clientCompanyName }}</strong>
-                @endif
+        <!-- Left: Recipient -->
+        <td style="vertical-align: top; width: 58%;">
+            <div class="kepada-label">
+                Kepada Yth. :
             </div>
-            @if($clientCompanyName && $clientContact)
-                <div class="recipient-address">{{ $clientCompanyName }}</div>
+            @if($clientContact)
+                <div class="kepada-name">{{ $clientContact }}</div>
+                @if($clientCompany)
+                    <div class="kepada-detail">{{ $clientCompany }}</div>
+                @endif
+            @elseif($clientCompany)
+                <div class="kepada-name">{{ $clientCompany }}</div>
             @endif
             @if($clientAddress)
-                <div class="recipient-address">{{ $clientAddress }}</div>
+                <div class="kepada-detail">{{ $clientAddress }}</div>
             @endif
             @if($clientPhone)
-                <div class="recipient-address">Telp : {{ $clientPhone }}</div>
+                <div class="kepada-detail">Telp : {{ $clientPhone }}</div>
             @endif
         </td>
-        <td style="vertical-align: top; width: 40%; text-align: right;">
-            <table style="float: right;">
+        <!-- Right: Meta -->
+        <td style="vertical-align: top; width: 42%; padding-left: 10px;">
+            <table style="float: right; border-collapse: collapse;">
                 <tr>
-                    <td class="doc-label" style="padding: 2px 8px 2px 0;">No. Penawaran</td>
-                    <td class="doc-value" style="padding: 2px 0;">: <strong>{{ $quotation->quotation_number }}</strong></td>
+                    <td class="doc-meta-label">No. Penawaran</td>
+                    <td class="doc-meta-value">: <strong>{{ $quotation->quotation_number }}</strong></td>
                 </tr>
                 <tr>
-                    <td class="doc-label" style="padding: 2px 8px 2px 0;">Tanggal</td>
-                    <td class="doc-value" style="padding: 2px 0;">: {{ $quotation->created_at->locale('id')->isoFormat('DD MMMM YYYY') }}</td>
+                    <td class="doc-meta-label">Tanggal</td>
+                    <td class="doc-meta-value">: {{ $quotation->created_at->locale('id')->isoFormat('DD MMMM YYYY') }}</td>
                 </tr>
                 <tr>
-                    <td class="doc-label" style="padding: 2px 8px 2px 0;">Berlaku Hingga</td>
-                    <td class="doc-value" style="padding: 2px 0;">: {{ $quotation->valid_until->locale('id')->isoFormat('DD MMMM YYYY') }}</td>
+                    <td class="doc-meta-label">Berlaku Hingga</td>
+                    <td class="doc-meta-value">: {{ $quotation->valid_until->locale('id')->isoFormat('DD MMMM YYYY') }}</td>
                 </tr>
                 @if($quotation->lead && $quotation->lead->title)
                 <tr>
-                    <td class="doc-label" style="padding: 2px 8px 2px 0;">Perihal</td>
-                    <td class="doc-value" style="padding: 2px 0;">: {{ $quotation->lead->title }}</td>
+                    <td class="doc-meta-label">Perihal</td>
+                    <td class="doc-meta-value" style="max-width: 180px;">: {{ $quotation->lead->title }}</td>
                 </tr>
                 @endif
             </table>
@@ -396,182 +426,187 @@
     </tr>
 </table>
 
-<!-- SUBJECT (Perihal standalone if no lead) -->
-@if(!$quotation->lead || !$quotation->lead->title)
-<div class="subject-line">
-    <strong>Perihal :</strong> Penawaran Harga
-</div>
-@endif
-
-<!-- OPENING MESSAGE -->
+<!-- ===== OPENING MESSAGE ===== -->
 @if($quotation->opening_content)
-<div class="opening-message">
-    {!! $quotation->opening_content !!}
+<div class="opening-msg">
+    {!! strip_tags($quotation->opening_content, '<br><b><strong><em><i>') !!}
 </div>
 @endif
 
-<!-- ITEMS TABLE -->
-<table class="items-table page-break-avoid">
+<!-- ===== ITEMS TABLE ===== -->
+<table class="items-table avoid-break">
     <thead>
         <tr>
-            <th style="width: 26px;">No.</th>
+            <th style="width: 24px;">No.</th>
             <th style="text-align: left;">ITEM / URAIAN PEKERJAAN</th>
-            <th style="width: 110px;">HARGA</th>
-            <th style="width: 45px;">BANYAK</th>
-            <th style="width: 120px;">JUMLAH</th>
+            <th style="width: 105px;">HARGA</th>
+            <th style="width: 38px;">QTY</th>
+            <th style="width: 115px;">JUMLAH</th>
         </tr>
     </thead>
     <tbody>
-        @foreach($quotation->items as $index => $item)
+        @foreach($quotation->items as $idx => $item)
             @php
-                $price = (float)($item->unit_price ?? 0);
-                $discPercent = (float)($item->discount_percent ?? 0);
-                $discAmount = $price * ($discPercent / 100);
-                $lineTotal = $price - $discAmount;
+                $unitPrice   = (float)($item->unit_price ?? 0);
+                $discPct     = (float)($item->discount_percent ?? 0);
+                $lineTotal   = (float)($item->total ?? ($unitPrice * (1 - $discPct/100)));
             @endphp
             <tr>
-                <td class="num">{{ $index + 1 }}</td>
-                <td class="desc">
+                <td class="col-no">{{ $idx + 1 }}</td>
+                <td class="col-desc">
                     <div class="item-name">{{ $item->name }}</div>
                     @if($item->description)
-                        <div class="item-desc">{{ $item->description }}</div>
+                        <div class="item-sub">{{ $item->description }}</div>
                     @endif
-                    @if($discPercent > 0)
-                        <div class="item-desc">Diskon: {{ number_format($discPercent, 0) }}%</div>
+                    @if($discPct > 0)
+                        <div class="item-sub">Diskon : {{ number_format($discPct, 0) }}%</div>
                     @endif
                 </td>
-                <td class="price">Rp &nbsp;{{ number_format($price, 0, ',', '.') }}</td>
-                <td class="qty">1</td>
-                <td class="amount">Rp &nbsp;{{ number_format($lineTotal, 0, ',', '.') }}</td>
+                <td class="col-harga">
+                    Rp&nbsp;{{ number_format($unitPrice, 0, ',', '.') }}
+                </td>
+                <td class="col-qty">1</td>
+                <td class="col-jumlah">
+                    Rp&nbsp;{{ number_format($lineTotal, 0, ',', '.') }}
+                </td>
             </tr>
         @endforeach
 
-        <!-- EMPTY PADDING ROWS for aesthetics -->
-        @if(count($quotation->items) < 5)
-            @for($i = count($quotation->items); $i < 5; $i++)
+        {{-- Padding rows to make table look fuller --}}
+        @if($quotation->items->count() < 6)
+            @for($p = $quotation->items->count(); $p < 6; $p++)
             <tr>
-                <td class="num" style="height: 18px;">&nbsp;</td>
-                <td class="desc">&nbsp;</td>
-                <td class="price">&nbsp;</td>
-                <td class="qty">&nbsp;</td>
-                <td class="amount">&nbsp;</td>
+                <td class="col-no" style="height: 17px;">&nbsp;</td>
+                <td class="col-desc">&nbsp;</td>
+                <td class="col-harga">&nbsp;</td>
+                <td class="col-qty">&nbsp;</td>
+                <td class="col-jumlah">&nbsp;</td>
             </tr>
             @endfor
         @endif
     </tbody>
 </table>
 
-<!-- TOTAL BIAYA -->
-<table class="items-table" style="margin-bottom: 0;">
+<!-- ===== TOTAL ===== -->
+<table class="items-table" style="border-collapse: collapse; width: 100%;">
+    @if($calculations['discount_percentage'] > 0)
+    <tr class="total-sub">
+        <td colspan="3" style="text-align: right; font-weight: normal; border-top: 1px solid #888; padding: 4px 8px;">Sub Total</td>
+        <td colspan="2" style="text-align: right; border-top: 1px solid #888; padding: 4px 8px;">Rp&nbsp;{{ number_format($calculations['subtotal'], 0, ',', '.') }}</td>
+    </tr>
+    <tr class="total-sub">
+        <td colspan="3" style="text-align: right; font-weight: normal; padding: 4px 8px;">Diskon ({{ number_format($calculations['discount_percentage'],0) }}%)</td>
+        <td colspan="2" style="text-align: right; color:#b00; padding: 4px 8px;">- Rp&nbsp;{{ number_format($calculations['discount_amount'], 0, ',', '.') }}</td>
+    </tr>
+    @endif
+    @if(isset($quotation->include_tax) && $quotation->include_tax && $calculations['tax_amount'] > 0)
+    <tr class="total-sub">
+        <td colspan="3" style="text-align: right; font-weight: normal; padding: 4px 8px;">PPN {{ number_format($calculations['tax_percentage'],0) }}%</td>
+        <td colspan="2" style="text-align: right; padding: 4px 8px;">Rp&nbsp;{{ number_format($calculations['tax_amount'], 0, ',', '.') }}</td>
+    </tr>
+    @endif
     <tr class="total-row">
-        <td colspan="3" style="text-align: right; border-top: 2px solid #555;">TOTAL BIAYA&nbsp;&nbsp;=</td>
-        <td colspan="2" style="text-align: right; font-size: 10pt; border-top: 2px solid #555; color: #000; background: #e8e8e8;">
-            Rp &nbsp;{{ number_format($calculations['grand_total'], 0, ',', '.') }}
+        <td colspan="3" style="text-align: right; border: 1.5px solid #555; background: #eee;">TOTAL BIAYA &nbsp;=</td>
+        <td colspan="2" style="text-align: right; border: 1.5px solid #555; background: #ddd; font-size: 10.5pt; color: #000;">
+            Rp&nbsp;{{ number_format($calculations['grand_total'], 0, ',', '.') }}
         </td>
     </tr>
-    @if($calculations['discount_percentage'] > 0)
-    <tr class="total-row">
-        <td colspan="3" style="text-align: right;">Subtotal</td>
-        <td colspan="2" style="text-align: right;">Rp &nbsp;{{ number_format($calculations['subtotal'], 0, ',', '.') }}</td>
-    </tr>
-    <tr class="total-row">
-        <td colspan="3" style="text-align: right;">Diskon ({{ $calculations['discount_percentage'] }}%)</td>
-        <td colspan="2" style="text-align: right; color: #c00;">- Rp &nbsp;{{ number_format($calculations['discount_amount'], 0, ',', '.') }}</td>
-    </tr>
-    @endif
-    @if(isset($quotation->include_tax) && $quotation->include_tax)
-    <tr class="total-row">
-        <td colspan="3" style="text-align: right;">PPN {{ $calculations['tax_percentage'] }}%</td>
-        <td colspan="2" style="text-align: right;">Rp &nbsp;{{ number_format($calculations['tax_amount'], 0, ',', '.') }}</td>
-    </tr>
-    @endif
 </table>
 
-<!-- BOTTOM SECTION: NOTES + SIGN -->
-<table class="bottom-table page-break-avoid" style="margin-top: 16px;">
-    <tr>
-        <!-- LEFT: NOTES, TERMS, PAYMENT -->
-        <td class="notes-cell">
-            @php
-                $defaultTerms = \App\Models\Quotation::getDefaultTerms();
-                $selectedTerms = [];
-                if ($quotation->terms_and_conditions && is_array($quotation->terms_and_conditions)) {
-                    foreach ($quotation->terms_and_conditions as $key) {
-                        if (isset($defaultTerms[$key])) {
-                            $selectedTerms[] = $defaultTerms[$key];
-                        }
-                    }
-                }
-                if ($quotation->custom_terms && is_array($quotation->custom_terms)) {
-                    foreach ($quotation->custom_terms as $ct) {
-                        if (!empty($ct['term'])) {
-                            $selectedTerms[] = $ct['term'];
-                        }
-                    }
-                }
-            @endphp
+<!-- ===== BOTTOM: NOTES LEFT + SIGNATURE RIGHT ===== -->
+@php
+    $defaultTerms = \App\Models\Quotation::getDefaultTerms();
+    $selectedTerms = [];
+    if ($quotation->terms_and_conditions && is_array($quotation->terms_and_conditions)) {
+        foreach ($quotation->terms_and_conditions as $key) {
+            if (isset($defaultTerms[$key])) {
+                $selectedTerms[] = $defaultTerms[$key];
+            }
+        }
+    }
+    if ($quotation->custom_terms && is_array($quotation->custom_terms)) {
+        foreach ($quotation->custom_terms as $ct) {
+            if (!empty($ct['term'])) $selectedTerms[] = $ct['term'];
+        }
+    }
+    $payTerms = $calculations['payment_terms'] ?? [];
+@endphp
 
+<table style="width: 100%; margin-top: 16px;" class="avoid-break">
+    <tr>
+        <!-- ===== LEFT: Notes & Termin ===== -->
+        <td class="bottom-notes-cell">
             @if(!empty($selectedTerms))
-                <div class="section-label">Catatan :</div>
-                <ul class="terms-list terms-ol">
-                    @foreach($selectedTerms as $term)
-                        <li>{{ $term }}</li>
+                <div class="sec-label">Catatan :</div>
+                <ul class="terms-ol">
+                    @foreach($selectedTerms as $t)
+                        <li>{{ $t }}</li>
                     @endforeach
                 </ul>
             @endif
 
-            @if(!empty($calculations['payment_terms']))
-                <div class="section-label" style="margin-top: 10px;">Termin Pembayaran :</div>
-                <ul class="terms-list terms-ol">
-                    @foreach($calculations['payment_terms'] as $idx => $term)
-                        <li>
-                            {{ $term['description'] }}
-                            &mdash; <strong>Rp {{ number_format($term['amount'], 0, ',', '.') }}</strong>
-                        </li>
+            @if(!empty($payTerms))
+                <div class="sec-label" style="margin-top: 10px;">Termin Pembayaran :</div>
+                <ul class="terms-ol">
+                    @foreach($payTerms as $pt)
+                        <li>{{ $pt['description'] }} &mdash; <strong>Rp&nbsp;{{ number_format($pt['amount'], 0, ',', '.') }}</strong></li>
                     @endforeach
                 </ul>
             @endif
         </td>
 
-        <!-- RIGHT: SIGNATURE -->
-        <td class="sign-cell">
-            {{-- Closing Message if any --}}
+        <!-- ===== RIGHT: Closing + Signatures ===== -->
+        <td class="bottom-sign-cell">
             @if($quotation->closing_content)
-                <div style="font-size: 8pt; text-align: justify; margin-bottom: 10px; color: #222; line-height: 1.4;">
+                <div style="font-size: 8pt; text-align: justify; margin-bottom: 10px; color: #000; line-height: 1.5;">
                     {!! strip_tags($quotation->closing_content, '<br><b><strong>') !!}
                 </div>
             @endif
 
-            <table style="width: 100%;">
+            <table style="width: 100%; border-collapse: collapse;">
                 <tr>
-                    <!-- Authorized Signatory -->
+                    <!-- Authorized Signature -->
                     <td style="text-align: center; vertical-align: top; width: 50%;">
-                        <div class="sign-city">
+                        <div class="sign-city-date">
                             Bekasi, {{ $quotation->created_at->locale('id')->isoFormat('DD MMMM YYYY') }}
                         </div>
                         <div class="sign-greeting">Hormat Kami,</div>
-                        <div class="sign-space">
-                            @if($preparedSigData)
-                                <img src="{{ $preparedSigData }}" alt="Tanda Tangan" class="sign-img">
+
+                        <!-- STAMP AREA -->
+                        <div class="stamp-wrapper">
+                            <!-- Outer circle -->
+                            <div class="stamp-circle"></div>
+                            <!-- Inner dashed circle -->
+                            <div class="stamp-circle-inner"></div>
+                            <!-- Company name top -->
+                            <div class="stamp-text-top">
+                                {{ strtoupper($company['name']) }}
+                            </div>
+                            <!-- Signature image on top of stamp -->
+                            @if($prepSigB64)
+                                <img src="{{ $prepSigB64 }}" alt="TTD" class="sig-image">
                             @endif
                         </div>
+
                         <div class="sign-line"></div>
-                        <div class="sign-name">{{ $quotation->prepared_by ?? $company['name'] }}</div>
-                        <div class="sign-position">{{ $quotation->prepared_by_position ?? 'Sales Representative' }}</div>
+                        <div class="sign-name">{{ $quotation->prepared_by ?? strtoupper($company['name']) }}</div>
+                        <div class="sign-position">{{ $quotation->prepared_by_position ?? 'Sales Manager' }}</div>
                     </td>
 
                     <!-- Client Approval -->
                     <td style="text-align: center; vertical-align: top; width: 50%; padding-left: 10px;">
-                        <div class="sign-city">&nbsp;</div>
+                        <div class="sign-city-date">&nbsp;</div>
                         <div class="sign-greeting">Menyetujui,</div>
-                        <div class="sign-space">
-                            @if($approvedSigData)
-                                <img src="{{ $approvedSigData }}" alt="Tanda Tangan" class="sign-img">
+
+                        <div class="client-sign-box">
+                            <div class="client-sign-label">Tanda tangan & stempel perusahaan</div>
+                            @if($appSigB64)
+                                <img src="{{ $appSigB64 }}" alt="TTD Klien" style="max-height: 50px; max-width: 120px; filter: grayscale(100%) contrast(200%) brightness(0%); margin-top: 4px;">
                             @endif
                         </div>
-                        <div class="sign-line"></div>
-                        <div class="sign-name">{{ $clientCompanyName ?: '_______________' }}</div>
-                        <div class="sign-position">Tgl : ________________</div>
+                        <div class="sign-line" style="margin-top: 4px;"></div>
+                        <div class="sign-name">{{ $clientCompany ?: '___________________________' }}</div>
+                        <div class="sign-position">Tgl : ______________________</div>
                     </td>
                 </tr>
             </table>
@@ -579,10 +614,13 @@
     </tr>
 </table>
 
-<!-- FOOTER -->
-<div class="footer">
-    {{ $company['name'] }} &nbsp;|&nbsp; {{ $company['phone'] }} &nbsp;|&nbsp; {{ $company['email'] }}
-    &nbsp;|&nbsp; Dok. No. {{ $quotation->quotation_number }} &nbsp;|&nbsp; Berlaku s/d {{ $quotation->valid_until->locale('id')->isoFormat('DD MMMM YYYY') }}
+<!-- ===== FOOTER ===== -->
+<div class="pdf-footer">
+    {{ $company['name'] }}
+    @if($company['phone']) &nbsp;|&nbsp; {{ $company['phone'] }} @endif
+    @if($company['email']) &nbsp;|&nbsp; {{ $company['email'] }} @endif
+    &nbsp;|&nbsp; Dok. No. {{ $quotation->quotation_number }}
+    &nbsp;|&nbsp; Berlaku s/d {{ $quotation->valid_until->locale('id')->isoFormat('DD MMMM YYYY') }}
 </div>
 
 </body>
