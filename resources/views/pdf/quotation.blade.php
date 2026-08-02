@@ -563,50 +563,84 @@
                 </div>
             @endif
 
+@php
+                // Build SVG stamp for prepared signature
+                $cx = 55; $cy = 55; $r1 = 50; $r2 = 40;
+                $compName = strtoupper($company['name']);
+                $cityText  = 'BEKASI - INDONESIA';
+            @endphp
             <table style="width: 100%; border-collapse: collapse;">
                 <tr>
-                    <!-- Authorized Signature -->
-                    <td style="text-align: center; vertical-align: top; width: 50%;">
-                        <div class="sign-city-date">
-                            Bekasi, {{ $quotation->created_at->locale('id')->isoFormat('DD MMMM YYYY') }}
-                        </div>
-                        <div class="sign-greeting">Hormat Kami,</div>
+                    <!-- ===== Authorized Signature ===== -->
+                    <td style="text-align: center; vertical-align: bottom; width: 50%; padding-bottom: 4px;">
+                        <div style="font-size: 8.5pt; font-weight: bold; text-align: center; margin-bottom: 6px;">Hormat Kami,</div>
 
-                        <!-- STAMP AREA -->
-                        <div class="stamp-wrapper">
-                            <!-- Outer circle -->
-                            <div class="stamp-circle"></div>
+                        <!-- SVG Stamp -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="115" height="115" viewBox="0 0 110 110" style="display: block; margin: 0 auto;">
+                            <!-- Defs for text paths -->
+                            <defs>
+                                <!-- Arc for top text (company name) -->
+                                <path id="topArc"
+                                    d="M 10,55 A 45,45 0 1,1 100,55"
+                                    fill="none" />
+                                <!-- Arc for bottom text (city) -->
+                                <path id="botArc"
+                                    d="M 12,62 A 43,43 0 0,0 98,62"
+                                    fill="none" />
+                            </defs>
+
+                            <!-- Outer solid circle -->
+                            <circle cx="55" cy="55" r="50" fill="none" stroke="#003399" stroke-width="2.5" opacity="0.75"/>
                             <!-- Inner dashed circle -->
-                            <div class="stamp-circle-inner"></div>
-                            <!-- Company name top -->
-                            <div class="stamp-text-top">
-                                {{ strtoupper($company['name']) }}
-                            </div>
-                            <!-- Signature image on top of stamp -->
-                            @if($prepSigB64)
-                                <img src="{{ $prepSigB64 }}" alt="TTD" class="sig-image">
-                            @endif
-                        </div>
+                            <circle cx="55" cy="55" r="41" fill="none" stroke="#003399" stroke-width="1.2" stroke-dasharray="3,2.5" opacity="0.6"/>
 
-                        <div class="sign-line"></div>
-                        <div class="sign-name">{{ $quotation->prepared_by ?? strtoupper($company['name']) }}</div>
-                        <div class="sign-position">{{ $quotation->prepared_by_position ?? 'Sales Manager' }}</div>
+                            <!-- Company name along top arc -->
+                            <text font-family="Arial" font-size="8" font-weight="bold" fill="#003399" opacity="0.85" letter-spacing="0.8">
+                                <textPath href="#topArc" startOffset="50%" text-anchor="middle">{{ $compName }}</textPath>
+                            </text>
+
+                            <!-- City along bottom arc -->
+                            <text font-family="Arial" font-size="6.5" fill="#003399" opacity="0.75" letter-spacing="0.5">
+                                <textPath href="#botArc" startOffset="50%" text-anchor="middle">{{ $cityText }}</textPath>
+                            </text>
+
+                            <!-- Star/bullet decorators -->
+                            <text x="55" y="58" text-anchor="middle" font-size="7" fill="#003399" opacity="0.7">&#10022; &#10022; &#10022;</text>
+
+                            <!-- Signature image in center -->
+                            @if($prepSigB64)
+                            <image href="{{ $prepSigB64 }}"
+                                x="20" y="26" width="70" height="40"
+                                style="filter: grayscale(100%) contrast(200%) brightness(0%); opacity:0.85;"/>
+                            @endif
+                        </svg>
+
+                        <!-- Underline & Name -->
+                        <table style="width: 100%; border-collapse: collapse; margin-top: 4px;">
+                            <tr><td style="border-bottom: 1.5px solid #000; height: 1px;"></td></tr>
+                        </table>
+                        <div style="font-size: 9pt; font-weight: bold; text-align: center; margin-top: 3px;">{{ $quotation->prepared_by ?? strtoupper($company['name']) }}</div>
+                        <div style="font-size: 8pt; text-align: center; color: #333;">{{ $quotation->prepared_by_position ?? 'Sales Manager' }}</div>
                     </td>
 
-                    <!-- Client Approval -->
-                    <td style="text-align: center; vertical-align: top; width: 50%; padding-left: 10px;">
-                        <div class="sign-city-date">&nbsp;</div>
-                        <div class="sign-greeting">Menyetujui,</div>
+                    <!-- ===== Client Approval ===== -->
+                    <td style="text-align: center; vertical-align: bottom; width: 50%; padding-left: 10px; padding-bottom: 4px;">
+                        <div style="font-size: 8.5pt; font-weight: bold; text-align: center; margin-bottom: 6px;">Menyetujui,</div>
 
-                        <div class="client-sign-box">
-                            <div class="client-sign-label">Tanda tangan & stempel perusahaan</div>
+                        <!-- Empty stamp area same height as SVG -->
+                        <div style="width: 115px; height: 115px; margin: 0 auto; border: 1px dashed #aaa; display: flex; align-items: center; justify-content: center;">
+                            <div style="font-size: 7pt; color: #aaa; text-align: center; padding: 8px;">Tanda tangan &amp;<br>stempel perusahaan</div>
                             @if($appSigB64)
-                                <img src="{{ $appSigB64 }}" alt="TTD Klien" style="max-height: 50px; max-width: 120px; filter: grayscale(100%) contrast(200%) brightness(0%); margin-top: 4px;">
+                                <img src="{{ $appSigB64 }}" alt="TTD" style="max-height: 55px; max-width: 100px; filter: grayscale(100%) contrast(200%) brightness(0%);">
                             @endif
                         </div>
-                        <div class="sign-line" style="margin-top: 4px;"></div>
-                        <div class="sign-name">{{ $clientCompany ?: '___________________________' }}</div>
-                        <div class="sign-position">Tgl : ______________________</div>
+
+                        <!-- Underline & Client Name -->
+                        <table style="width: 100%; border-collapse: collapse; margin-top: 4px;">
+                            <tr><td style="border-bottom: 1.5px solid #000; height: 1px;"></td></tr>
+                        </table>
+                        <div style="font-size: 9pt; font-weight: bold; text-align: center; margin-top: 3px;">{{ $clientCompany ?: '___________________________' }}</div>
+                        <div style="font-size: 8pt; text-align: center; color: #333;">Tgl : ______________________</div>
                     </td>
                 </tr>
             </table>
