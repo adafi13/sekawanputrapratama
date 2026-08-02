@@ -19,19 +19,6 @@ class QuotationController extends Controller
             abort(404, 'PDF file not found. Please regenerate the PDF.');
         }
 
-        // Get the file path
-        $filePath = Storage::disk('local')->path($quotation->pdf_path);
-
-        // Generate filename for download
-        $filename = sprintf(
-            'Quotation-%s-%s.pdf',
-            $quotation->quotation_number,
-            now()->format('Y-m-d')
-        );
-
-        // Stream the file
-        return response()->download($filePath, $filename, [
-            'Content-Type' => 'application/pdf',
-        ]);
+        return \App\Services\QuotationPdfService::download($quotation);
     }
 }
