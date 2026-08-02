@@ -232,4 +232,65 @@ class QuotationPdfService
             self::getDownloadFilename($quotation)
         );
     }
+
+    /**
+     * Generate a crisp PNG company stamp as base64 Data URI using GD
+     */
+    public static function generateStampPng(string $companyName = 'PT SEKAWAN PUTRA PRATAMA'): string
+    {
+        if (!extension_loaded('gd')) {
+            return '';
+        }
+
+        $w = 200;
+        $h = 200;
+        $img = imagecreatetruecolor($w, $h);
+
+        imagealphablending($img, false);
+        imagesavealpha($img, true);
+        $transparent = imagecolorallocatealpha($img, 0, 0, 0, 127);
+        imagefill($img, 0, 0, $transparent);
+        imagealphablending($img, true);
+
+        // Dark royal blue stamp ink color with slight opacity
+        $blue = imagecolorallocatealpha($img, 30, 64, 175, 20);
+
+        // Outer circle (thick)
+        imagesetthickness($img, 4);
+        imageellipse($img, 100, 100, 186, 186, $blue);
+
+        // Inner circle (thin)
+        imagesetthickness($img, 2);
+        imageellipse($img, 100, 100, 156, 156, $blue);
+
+        // Parallel middle lines
+        imageline($img, 24, 82, 176, 82, $blue);
+        imageline($img, 24, 118, 176, 118, $blue);
+
+        // Center text
+        $midText = "SEKAWAN";
+        $xMid = (int)((200 - (strlen($midText) * imagefontwidth(5))) / 2);
+        imagestring($img, 5, $xMid, 92, $midText, $blue);
+
+        // Top text
+        $cleanComp = strtoupper(trim($companyName));
+        $xTop = (int)((200 - (strlen($cleanComp) * imagefontwidth(2))) / 2);
+        if ($xTop < 10) $xTop = 10;
+        imagestring($img, 2, $xTop, 40, $cleanComp, $blue);
+
+        // Bottom text
+        $botText = "BEKASI - INDONESIA";
+        $xBot = (int)((200 - (strlen($botText) * imagefontwidth(2))) / 2);
+        imagestring($img, 2, $xBot, 142, $botText, $blue);
+
+        // Side stars
+        imagestring($img, 3, 34, 92, "*", $blue);
+        imagestring($img, 3, 158, 92, "*", $blue);
+
+        ob_start();
+        imagepng($img);
+        $pngData = ob_get_clean();
+
+        return 'data:image/png;base64,' . base64_encode($pngData);
+    }
 }

@@ -564,80 +564,64 @@
             @endif
 
 @php
-    // === GENERATE STAMP AS BASE64 SVG DATA URI ===
-    $compName  = strtoupper($company['name']);
-    $cityText  = 'BEKASI - INDONESIA';
-
-    // Build SVG with curved text using textPath
-    $stampSvg = '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200" viewBox="0 0 200 200">'
-        . '<defs>'
-        .   '<path id="tA" d="M 18,100 A 82,82 0 1,1 182,100" fill="none"/>'
-        .   '<path id="bA" d="M 24,120 A 76,76 0 0,0 176,120" fill="none"/>'
-        . '</defs>'
-        // outer thick circle
-        . '<circle cx="100" cy="100" r="92" fill="none" stroke="#003399" stroke-width="5" opacity="0.7"/>'
-        // inner dashed circle
-        . '<circle cx="100" cy="100" r="76" fill="none" stroke="#003399" stroke-width="2" stroke-dasharray="6,4" opacity="0.55"/>'
-        // company name on top arc
-        . '<text font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="bold" fill="#003399" opacity="0.85" letter-spacing="1">'
-        .   '<textPath xlink:href="#tA" startOffset="50%" text-anchor="middle">' . htmlspecialchars($compName) . '</textPath>'
-        . '</text>'
-        // city on bottom arc
-        . '<text font-family="Arial,Helvetica,sans-serif" font-size="11" fill="#003399" opacity="0.7" letter-spacing="0.5">'
-        .   '<textPath xlink:href="#bA" startOffset="50%" text-anchor="middle">' . htmlspecialchars($cityText) . '</textPath>'
-        . '</text>'
-        // stars in center
-        . '<text x="100" y="108" text-anchor="middle" font-size="14" fill="#003399" opacity="0.65" font-family="Arial">&#9733; &#9733; &#9733;</text>'
-        . '</svg>';
-
-    $stampDataUri = 'data:image/svg+xml;base64,' . base64_encode($stampSvg);
+    // Generate clean GD PNG stamp
+    $stampPng = \App\Services\QuotationPdfService::generateStampPng($company['name']);
 @endphp
 
-            <!-- Signature table: both cols same height, aligned bottom -->
+            <!-- Perfectly Aligned 4-Row Signature Table -->
             <table style="width: 100%; border-collapse: collapse; table-layout: fixed;">
+                <!-- ROW 1: City & Greetings -->
                 <tr>
-                    <!-- ===== Authorized Signature (LEFT) ===== -->
-                    <td style="width: 50%; text-align: center; vertical-align: bottom; padding-bottom: 0;">
+                    <td style="width: 50%; text-align: center; vertical-align: top; padding-bottom: 4px;">
+                        <div style="font-size: 8pt; color: #333; margin-bottom: 2px;">Bekasi, {{ $quotation->created_at->locale('id')->isoFormat('DD MMMM YYYY') }}</div>
+                        <div style="font-size: 8.5pt; font-weight: bold; color: #000;">Hormat Kami,</div>
+                    </td>
+                    <td style="width: 50%; text-align: center; vertical-align: top; padding-bottom: 4px;">
+                        <div style="font-size: 8pt; color: transparent; margin-bottom: 2px;">&nbsp;</div>
+                        <div style="font-size: 8.5pt; font-weight: bold; color: #000;">Menyetujui,</div>
+                    </td>
+                </tr>
 
-                        <!-- STAMP: SVG as <img data-uri> + TTD overlaid -->
-                        <div style="position: relative; width: 130px; height: 130px; margin: 0 auto;">
-                            <!-- Circle stamp -->
-                            <img src="{{ $stampDataUri }}" style="width: 130px; height: 130px; position: absolute; top: 0; left: 0; opacity: 0.8;">
-                            <!-- Signature image centered inside stamp -->
-                            @if($prepSigB64)
-                                <img src="{{ $prepSigB64 }}"
-                                     style="position: absolute; top: 38px; left: 18px; width: 94px; height: 50px;
-                                            filter: grayscale(100%) contrast(400%) brightness(0%);">
+                <!-- ROW 2: Fixed Height (85px) Stamp & Signature Area -->
+                <tr>
+                    <td style="width: 50%; text-align: center; vertical-align: middle; height: 85px;">
+                        <div style="position: relative; width: 100px; height: 85px; margin: 0 auto;">
+                            @if($stampPng)
+                                <img src="{{ $stampPng }}" style="width: 85px; height: 85px; position: absolute; top: 0; left: 7px; opacity: 0.85;">
                             @endif
-                        </div>
-
-                        <!-- Name line -->
-                        <div style="border-top: 1.5px solid #000; margin-top: 6px; padding-top: 3px;">
-                            <div style="font-size: 9pt; font-weight: bold; text-align: center;">{{ $quotation->prepared_by ?? strtoupper($company['name']) }}</div>
-                            <div style="font-size: 8pt; text-align: center; color: #333;">{{ $quotation->prepared_by_position ?? 'Sales Manager' }}</div>
+                            @if($prepSigB64)
+                                <img src="{{ $prepSigB64 }}" style="width: 80px; max-height: 50px; position: absolute; top: 18px; left: 10px; filter: grayscale(100%) contrast(400%) brightness(0%);">
+                            @endif
                         </div>
                     </td>
-
-                    <!-- ===== Client Approval (RIGHT) ===== -->
-                    <td style="width: 50%; text-align: center; vertical-align: bottom; padding-left: 12px; padding-bottom: 0;">
-
-                        <!-- Empty box same height as stamp (130px) -->
-                        <div style="width: 130px; height: 130px; margin: 0 auto; border: 1px dashed #999;">
-                            <div style="font-size: 7pt; color: #aaa; text-align: center; padding-top: 42px; line-height: 1.5;">
-                                Tanda tangan &amp;<br>stempel perusahaan
-                            </div>
+                    <td style="width: 50%; text-align: center; vertical-align: middle; height: 85px;">
+                        <div style="position: relative; width: 100px; height: 85px; margin: 0 auto;">
                             @if($appSigB64)
-                                <img src="{{ $appSigB64 }}"
-                                     style="max-height: 55px; max-width: 110px; margin-top: 4px;
-                                            filter: grayscale(100%) contrast(400%) brightness(0%);">
+                                <img src="{{ $appSigB64 }}" style="width: 80px; max-height: 50px; position: absolute; top: 18px; left: 10px; filter: grayscale(100%) contrast(400%) brightness(0%);">
                             @endif
                         </div>
+                    </td>
+                </tr>
 
-                        <!-- Client Name line -->
-                        <div style="border-top: 1.5px solid #000; margin-top: 6px; padding-top: 3px;">
-                            <div style="font-size: 9pt; font-weight: bold; text-align: center;">{{ $clientCompany ?: '___________________________' }}</div>
-                            <div style="font-size: 8pt; text-align: center; color: #333;">Tgl : ______________________</div>
-                        </div>
+                <!-- ROW 3: Black Underlines (Pixel-aligned) -->
+                <tr>
+                    <td style="width: 50%; text-align: center; padding: 2px 4px 4px 4px;">
+                        <div style="border-bottom: 1.5px solid #000; width: 140px; margin: 0 auto;"></div>
+                    </td>
+                    <td style="width: 50%; text-align: center; padding: 2px 4px 4px 4px;">
+                        <div style="border-bottom: 1.5px solid #000; width: 140px; margin: 0 auto;"></div>
+                    </td>
+                </tr>
+
+                <!-- ROW 4: Name & Position / Date -->
+                <tr>
+                    <td style="width: 50%; text-align: center; vertical-align: top;">
+                        <div style="font-size: 8.5pt; font-weight: bold; color: #000; text-transform: uppercase;">{{ $quotation->prepared_by ?? $company['name'] }}</div>
+                        <div style="font-size: 7.5pt; color: #444;">{{ $quotation->prepared_by_position ?? 'Sales Manager' }}</div>
+                    </td>
+                    <td style="width: 50%; text-align: center; vertical-align: top;">
+                        <div style="font-size: 8.5pt; font-weight: bold; color: #000; text-transform: uppercase;">{{ $clientCompany ?: '________________________' }}</div>
+                        <div style="font-size: 7.5pt; color: #444;">Tgl : ___________________</div>
                     </td>
                 </tr>
             </table>
