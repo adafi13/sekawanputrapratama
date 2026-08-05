@@ -76,7 +76,7 @@
             <div class="ctc-info-body">
               <span class="ctc-info-label">Lokasi Kantor</span>
               <span class="ctc-info-value">{{ \App\Models\Setting::get('contact.address', 'Perum Mega Regency Blok G3 No. 38, RT 002 / RW 020, Sukaragam, Kec. Serang Baru, Kab. Bekasi, Jawa Barat 17330') }}</span>
-              <a href="https://maps.app.goo.gl/CWZgdJDPenuBYPXi9" target="_blank" class="ctc-maps-link">
+              <a href="https://www.google.com/maps?q=-6.38800356492782,107.12130227620248" target="_blank" class="ctc-maps-link">
                 Buka Google Maps <i class="fas fa-external-link-alt"></i>
               </a>
             </div>
@@ -98,7 +98,7 @@
         {{-- Map --}}
         <div class="ctc-map-wrap reveal-left delay-400">
           <iframe
-            src="https://www.google.com/maps?q=-6.3776515,107.1246921&z=18&output=embed"
+            src="https://www.google.com/maps?q=-6.38800356492782,107.12130227620248&z=18&output=embed"
             width="100%" height="220" style="border:0;" allowfullscreen="" loading="lazy">
           </iframe>
         </div>

@@ -54,8 +54,8 @@
         ],
         'geo' => [
             '@type' => 'GeoCoordinates',
-            'latitude' => -6.2088,
-            'longitude' => 106.8456
+            'latitude' => -6.38800356492782,
+            'longitude' => 107.12130227620248
         ],
         'openingHoursSpecification' => [
             '@type' => 'OpeningHoursSpecification',
