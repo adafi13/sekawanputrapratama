@@ -59,6 +59,10 @@ class PortfoliosTable
             ->recordActions([
                 ViewAction::make(),
                 EditAction::make(),
+                \Filament\Actions\DeleteAction::make()
+                    ->label('Sembunyikan / Arsipkan'),
+                \Filament\Actions\RestoreAction::make()
+                    ->label('Pulihkan'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
