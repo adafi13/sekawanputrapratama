@@ -59,10 +59,22 @@ class PortfoliosTable
             ->recordActions([
                 ViewAction::make(),
                 EditAction::make(),
-                \Filament\Actions\DeleteAction::make()
-                    ->label('Sembunyikan / Arsipkan'),
-                \Filament\Actions\RestoreAction::make()
-                    ->label('Pulihkan'),
+                \Filament\Actions\DeleteAction::make('archive')
+                    ->label('Arsipkan')
+                    ->icon(\Filament\Support\Icons\Heroicon::OutlinedArchiveBox)
+                    ->color('warning')
+                    ->modalHeading('Arsipkan Portofolio')
+                    ->modalDescription('Apakah Anda yakin ingin mengarsipkan portofolio ini? Portofolio akan disembunyikan dari website publik.')
+                    ->modalSubmitActionLabel('Arsipkan')
+                    ->successNotificationTitle('Portofolio berhasil diarsipkan'),
+                \Filament\Actions\RestoreAction::make('restore')
+                    ->label('Buka Arsip')
+                    ->icon(\Filament\Support\Icons\Heroicon::OutlinedArchiveBoxArrowDown)
+                    ->color('success')
+                    ->modalHeading('Tampilkan Kembali Portofolio')
+                    ->modalDescription('Apakah Anda yakin ingin memunculkan kembali portofolio ini ke website publik?')
+                    ->modalSubmitActionLabel('Tampilkan Kembali')
+                    ->successNotificationTitle('Portofolio berhasil dipulihkan'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
