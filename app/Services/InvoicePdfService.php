@@ -77,20 +77,19 @@ class InvoicePdfService
      */
     protected static function getCompanyInfo(): array
     {
-        $companyName = Setting::get('site.company_name', 'PT Sekawan Putra Pratama');
-        $companyAddress = Setting::get('contact.address', 'Perumahan Mega Regency, Blk. L5 No. 23, Sukaragam, Bekasi, Jawa Barat 17330');
-        $companyPhone = Setting::get('contact.phone', '+62 851-5641-2702');
-        $companyEmail = Setting::get('contact.email', 'admin@sekawanputrapratama.com');
-        $companyWebsite = 'sekawanputrapratama.com';
-        $companyLogo = Setting::where('key', 'company_logo')->value('value');
+        $setting = \App\Models\Setting::first();
+        $logoPath = public_path('assets/media/logo.png');
+        if ($setting && $setting->company_logo && Storage::disk('public')->exists($setting->company_logo)) {
+            $logoPath = public_path('storage/' . $setting->company_logo);
+        }
 
         return [
-            'name' => $companyName,
-            'address' => $companyAddress,
-            'phone' => $companyPhone,
-            'email' => $companyEmail,
-            'website' => $companyWebsite,
-            'logo' => $companyLogo,
+            'name' => Setting::get('site.company_name', 'PT SEKAWAN PUTRA PRATAMA'),
+            'address' => Setting::get('contact.address', 'Perumahan Mega Regency, Blk. L5 No. 23, Sukaragam, Bekasi, Jawa Barat 17330'),
+            'phone' => Setting::get('contact.phone', '+62 851-5641-2702'),
+            'email' => Setting::get('contact.email', 'admin@sekawanputrapratama.com'),
+            'website' => 'sekawanputrapratama.com',
+            'logo' => $logoPath,
         ];
     }
 
